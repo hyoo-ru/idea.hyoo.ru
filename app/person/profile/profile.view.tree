@@ -1,0 +1,17 @@
+$hyoo_idea_app_person_profile $mol_page
+	person $hyoo_idea_person
+	title @ \Pofile
+	tools /
+		<= Edit $mol_link
+			arg * edit \
+			sub / <= Edit_icon $mol_icon_pencil
+	body /
+		<= Face $mol_row
+			sub /
+				<= Avatar $hyoo_idea_app_person_avatar
+				<= Face_text $mol_list
+					rows /
+						<= Name $mol_paragraph
+							title \Pavel Zubkov
+						<= Bio $mol_paragraph
+							title \Занятия фигней на рабочем месте развивают боковое зрение, слух, реакцию и бдительность в целом

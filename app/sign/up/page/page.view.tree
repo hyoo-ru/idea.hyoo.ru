@@ -1,0 +1,78 @@
+$hyoo_idea_app_sign_up_page $mol_page
+	person $hyoo_idea_app_person
+		name? => name?
+		name_father? => name_father?
+		name_family? => name_family?
+		date_birth? => date_birth?
+		gender? => gender?
+		phone? => phone?
+		email? => email?
+		country? => country?
+		city? => city?
+	title @ \Sign up
+	body /
+		<= Form $mol_form
+			body /
+				<= Avatars_field $mol_form_field
+					name @ \Avatars
+					Content <= Avatars_control $mol_attach
+						items? <=> avatars? /string
+				<= Names $mol_form_group sub /
+					<= Name_family_field $mol_form_field
+						name @ \Name Family
+						bid <= name_family_bid \
+						Content <= Name_family_control $mol_string
+							value? <=> name_family?
+					<= Name_field $mol_form_field
+						name @ \Name
+						bid <= name_bid \
+						Content <= Name_control $mol_string
+							value? <=> name?
+					<= Name_father_field $mol_form_field
+						name @ \Name Father
+						bid <= name_father_bid \
+						Content <= Name_father_control $mol_string
+							value? <=> name_father?
+				<= Personal $mol_form_group sub /
+					<= Date_birth_field $mol_form_field
+						name @ \Birthdate
+						bid <= date_birth_bid \
+						control <= Date_birth_control $mol_date
+							value? <=> date_birth_string? \2000-01-01
+					<= Gender_field $mol_form_field
+						name @ \Gender
+						bid <= gender_bid \
+						Content <= Gender_control $mol_switch
+							value? <=> gender?
+							options <= gender_options *
+								male @ \Male
+								female @ \Female
+				<= Contacts $mol_form_group sub /
+					<= Phone_field $mol_form_field
+						name @ \Phone
+						bid <= phone_bid \
+						control <= Phone_control $mol_phone
+							value? <=> phone?
+					<= Email_field $mol_form_field
+						name @ \Email
+						bid <= email_bid \
+						control <= Email_control $mol_string
+							value? <=> email?
+				<= Location $mol_form_group sub /
+					<= Country_field $mol_form_field
+						name @ \Country
+						bid <= country_bid \
+						control <= Country_control $mol_string
+							value? <=> country?
+					<= City_field $mol_form_field
+						name @ \City
+						bid <= city_bid \
+						control <= City_control $mol_string
+							value? <=> city?
+			submit?val <=> signup?val null
+			submit_allowed => signup_allowed
+			buttons /
+				<= Signup $mol_button_major
+					title @ \Sign Up
+					click? <=> signup? null
+					enabled <= signup_allowed

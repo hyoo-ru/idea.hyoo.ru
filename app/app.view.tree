@@ -9,5 +9,5 @@ $hyoo_idea_app $mol_book2
 			person <= user
 			- foot / <= Online
 		<= Person_profile $hyoo_idea_app_person_profile
-			person <= person_opened $hyoo_idea_person
+			person <= person_opened $hyoo_idea_app_person
 	Placeholder null

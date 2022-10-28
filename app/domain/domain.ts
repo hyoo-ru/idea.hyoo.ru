@@ -21,6 +21,17 @@ namespace $ {
 			return $hyoo_idea_app_person.make({ id: $mol_const(id), domain: $mol_const(this) })
 		}
 
+		@ $mol_mem_key
+		post( id: $mol_int62_string ) {
+			return $hyoo_idea_app_post.make({ id: $mol_const(id), domain: $mol_const(this) })
+		}
+
+		@ $mol_action
+		post_add() {
+			const land = this.yard().land_grab()
+			return this.post( land.id() )
+		}
+
 	}
 
 }

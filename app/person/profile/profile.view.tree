@@ -19,27 +19,21 @@ $hyoo_idea_app_person_profile $mol_page
 				<= Stats $hyoo_idea_app_person_profile_block
 					content /
 						<= Stats_row $mol_row sub /
-							<= Posts $hyoo_idea_app_person_profile_stat
+							<= Post_stats $hyoo_idea_app_person_profile_stat
 								count \13
 								title @ \Ideas
-							<= Projects $hyoo_idea_app_person_profile_stat
+							<= Project_stats $hyoo_idea_app_person_profile_stat
 								count \1
 								title @ \Projects
-							<= Followers $hyoo_idea_app_person_profile_stat
-								count \4
-								title @ \Followers
-							<= Following $hyoo_idea_app_person_profile_stat
-								count \23
-								title @ \Following
-		- <= Face $mol_row
-			sub /
-				<= Avatar $hyoo_idea_app_person_avatar
-				<= Face_text $mol_list
-					rows /
-						<= Name $mol_paragraph
-							title \Pavel Zubkov
-						<= Bio $mol_paragraph
-							title \Занятия фигней на рабочем месте развивают боковое зрение, слух, реакцию и бдительность в целом
+				<= Posts $hyoo_idea_app_person_profile_block
+					title @ \Posts
+					content /
+						<= Post_add $hyoo_idea_app_post_add
+							submit? <=> post_add? null
+						<= Post_list $mol_list
+							rows <= post_list /
+								<= Post*0_0 $hyoo_idea_app_post_full
+									post <= post* $hyoo_idea_app_post
 $hyoo_idea_app_person_profile_block $mol_list
 	rows /
 		<= Title $mol_view sub / <= title \

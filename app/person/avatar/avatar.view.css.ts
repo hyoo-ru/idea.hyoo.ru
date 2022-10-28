@@ -4,14 +4,13 @@ namespace $.$$ {
 
 	$mol_style_define( $hyoo_idea_app_person_avatar, {
 
-		width: 'fit-content',
-		height: 'fit-content',
-		padding: $mol_gap.block,
+		width: rem(10),
+		height: rem(10),
 		justifyContent: 'center',
 
 		Image: {
-			width: rem(12),
-			height: rem(12),
+			width: per(100),
+			height: per(100),
 			border: {
 				radius: per(50),
 			},

@@ -4,6 +4,10 @@ namespace $.$$ {
 
 	$mol_style_define( $hyoo_idea_app_person_profile, {
 
+		Body: {
+			padding: $mol_gap.block,
+		},
+
 		flex: {
 			basis: rem(25)
 		},

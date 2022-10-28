@@ -1,0 +1,20 @@
+$hyoo_idea_app_post_full $mol_list
+	post $hyoo_idea_app_post
+		content => content
+		date_created => date_created
+	rows /
+		<= Head $mol_row sub /
+			<= Avatar $hyoo_idea_app_person_avatar
+			<= Name_col $mol_list
+				rows /
+					<= Name $mol_paragraph
+						title \Павел Зубков
+					<= Ago $hyoo_idea_lib_ago
+						title @ \{count} {unit} назад
+						moment <= date_created
+			<= Menu $mol_pick
+				hint @ \Menu
+				trigger_content / <= Menu_icon $mol_icon_dots_horizontal
+				bubble_content / \comming soon
+		<= Text $mol_text
+			text <= content

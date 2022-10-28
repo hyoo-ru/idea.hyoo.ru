@@ -63,6 +63,26 @@ namespace $ {
 			return this.name() && this.name_user() && this.name_family()
 		}
 
+		posts_node() {
+			return this.state().sub( 'posts', $hyoo_crowd_list )
+		}
+
+		posts( next?: $hyoo_idea_app_post[] ) {
+			const ids = this.posts_node().list( next && next.map( obj => obj.id() ) )
+			return ids.map( id => this.domain().post( id as $mol_int62_string ) )
+		}
+
+		@ $mol_action
+		post_add( obj: $hyoo_idea_app_post ) {
+			obj.person( this )
+			this.posts_node().add( obj.id() )
+		}
+
+		@ $mol_action
+		post_drop( obj: $hyoo_idea_app_post ) {
+			this.posts_node().drop( obj.id() )
+		}
+
 	}
 
 }

@@ -18,6 +18,15 @@ namespace $.$$ {
 				this.Person_profile(),
 			]
 		}
+
+		@ $mol_mem
+		sync() {
+			this.Online().sub()
+		}
+
+		auto() {
+			this.sync()
+		}
 	}
 
 }

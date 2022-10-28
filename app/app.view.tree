@@ -7,7 +7,7 @@ $hyoo_idea_app $mol_book2
 	pages /
 		<= Sign_up $hyoo_idea_app_sign_up_page
 			person <= user
-			foot / <= Online
+			- foot / <= Online
 		<= Person_profile $hyoo_idea_app_person_profile
 			person <= person_opened $hyoo_idea_person
 	Placeholder null

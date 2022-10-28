@@ -1,12 +1,37 @@
 $hyoo_idea_app_person_profile $mol_page
-	person $hyoo_idea_person
-	title @ \Pofile
+	person $hyoo_idea_app_person
+		name_user => name_user
+	title <= name_user
 	tools /
 		<= Edit $mol_link
 			arg * edit \
 			sub / <= Edit_icon $mol_icon_pencil
 	body /
-		<= Face $mol_row
+		<= Blocks $mol_list
+			rows /
+				<= Face $hyoo_idea_app_person_profile_block
+					content /
+						<= Avatar $hyoo_idea_app_person_avatar
+						<= Name $mol_paragraph
+							title <= name \Павел Зубков
+						<= Bio $mol_paragraph
+							title <= bio \Фронтенд-разработчик в SRAVNI.RU
+				<= Stats $hyoo_idea_app_person_profile_block
+					content /
+						<= Stats_row $mol_row sub /
+							<= Posts $hyoo_idea_app_person_profile_stat
+								count \13
+								title @ \Ideas
+							<= Projects $hyoo_idea_app_person_profile_stat
+								count \1
+								title @ \Projects
+							<= Followers $hyoo_idea_app_person_profile_stat
+								count \4
+								title @ \Followers
+							<= Following $hyoo_idea_app_person_profile_stat
+								count \23
+								title @ \Following
+		- <= Face $mol_row
 			sub /
 				<= Avatar $hyoo_idea_app_person_avatar
 				<= Face_text $mol_list
@@ -15,3 +40,14 @@ $hyoo_idea_app_person_profile $mol_page
 							title \Pavel Zubkov
 						<= Bio $mol_paragraph
 							title \Занятия фигней на рабочем месте развивают боковое зрение, слух, реакцию и бдительность в целом
+$hyoo_idea_app_person_profile_block $mol_list
+	rows /
+		<= Title $mol_view sub / <= title \
+		<= Content $mol_list
+			rows <= content /
+
+$hyoo_idea_app_person_profile_stat $mol_list
+	rows /
+		<= Count $mol_view sub / <= count \
+		<= Title $mol_paragraph
+			title <= title \

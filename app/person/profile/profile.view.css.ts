@@ -37,12 +37,19 @@ namespace $.$$ {
 			justifyContent: 'space-around',
 		},
 
+		Post_list: {
+			width: per(100),
+		}
+
 	} )
 
 	$mol_style_define( $hyoo_idea_app_person_profile_block, {
 
+		width: per(100),
+
 		Content: {
 			alignItems: 'center',
+			width: per(100),
 		},
 
 	} )

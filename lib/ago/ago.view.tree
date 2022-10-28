@@ -1,8 +1,8 @@
 $hyoo_idea_lib_ago $mol_view
 	param_count \{count}
 	param_unit \{unit}
-	title @ \Published {count} {unit} ago
-	now @ \Now
+	title @ \published {count} {unit} ago
+	now @ \now
 	moment $mol_time_moment
 	sub / <= ago \
 	units *

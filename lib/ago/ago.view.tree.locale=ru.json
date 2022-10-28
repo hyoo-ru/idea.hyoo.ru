@@ -1,6 +1,6 @@
 {
-	"$hyoo_idea_lib_ago_title": "Опубликовано {count} {unit} назад",
-	"$hyoo_idea_lib_ago_now": "Только что",
+	"$hyoo_idea_lib_ago_title": "опубликовано {count} {unit} назад",
+	"$hyoo_idea_lib_ago_now": "только что",
 	"$hyoo_idea_lib_ago_second_other": "",
 	"$hyoo_idea_lib_ago_second_one": "секунду",
 	"$hyoo_idea_lib_ago_second_two": "",

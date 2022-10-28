@@ -1,8 +1,10 @@
 namespace $.$$ {
 
-	const { rem } = $mol_style_unit
+	const { rem, per } = $mol_style_unit
 
 	$mol_style_define( $.$hyoo_idea_app_post_full, {
+
+		width: per(100),
 
 		background: {
 			color: $mol_theme.card,
@@ -23,6 +25,9 @@ namespace $.$$ {
 
 		Head: {
 			alignItems: 'center',
+			margin: {
+				bottom: $mol_gap.block,
+			},
 		},
 
 		Ago: {
@@ -35,6 +40,12 @@ namespace $.$$ {
 			alignSelf: 'flex-start',
 			margin: {
 				left: 'auto',
+			},
+		},
+
+		Foot: {
+			margin: {
+				top: $mol_gap.block,
 			},
 		},
 

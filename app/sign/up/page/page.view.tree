@@ -1,74 +1,40 @@
 $hyoo_idea_app_sign_up_page $mol_page
 	person $hyoo_idea_app_person
 		name? => name?
-		name_father? => name_father?
 		name_family? => name_family?
-		date_birth? => date_birth?
-		gender? => gender?
-		phone? => phone?
-		email? => email?
-		country? => country?
-		city? => city?
+		name_user? => name_user?
 	title @ \Sign up
+	Head null
+	messages *
+		required @ \Required
+		no_spaces @ \No spaces!
+		need_less_letters @ \{count} or less letters
+	name_user_max_letters_count 15
 	body /
+		<= Logo $mol_image
+			uri \http://placehold.jp/328x328.png?text=$hyoo_idea
 		<= Form $mol_form
 			body /
-				<= Avatars_field $mol_form_field
-					name @ \Avatars
-					Content <= Avatars_control $mol_attach
-						items? <=> avatars? /string
 				<= Names $mol_form_group sub /
-					<= Name_family_field $mol_form_field
-						name @ \Name Family
-						bid <= name_family_bid \
-						Content <= Name_family_control $mol_string
-							value? <=> name_family?
 					<= Name_field $mol_form_field
-						name @ \Name
+						name @ \First Name
 						bid <= name_bid \
 						Content <= Name_control $mol_string
+							hint @ \Tomas
 							value? <=> name?
-					<= Name_father_field $mol_form_field
-						name @ \Name Father
-						bid <= name_father_bid \
-						Content <= Name_father_control $mol_string
-							value? <=> name_father?
-				<= Personal $mol_form_group sub /
-					<= Date_birth_field $mol_form_field
-						name @ \Birthdate
-						bid <= date_birth_bid \
-						control <= Date_birth_control $mol_date
-							value? <=> date_birth_string? \2000-01-01
-					<= Gender_field $mol_form_field
-						name @ \Gender
-						bid <= gender_bid \
-						Content <= Gender_control $mol_switch
-							value? <=> gender?
-							options <= gender_options *
-								male @ \Male
-								female @ \Female
-				<= Contacts $mol_form_group sub /
-					<= Phone_field $mol_form_field
-						name @ \Phone
-						bid <= phone_bid \
-						control <= Phone_control $mol_phone
-							value? <=> phone?
-					<= Email_field $mol_form_field
-						name @ \Email
-						bid <= email_bid \
-						control <= Email_control $mol_string
-							value? <=> email?
-				<= Location $mol_form_group sub /
-					<= Country_field $mol_form_field
-						name @ \Country
-						bid <= country_bid \
-						control <= Country_control $mol_string
-							value? <=> country?
-					<= City_field $mol_form_field
-						name @ \City
-						bid <= city_bid \
-						control <= City_control $mol_string
-							value? <=> city?
+					<= Name_family_field $mol_form_field
+						name @ \Last Name
+						bid <= name_family_bid \
+						Content <= Name_family_control $mol_string
+							hint @ \Anderson
+							value? <=> name_family?
+				<= Name_user_field $mol_form_field
+					name @ \Username
+					bid <= name_user_bid \
+					Content <= Mask_test_control $mol_format
+						allow \abcdefghijklmnopqrstuvwxyz0123456789_
+						mask \@
+						value? <=> name_user?
 			submit?val <=> signup?val null
 			submit_allowed => signup_allowed
 			buttons /

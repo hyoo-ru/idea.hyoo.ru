@@ -13,6 +13,11 @@ namespace $ {
 		}
 
 		@ $mol_mem
+		name_user( next?: string ) {
+			return this.state().sub( 'name_user', $hyoo_crowd_reg ).str( next )
+		}
+
+		@ $mol_mem
 		name_family( next?: string ) {
 			return this.state().sub( 'name_family', $hyoo_crowd_reg ).str( next )
 		}
@@ -54,8 +59,8 @@ namespace $ {
 		}
 
 		@ $mol_mem
-		registered( next?: boolean ) {
-			return this.state().sub( 'registered', $hyoo_crowd_reg ).bool( next ) || false
+		registered() {
+			return this.name() && this.name_user() && this.name_family()
 		}
 
 	}

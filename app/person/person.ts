@@ -72,7 +72,7 @@ namespace $ {
 		@ $mol_mem
 		date_birth( next?: $mol_time_moment ) {
 			const str = this.state().sub( 'date_birsth', $hyoo_crowd_reg ).str( next && next.toString() )
-			return str ? new $mol_time_moment( str ) : null
+			return new $mol_time_moment( str || undefined )
 		}
 
 		@ $mol_mem
@@ -99,6 +99,48 @@ namespace $ {
 		email( next?: string ) {
 			return this.state().sub( 'email', $hyoo_crowd_reg ).str( next )
 		}
+
+		@ $mol_mem
+		job_status( next?: 'working_for_hire' | 'self-employed' | 'unemployed' ) {
+			return this.state().sub( 'job_status', $hyoo_crowd_reg ).str( next )
+		}
+
+		@ $mol_mem
+		skills( next?: string[] ) {
+			return this.state().sub( 'skills', $hyoo_crowd_list ).list( next ).map(String)
+		}
+
+		@ $mol_mem
+		jobs_node() {
+			return this.state().sub( 'jobs', $hyoo_crowd_dict )
+		}
+
+		@ $mol_mem_key
+		job(id: string, next?: {
+				position: string,
+				functions: string,
+				company: string,
+				industry: string,
+				date_start: string,
+				date_end: string,
+		}) {
+			const obj = this.jobs_node().sub( id, $hyoo_crowd_json ).json(next) as Exclude<typeof next, undefined>
+			return obj ?? { position: '', functions: '', company: '', industry: '', date_start: '', date_end: '' }
+		}
+
+		// @ $mol_mem
+		// jobs(
+		// 	next?: Array<{
+		// 		position: string,
+		// 		functions: string,
+		// 		company: string,
+		// 		industry: string,
+		// 		date_start: string,
+		// 		date_end: string,
+		// 	}>
+		// ) {
+		// 	return this.jobs_node().list( next ) as Exclude<typeof next, undefined>
+		// }
 
 		@ $mol_mem
 		registered() {

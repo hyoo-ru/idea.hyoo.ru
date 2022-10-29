@@ -1,4 +1,4 @@
-$hyoo_idea $mol_book2
+$hyoo_idea_app $mol_book2
 	domain $hyoo_idea_domain
 		yard => yard
 		user => user

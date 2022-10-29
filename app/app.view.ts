@@ -1,6 +1,6 @@
 namespace $.$$ {
 
-	export class $hyoo_idea extends $.$hyoo_idea {
+	export class $hyoo_idea_app extends $.$hyoo_idea_app {
 
 		person_opened() {
 			return this.domain().person( this.$.$mol_state_arg.value('person') as $mol_int62_string ?? this.user().id() )

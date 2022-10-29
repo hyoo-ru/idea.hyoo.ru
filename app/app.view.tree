@@ -10,6 +10,8 @@ $hyoo_idea_app $mol_book2
 			- foot / <= Online
 		<= Person_profile $hyoo_idea_app_person_profile
 			person <= person_opened $hyoo_idea_app_person
+		<= Person_data $hyoo_idea_app_person_data
+			person <= user
 		<= Feed $hyoo_idea_app_feed_page
 			person <= user
 	Placeholder null

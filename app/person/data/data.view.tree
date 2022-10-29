@@ -1,0 +1,138 @@
+$hyoo_idea_app_person_data $mol_page
+	person $hyoo_idea_app_person
+		avatar? => avatar?
+		name_user? => name_user?
+		status? => status?
+		about? => about?
+		name? => name?
+		name_family? => name_family?
+		name_father? => name_father?
+		sex? => sex?
+		date_birth? => date_birth?
+		nationality? => nationality?
+		country? => country?
+		city? => city?
+		phone? => phone?
+		email? => email?
+	title @ \Personal information
+	body /
+		<= Info $mol_deck
+			items /
+				<= Profile $mol_form
+					title @ \Profile
+					body /
+						<= Avatar_field $mol_form_field
+							name @ \Avatar
+							Content <= Avatar_control $mol_row sub /
+								<= Avatar $hyoo_idea_app_person_avatar
+									uri <= avatar
+								<= Avatar_upload $mol_button_open
+									files? <=> avatar_file? /
+									multiple false
+									accept \image/*
+								<= Avatar_drop $mol_button_minor
+									hint @ \Remove avatar
+									click? <=> avatar_drop? null
+									sub / <= Avatar_drop_icon $mol_icon_cross
+						<= Name_user_field $mol_form_field
+							name @ \Username
+							Content <= Name_user_control $mol_string
+								hint @ \Neo
+								value? <=> name_user?
+						<= Status_field $mol_form_field
+							name @ \Status
+							Content <= Status_control $mol_string
+								hint @ \What are you doing?
+								value? <=> status?
+						<= About_field $mol_form_field
+							name @ \About
+							Content <= About_control $mol_textarea
+								hint @ \Tell us about yourself
+								value? <=> about?
+				<= Personal $mol_form
+					title @ \Personal
+					body /
+						<= Name_group $mol_form_group sub /
+							<= Name_field $mol_form_field
+								name @ \Name
+								Content <= Name_control $mol_string
+									hint @ \Thomas
+									value? <=> name?
+							<= Name_family_field $mol_form_field
+								name @ \Family Name
+								Content <= Name_family_control $mol_string
+									hint @ \Andreson
+									value? <=> name_family?
+							<= Name_father_field $mol_form_field
+								name @ \Father's Name
+								Content <= Name_father_control $mol_string
+									value? <=> name_father?
+						<= Body_group $mol_form_group sub /
+							<= Sex_field $mol_form_field
+								name @ \Sex
+								Content <= Sex_control $mol_switch
+									value? <=> sex?
+									options *
+										male @ \Male
+										female @ \Female
+							<= Date_birth_field $mol_form_field
+								name @ \Date of Birth
+								Content <= Date_birth_control $mol_date
+									value_moment? <=> date_birth?
+						<= Nationality_field $mol_form_field
+							name @ \Nationality
+							Content <= Nationality_control $mol_string
+								value? <=> nationality?
+				<= Location $mol_form
+					title @ \Location
+					body /
+						<= Country_field $mol_form_field
+							name @ \Country
+							Content <= Country_control $mol_string
+								hint @ \Russia
+								value? <=> country?
+						<= City_field $mol_form_field
+							name @ \City
+							Content <= City_control $mol_string
+								hint @ \Moscow
+								value? <=> city?
+				<= Contacts $mol_form
+					title @ \Contacts
+					body /
+						<= Phone_field $mol_form_field
+							name @ \Phone
+							Content <= Phone_control $mol_phone
+								value? <=> phone?
+						<= Email_field $mol_form_field
+							name @ \Email
+							Content <= Email_control $mol_string
+								hint @ \my_email@mail.ru
+								value? <=> email?
+				<= Work $mol_form
+					title @ \Work
+					body /
+						- \job_status skills languages position company industry functions date_start date_end
+						<= Job_status_field $mol_form_field
+							name @ \Job status
+							Content <= Job_status_control $mol_switch
+								value? <=> job_status? \
+								options *
+									working_for_hire @ \Working for hire
+									self_employed @ \Self-employed
+									unemployed @ \Unemployed
+						<= Skills_field $mol_form_field
+							name @ \Skills
+							Content <= Skills_control $mol_select_list
+								value? <=> skills? /string
+								dictionary <= skills_dict *
+									programming @ \Programming
+									design @ \Design
+									managment @ \Managment
+				<= Education $mol_view
+					title @ \Education
+					sub /
+						\degree institution department specialty date_finish
+				- <= Achivements $mol_view
+					title @ \Achivements
+					sub /
+						\patents projects publications

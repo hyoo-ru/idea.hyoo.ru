@@ -3,13 +3,15 @@ $hyoo_idea_app_post_full $mol_list
 		id => id
 		content => content
 		date_created => date_created
+		person().avatar => avatar
 	rows /
 		<= Head $mol_row sub /
 			<= Avatar $hyoo_idea_app_person_avatar
+				uri <= avatar
 			<= Name_col $mol_list
 				rows /
 					<= Name $mol_paragraph
-						title \Павел Зубков
+						title <= author_name \
 					<= Ago $hyoo_idea_lib_ago
 						title @ \{count} {unit} назад
 						moment <= date_created

@@ -24,6 +24,23 @@ namespace $.$$ {
 			this.person().post_add( obj )
 		}
 
+		face_content() {
+			return [
+				this.Avatar(),
+				this.Name(),
+				... this.status().length ? [this.Status()] : [],
+			]
+		}
+
+		blocks() {
+			return [
+				this.Face(),
+				this.Stats(),
+				... this.about().length ? [this.About()] : [],
+				this.Posts(),
+			]
+		}
+
 	}
 
 }

@@ -1,6 +1,10 @@
 $hyoo_idea_app_person_profile $mol_page
 	person $hyoo_idea_app_person
+		avatar => avatar
 		name_user => name_user
+		name_short => name_short
+		status => status
+		about => about
 	title <= name_user
 	tools /
 		<= Edit $mol_link
@@ -8,14 +12,15 @@ $hyoo_idea_app_person_profile $mol_page
 			sub / <= Edit_icon $mol_icon_pencil
 	body /
 		<= Blocks $mol_list
-			rows /
+			rows <= blocks /
 				<= Face $hyoo_idea_app_person_profile_block
-					content /
+					content <= face_content /
 						<= Avatar $hyoo_idea_app_person_avatar
+							uri <= avatar
 						<= Name $mol_paragraph
-							title <= name \Павел Зубков
-						<= Bio $mol_paragraph
-							title <= bio \Фронтенд-разработчик в SRAVNI.RU
+							title <= name_short
+						<= Status $mol_paragraph
+							title <= status
 				<= Stats $hyoo_idea_app_person_profile_block
 					content /
 						<= Stats_row $mol_row sub /
@@ -25,6 +30,11 @@ $hyoo_idea_app_person_profile $mol_page
 							<= Project_stats $hyoo_idea_app_person_profile_stat
 								count \1
 								title @ \Projects
+				<= About $hyoo_idea_app_person_profile_block
+					title @ \About
+					content /
+						<= About_text $mol_text
+							text <= about
 				<= Posts $hyoo_idea_app_person_profile_block
 					title @ \Posts
 					content /

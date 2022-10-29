@@ -12,15 +12,19 @@ namespace $.$$ {
 			basis: rem(25)
 		},
 
+		Avatar: {
+			padding: $mol_gap.block,
+		},
+
 		Name: {
 			font: {
 				size: rem(1.5),
 			},
 		},
 
-		Bio: {
+		Status: {
 			font: {
-				size: rem(1),
+				size: rem(0.9),
 			},
 			padding: $mol_gap.text,
 		},

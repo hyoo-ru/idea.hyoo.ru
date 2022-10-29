@@ -5,7 +5,7 @@ namespace $ {
 		@ $mol_mem
 		person( next?: $hyoo_idea_app_person ) {
 			const id = this.state().sub( 'person', $hyoo_crowd_reg ).str( next && next.id() )
-			return id ? this.domain().person( id as $mol_int62_string ) : null
+			return this.domain().person( id as $mol_int62_string )
 		}
 
 		@ $mol_mem

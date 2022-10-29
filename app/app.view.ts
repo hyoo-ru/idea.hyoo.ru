@@ -16,7 +16,8 @@ namespace $.$$ {
 
 			return [
 				this.Person_profile(),
-				this.Feed(),
+				// this.Feed(),
+				this.Person_data(),
 			]
 		}
 

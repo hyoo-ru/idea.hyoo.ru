@@ -112,35 +112,22 @@ namespace $ {
 
 		@ $mol_mem
 		jobs_node() {
-			return this.state().sub( 'jobs', $hyoo_crowd_dict )
+			return this.state().sub( 'jobs', $hyoo_crowd_list )
 		}
 
-		@ $mol_mem_key
-		job(id: string, next?: {
+		@ $mol_mem
+		jobs(
+			next?: Array<{
 				position: string,
 				functions: string,
 				company: string,
 				industry: string,
 				date_start: string,
 				date_end: string,
-		}) {
-			const obj = this.jobs_node().sub( id, $hyoo_crowd_json ).json(next) as Exclude<typeof next, undefined>
-			return obj ?? { position: '', functions: '', company: '', industry: '', date_start: '', date_end: '' }
+			}>
+		) {
+			return this.jobs_node().list( next ) as Exclude<typeof next, undefined>
 		}
-
-		// @ $mol_mem
-		// jobs(
-		// 	next?: Array<{
-		// 		position: string,
-		// 		functions: string,
-		// 		company: string,
-		// 		industry: string,
-		// 		date_start: string,
-		// 		date_end: string,
-		// 	}>
-		// ) {
-		// 	return this.jobs_node().list( next ) as Exclude<typeof next, undefined>
-		// }
 
 		@ $mol_mem
 		registered() {

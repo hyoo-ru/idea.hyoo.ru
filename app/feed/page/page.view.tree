@@ -1,0 +1,8 @@
+$hyoo_idea_app_feed_page $mol_page
+	person $hyoo_idea_app_person
+	title @ \Feed
+	body /
+		<= Posts $mol_list
+			rows <= posts /
+				<= Post*0_0 $hyoo_idea_app_post_full
+					post <= post* $hyoo_idea_app_post

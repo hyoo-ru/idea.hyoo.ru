@@ -49,6 +49,12 @@ namespace $.$$ {
 			},
 		},
 
+		Share: {
+			margin: {
+				left: 'auto',
+			},
+		},
+
 	} )
 
 }

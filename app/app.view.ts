@@ -16,6 +16,7 @@ namespace $.$$ {
 
 			return [
 				this.Person_profile(),
+				this.Feed(),
 			]
 		}
 
@@ -24,8 +25,14 @@ namespace $.$$ {
 			this.Online().sub()
 		}
 
+		@ $mol_mem
+		person_register() {
+			this.domain().persons().add( this.domain().user() )
+		}
+
 		auto() {
 			this.sync()
+			this.person_register()
 		}
 	}
 

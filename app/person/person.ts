@@ -1,5 +1,22 @@
 namespace $ {
 
+	export class $hyoo_idea_app_persons extends $hyoo_idea_lib_entity {
+
+		@ $mol_mem
+		list_node() {
+			return this.state().sub( 'list', $hyoo_crowd_list )
+		}
+
+		add( obj: $hyoo_idea_app_person ) {
+			this.list_node().add( obj.id() )
+		}
+
+		list() {
+			return this.list_node().list().map( id => this.domain().person( id as $mol_int62_string ) )
+		}
+
+	}
+
 	export class $hyoo_idea_app_person extends $hyoo_idea_lib_entity {
 
 		@ $mol_mem

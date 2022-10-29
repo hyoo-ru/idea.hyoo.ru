@@ -15,6 +15,12 @@ namespace $ {
 		user() {
 			return this.person( this.yard().peer().id )
 		}
+
+		@ $mol_mem
+		persons() {
+			const land = 'nkxkna_4ekv5r' as $mol_int62_string
+			return $hyoo_idea_app_persons.make({ id: $mol_const(land), domain: $mol_const(this) })
+		}
 		
 		@ $mol_mem_key
 		person( id: $mol_int62_string ) {

@@ -19,7 +19,7 @@ $hyoo_idea_app_post_full $mol_list
 				bubble_content / \comming soon
 		<= Content $mol_text
 			text <= content
-		<= Foot $mol_view sub /
+		<= Foot $mol_row sub /
 			<= Reaction $mol_view sub /
 				<= Like $mol_check_icon
 					sub /

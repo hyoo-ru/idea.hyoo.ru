@@ -1,0 +1,44 @@
+$hyoo_idea_ago $mol_view
+	param_count \{count}
+	param_unit \{unit}
+	title @ \published {count} {unit} ago
+	now @ \now
+	moment $mol_time_moment
+	sub / <= ago \
+	units *
+		second <= second $hyoo_idea_plural
+			other @ \seconds
+			one @ \second
+			two @ \
+			few @ \
+			many @ \
+		minute <= minute $hyoo_idea_plural
+			other @ \minutes
+			one @ \minute
+			two @ \
+			few @ \
+			many @ \
+		hour <= hour $hyoo_idea_plural
+			other @ \hours
+			one @ \hour
+			two @ \
+			few @ \
+			many @ \
+		day <= day $hyoo_idea_plural
+			other @ \days
+			one @ \day
+			two @ \
+			few @ \
+			many @ \
+		month <= month $hyoo_idea_plural
+			other @ \months
+			one @ \month
+			two @ \
+			few @ \
+			many @ \
+		year <= year $hyoo_idea_plural
+			other @ \years
+			one @ \year
+			two @ \
+			few @ \
+			many @ \

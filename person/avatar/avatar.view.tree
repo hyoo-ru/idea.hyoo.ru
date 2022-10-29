@@ -1,0 +1,4 @@
+$hyoo_idea_person_avatar $mol_view
+	sub /
+		<= Image $mol_image2
+			links / <= uri \

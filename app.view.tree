@@ -1,0 +1,17 @@
+$hyoo_idea $mol_book2
+	domain $hyoo_idea_domain
+		yard => yard
+		user => user
+	Online $hyoo_sync_online
+		yard <= yard
+	pages /
+		<= Sign_up $hyoo_idea_sign_up_page
+			person <= user
+			- foot / <= Online
+		<= Person_profile $hyoo_idea_person_profile
+			person <= person_opened $hyoo_idea_person
+		<= Person_data $hyoo_idea_person_data
+			person <= user
+		<= Feed $hyoo_idea_feed_page
+			person <= user
+	Placeholder null

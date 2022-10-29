@@ -18,10 +18,9 @@ jobs:
       with:
         token: ${{ secrets.GH_PAT }}
         package: 'hyoo/idea'
-		modules: 'app'
     
     - uses: alex-page/blazing-fast-gh-pages-deploy@v1.1.0
       if: github.ref == 'refs/heads/master'
       with:
         repo-token: ${{ secrets.GH_PAT }}
-        site-directory: 'hyoo/idea/app/-'
+        site-directory: 'hyoo/idea/-'

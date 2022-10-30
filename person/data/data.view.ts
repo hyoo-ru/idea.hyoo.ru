@@ -3,6 +3,9 @@ namespace $.$$ {
 	type Job = ReturnType<$hyoo_idea_person['jobs']>[number]
 	type Job_keys = keyof Job
 
+	type Institution = ReturnType<$hyoo_idea_person['institutions']>[number]
+	type Institution_keys = keyof Institution
+
 	export class $hyoo_idea_person_data extends $.$hyoo_idea_person_data {
 
 		@ $mol_mem
@@ -17,15 +20,15 @@ namespace $.$$ {
 
 		@ $mol_mem
 		job_rows() {
-			return this.person().jobs().map( (_,id) => this.Job_form(id) )
+			return this.person().jobs().map( (_,id) => this.Job_form(id) ).reverse()
 		}
 
 		job_add() {
-			this.person().jobs_node().add({})
+			this.person().jobs_node().add({} as any)
 		}
 
-		job_drop(id: string) {
-			this.person().jobs_node().drop( id )
+		job_drop(id: number) {
+			this.person().jobs_node().cut( id )
 		}
 
 		@ $mol_mem_key
@@ -35,7 +38,7 @@ namespace $.$$ {
 			const job = jobs[id] ?? {}
 
 			if (next === undefined) {
-				return job[ key ] ?? ''
+				return job[ key ] ?? (key === 'present' ? false : '') as any
 			}
 
 			this.person().jobs([
@@ -44,21 +47,21 @@ namespace $.$$ {
 				... jobs.slice( id + 1 ),
 			])
 
-			return next
+			return next as any
 		}
 
 		position( id: number, next?: string ) {
 			return this.job({ id, key: 'position' }, next)
 		}
 
-		date_start( id: number, next?: string ) {
-			console.log(111111, id, next)
-			return this.job({ id, key: 'date_start' }, next)
+		date_start( id: number, next?: $mol_time_moment ) {
+			const str = this.job({ id, key: 'date_start' }, next && next.toString())
+			return str ? new $mol_time_moment(str) : null
 		}
 
-		date_end( id: number, next?: string ) {
-			console.log(22222, id, next)
-			return this.job({ id, key: 'date_end' }, next)
+		date_end( id: number, next?: $mol_time_moment) {
+			const str = this.job({ id, key: 'date_end' }, next && next.toString())
+			return str ? new $mol_time_moment(str) : null
 		}
 
 		company( id: number, next?: string ) {
@@ -72,6 +75,64 @@ namespace $.$$ {
 		functions( id: number, next?: string ) {
 			return this.job({ id, key: 'functions' }, next)
 		}
+
+		present( id: number, next?: boolean ) {
+			return this.job({ id, key: 'present' }, next as any)
+		}
+
+		@ $mol_mem
+		institution_rows() {
+			return this.person().institutions().map( (_,id) => this.Institution_form(id) ).reverse()
+		}
+
+		institution_add() {
+			this.person().institutions_node().add({} as any)
+		}
+
+		institution_drop(id: number) {
+			this.person().institutions_node().cut( id )
+		}
+
+		@ $mol_mem_key
+		institution_change({ id, key } : { id: number, key: Institution_keys }, next?: string) {
+			
+			const jobs = this.person().institutions()
+			const job = jobs[id] ?? {}
+
+			if (next === undefined) {
+				return job[ key ] ?? ''
+			}
+
+			this.person().institutions([
+				... jobs.slice( 0, id ),
+				{ ... job, [ key ]: next },
+				... jobs.slice( id + 1 ),
+			])
+
+			return next
+		}
+
+		specialty( id: number, next?: string ) {
+			return this.institution_change( { id, key: 'specialty' }, next )
+		}
+
+		degree( id: number, next?: string ) {
+			return this.institution_change( { id, key: 'degree' }, next )
+		}
+
+		institution( id: number, next?: string ) {
+			return this.institution_change( { id, key: 'institution' }, next )
+		}
+
+		department( id: number, next?: string ) {
+			return this.institution_change( { id, key: 'department' }, next )
+		}
+
+		date_finish( id: number, next?: string ) {
+			const str = this.institution_change({ id, key: 'date_finish' }, next && next.toString())
+			return str ? new $mol_time_moment(str) : null
+		}
+
 	}
 
 }

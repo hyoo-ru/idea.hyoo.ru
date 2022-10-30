@@ -6,6 +6,10 @@ namespace $.$$ {
 			return this.person().domain()
 		}
 
+		person_location() {
+			return [this.country(), this.city()].join(' - ')
+		}
+
 		post(obj: $hyoo_idea_post) {
 			return obj
 		}
@@ -29,6 +33,8 @@ namespace $.$$ {
 				this.Avatar(),
 				this.Name(),
 				... this.status().length ? [this.Status()] : [],
+				this.Location(),
+				// ... (this.city() || this.country()) ? [this.Location] : [],
 			]
 		}
 

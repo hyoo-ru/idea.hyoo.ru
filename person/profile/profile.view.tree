@@ -1,6 +1,8 @@
 $hyoo_idea_person_profile $mol_page
 	person $hyoo_idea_person
 		avatar => avatar
+		country => country 
+		city => city
 		name_user => name_user
 		name_short => name_short
 		status => status
@@ -19,6 +21,8 @@ $hyoo_idea_person_profile $mol_page
 							uri <= avatar
 						<= Name $mol_paragraph
 							title <= name_short
+						<= Location $mol_paragraph
+							title <= person_location \
 						<= Status $mol_paragraph
 							title <= status
 				<= Stats $hyoo_idea_person_profile_block

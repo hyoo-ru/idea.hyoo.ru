@@ -149,11 +149,15 @@ $hyoo_idea_person_data $mol_page
 												<= Date_start_field* $mol_form_field
 													name @ \Start date
 													control <= Date_start_control* $mol_date
-														value? <=> date_start*? null
+														value_moment? <=> date_start*? null
 												<= Date_end_field* $mol_form_field
 													name @ \End date
-													control <= Date_end_control* $mol_date
-														value? <=> date_end*? null
+													Content <= Date_end_content* $mol_view sub /
+														<= Date_end_control* $mol_date
+															value_moment? <=> date_end*? null
+														<= Up_to_present_control* $mol_check_box
+															title @ \Up to present
+															checked? <=> present*? false
 											<= Company_group* $mol_form_group sub /
 												<= Company_field* $mol_form_field
 													name @ \Company
@@ -172,10 +176,44 @@ $hyoo_idea_person_data $mol_page
 												<= Job_drop* $mol_button_minor
 													sub / <= Job_drop_icon* $mol_icon_delete
 													click? <=> job_drop*? null
-				<= Education $mol_view
+				<= Education $mol_form
 					title @ \Education
-					sub /
-						\degree institution department specialty date_finish
+					form_fields /
+						<= Institutions_field $mol_form_field
+							label /
+								<= institutions_field_name @ \Institutions
+								<= Institution_add $mol_button_minor
+									sub / <= Institution_add_icon $mol_icon_plus
+									click? <=> institution_add? null
+							Content <= Institution_content $mol_list
+								rows <= institution_rows /
+									<= Institution_form*0 $mol_list rows /
+										<= Student_group* $mol_form_group sub /
+											<= Specialty_field* $mol_form_field
+												name @ \Specialty
+												control <= Specialty_control* $mol_string
+													value? <=> specialty*? \
+											<= Degree_field* $mol_form_field
+												name @ \Degree
+												control <= Degree_control* $mol_string
+													value? <=> degree*? \
+										<= Date_finish* $mol_form_field
+											name @ \Graduation date
+											control <= Date_finish_control* $mol_date
+												value_moment? <=> date_finish*? null
+										<= Institution_group* $mol_form_group sub /
+											<= Institution_field* $mol_form_field
+												name @ \Institution
+												control <= Institution_control* $mol_string
+													value? <=> institution*? \
+											<= Department_field* $mol_form_field
+												name @ \Department
+												control <= Department_control* $mol_string
+													value? <=> department*? \
+										<= Institution_drop_row* $mol_row sub /
+											<= Institution_drop* $mol_button_minor
+												sub / <= Institution_drop_icon* $mol_icon_delete
+												click? <=> institution_drop*? null
 				- <= Achivements $mol_view
 					title @ \Achivements
 					sub /

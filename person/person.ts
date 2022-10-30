@@ -124,9 +124,28 @@ namespace $ {
 				industry: string,
 				date_start: string,
 				date_end: string,
+				present: boolean,
 			}>
 		) {
 			return this.jobs_node().list( next ) as Exclude<typeof next, undefined>
+		}
+
+		@ $mol_mem
+		institutions_node() {
+			return this.state().sub( 'institutions', $hyoo_crowd_list )
+		}
+
+		@ $mol_mem
+		institutions(
+			next?: Array<{
+				degree: string,
+				institution: string,
+				department: string,
+				specialty: string,
+				date_finish: string,
+			}>
+		) {
+			return this.institutions_node().list( next ) as Exclude<typeof next, undefined> 
 		}
 
 		@ $mol_mem

@@ -9,7 +9,8 @@ namespace $.$$ {
 		},
 
 		flex: {
-			basis: rem(25)
+			basis: rem(40),
+			shrink: 0,
 		},
 
 		Avatar: {

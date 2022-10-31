@@ -21,7 +21,7 @@ namespace $ {
 
 		@ $mol_mem
 		avatar_node() {
-			return this.state().sub( 'avatar', $hyoo_crowd_blob )
+			return this.state().yoke( 'avatar', $hyoo_crowd_blob )!
 		}
 
 		@ $mol_mem

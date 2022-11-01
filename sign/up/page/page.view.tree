@@ -39,6 +39,6 @@ $hyoo_idea_sign_up_page $mol_page
 			submit_allowed => signup_allowed
 			buttons /
 				<= Signup $mol_button_major
-					title @ \Sign Up
+					title @ \Продолжить
 					click? <=> signup? null
 					enabled <= signup_allowed

@@ -26,8 +26,14 @@ namespace $.$$ {
 			return id ? this.domain().project( id ) : null as unknown as  $hyoo_idea_project
 		}
 
+		@ $mol_action
+		signup_open() {
+			if (this.user().registered() === false) this.$.$mol_state_arg.value('signup', '')
+		}
+
 		@ $mol_mem
 		pages() {
+			this.signup_open()
 			if (this.signup_opened()) return [this.Sign_up()]
 
 			return [

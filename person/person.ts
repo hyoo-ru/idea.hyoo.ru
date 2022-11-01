@@ -150,7 +150,7 @@ namespace $ {
 
 		@ $mol_mem
 		registered() {
-			return this.name() && this.name_user() && this.name_family()
+			return !!this.name() && !!this.name_user() && !!this.name_family()
 		}
 
 		@ $mol_mem

@@ -4198,6 +4198,13 @@ var $;
             }
             return authors;
         }
+        first_stamp() {
+            const grab_unit = this._unit_all.get(`${this.id()}/${this.id()}`);
+            return (grab_unit && $hyoo_crowd_time_stamp(grab_unit.time)) ?? null;
+        }
+        last_stamp() {
+            return this.clock_data.last_stamp();
+        }
         selection(peer) {
             return this.world().land_sync(peer).chief.sub('$hyoo_crowd_land..selection', $hyoo_crowd_reg);
         }
@@ -22404,9 +22411,8 @@ var $;
         content(next) {
             return this.state().sub('content', $hyoo_crowd_reg).str(next);
         }
-        date_created(next) {
-            const str = this.state().sub('date_created', $hyoo_crowd_reg).str(next && next.toString());
-            return new $mol_time_moment(str || undefined);
+        created_moment(next) {
+            return new $mol_time_moment(this.state().land.first_stamp());
         }
     }
     __decorate([
@@ -22417,7 +22423,7 @@ var $;
     ], $hyoo_idea_post.prototype, "content", null);
     __decorate([
         $mol_mem
-    ], $hyoo_idea_post.prototype, "date_created", null);
+    ], $hyoo_idea_post.prototype, "created_moment", null);
     $.$hyoo_idea_post = $hyoo_idea_post;
 })($ || ($ = {}));
 //hyoo/idea/post/post.ts
@@ -23717,8 +23723,8 @@ var $;
         content() {
             return this.post().content();
         }
-        date_created() {
-            return this.post().date_created();
+        created_moment() {
+            return this.post().created_moment();
         }
         avatar() {
             return this.post().person().avatar();
@@ -23750,7 +23756,7 @@ var $;
         Ago() {
             const obj = new this.$.$hyoo_idea_ago();
             obj.title = () => this.$.$mol_locale.text('$hyoo_idea_post_full_Ago_title');
-            obj.moment = () => this.date_created();
+            obj.moment = () => this.created_moment();
             return obj;
         }
         Name_col() {
@@ -24387,14 +24393,13 @@ var $;
             }
             post_list() {
                 return this.person().posts()
-                    .sort((a, b) => b.date_created().valueOf() - a.date_created().valueOf())
+                    .sort((a, b) => b.created_moment().valueOf() - a.created_moment().valueOf())
                     .map(obj => this.Post(obj));
             }
             post_add(text) {
                 const obj = this.domain().post_add();
                 obj.content(text);
                 obj.person(this.person());
-                obj.date_created(new $mol_time_moment());
                 this.person().post_add(obj);
             }
             face_content() {
@@ -25850,7 +25855,7 @@ var $;
                 return this.domain().persons().list().map(obj => obj.posts()).flat();
             }
             posts_sorted() {
-                return this.posts_all().sort((a, b) => b.date_created().valueOf() - a.date_created().valueOf());
+                return this.posts_all().sort((a, b) => b.created_moment().valueOf() - a.created_moment().valueOf());
             }
             posts() {
                 return this.posts_sorted().map(obj => this.Post(obj));
@@ -26471,8 +26476,8 @@ var $;
                 return this.$.$mol_state_arg.value('edit') === '';
             }
             project_opened() {
-                const id = this.$.$mol_state_arg.value('project');
-                return id ? this.domain().project($mol_int62_string_ensure(id)) : null;
+                const id = $mol_int62_string_ensure(this.$.$mol_state_arg.value('project'));
+                return id ? this.domain().project(id) : null;
             }
             pages() {
                 if (this.signup_opened())

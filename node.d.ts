@@ -1212,6 +1212,8 @@ declare namespace $ {
         level(peer: $mol_int62_string, next?: $hyoo_crowd_peer_level): $hyoo_crowd_peer_level;
         lords(): readonly `${string}_${string}`[];
         authors(): Set<`${string}_${string}`>;
+        first_stamp(): number | null;
+        last_stamp(): number;
         selection(peer: $mol_int62_string): $hyoo_crowd_reg;
         put(head: $mol_int62_string, self: $mol_int62_string, prev: $mol_int62_string, data: unknown): $hyoo_crowd_unit;
         wipe(unit: $hyoo_crowd_unit): $hyoo_crowd_unit;
@@ -5927,7 +5929,7 @@ declare namespace $ {
     class $hyoo_idea_post extends $hyoo_idea_entity {
         person(next?: $hyoo_idea_person): $hyoo_idea_person;
         content(next?: string): string;
-        date_created(next?: $mol_time_moment): $mol_time_moment;
+        created_moment(next?: $mol_time_moment): $mol_time_moment;
     }
 }
 
@@ -6278,7 +6280,7 @@ declare namespace $ {
     class $hyoo_idea_post_full extends $mol_list {
         id(): `${string}_${string}`;
         content(): string;
-        date_created(): $mol_time_moment;
+        created_moment(): $mol_time_moment;
         avatar(): string;
         post(): $hyoo_idea_post;
         rows(): readonly any[];

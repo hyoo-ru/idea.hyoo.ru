@@ -6466,7 +6466,7 @@ var $;
             return (now - moment.valueOf() < 5_000);
         }
         online_time() {
-            const stamp = this.land().clock_data.last_stamp();
+            const stamp = this.land().last_stamp();
             return stamp ? new $mol_time_moment(stamp) : null;
         }
         cursor_position(next) {
@@ -22128,7 +22128,7 @@ var $;
             return this.institutions_node().list(next);
         }
         registered() {
-            return this.name() && this.name_user() && this.name_family();
+            return !!this.name() && !!this.name_user() && !!this.name_family();
         }
         posts_node() {
             return this.state().sub('posts', $hyoo_crowd_list);
@@ -26031,7 +26031,12 @@ var $;
                 const id = $mol_int62_string_ensure(this.$.$mol_state_arg.value('project'));
                 return id ? this.domain().project(id) : null;
             }
+            signup_open() {
+                if (this.user().registered() === false)
+                    this.$.$mol_state_arg.value('signup', '');
+            }
             pages() {
+                this.signup_open();
                 if (this.signup_opened())
                     return [this.Sign_up()];
                 return [
@@ -26053,6 +26058,9 @@ var $;
                 this.person_register();
             }
         }
+        __decorate([
+            $mol_action
+        ], $hyoo_idea_app.prototype, "signup_open", null);
         __decorate([
             $mol_mem
         ], $hyoo_idea_app.prototype, "pages", null);

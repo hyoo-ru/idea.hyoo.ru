@@ -6003,7 +6003,7 @@ declare namespace $ {
             specialty: string;
             date_finish: string;
         }[];
-        registered(): string;
+        registered(): boolean;
         posts_node(): $hyoo_crowd_list;
         posts(next?: $hyoo_idea_post[]): $hyoo_idea_post[];
         post_add(obj: $hyoo_idea_post): void;
@@ -6761,6 +6761,7 @@ declare namespace $.$$ {
         signup_opened(): boolean;
         profile_edit_opened(): boolean;
         project_opened(): $hyoo_idea_project;
+        signup_open(): void;
         pages(): $hyoo_idea_sign_up_page[] | ($mol_page | $hyoo_idea_person_profile | $hyoo_idea_person_data | $hyoo_idea_feed_page | $hyoo_idea_project_page)[];
         sync(): void;
         person_register(): void;

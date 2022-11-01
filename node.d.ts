@@ -946,6 +946,7 @@ declare namespace $ {
 
 declare namespace $ {
     type $mol_int62_string = `${string}_${string}`;
+    function $mol_int62_string_ensure(str: unknown): `${string}_${string}` | null;
     type $mol_int62_pair = {
         readonly lo: number;
         readonly hi: number;
@@ -954,7 +955,7 @@ declare namespace $ {
     const $mol_int62_min: number;
     const $mol_int62_range: number;
     function $mol_int62_to_string({ lo, hi }: $mol_int62_pair): `${string}_${string}`;
-    function $mol_int62_from_string(str: string): $mol_int62_pair;
+    function $mol_int62_from_string(str: string): null | $mol_int62_pair;
     function $mol_int62_compare(left_lo: number, left_hi: number, right_lo: number, right_hi: number): number;
     function $mol_int62_inc(lo: number, hi: number, max?: number): $mol_int62_pair;
     function $mol_int62_random(): $mol_int62_pair;
@@ -1143,7 +1144,7 @@ declare namespace $ {
 }
 
 declare namespace $ {
-    class $hyoo_crowd_node {
+    class $hyoo_crowd_node extends Object {
         readonly land: $hyoo_crowd_land;
         readonly head: $mol_int62_string;
         constructor(land: $hyoo_crowd_land, head: $mol_int62_string);
@@ -1152,6 +1153,7 @@ declare namespace $ {
         as<Node extends typeof $hyoo_crowd_node>(Node: Node): InstanceType<Node>;
         units(): readonly $hyoo_crowd_unit[];
         nodes<Node extends typeof $hyoo_crowd_node>(Node: Node): InstanceType<Node>[];
+        [Symbol.toPrimitive](): string;
     }
 }
 
@@ -5889,6 +5891,125 @@ declare namespace $ {
         person(id: $mol_int62_string): $hyoo_idea_person;
         post(id: $mol_int62_string): $hyoo_idea_post;
         post_add(): $hyoo_idea_post;
+        project(id: $mol_int62_string): $hyoo_idea_project;
+        project_add(): $hyoo_idea_post;
+    }
+}
+
+declare namespace $ {
+    class $hyoo_idea_entity extends $mol_object {
+        id(): $mol_int62_string;
+        head(): $mol_int62_string;
+        domain(): $hyoo_idea_domain;
+        land(): $hyoo_crowd_land;
+        state(): $hyoo_crowd_struct;
+    }
+}
+
+declare namespace $ {
+    type $mol_blob = Blob;
+    let $mol_blob: {
+        new (blobParts?: BlobPart[] | undefined, options?: BlobPropertyBag | undefined): Blob;
+        prototype: Blob;
+    };
+}
+
+declare namespace $ {
+    class $hyoo_crowd_blob extends $hyoo_crowd_list {
+        uri(): string;
+        type(next?: string): string;
+        blob(next?: $mol_blob): Blob;
+        buffer(next?: Uint8Array): Uint8Array;
+    }
+}
+
+declare namespace $ {
+    class $hyoo_idea_post extends $hyoo_idea_entity {
+        person(next?: $hyoo_idea_person): $hyoo_idea_person;
+        content(next?: string): string;
+        date_created(next?: $mol_time_moment): $mol_time_moment;
+    }
+}
+
+declare namespace $ {
+    class $hyoo_idea_project extends $hyoo_idea_entity {
+        person(next?: $hyoo_idea_person): $hyoo_idea_person;
+        logo_node(): $hyoo_crowd_blob;
+        logo(): string;
+        name(next?: string): string;
+        description_node(): $hyoo_crowd_text;
+        description(next?: string): string;
+        team_node(): $hyoo_crowd_list;
+        team(next?: $hyoo_idea_person[]): $hyoo_idea_person[];
+    }
+}
+
+declare namespace $ {
+    class $hyoo_idea_persons extends $hyoo_idea_entity {
+        list_node(): $hyoo_crowd_list;
+        add(obj: $hyoo_idea_person): void;
+        list(): $hyoo_idea_person[];
+    }
+    class $hyoo_idea_person extends $hyoo_idea_entity {
+        avatar_node(): $hyoo_crowd_blob;
+        avatar(): string;
+        about(next?: string): string;
+        status(next?: string): string;
+        name_user(next?: string): string;
+        name(next?: string): string;
+        name_family(next?: string): string;
+        name_father(next?: string): string;
+        name_short(): string;
+        sex(next?: 'male' | 'female'): string;
+        date_birth(next?: $mol_time_moment): $mol_time_moment;
+        nationality(next?: string): string;
+        country(next?: string): string;
+        city(next?: string): string;
+        phone(next?: string): string;
+        email(next?: string): string;
+        job_status(next?: 'working_for_hire' | 'self-employed' | 'unemployed'): string;
+        skills(next?: string[]): string[];
+        jobs_node(): $hyoo_crowd_list;
+        jobs(next?: Array<{
+            position: string;
+            functions: string;
+            company: string;
+            industry: string;
+            date_start: string;
+            date_end: string;
+            present: boolean;
+        }>): {
+            position: string;
+            functions: string;
+            company: string;
+            industry: string;
+            date_start: string;
+            date_end: string;
+            present: boolean;
+        }[];
+        institutions_node(): $hyoo_crowd_list;
+        institutions(next?: Array<{
+            degree: string;
+            institution: string;
+            department: string;
+            specialty: string;
+            date_finish: string;
+        }>): {
+            degree: string;
+            institution: string;
+            department: string;
+            specialty: string;
+            date_finish: string;
+        }[];
+        registered(): string;
+        posts_node(): $hyoo_crowd_list;
+        posts(next?: $hyoo_idea_post[]): $hyoo_idea_post[];
+        post_add(obj: $hyoo_idea_post): void;
+        post_drop(obj: $hyoo_idea_post): void;
+        projects_node(): $hyoo_crowd_list;
+        projects(next?: $hyoo_idea_project[]): $hyoo_idea_project[];
+        project_add(obj: $hyoo_idea_project): void;
+        project_drop(obj: $hyoo_idea_project): void;
     }
 }
 
@@ -5979,6 +6100,27 @@ declare namespace $ {
 }
 
 declare namespace $.$$ {
+}
+
+declare namespace $ {
+    class $hyoo_idea_project_list extends $mol_list {
+        projects(): readonly $hyoo_idea_project[];
+        rows(): readonly any[];
+        project_id(id: any): string;
+        project_name(id: any): string;
+        Project(id: any): $$.$mol_link;
+        Empty(): $$.$mol_paragraph;
+        Add(): $$.$mol_link;
+        project_rows(): readonly any[];
+    }
+}
+
+declare namespace $.$$ {
+    class $hyoo_idea_project_list extends $.$hyoo_idea_project_list {
+        project_rows(): ($mol_link | $mol_paragraph)[];
+        project_id(obj: $hyoo_idea_project): `${string}_${string}`;
+        project_name(obj: $hyoo_idea_project): string;
+    }
 }
 
 declare namespace $ {
@@ -6174,10 +6316,13 @@ declare namespace $.$$ {
 declare namespace $ {
     class $hyoo_idea_person_profile extends $mol_page {
         avatar(): string;
+        country(): string;
+        city(): string;
         name_user(): string;
         name_short(): string;
         status(): string;
         about(): string;
+        projects(): $hyoo_idea_project[];
         person(): $hyoo_idea_person;
         title(): string;
         tools(): readonly any[];
@@ -6186,6 +6331,8 @@ declare namespace $ {
         Edit(): $$.$mol_link;
         Avatar(): $hyoo_idea_person_avatar;
         Name(): $$.$mol_paragraph;
+        person_location(): string;
+        Location(): $$.$mol_paragraph;
         Status(): $$.$mol_paragraph;
         face_content(): readonly any[];
         Face(): $hyoo_idea_person_profile_block;
@@ -6195,6 +6342,8 @@ declare namespace $ {
         Stats(): $hyoo_idea_person_profile_block;
         About_text(): $$.$mol_text;
         About(): $hyoo_idea_person_profile_block;
+        Projects_list(): $$.$hyoo_idea_project_list;
+        Projects(): $hyoo_idea_person_profile_block;
         post_add(next?: any): any;
         Post_add(): $$.$hyoo_idea_post_add;
         post(id: any): $hyoo_idea_post;
@@ -6227,125 +6376,12 @@ declare namespace $.$$ {
 declare namespace $.$$ {
     class $hyoo_idea_person_profile extends $.$hyoo_idea_person_profile {
         domain(): $hyoo_idea_domain;
+        person_location(): string;
         post(obj: $hyoo_idea_post): $hyoo_idea_post;
         post_list(): $hyoo_idea_post_full[];
         post_add(text: string): void;
         face_content(): ($mol_paragraph | $hyoo_idea_person_avatar)[];
         blocks(): $hyoo_idea_person_profile_block[];
-    }
-}
-
-declare namespace $ {
-    class $hyoo_idea extends $mol_book2 {
-        yard(): $hyoo_sync_client;
-        user(): $hyoo_idea_person;
-        domain(): $hyoo_idea_domain;
-        Online(): $$.$hyoo_sync_online;
-        pages(): readonly any[];
-        Placeholder(): any;
-        Sign_up(): $$.$hyoo_idea_sign_up_page;
-        person_opened(): $hyoo_idea_person;
-        Person_profile(): $$.$hyoo_idea_person_profile;
-        Person_data(): $$.$hyoo_idea_person_data;
-        Feed(): $$.$hyoo_idea_feed_page;
-    }
-}
-
-declare namespace $.$$ {
-}
-
-declare namespace $.$$ {
-    class $hyoo_idea extends $.$hyoo_idea {
-        person_opened(): $hyoo_idea_person;
-        signup_opened(): boolean;
-        pages(): $hyoo_idea_sign_up_page[] | ($hyoo_idea_person_profile | $hyoo_idea_person_data)[];
-        sync(): void;
-        person_register(): void;
-        auto(): void;
-    }
-}
-
-declare namespace $ {
-    class $hyoo_idea_entity extends $mol_object {
-        id(): $mol_int62_string;
-        head(): $mol_int62_string;
-        domain(): $hyoo_idea_domain;
-        land(): $hyoo_crowd_land;
-        state(): $hyoo_crowd_struct;
-    }
-}
-
-declare namespace $ {
-    type $mol_blob = Blob;
-    let $mol_blob: {
-        new (blobParts?: BlobPart[] | undefined, options?: BlobPropertyBag | undefined): Blob;
-        prototype: Blob;
-    };
-}
-
-declare namespace $ {
-    class $hyoo_crowd_blob extends $hyoo_crowd_list {
-        uri(): string;
-        type(next?: string): string;
-        blob(next?: $mol_blob): Blob;
-        buffer(next?: Uint8Array): Uint8Array;
-    }
-}
-
-declare namespace $ {
-    class $hyoo_idea_post extends $hyoo_idea_entity {
-        person(next?: $hyoo_idea_person): $hyoo_idea_person;
-        content(next?: string): string;
-        date_created(next?: $mol_time_moment): $mol_time_moment;
-    }
-}
-
-declare namespace $ {
-    class $hyoo_idea_persons extends $hyoo_idea_entity {
-        list_node(): $hyoo_crowd_list;
-        add(obj: $hyoo_idea_person): void;
-        list(): $hyoo_idea_person[];
-    }
-    class $hyoo_idea_person extends $hyoo_idea_entity {
-        avatar_node(): $hyoo_crowd_blob;
-        avatar(): string;
-        about(next?: string): string;
-        status(next?: string): string;
-        name_user(next?: string): string;
-        name(next?: string): string;
-        name_family(next?: string): string;
-        name_father(next?: string): string;
-        name_short(): string;
-        sex(next?: 'male' | 'female'): string;
-        date_birth(next?: $mol_time_moment): $mol_time_moment;
-        nationality(next?: string): string;
-        country(next?: string): string;
-        city(next?: string): string;
-        phone(next?: string): string;
-        email(next?: string): string;
-        job_status(next?: 'working_for_hire' | 'self-employed' | 'unemployed'): string;
-        skills(next?: string[]): string[];
-        jobs_node(): $hyoo_crowd_list;
-        jobs(next?: Array<{
-            position: string;
-            functions: string;
-            company: string;
-            industry: string;
-            date_start: string;
-            date_end: string;
-        }>): {
-            position: string;
-            functions: string;
-            company: string;
-            industry: string;
-            date_start: string;
-            date_end: string;
-        }[];
-        registered(): string;
-        posts_node(): $hyoo_crowd_list;
-        posts(next?: $hyoo_idea_post[]): $hyoo_idea_post[];
-        post_add(obj: $hyoo_idea_post): void;
-        post_drop(obj: $hyoo_idea_post): void;
     }
 }
 
@@ -6495,6 +6531,9 @@ declare namespace $ {
         Date_start_field(id: any): $$.$mol_form_field;
         date_end(id: any, next?: any): any;
         Date_end_control(id: any): $$.$mol_date;
+        present(id: any, next?: any): boolean;
+        Up_to_present_control(id: any): $mol_check_box;
+        Date_end_content(id: any): $mol_view;
         Date_end_field(id: any): $$.$mol_form_field;
         Date_group(id: any): $mol_form_group;
         company(id: any, next?: any): string;
@@ -6516,7 +6555,36 @@ declare namespace $ {
         Jobs_content(): $$.$mol_list;
         Jobs_field(): $$.$mol_form_field;
         Work(): $$.$mol_form;
-        Education(): $mol_view;
+        institutions_field_name(): string;
+        Institution_add_icon(): $mol_icon_plus;
+        institution_add(next?: any): any;
+        Institution_add(): $mol_button_minor;
+        specialty(id: any, next?: any): string;
+        Specialty_control(id: any): $$.$mol_string;
+        Specialty_field(id: any): $$.$mol_form_field;
+        degree(id: any, next?: any): string;
+        Degree_control(id: any): $$.$mol_string;
+        Degree_field(id: any): $$.$mol_form_field;
+        Student_group(id: any): $mol_form_group;
+        date_finish(id: any, next?: any): any;
+        Date_finish_control(id: any): $$.$mol_date;
+        Date_finish(id: any): $$.$mol_form_field;
+        institution(id: any, next?: any): string;
+        Institution_control(id: any): $$.$mol_string;
+        Institution_field(id: any): $$.$mol_form_field;
+        department(id: any, next?: any): string;
+        Department_control(id: any): $$.$mol_string;
+        Department_field(id: any): $$.$mol_form_field;
+        Institution_group(id: any): $mol_form_group;
+        Institution_drop_icon(id: any): $mol_icon_delete;
+        institution_drop(id: any, next?: any): any;
+        Institution_drop(id: any): $mol_button_minor;
+        Institution_drop_row(id: any): $mol_row;
+        Institution_form(id: any): $$.$mol_list;
+        institution_rows(): readonly any[];
+        Institution_content(): $$.$mol_list;
+        Institutions_field(): $$.$mol_form_field;
+        Education(): $$.$mol_form;
         Info(): $$.$mol_deck;
     }
 }
@@ -6527,22 +6595,37 @@ declare namespace $.$$ {
 declare namespace $.$$ {
     type Job = ReturnType<$hyoo_idea_person['jobs']>[number];
     type Job_keys = keyof Job;
+    type Institution = ReturnType<$hyoo_idea_person['institutions']>[number];
+    type Institution_keys = keyof Institution;
     export class $hyoo_idea_person_data extends $.$hyoo_idea_person_data {
         avatar_file(next?: File[]): readonly any[];
         avatar_drop(): void;
         job_rows(): $mol_list[];
         job_add(): void;
-        job_drop(id: string): void;
+        job_drop(id: number): void;
         job({ id, key }: {
             id: number;
             key: Job_keys;
+        }, next?: string): any;
+        position(id: number, next?: string): any;
+        date_start(id: number, next?: $mol_time_moment): $mol_time_moment | null;
+        date_end(id: number, next?: $mol_time_moment): $mol_time_moment | null;
+        company(id: number, next?: string): any;
+        industry(id: number, next?: string): any;
+        functions(id: number, next?: string): any;
+        present(id: number, next?: boolean): any;
+        institution_rows(): $mol_list[];
+        institution_add(): void;
+        institution_drop(id: number): void;
+        institution_change({ id, key }: {
+            id: number;
+            key: Institution_keys;
         }, next?: string): string;
-        position(id: number, next?: string): string;
-        date_start(id: number, next?: string): string;
-        date_end(id: number, next?: string): string;
-        company(id: number, next?: string): string;
-        industry(id: number, next?: string): string;
-        functions(id: number, next?: string): string;
+        specialty(id: number, next?: string): string;
+        degree(id: number, next?: string): string;
+        institution(id: number, next?: string): string;
+        department(id: number, next?: string): string;
+        date_finish(id: number, next?: string): $mol_time_moment | null;
     }
     export {};
 }
@@ -6567,6 +6650,121 @@ declare namespace $.$$ {
         posts(): $hyoo_idea_post_full[];
         post(obj: $hyoo_idea_post): $hyoo_idea_post;
     }
+}
+
+declare namespace $ {
+    class $hyoo_idea_project_form extends $mol_form {
+        name(next?: any): string;
+        logo_node(): $hyoo_crowd_blob;
+        logo(): string;
+        description_node(): $hyoo_crowd_text;
+        description(next?: any): string;
+        team(next?: any): $hyoo_idea_person[];
+        project(): $hyoo_idea_project;
+        form_fields(): readonly any[];
+        Logo(): $$.$mol_image2;
+        logo_add(next?: any): readonly any[];
+        Logo_upload(): $mol_button_open;
+        logo_drop(next?: any): any;
+        Logo_drop_icon(): $mol_icon_cross;
+        Logo_drop(): $mol_button_minor;
+        Logo_control(): $mol_row;
+        Logo_field(): $$.$mol_form_field;
+        Name_control(): $$.$mol_textarea;
+        Name_field(): $$.$mol_form_field;
+        description_selection(next?: any): readonly number[];
+        Description_control(): $$.$mol_textarea;
+        Description_field(): $$.$mol_form_field;
+    }
+}
+
+declare namespace $.$$ {
+    class $hyoo_idea_project_form extends $.$hyoo_idea_project_form {
+        domain(): $hyoo_idea_domain;
+        logo_add(next?: File[]): readonly any[];
+        logo_drop(): void;
+        description_selection(next?: number[]): number[];
+    }
+}
+
+declare namespace $.$$ {
+}
+
+declare namespace $ {
+    class $hyoo_idea_project_page extends $mol_page {
+        domain(): $hyoo_idea_domain;
+        logo(): string;
+        name(): string;
+        project(): $hyoo_idea_project;
+        title(): string;
+        tools(): readonly any[];
+        editing(): boolean;
+        Form(): $$.$hyoo_idea_project_form;
+        body(): readonly any[];
+        Edit_icon(): $mol_icon_pencil;
+        Edit(): $$.$mol_link;
+        Close_icon(): $mol_icon_cross;
+        Close(): $$.$mol_link;
+        Project_logo(): $$.$mol_image2;
+        Name(): $$.$mol_paragraph;
+        Face(): $$.$mol_list;
+        blocks(): readonly any[];
+        Blocks(): $$.$mol_list;
+    }
+}
+
+declare namespace $.$$ {
+}
+
+declare namespace $.$$ {
+    class $hyoo_idea_project_page extends $.$hyoo_idea_project_page {
+        editing(): boolean;
+        body(): readonly any[];
+    }
+}
+
+declare namespace $ {
+    class $hyoo_idea_app extends $mol_book2 {
+        yard(): $hyoo_sync_client;
+        user(): $hyoo_idea_person;
+        domain(): $hyoo_idea_domain;
+        Online(): $$.$hyoo_sync_online;
+        pages(): readonly any[];
+        Placeholder(): any;
+        Feed_link(): $$.$mol_link;
+        Person_link(): $$.$mol_link;
+        Ideas_link(): $$.$mol_link;
+        Projects_link(): $$.$mol_link;
+        Settings_link(): $$.$mol_link;
+        Links(): $$.$mol_list;
+        Menu(): $mol_page;
+        Sign_up(): $$.$hyoo_idea_sign_up_page;
+        person_opened(): $hyoo_idea_person;
+        Person_profile(): $$.$hyoo_idea_person_profile;
+        Person_data(): $$.$hyoo_idea_person_data;
+        Feed(): $$.$hyoo_idea_feed_page;
+        project_opened(): $hyoo_idea_project;
+        Project_page(): $$.$hyoo_idea_project_page;
+    }
+}
+
+declare namespace $.$$ {
+}
+
+declare namespace $.$$ {
+    type Sections = 'feed' | 'person' | 'ideas' | 'projects' | 'settings';
+    export class $hyoo_idea_app extends $.$hyoo_idea_app {
+        section(next?: Sections): string;
+        person_opened(): $hyoo_idea_person;
+        signup_opened(): boolean;
+        profile_edit_opened(): boolean;
+        project_opened(): $hyoo_idea_project;
+        pages(): $hyoo_idea_sign_up_page[] | ($mol_page | $hyoo_idea_person_profile | $hyoo_idea_person_data | $hyoo_idea_feed_page | $hyoo_idea_project_page)[];
+        sync(): void;
+        person_register(): void;
+        auto(): void;
+    }
+    export {};
 }
 
 export = $;

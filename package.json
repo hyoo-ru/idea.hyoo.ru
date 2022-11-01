@@ -1,11 +1,12 @@
 {
-  "name": "hyoo_idea",
+  "name": "hyoo_idea_app",
   "version": "0.0.1",
   "main": "node.js",
   "module": "node.esm.js",
   "browser": "web.js",
   "types": "web.d.ts",
   "keywords": [
+    "$hyoo_idea_app",
     "$hyoo_idea",
     "$hyoo",
     "$mol_style_unit",
@@ -352,6 +353,7 @@
     "$hyoo_crowd_blob",
     "$mol_blob",
     "$hyoo_idea_post",
+    "$hyoo_idea_project",
     "$hyoo_idea_sign_up_page",
     "$hyoo_idea_sign_up",
     "$hyoo_idea_sign",
@@ -360,6 +362,7 @@
     "$hyoo_idea_person_profile",
     "$mol_icon_pencil",
     "$hyoo_idea_person_avatar",
+    "$hyoo_idea_project_list",
     "$hyoo_idea_post_add",
     "$hyoo_idea_post_full",
     "$hyoo_idea_ago",
@@ -379,7 +382,9 @@
     "$mol_phone",
     "$mol_icon_delete",
     "$hyoo_idea_feed_page",
-    "$hyoo_idea_feed"
+    "$hyoo_idea_feed",
+    "$hyoo_idea_project_page",
+    "$hyoo_idea_project_form"
   ],
   "dependencies": {
     "jsdom": "*",

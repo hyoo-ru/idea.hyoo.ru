@@ -1913,6 +1913,18 @@ $hyoo_idea_person_avatar $mol_view
 		<= Image $mol_image2
 			links / <= uri \
 
+$hyoo_idea_project_list $mol_list
+	projects /$hyoo_idea_project
+	rows <= project_rows /
+		<= Project*0_0 $mol_link
+			arg * project <= project_id* \
+			sub / <= project_name* \
+		<= Empty $mol_paragraph
+			title @ \Nothing yet
+		<= Add $mol_link
+			arg * project \add
+			title @ \Create new project
+
 $hyoo_idea_post_add $mol_bar
 	submit? null
 	sub /
@@ -2038,10 +2050,13 @@ $hyoo_idea_post_full $mol_list
 $hyoo_idea_person_profile $mol_page
 	person $hyoo_idea_person
 		avatar => avatar
+		country => country 
+		city => city
 		name_user => name_user
 		name_short => name_short
 		status => status
 		about => about
+		projects => projects
 	title <= name_user
 	tools /
 		<= Edit $mol_link
@@ -2056,6 +2071,8 @@ $hyoo_idea_person_profile $mol_page
 							uri <= avatar
 						<= Name $mol_paragraph
 							title <= name_short
+						<= Location $mol_paragraph
+							title <= person_location \
 						<= Status $mol_paragraph
 							title <= status
 				<= Stats $hyoo_idea_person_profile_block
@@ -2072,6 +2089,11 @@ $hyoo_idea_person_profile $mol_page
 					content /
 						<= About_text $mol_text
 							text <= about
+				<= Projects $hyoo_idea_person_profile_block
+					title @ \Projects
+					content /
+						<= Projects_list $hyoo_idea_project_list
+							projects <= projects
 				<= Posts $hyoo_idea_person_profile_block
 					title @ \Posts
 					content /
@@ -2092,24 +2114,6 @@ $hyoo_idea_person_profile_stat $mol_list
 		<= Count $mol_view sub / <= count \
 		<= Title $mol_paragraph
 			title <= title \
-
-$hyoo_idea $mol_book2
-	domain $hyoo_idea_domain
-		yard => yard
-		user => user
-	Online $hyoo_sync_online
-		yard <= yard
-	pages /
-		<= Sign_up $hyoo_idea_sign_up_page
-			person <= user
-			- foot / <= Online
-		<= Person_profile $hyoo_idea_person_profile
-			person <= person_opened $hyoo_idea_person
-		<= Person_data $hyoo_idea_person_data
-			person <= user
-		<= Feed $hyoo_idea_feed_page
-			person <= user
-	Placeholder null
 
 $mol_phone $mol_format
 	mask* \+___ (___) ___-__-__
@@ -2268,11 +2272,15 @@ $hyoo_idea_person_data $mol_page
 												<= Date_start_field* $mol_form_field
 													name @ \Start date
 													control <= Date_start_control* $mol_date
-														value? <=> date_start*? null
+														value_moment? <=> date_start*? null
 												<= Date_end_field* $mol_form_field
 													name @ \End date
-													control <= Date_end_control* $mol_date
-														value? <=> date_end*? null
+													Content <= Date_end_content* $mol_view sub /
+														<= Date_end_control* $mol_date
+															value_moment? <=> date_end*? null
+														<= Up_to_present_control* $mol_check_box
+															title @ \Up to present
+															checked? <=> present*? false
 											<= Company_group* $mol_form_group sub /
 												<= Company_field* $mol_form_field
 													name @ \Company
@@ -2291,10 +2299,44 @@ $hyoo_idea_person_data $mol_page
 												<= Job_drop* $mol_button_minor
 													sub / <= Job_drop_icon* $mol_icon_delete
 													click? <=> job_drop*? null
-				<= Education $mol_view
+				<= Education $mol_form
 					title @ \Education
-					sub /
-						\degree institution department specialty date_finish
+					form_fields /
+						<= Institutions_field $mol_form_field
+							label /
+								<= institutions_field_name @ \Institutions
+								<= Institution_add $mol_button_minor
+									sub / <= Institution_add_icon $mol_icon_plus
+									click? <=> institution_add? null
+							Content <= Institution_content $mol_list
+								rows <= institution_rows /
+									<= Institution_form*0 $mol_list rows /
+										<= Student_group* $mol_form_group sub /
+											<= Specialty_field* $mol_form_field
+												name @ \Specialty
+												control <= Specialty_control* $mol_string
+													value? <=> specialty*? \
+											<= Degree_field* $mol_form_field
+												name @ \Degree
+												control <= Degree_control* $mol_string
+													value? <=> degree*? \
+										<= Date_finish* $mol_form_field
+											name @ \Graduation date
+											control <= Date_finish_control* $mol_date
+												value_moment? <=> date_finish*? null
+										<= Institution_group* $mol_form_group sub /
+											<= Institution_field* $mol_form_field
+												name @ \Institution
+												control <= Institution_control* $mol_string
+													value? <=> institution*? \
+											<= Department_field* $mol_form_field
+												name @ \Department
+												control <= Department_control* $mol_string
+													value? <=> department*? \
+										<= Institution_drop_row* $mol_row sub /
+											<= Institution_drop* $mol_button_minor
+												sub / <= Institution_drop_icon* $mol_icon_delete
+												click? <=> institution_drop*? null
 				- <= Achivements $mol_view
 					title @ \Achivements
 					sub /
@@ -2308,3 +2350,99 @@ $hyoo_idea_feed_page $mol_page
 			rows <= posts /
 				<= Post*0_0 $hyoo_idea_post_full
 					post <= post* $hyoo_idea_post
+
+$hyoo_idea_project_form $mol_form
+	project $hyoo_idea_project
+		name? => name?
+		logo_node => logo_node
+		logo => logo
+		description_node => description_node
+		description? => description?
+		team? => team?
+	form_fields /
+		<= Logo_field $mol_form_field
+			name @ \Logo
+			control <= Logo_control $mol_row sub /
+				<= Logo $mol_image2
+					links / <= logo
+				<= Logo_upload $mol_button_open
+					files? <=> logo_add? /
+					multiple false
+					accept \image/*
+				<= Logo_drop $mol_button_minor
+					hint @ \Remove logo
+					click? <=> logo_drop? null
+					sub / <= Logo_drop_icon $mol_icon_cross
+		<= Name_field $mol_form_field
+			name @ \Project Name
+			control <= Name_control $mol_textarea
+				value? <=> name?
+		<= Description_field $mol_form_field
+			name @ \Description 
+			control <= Description_control $mol_textarea
+				value? <=> description?
+				selection? <=> description_selection? /number
+
+$hyoo_idea_project_page $mol_page
+	project $hyoo_idea_project
+		domain => domain
+		logo => logo
+		name => name
+	title @ \Project
+	tools /
+		<= Edit $mol_link
+			arg * project_edit \
+			sub / <= Edit_icon $mol_icon_pencil
+		<= Close $mol_link
+			arg *
+				project null
+				project_edit null
+			sub / <= Close_icon $mol_icon_cross
+	editing false
+	Form $hyoo_idea_project_form
+		project <= project
+	body /
+		<= Blocks $mol_list
+			rows <= blocks /
+				<= Face $mol_list rows /
+					<= Project_logo $mol_image2 links / <= logo
+					<= Name $mol_paragraph title <= name
+
+$hyoo_idea_app $mol_book2
+	domain $hyoo_idea_domain
+		yard => yard
+		user => user
+	Online $hyoo_sync_online
+		yard <= yard
+	pages /
+		<= Menu $mol_page
+			title @ \$hyoo_idea
+			body /
+				<= Links $mol_list
+					rows /
+						<= Feed_link $mol_link
+							arg * section \feed
+							title @ \Feed
+						<= Person_link $mol_link
+							arg * section \person
+							title @ \My page
+						<= Ideas_link $mol_link
+							arg * section \ideas
+							title @ \Ideas
+						<= Projects_link $mol_link
+							arg * section \projects
+							title @ \Projects
+						<= Settings_link $mol_link
+							arg * section \settings
+							title @ \Settings
+		<= Sign_up $hyoo_idea_sign_up_page
+			person <= user
+		<= Person_profile $hyoo_idea_person_profile
+			person <= person_opened $hyoo_idea_person
+		<= Person_data $hyoo_idea_person_data
+			person <= user
+		<= Feed $hyoo_idea_feed_page
+			person <= user
+		<= Project_page $hyoo_idea_project_page
+			project <= project_opened $hyoo_idea_project
+	Placeholder null

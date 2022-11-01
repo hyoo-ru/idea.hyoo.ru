@@ -1,6 +1,6 @@
 namespace $.$$ {
 
-	type Sections = 'feed' | 'person' | 'ideas' | 'projects' | 'settings'
+	type Sections = 'feed' | 'person' | 'projects' | 'settings'
 
 	export class $hyoo_idea_app extends $.$hyoo_idea_app {
 

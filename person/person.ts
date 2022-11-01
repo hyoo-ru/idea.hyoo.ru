@@ -183,7 +183,7 @@ namespace $ {
 		@ $mol_mem
 		projects( next?: $hyoo_idea_project[] ) {
 			const ids = this.projects_node().list( next && next.map( obj => obj.id() ) )
-			return ids.map( id => this.domain().project( $mol_int62_string_ensure(id) ) )
+			return ids.map( id => this.domain().project( $mol_int62_string_ensure(id)! ) )
 		}
 
 		@ $mol_action

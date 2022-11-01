@@ -16,7 +16,7 @@ namespace $.$$ {
 
 		post_list() {
 			return this.person().posts()
-				.sort( (a, b) => b.date_created().valueOf() - a.date_created().valueOf() )
+				.sort( (a, b) => b.created_moment().valueOf() - a.created_moment().valueOf() )
 				.map( obj => this.Post( obj ) )
 		}
 
@@ -24,7 +24,6 @@ namespace $.$$ {
 			const obj = this.domain().post_add()
 			obj.content( text )
 			obj.person( this.person() )
-			obj.date_created( new $mol_time_moment() )
 			this.person().post_add( obj )
 		}
 

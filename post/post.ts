@@ -14,9 +14,8 @@ namespace $ {
 		}
 
 		@ $mol_mem
-		date_created( next?: $mol_time_moment ) {
-			const str = this.state().sub( 'date_created', $hyoo_crowd_reg ).str( next && next.toString() )
-			return new $mol_time_moment( str || undefined )
+		created_moment( next?: $mol_time_moment ) {
+			return new $mol_time_moment( this.state().land.first_stamp()! )
 		}
 
 	}

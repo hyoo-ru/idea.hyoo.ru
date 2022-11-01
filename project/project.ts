@@ -5,7 +5,7 @@ namespace $ {
 		@ $mol_mem
 		person( next?: $hyoo_idea_person ) {
 			const id = this.state().sub( 'person', $hyoo_crowd_reg ).str( next && next.id() )
-			return this.domain().person( $mol_int62_string_ensure(id) )
+			return this.domain().person( $mol_int62_string_ensure(id)! )
 		}
 
 		@ $mol_mem
@@ -41,7 +41,7 @@ namespace $ {
 		@ $mol_mem
 		team( next?: $hyoo_idea_person[] ) {
 			const ids = this.team_node().list( next )
-			return ids.map( id => this.domain().person( $mol_int62_string_ensure(id) ) )
+			return ids.map( id => this.domain().person( $mol_int62_string_ensure(id)! ) )
 		}
 
 	}

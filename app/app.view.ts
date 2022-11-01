@@ -22,8 +22,8 @@ namespace $.$$ {
 		}
 
 		project_opened() {
-			const id = this.$.$mol_state_arg.value('project')
-			return id ? this.domain().project( $mol_int62_string_ensure( id ) ) : null as unknown as  $hyoo_idea_project
+			const id = $mol_int62_string_ensure( this.$.$mol_state_arg.value('project') )
+			return id ? this.domain().project( id ) : null as unknown as  $hyoo_idea_project
 		}
 
 		@ $mol_mem

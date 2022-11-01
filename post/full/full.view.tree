@@ -2,7 +2,7 @@ $hyoo_idea_post_full $mol_list
 	post $hyoo_idea_post
 		id => id
 		content => content
-		date_created => date_created
+		created_moment => created_moment
 		person().avatar => avatar
 	rows /
 		<= Head $mol_row sub /
@@ -14,7 +14,7 @@ $hyoo_idea_post_full $mol_list
 						title <= author_name \
 					<= Ago $hyoo_idea_ago
 						title @ \{count} {unit} назад
-						moment <= date_created
+						moment <= created_moment
 			<= Menu $mol_pick
 				hint @ \Menu
 				trigger_content / <= Menu_icon $mol_icon_dots_horizontal

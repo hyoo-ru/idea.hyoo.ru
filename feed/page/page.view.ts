@@ -13,7 +13,7 @@ namespace $.$$ {
 
 		@ $mol_mem
 		posts_sorted() {
-			return this.posts_all().sort( (a, b)=> b.date_created().valueOf() - a.date_created().valueOf() )
+			return this.posts_all().sort( (a, b)=> b.created_moment().valueOf() - a.created_moment().valueOf() )
 		}
 
 		posts() {

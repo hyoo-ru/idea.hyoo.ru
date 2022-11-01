@@ -2426,9 +2426,6 @@ $hyoo_idea_app $mol_book2
 						<= Person_link $mol_link
 							arg * section \person
 							title @ \My page
-						<= Ideas_link $mol_link
-							arg * section \ideas
-							title @ \Ideas
 						<= Projects_link $mol_link
 							arg * section \projects
 							title @ \Projects

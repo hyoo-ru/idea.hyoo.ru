@@ -25868,14 +25868,6 @@ var $;
             obj.title = () => this.$.$mol_locale.text('$hyoo_idea_app_Person_link_title');
             return obj;
         }
-        Ideas_link() {
-            const obj = new this.$.$mol_link();
-            obj.arg = () => ({
-                section: "ideas"
-            });
-            obj.title = () => this.$.$mol_locale.text('$hyoo_idea_app_Ideas_link_title');
-            return obj;
-        }
         Projects_link() {
             const obj = new this.$.$mol_link();
             obj.arg = () => ({
@@ -25897,7 +25889,6 @@ var $;
             obj.rows = () => [
                 this.Feed_link(),
                 this.Person_link(),
-                this.Ideas_link(),
                 this.Projects_link(),
                 this.Settings_link()
             ];
@@ -25957,9 +25948,6 @@ var $;
     __decorate([
         $mol_mem
     ], $hyoo_idea_app.prototype, "Person_link", null);
-    __decorate([
-        $mol_mem
-    ], $hyoo_idea_app.prototype, "Ideas_link", null);
     __decorate([
         $mol_mem
     ], $hyoo_idea_app.prototype, "Projects_link", null);

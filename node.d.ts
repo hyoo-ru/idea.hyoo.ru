@@ -6735,7 +6735,6 @@ declare namespace $ {
         Placeholder(): any;
         Feed_link(): $$.$mol_link;
         Person_link(): $$.$mol_link;
-        Ideas_link(): $$.$mol_link;
         Projects_link(): $$.$mol_link;
         Settings_link(): $$.$mol_link;
         Links(): $$.$mol_list;
@@ -6754,7 +6753,7 @@ declare namespace $.$$ {
 }
 
 declare namespace $.$$ {
-    type Sections = 'feed' | 'person' | 'ideas' | 'projects' | 'settings';
+    type Sections = 'feed' | 'person' | 'projects' | 'settings';
     export class $hyoo_idea_app extends $.$hyoo_idea_app {
         section(next?: Sections): string;
         person_opened(): $hyoo_idea_person;

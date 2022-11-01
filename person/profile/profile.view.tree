@@ -7,6 +7,7 @@ $hyoo_idea_person_profile $mol_page
 		name_short => name_short
 		status => status
 		about => about
+		projects => projects
 	title <= name_user
 	tools /
 		<= Edit $mol_link
@@ -39,6 +40,11 @@ $hyoo_idea_person_profile $mol_page
 					content /
 						<= About_text $mol_text
 							text <= about
+				<= Projects $hyoo_idea_person_profile_block
+					title @ \Projects
+					content /
+						<= Projects_list $hyoo_idea_project_list
+							projects <= projects
 				<= Posts $hyoo_idea_person_profile_block
 					title @ \Posts
 					content /

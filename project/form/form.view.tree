@@ -1,0 +1,31 @@
+$hyoo_idea_project_form $mol_form
+	project $hyoo_idea_project
+		name? => name?
+		logo_node => logo_node
+		logo => logo
+		description_node => description_node
+		description? => description?
+		team? => team?
+	form_fields /
+		<= Logo_field $mol_form_field
+			name @ \Logo
+			control <= Logo_control $mol_row sub /
+				<= Logo $mol_image2
+					links / <= logo
+				<= Logo_upload $mol_button_open
+					files? <=> logo_add? /
+					multiple false
+					accept \image/*
+				<= Logo_drop $mol_button_minor
+					hint @ \Remove logo
+					click? <=> logo_drop? null
+					sub / <= Logo_drop_icon $mol_icon_cross
+		<= Name_field $mol_form_field
+			name @ \Project Name
+			control <= Name_control $mol_textarea
+				value? <=> name?
+		<= Description_field $mol_form_field
+			name @ \Description 
+			control <= Description_control $mol_textarea
+				value? <=> description?
+				selection? <=> description_selection? /number

@@ -153,10 +153,12 @@ namespace $ {
 			return this.name() && this.name_user() && this.name_family()
 		}
 
+		@ $mol_mem
 		posts_node() {
 			return this.state().sub( 'posts', $hyoo_crowd_list )
 		}
 
+		@ $mol_mem
 		posts( next?: $hyoo_idea_post[] ) {
 			const ids = this.posts_node().list( next && next.map( obj => obj.id() ) )
 			return ids.map( id => this.domain().post( id as $mol_int62_string ) )
@@ -170,6 +172,28 @@ namespace $ {
 
 		@ $mol_action
 		post_drop( obj: $hyoo_idea_post ) {
+			this.posts_node().drop( obj.id() )
+		}
+
+		@ $mol_mem
+		projects_node() {
+			return this.state().sub( 'projects', $hyoo_crowd_list )
+		}
+
+		@ $mol_mem
+		projects( next?: $hyoo_idea_project[] ) {
+			const ids = this.projects_node().list( next && next.map( obj => obj.id() ) )
+			return ids.map( id => this.domain().project( $mol_int62_string_ensure(id) ) )
+		}
+
+		@ $mol_action
+		project_add( obj: $hyoo_idea_project ) {
+			obj.person( this )
+			this.projects_node().add( obj.id() )
+		}
+
+		@ $mol_action
+		project_drop( obj: $hyoo_idea_project ) {
 			this.posts_node().drop( obj.id() )
 		}
 

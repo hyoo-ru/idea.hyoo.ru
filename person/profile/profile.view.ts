@@ -43,6 +43,7 @@ namespace $.$$ {
 				this.Face(),
 				this.Stats(),
 				... this.about().length ? [this.About()] : [],
+				this.Projects(),
 				this.Posts(),
 			]
 		}

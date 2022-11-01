@@ -37,6 +37,17 @@ namespace $ {
 			const land = this.yard().land_grab()
 			return this.post( land.id() )
 		}
+	
+		@ $mol_mem_key
+		project( id: $mol_int62_string ) {
+			return $hyoo_idea_project.make({ id: $mol_const(id), domain: $mol_const(this) })
+		}
+
+		@ $mol_action
+		project_add() {
+			const land = this.yard().land_grab()
+			return this.post( land.id() )
+		}
 
 	}
 

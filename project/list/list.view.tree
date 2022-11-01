@@ -1,0 +1,11 @@
+$hyoo_idea_project_list $mol_list
+	projects /$hyoo_idea_project
+	rows <= project_rows /
+		<= Project*0_0 $mol_link
+			arg * project <= project_id* \
+			sub / <= project_name* \
+		<= Empty $mol_paragraph
+			title @ \Nothing yet
+		<= Add $mol_link
+			arg * project \add
+			title @ \Create new project

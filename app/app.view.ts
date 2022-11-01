@@ -10,6 +10,15 @@ namespace $.$$ {
 			return this.$.$mol_state_arg.value('signup') === ''
 		}
 
+		profile_edit_opened() {
+			return this.$.$mol_state_arg.value('edit') === ''
+		}
+
+		project_opened() {
+			const id = this.$.$mol_state_arg.value('project')
+			return id ? this.domain().project( $mol_int62_string_ensure( id ) ) : null as unknown as  $hyoo_idea_project
+		}
+
 		@ $mol_mem
 		pages() {
 			if (this.signup_opened()) return [this.Sign_up()]
@@ -17,7 +26,8 @@ namespace $.$$ {
 			return [
 				this.Person_profile(),
 				// this.Feed(),
-				this.Person_data(),
+				... this.profile_edit_opened() ? [this.Person_data()] : [],
+				... this.project_opened() ? [this.Project_page()] : [],
 			]
 		}
 

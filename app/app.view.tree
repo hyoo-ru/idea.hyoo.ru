@@ -14,4 +14,10 @@ $hyoo_idea_app $mol_book2
 			person <= user
 		<= Feed $hyoo_idea_feed_page
 			person <= user
+		- <= Project_edit $mol_page
+			title @ \Project edit
+			body / <= Project_form $hyoo_idea_project_form
+				project <= project_opened $hyoo_idea_project
+		<= Project_page $hyoo_idea_project_page
+			project <= project_opened $hyoo_idea_project
 	Placeholder null

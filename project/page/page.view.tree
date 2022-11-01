@@ -1,0 +1,24 @@
+$hyoo_idea_project_page $mol_page
+	project $hyoo_idea_project
+		domain => domain
+		logo => logo
+		name => name
+	title @ \Project
+	tools /
+		<= Edit $mol_link
+			arg * project_edit \
+			sub / <= Edit_icon $mol_icon_pencil
+		<= Close $mol_link
+			arg *
+				project null
+				project_edit null
+			sub / <= Close_icon $mol_icon_cross
+	editing false
+	Form $hyoo_idea_project_form
+		project <= project
+	body /
+		<= Blocks $mol_list
+			rows <= blocks /
+				<= Face $mol_list rows /
+					<= Project_logo $mol_image2 links / <= logo
+					<= Name $mol_paragraph title <= name

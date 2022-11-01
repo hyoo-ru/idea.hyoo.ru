@@ -1,8 +1,15 @@
 namespace $.$$ {
 
+	type Sections = 'feed' | 'person' | 'ideas' | 'projects' | 'settings'
+
 	export class $hyoo_idea_app extends $.$hyoo_idea_app {
 
+		section(next?: Sections) {
+			return this.$.$mol_state_arg.value( 'section', next ) || 'feed'
+		}
+
 		person_opened() {
+			const id = this.$.$mol_state_arg.value('person')
 			return this.domain().person( this.$.$mol_state_arg.value('person') as $mol_int62_string ?? this.user().id() )
 		}
 
@@ -24,8 +31,9 @@ namespace $.$$ {
 			if (this.signup_opened()) return [this.Sign_up()]
 
 			return [
-				this.Person_profile(),
-				// this.Feed(),
+				this.Menu(),
+				... this.section() === 'feed' ? [this.Feed()] : [],
+				... this.section() === 'person' ? [this.Person_profile()] : [],
 				... this.profile_edit_opened() ? [this.Person_data()] : [],
 				... this.project_opened() ? [this.Project_page()] : [],
 			]

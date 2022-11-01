@@ -5,19 +5,34 @@ $hyoo_idea_app $mol_book2
 	Online $hyoo_sync_online
 		yard <= yard
 	pages /
+		<= Menu $mol_page
+			title @ \$hyoo_idea
+			body /
+				<= Links $mol_list
+					rows /
+						<= Feed_link $mol_link
+							arg * section \feed
+							title @ \Feed
+						<= Person_link $mol_link
+							arg * section \person
+							title @ \My page
+						<= Ideas_link $mol_link
+							arg * section \ideas
+							title @ \Ideas
+						<= Projects_link $mol_link
+							arg * section \projects
+							title @ \Projects
+						<= Settings_link $mol_link
+							arg * section \settings
+							title @ \Settings
 		<= Sign_up $hyoo_idea_sign_up_page
 			person <= user
-			- foot / <= Online
 		<= Person_profile $hyoo_idea_person_profile
 			person <= person_opened $hyoo_idea_person
 		<= Person_data $hyoo_idea_person_data
 			person <= user
 		<= Feed $hyoo_idea_feed_page
 			person <= user
-		- <= Project_edit $mol_page
-			title @ \Project edit
-			body / <= Project_form $hyoo_idea_project_form
-				project <= project_opened $hyoo_idea_project
 		<= Project_page $hyoo_idea_project_page
 			project <= project_opened $hyoo_idea_project
 	Placeholder null

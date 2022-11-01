@@ -25,13 +25,13 @@ namespace $.$$ {
 			},
 			line: {
 				height: per(150),
-			},
+			} as any,
 			text: {
 				align: 'center',
-			},
+			} as any,
 			letter: {
 				spacing: px(1),
-			},
+			} as any,
 		},
 
 	} )

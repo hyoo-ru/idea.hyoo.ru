@@ -20,6 +20,11 @@ namespace $ {
 	export class $hyoo_idea_person extends $hyoo_idea_entity {
 
 		@ $mol_mem
+		state() {
+			return super.state().yoke( '$hyoo_idea', $hyoo_crowd_struct )!
+		}
+
+		@ $mol_mem
 		avatar_node() {
 			return this.state().yoke( 'avatar', $hyoo_crowd_blob )!
 		}
@@ -28,6 +33,11 @@ namespace $ {
 		avatar() {
 			if (this.avatar_node().list().length > 0) return this.avatar_node().uri()
 			return `https://robohash.org/${this.id()}.png`
+		}
+
+		@ $mol_mem
+		name( next?: string ) {
+			return this.state().sub( 'name', $hyoo_crowd_reg ).str( next )
 		}
 
 		@ $mol_mem
@@ -43,11 +53,6 @@ namespace $ {
 		@ $mol_mem
 		name_user( next?: string ) {
 			return this.state().sub( 'name_user', $hyoo_crowd_reg ).str( next )
-		}
-
-		@ $mol_mem
-		name( next?: string ) {
-			return this.state().sub( 'name', $hyoo_crowd_reg ).str( next )
 		}
 
 		@ $mol_mem

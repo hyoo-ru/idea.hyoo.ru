@@ -22514,6 +22514,9 @@ var $;
     ], $hyoo_idea_persons.prototype, "list_node", null);
     $.$hyoo_idea_persons = $hyoo_idea_persons;
     class $hyoo_idea_person extends $hyoo_idea_entity {
+        state() {
+            return super.state().yoke('$hyoo_idea', $hyoo_crowd_struct);
+        }
         avatar_node() {
             return this.state().yoke('avatar', $hyoo_crowd_blob);
         }
@@ -22521,6 +22524,9 @@ var $;
             if (this.avatar_node().list().length > 0)
                 return this.avatar_node().uri();
             return `https://robohash.org/${this.id()}.png`;
+        }
+        name(next) {
+            return this.state().sub('name', $hyoo_crowd_reg).str(next);
         }
         about(next) {
             return this.state().sub('about', $hyoo_crowd_reg).str(next);
@@ -22530,9 +22536,6 @@ var $;
         }
         name_user(next) {
             return this.state().sub('name_user', $hyoo_crowd_reg).str(next);
-        }
-        name(next) {
-            return this.state().sub('name', $hyoo_crowd_reg).str(next);
         }
         name_family(next) {
             return this.state().sub('name_family', $hyoo_crowd_reg).str(next);
@@ -22617,10 +22620,16 @@ var $;
     }
     __decorate([
         $mol_mem
+    ], $hyoo_idea_person.prototype, "state", null);
+    __decorate([
+        $mol_mem
     ], $hyoo_idea_person.prototype, "avatar_node", null);
     __decorate([
         $mol_mem
     ], $hyoo_idea_person.prototype, "avatar", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_idea_person.prototype, "name", null);
     __decorate([
         $mol_mem
     ], $hyoo_idea_person.prototype, "about", null);
@@ -22630,9 +22639,6 @@ var $;
     __decorate([
         $mol_mem
     ], $hyoo_idea_person.prototype, "name_user", null);
-    __decorate([
-        $mol_mem
-    ], $hyoo_idea_person.prototype, "name", null);
     __decorate([
         $mol_mem
     ], $hyoo_idea_person.prototype, "name_family", null);

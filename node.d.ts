@@ -5953,12 +5953,13 @@ declare namespace $ {
         list(): $hyoo_idea_person[];
     }
     class $hyoo_idea_person extends $hyoo_idea_entity {
+        state(): $hyoo_crowd_struct;
         avatar_node(): $hyoo_crowd_blob;
         avatar(): string;
+        name(next?: string): string;
         about(next?: string): string;
         status(next?: string): string;
         name_user(next?: string): string;
-        name(next?: string): string;
         name_family(next?: string): string;
         name_father(next?: string): string;
         name_short(): string;

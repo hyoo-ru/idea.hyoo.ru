@@ -23,7 +23,7 @@ namespace $.$$ {
 		},
 	}
 
-	$mol_style_define( $.$hyoo_idea_person_data, {
+	$mol_style_define( $.$hyoo_idea_person_form, {
 
 		flex: {
 			basis: rem(50),

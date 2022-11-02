@@ -24,12 +24,10 @@ $hyoo_idea_app $mol_book2
 							title @ \Settings
 		<= Sign_up $hyoo_idea_sign_up_page
 			person <= user
-		<= Person_profile $hyoo_idea_person_profile
-			person <= person_opened $hyoo_idea_person
-		<= Person_data $hyoo_idea_person_data
-			person <= user
 		<= Feed $hyoo_idea_feed_page
 			person <= user
 		<= Project_page $hyoo_idea_project_page
 			project <= project_opened $hyoo_idea_project
+		<= Person_page $hyoo_idea_person_page
+			person <= person_opened $hyoo_idea_person
 	Placeholder null

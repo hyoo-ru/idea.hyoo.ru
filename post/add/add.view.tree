@@ -4,7 +4,7 @@ $hyoo_idea_post_add $mol_bar
 		<= Text $mol_textarea
 			hint @ \Write something
 			value? <=> text? \
-		<= Submit $mol_button_major
-			hint @ \Submit
-			title @ \Post
+		<= Submit $mol_button_minor
+			hint @ \Post
 			click? <=> event_submit? null
+			sub / <= Submit_icon $mol_icon_send

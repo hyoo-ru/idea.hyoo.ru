@@ -1,0 +1,7 @@
+$hyoo_idea_profile_block $mol_list
+	rows /
+		<= Label $mol_row sub /
+			<= Title $mol_paragraph title <= title \
+			<= Expander $mol_check_expand
+				checked? <=> expanded? false
+		<= Content $mol_view sub <= content /

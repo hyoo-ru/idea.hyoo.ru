@@ -202,6 +202,22 @@ namespace $ {
 			this.posts_node().drop( obj.id() )
 		}
 
+		@ $mol_mem
+		pubs(next?: $hyoo_idea_person[]) {
+			const ids = this.state().sub('pubs', $hyoo_crowd_list).list( next && next.map( obj => obj.id() ) )
+			return ids
+				.filter( id => $mol_int62_string_ensure(id))
+				.map( id => this.domain().person( $mol_int62_string_ensure(id)! ) )
+		}
+
+		@ $mol_mem
+		subs(next?: $hyoo_idea_person[]) {
+			const ids = this.state().sub('subs', $hyoo_crowd_list).list( next && next.map( obj => obj.id() ) )
+			return ids
+				.filter( id => $mol_int62_string_ensure(id))
+				.map( id => this.domain().person( $mol_int62_string_ensure(id)! ) )
+		}
+
 	}
 
 }

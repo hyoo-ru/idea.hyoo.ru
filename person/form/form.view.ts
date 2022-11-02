@@ -6,7 +6,7 @@ namespace $.$$ {
 	type Institution = ReturnType<$hyoo_idea_person['institutions']>[number]
 	type Institution_keys = keyof Institution
 
-	export class $hyoo_idea_person_data extends $.$hyoo_idea_person_data {
+	export class $hyoo_idea_person_form extends $.$hyoo_idea_person_form {
 
 		@ $mol_mem
 		avatar_file(next?: File[]) {

@@ -24,7 +24,7 @@ namespace $.$$ {
 			const ms = $mol_state_time.now( 10000 ) - moment.valueOf()
 			const duration = new $mol_time_duration( ms )
 			
-			const format = { second: 'PT1S', minute: 'PT1M', hour: 'PT1H', day: 'P1DT' }
+			const format = { second: 'PT1S', minute: 'PT1M', hour: 'PT1H', day: 'P1DT', month: 'P1MT', year: 'P1YT' }
 			const unit = this.unit( ms )
 			const value = Math.round( duration.count( format[ unit ] ) )
 			const now = unit === 'second' && value < 10

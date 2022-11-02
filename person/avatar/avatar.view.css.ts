@@ -20,7 +20,7 @@ namespace $.$$ {
 					y: 0,
 					blur: 0,
 					spread: rem(0.15),
-					color: $mol_theme.line,
+					color: $mol_theme.text,
 				}],
 			}
 		},

@@ -1,4 +1,4 @@
-$hyoo_idea_person_data $mol_page
+$hyoo_idea_person_form $mol_form
 	person $hyoo_idea_person
 		avatar => avatar
 		name_user? => name_user?
@@ -16,8 +16,7 @@ $hyoo_idea_person_data $mol_page
 		email? => email?
 		job_status? => job_status?
 		skills? => skills?
-	title @ \Personal information
-	body /
+	form_fields /
 		<= Info $mol_deck
 			items /
 				<= Profile $mol_form

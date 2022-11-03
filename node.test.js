@@ -22312,7 +22312,7 @@ var $;
         }
         project_add() {
             const land = this.yard().land_grab();
-            return this.post(land.id());
+            return this.project(land.id());
         }
     }
     __decorate([
@@ -22536,7 +22536,7 @@ var $;
     $.$hyoo_idea_persons = $hyoo_idea_persons;
     class $hyoo_idea_person extends $hyoo_idea_entity {
         state() {
-            return super.state().yoke('$hyoo_idea', $hyoo_crowd_struct);
+            return super.state().sub('$hyoo_idea', $hyoo_crowd_struct);
         }
         avatar_node() {
             return this.state().yoke('avatar', $hyoo_crowd_blob);
@@ -24343,6 +24343,206 @@ var $;
     })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));
 //hyoo/idea/project/page/page.view.ts
+;
+"use strict";
+var $;
+(function ($) {
+    class $hyoo_idea_project_list extends $mol_page {
+        domain() {
+            const obj = new this.$.$hyoo_idea_domain();
+            return obj;
+        }
+        projects() {
+            return [];
+        }
+        self() {
+            return false;
+        }
+        title() {
+            return this.$.$mol_locale.text('$hyoo_idea_project_list_title');
+        }
+        tools() {
+            return [
+                this.Add()
+            ];
+        }
+        body() {
+            return [
+                this.Projects()
+            ];
+        }
+        Add_icon() {
+            const obj = new this.$.$mol_icon_plus();
+            return obj;
+        }
+        add(next) {
+            if (next !== undefined)
+                return next;
+            return null;
+        }
+        Add() {
+            const obj = new this.$.$mol_button_minor();
+            obj.hint = () => this.$.$mol_locale.text('$hyoo_idea_project_list_Add_hint');
+            obj.sub = () => [
+                this.Add_icon()
+            ];
+            obj.click = (next) => this.add(next);
+            return obj;
+        }
+        empty_title() {
+            return this.$.$mol_locale.text('$hyoo_idea_project_list_empty_title');
+        }
+        Empty_add() {
+            const obj = new this.$.$mol_button_minor();
+            obj.minimal_height = () => 24;
+            obj.title = () => this.$.$mol_locale.text('$hyoo_idea_project_list_Empty_add_title');
+            obj.click = (next) => this.add(next);
+            return obj;
+        }
+        empty() {
+            return [
+                this.empty_title(),
+                this.Empty_add()
+            ];
+        }
+        Empty() {
+            const obj = new this.$.$mol_view();
+            obj.sub = () => this.empty();
+            return obj;
+        }
+        project_id(id) {
+            return "";
+        }
+        nameless_project() {
+            return this.$.$mol_locale.text('$hyoo_idea_project_list_nameless_project');
+        }
+        project_name(id) {
+            return this.nameless_project();
+        }
+        Project(id) {
+            const obj = new this.$.$mol_link();
+            obj.arg = () => ({
+                project: this.project_id(id)
+            });
+            obj.sub = () => [
+                this.project_name(id)
+            ];
+            return obj;
+        }
+        project_rows() {
+            return [
+                this.Empty(),
+                this.Project("0_0")
+            ];
+        }
+        Projects() {
+            const obj = new this.$.$mol_list();
+            obj.rows = () => this.project_rows();
+            return obj;
+        }
+    }
+    __decorate([
+        $mol_mem
+    ], $hyoo_idea_project_list.prototype, "domain", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_idea_project_list.prototype, "Add_icon", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_idea_project_list.prototype, "add", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_idea_project_list.prototype, "Add", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_idea_project_list.prototype, "Empty_add", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_idea_project_list.prototype, "Empty", null);
+    __decorate([
+        $mol_mem_key
+    ], $hyoo_idea_project_list.prototype, "Project", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_idea_project_list.prototype, "Projects", null);
+    $.$hyoo_idea_project_list = $hyoo_idea_project_list;
+})($ || ($ = {}));
+//hyoo/idea/project/list/-view.tree/list.view.tree.ts
+;
+"use strict";
+var $;
+(function ($) {
+    var $$;
+    (function ($$) {
+        const { rem } = $mol_style_unit;
+        $mol_style_define($.$hyoo_idea_project_list, {
+            flex: {
+                basis: rem(40),
+                shrink: 0,
+            },
+            Empty: {
+                padding: rem(2),
+                margin: ['auto', 'auto'],
+            },
+            Empty_add: {
+                padding: 0,
+                margin: {
+                    left: $mol_gap.space,
+                },
+                display: 'inline-flex',
+            },
+        });
+    })($$ = $.$$ || ($.$$ = {}));
+})($ || ($ = {}));
+//hyoo/idea/project/list/list.view.css.ts
+;
+"use strict";
+var $;
+(function ($) {
+    var $$;
+    (function ($$) {
+        class $hyoo_idea_project_list extends $.$hyoo_idea_project_list {
+            person() {
+                const id = $mol_int62_string_ensure(this.$.$mol_state_arg.value('projects_person'));
+                return id ? this.domain().person(id) : this.domain().user();
+            }
+            self() {
+                return this.person().id() === this.domain().user().id();
+            }
+            tools() {
+                return [
+                    ...this.self() ? [this.Add()] : [],
+                ];
+            }
+            empty() {
+                return [
+                    this.empty_title(),
+                    ...this.self() ? [this.Empty_add()] : [],
+                ];
+            }
+            projects() {
+                return this.person().projects();
+            }
+            project_rows() {
+                if (this.projects().length === 0)
+                    return [this.Empty()];
+                return this.projects().map(obj => this.Project(obj));
+            }
+            project_id(obj) {
+                return obj.id();
+            }
+            project_name(obj) {
+                return obj.name() || this.nameless_project();
+            }
+            add() {
+                const obj = this.domain().project_add();
+                this.domain().user().project_add(obj);
+            }
+        }
+        $$.$hyoo_idea_project_list = $hyoo_idea_project_list;
+    })($$ = $.$$ || ($.$$ = {}));
+})($ || ($ = {}));
+//hyoo/idea/project/list/list.view.ts
 ;
 "use strict";
 var $;
@@ -26896,6 +27096,7 @@ var $;
                 this.Sign_up(),
                 this.Feed(),
                 this.Project_page(),
+                this.Project_list(),
                 this.Person_page()
             ];
         }
@@ -26971,6 +27172,11 @@ var $;
             obj.project = () => this.project_opened();
             return obj;
         }
+        Project_list() {
+            const obj = new this.$.$hyoo_idea_project_list();
+            obj.domain = () => this.domain();
+            return obj;
+        }
         person_opened() {
             const obj = new this.$.$hyoo_idea_person();
             return obj;
@@ -27019,6 +27225,9 @@ var $;
     ], $hyoo_idea_app.prototype, "Project_page", null);
     __decorate([
         $mol_mem
+    ], $hyoo_idea_app.prototype, "Project_list", null);
+    __decorate([
+        $mol_mem
     ], $hyoo_idea_app.prototype, "person_opened", null);
     __decorate([
         $mol_mem
@@ -27033,7 +27242,14 @@ var $;
     var $$;
     (function ($$) {
         const { rem } = $mol_style_unit;
-        $mol_style_define($hyoo_idea_app, {});
+        $mol_style_define($hyoo_idea_app, {
+            Menu: {
+                flex: {
+                    basis: rem(15),
+                    shrink: 0,
+                },
+            },
+        });
     })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));
 //hyoo/idea/app/app.view.css.ts
@@ -27070,6 +27286,7 @@ var $;
                     this.Menu(),
                     ...this.section() === 'feed' ? [this.Feed()] : [],
                     ...this.section() === 'person' ? [this.Person_page()] : [],
+                    ...this.section() === 'projects' ? [this.Project_list()] : [],
                     ...this.project_opened() ? [this.Project_page()] : [],
                 ];
             }

@@ -5896,7 +5896,7 @@ declare namespace $ {
         post(id: $mol_int62_string): $hyoo_idea_post;
         post_add(): $hyoo_idea_post;
         project(id: $mol_int62_string): $hyoo_idea_project;
-        project_add(): $hyoo_idea_post;
+        project_add(): $hyoo_idea_project;
     }
 }
 
@@ -6373,6 +6373,47 @@ declare namespace $.$$ {
 }
 
 declare namespace $ {
+    class $hyoo_idea_project_list extends $mol_page {
+        domain(): $hyoo_idea_domain;
+        projects(): readonly $hyoo_idea_project[];
+        self(): boolean;
+        title(): string;
+        tools(): readonly any[];
+        body(): readonly any[];
+        Add_icon(): $mol_icon_plus;
+        add(next?: any): any;
+        Add(): $mol_button_minor;
+        empty_title(): string;
+        Empty_add(): $mol_button_minor;
+        empty(): readonly any[];
+        Empty(): $mol_view;
+        project_id(id: any): string;
+        nameless_project(): string;
+        project_name(id: any): string;
+        Project(id: any): $$.$mol_link;
+        project_rows(): readonly any[];
+        Projects(): $$.$mol_list;
+    }
+}
+
+declare namespace $.$$ {
+}
+
+declare namespace $.$$ {
+    class $hyoo_idea_project_list extends $.$hyoo_idea_project_list {
+        person(): $hyoo_idea_person;
+        self(): boolean;
+        tools(): $mol_button_minor[];
+        empty(): (string | $mol_button_minor)[];
+        projects(): $hyoo_idea_project[];
+        project_rows(): $mol_view[];
+        project_id(obj: $hyoo_idea_project): `${string}_${string}`;
+        project_name(obj: $hyoo_idea_project): string;
+        add(): void;
+    }
+}
+
+declare namespace $ {
     class $mol_phone extends $mol_format {
         mask(id: any): string;
         keyboard(): string;
@@ -6827,6 +6868,7 @@ declare namespace $ {
         Feed(): $$.$hyoo_idea_feed_page;
         project_opened(): $hyoo_idea_project;
         Project_page(): $$.$hyoo_idea_project_page;
+        Project_list(): $$.$hyoo_idea_project_list;
         person_opened(): $hyoo_idea_person;
         Person_page(): $$.$hyoo_idea_person_page;
     }
@@ -6843,7 +6885,7 @@ declare namespace $.$$ {
         signup_opened(): boolean;
         project_opened(): $hyoo_idea_project;
         signup_open(): void;
-        pages(): $hyoo_idea_sign_up_page[] | ($mol_page | $hyoo_idea_feed_page | $hyoo_idea_project_page | $hyoo_idea_person_page)[];
+        pages(): $hyoo_idea_sign_up_page[] | ($mol_page | $hyoo_idea_feed_page | $hyoo_idea_project_page | $hyoo_idea_project_list | $hyoo_idea_person_page)[];
         sync(): void;
         person_register(): void;
         auto(): void;

@@ -2090,6 +2090,28 @@ $hyoo_idea_project_page $mol_page
 					<= Project_logo $mol_image2 links / <= logo
 					<= Name $mol_paragraph title <= name
 
+$hyoo_idea_project_list $mol_page
+	domain $hyoo_idea_domain
+	projects /$hyoo_idea_project
+	self false
+	title @ \Projects
+	tools /
+		<= Add $mol_button_minor
+			hint @ \Create project
+			sub / <= Add_icon $mol_icon_plus
+			click? <=> add? null
+	body /
+		<= Projects $mol_list rows <= project_rows /
+			<= Empty $mol_view sub <= empty /
+				<= empty_title @ \There's nothing here yet.
+				<= Empty_add $mol_button_minor
+					minimal_height 24
+					title @ \Create project.
+					click? <=> add?
+			<= Project*0_0 $mol_link
+				arg * project <= project_id* \
+				sub / <= project_name* <= nameless_project @ \Untitled Project
+
 $mol_phone $mol_format
 	mask* \+___ (___) ___-__-__
 	keyboard \tel
@@ -2469,6 +2491,8 @@ $hyoo_idea_app $mol_book2
 			person <= user
 		<= Project_page $hyoo_idea_project_page
 			project <= project_opened $hyoo_idea_project
+		<= Project_list $hyoo_idea_project_list
+			domain <= domain
 		<= Person_page $hyoo_idea_person_page
 			person <= person_opened $hyoo_idea_person
 	Placeholder null

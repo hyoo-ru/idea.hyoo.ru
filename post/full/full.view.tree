@@ -10,7 +10,8 @@ $hyoo_idea_post_full $mol_list
 				uri <= avatar
 			<= Name_col $mol_list
 				rows /
-					<= Name $mol_paragraph
+					<= Name $mol_link
+						arg * person <= person_id \
 						title <= author_name \
 					<= Ago $hyoo_idea_ago
 						title @ \{count} {unit} назад

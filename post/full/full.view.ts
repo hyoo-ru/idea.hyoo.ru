@@ -7,7 +7,11 @@ namespace $.$$ {
 		}
 
 		author_name() {
-			return this.author()?.name_short()
+			return this.author().name_short()
+		}
+
+		person_id() {
+			return this.author().id()
 		}
 
 	}

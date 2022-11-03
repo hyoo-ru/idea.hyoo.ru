@@ -15,7 +15,8 @@ namespace $ {
 
 		@ $mol_mem
 		created_moment( next?: $mol_time_moment ) {
-			return new $mol_time_moment( this.state().land.first_stamp()! )
+			const ms = this.state().land.first_stamp() ?? 0
+			return new $mol_time_moment( ms )
 		}
 
 	}

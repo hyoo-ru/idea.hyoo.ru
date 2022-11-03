@@ -8,7 +8,7 @@ namespace $ {
 		}
 
 		yard() {
-			return $hyoo_sketch_domain.yard()
+			return $hyoo_idea_domain.yard()
 		}
 		
 		@ $mol_mem

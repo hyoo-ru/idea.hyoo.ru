@@ -21,7 +21,7 @@ namespace $ {
 
 		@ $mol_mem
 		state() {
-			return super.state().yoke( '$hyoo_idea', $hyoo_crowd_struct )!
+			return super.state().sub( '$hyoo_idea', $hyoo_crowd_struct )!
 		}
 
 		@ $mol_mem

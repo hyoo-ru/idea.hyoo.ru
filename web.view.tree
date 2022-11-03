@@ -303,12 +303,6 @@ $hyoo_idea_person_avatar $mol_view
 		<= Image $mol_image2
 			links / <= uri \
 
-$mol_paragraph $mol_view
-	line_height 24
-	letter_width 7
-	width_limit +Infinity
-	sub / <= title
-
 $hyoo_idea_plural $mol_object2
 	other @ \
 	one @ \
@@ -412,6 +406,12 @@ $mol_pick $mol_pop
 		checked?val <=> showed?val
 		sub <= trigger_content /$mol_view_content
 		hint <= hint \
+
+$mol_paragraph $mol_view
+	line_height 24
+	letter_width 7
+	width_limit +Infinity
+	sub / <= title
 
 $mol_dimmer $mol_paragraph
 	haystack \
@@ -731,7 +731,8 @@ $hyoo_idea_post_full $mol_list
 				uri <= avatar
 			<= Name_col $mol_list
 				rows /
-					<= Name $mol_paragraph
+					<= Name $mol_link
+						arg * person <= person_id \
 						title <= author_name \
 					<= Ago $hyoo_idea_ago
 						title @ \{count} {unit} назад

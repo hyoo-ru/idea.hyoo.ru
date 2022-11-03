@@ -2779,28 +2779,6 @@ declare namespace $.$$ {
 }
 
 declare namespace $ {
-    class $mol_paragraph extends $mol_view {
-        line_height(): number;
-        letter_width(): number;
-        width_limit(): number;
-        sub(): readonly any[];
-    }
-}
-
-declare namespace $ {
-}
-
-declare namespace $.$$ {
-    class $mol_paragraph extends $.$mol_paragraph {
-        maximal_width(): number;
-        width_limit(): number;
-        minimal_width(): number;
-        row_width(): number;
-        minimal_height(): number;
-    }
-}
-
-declare namespace $ {
     class $hyoo_idea_plural extends $mol_object2 {
         other(): string;
         one(): string;
@@ -2976,6 +2954,28 @@ declare namespace $ {
 declare namespace $.$$ {
     class $mol_pick extends $.$mol_pick {
         keydown(event: KeyboardEvent): void;
+    }
+}
+
+declare namespace $ {
+    class $mol_paragraph extends $mol_view {
+        line_height(): number;
+        letter_width(): number;
+        width_limit(): number;
+        sub(): readonly any[];
+    }
+}
+
+declare namespace $ {
+}
+
+declare namespace $.$$ {
+    class $mol_paragraph extends $.$mol_paragraph {
+        maximal_width(): number;
+        width_limit(): number;
+        minimal_width(): number;
+        row_width(): number;
+        minimal_height(): number;
     }
 }
 
@@ -3727,8 +3727,9 @@ declare namespace $ {
         post(): $hyoo_idea_post;
         rows(): readonly any[];
         Avatar(): $hyoo_idea_person_avatar;
+        person_id(): string;
         author_name(): string;
-        Name(): $$.$mol_paragraph;
+        Name(): $$.$mol_link;
         Ago(): $$.$hyoo_idea_ago;
         Name_col(): $$.$mol_list;
         Menu_icon(): $mol_icon_dots_horizontal;
@@ -3754,6 +3755,7 @@ declare namespace $.$$ {
     class $hyoo_idea_post_full extends $.$hyoo_idea_post_full {
         author(): $hyoo_idea_person;
         author_name(): string;
+        person_id(): `${string}_${string}`;
     }
 }
 
@@ -4821,7 +4823,7 @@ declare namespace $.$$ {
         position(): string;
         location(): string;
         date_birth(next?: $mol_time_moment): $mol_time_moment;
-        summary_rows(): ($mol_paragraph | $hyoo_idea_ago)[];
+        summary_rows(): ($hyoo_idea_ago | $mol_paragraph)[];
         neck(): $mol_view[];
         personal(): $hyoo_idea_profile_block[];
         contacts_content(): $mol_view[];

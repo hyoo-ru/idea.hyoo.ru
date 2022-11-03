@@ -36,6 +36,7 @@ namespace $.$$ {
 				this.Menu(),
 				... this.section() === 'feed' ? [this.Feed()] : [],
 				... this.section() === 'person' ? [this.Person_page()] : [],
+				... this.section() === 'projects' ? [this.Project_list()] : [],
 				... this.project_opened() ? [this.Project_page()] : [],
 			]
 		}

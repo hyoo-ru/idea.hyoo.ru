@@ -47,7 +47,7 @@ namespace $ {
 		@ $mol_action
 		project_add() {
 			const land = this.yard().land_grab()
-			return this.post( land.id() )
+			return this.project( land.id() )
 		}
 
 	}

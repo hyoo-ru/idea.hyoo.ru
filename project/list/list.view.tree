@@ -1,11 +1,21 @@
-$hyoo_idea_project_list $mol_list
+$hyoo_idea_project_list $mol_page
+	domain $hyoo_idea_domain
 	projects /$hyoo_idea_project
-	rows <= project_rows /
-		<= Project*0_0 $mol_link
-			arg * project <= project_id* \
-			sub / <= project_name* \
-		<= Empty $mol_paragraph
-			title @ \Nothing yet
-		<= Add $mol_link
-			arg * project \add
-			title @ \Create new project
+	self false
+	title @ \Projects
+	tools /
+		<= Add $mol_button_minor
+			hint @ \Create project
+			sub / <= Add_icon $mol_icon_plus
+			click? <=> add? null
+	body /
+		<= Projects $mol_list rows <= project_rows /
+			<= Empty $mol_view sub <= empty /
+				<= empty_title @ \There's nothing here yet.
+				<= Empty_add $mol_button_minor
+					minimal_height 24
+					title @ \Create project.
+					click? <=> add?
+			<= Project*0_0 $mol_link
+				arg * project <= project_id* \
+				sub / <= project_name* <= nameless_project @ \Untitled Project

@@ -5905,7 +5905,7 @@ declare namespace $ {
         name_father(next?: string): string;
         name_short(): string;
         sex(next?: 'male' | 'female'): string;
-        date_birth(next?: $mol_time_moment): $mol_time_moment;
+        date_birth(next?: $mol_time_moment): $mol_time_moment | null;
         nationality(next?: string): string;
         country(next?: string): string;
         city(next?: string): string;
@@ -6425,7 +6425,7 @@ declare namespace $ {
         name_family(next?: any): string;
         name_father(next?: any): string;
         sex(next?: any): string;
-        date_birth(next?: any): $mol_time_moment;
+        date_birth(next?: any): $mol_time_moment | null;
         nationality(next?: any): string;
         country(next?: any): string;
         city(next?: any): string;
@@ -6434,6 +6434,9 @@ declare namespace $ {
         job_status(next?: any): string;
         skills(next?: any): string[];
         person(): $hyoo_idea_person;
+        msg(): {
+            required: string;
+        };
         form_fields(): readonly any[];
         Avatar(): $hyoo_idea_person_avatar;
         avatar_file(next?: any): readonly any[];
@@ -6667,7 +6670,6 @@ declare namespace $ {
         avatar(): string;
         name_short(): string;
         status(): string;
-        date_birth(): $mol_time_moment;
         about(): string;
         phone(): string;
         email(): string;
@@ -6692,6 +6694,7 @@ declare namespace $ {
         Position(): $$.$mol_paragraph;
         location(): string;
         Location(): $$.$mol_paragraph;
+        date_birth(): $mol_time_moment;
         Age(): $$.$hyoo_idea_ago;
         summary_rows(): readonly any[];
         Summary(): $$.$mol_list;
@@ -6717,6 +6720,7 @@ declare namespace $ {
         Email_label(): $$.$mol_paragraph;
         Email(): $$.$mol_paragraph;
         Contacts_email(): $mol_view;
+        contacts_content(): readonly any[];
         Contacts(): $$.$hyoo_idea_profile_block;
         job_position(id: any): string;
         Job_position(id: any): $$.$mol_paragraph;
@@ -6738,6 +6742,8 @@ declare namespace $ {
         education(): readonly any[];
         Education_list(): $$.$mol_list;
         Education(): $$.$hyoo_idea_profile_block;
+        personal(): readonly any[];
+        Personal(): $mol_view;
         post_add(next?: any): any;
         Post_add(): $$.$hyoo_idea_post_add;
         post(id: any): $hyoo_idea_post;
@@ -6772,8 +6778,11 @@ declare namespace $.$$ {
         } | null;
         position(): string;
         location(): string;
+        date_birth(next?: $mol_time_moment): $mol_time_moment;
         summary_rows(): ($mol_paragraph | $hyoo_idea_ago)[];
         neck(): $mol_view[];
+        personal(): $hyoo_idea_profile_block[];
+        contacts_content(): $mol_view[];
         jobs(): $mol_list[];
         job_position(id: number): string;
         job_company(id: number): string;

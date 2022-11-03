@@ -22580,7 +22580,7 @@ var $;
         }
         date_birth(next) {
             const str = this.state().sub('date_birsth', $hyoo_crowd_reg).str(next && next.toString());
-            return new $mol_time_moment(str || undefined);
+            return str ? new $mol_time_moment(str) : null;
         }
         nationality(next) {
             return this.state().sub('nationality', $hyoo_crowd_reg).str(next);
@@ -24697,6 +24697,11 @@ var $;
             const obj = new this.$.$hyoo_idea_person();
             return obj;
         }
+        msg() {
+            return {
+                required: this.$.$mol_locale.text('$hyoo_idea_person_form_msg_required')
+            };
+        }
         form_fields() {
             return [
                 this.Info()
@@ -26045,7 +26050,7 @@ var $;
 (function ($) {
     var $$;
     (function ($$) {
-        const { rem, px } = $mol_style_unit;
+        const { per, rem, px } = $mol_style_unit;
         $mol_style_define($.$hyoo_idea_profile_block, {
             Label: {
                 alignItems: 'flex-end',
@@ -26232,9 +26237,6 @@ var $;
         status() {
             return this.person().status();
         }
-        date_birth() {
-            return this.person().date_birth();
-        }
         about() {
             return this.person().about();
         }
@@ -26274,10 +26276,7 @@ var $;
                 this.Face(),
                 this.Neck(),
                 this.Stats(),
-                this.About(),
-                this.Contacts(),
-                this.Jobs(),
-                this.Education(),
+                this.Personal(),
                 this.Posts()
             ];
         }
@@ -26342,6 +26341,10 @@ var $;
         Location() {
             const obj = new this.$.$mol_paragraph();
             obj.title = () => this.location();
+            return obj;
+        }
+        date_birth() {
+            const obj = new this.$.$mol_time_moment();
             return obj;
         }
         Age() {
@@ -26490,13 +26493,16 @@ var $;
             ];
             return obj;
         }
-        Contacts() {
-            const obj = new this.$.$hyoo_idea_profile_block();
-            obj.title = () => this.$.$mol_locale.text('$hyoo_idea_person_page_Contacts_title');
-            obj.content = () => [
+        contacts_content() {
+            return [
                 this.Contacts_phone(),
                 this.Contacts_email()
             ];
+        }
+        Contacts() {
+            const obj = new this.$.$hyoo_idea_profile_block();
+            obj.title = () => this.$.$mol_locale.text('$hyoo_idea_person_page_Contacts_title');
+            obj.content = () => this.contacts_content();
             return obj;
         }
         job_position(id) {
@@ -26601,6 +26607,19 @@ var $;
             ];
             return obj;
         }
+        personal() {
+            return [
+                this.About(),
+                this.Contacts(),
+                this.Jobs(),
+                this.Education()
+            ];
+        }
+        Personal() {
+            const obj = new this.$.$mol_view();
+            obj.sub = () => this.personal();
+            return obj;
+        }
         post_add(next) {
             if (next !== undefined)
                 return next;
@@ -26681,6 +26700,9 @@ var $;
     __decorate([
         $mol_mem
     ], $hyoo_idea_person_page.prototype, "Location", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_idea_person_page.prototype, "date_birth", null);
     __decorate([
         $mol_mem
     ], $hyoo_idea_person_page.prototype, "Age", null);
@@ -26777,6 +26799,9 @@ var $;
     __decorate([
         $mol_mem
     ], $hyoo_idea_person_page.prototype, "Education", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_idea_person_page.prototype, "Personal", null);
     __decorate([
         $mol_mem
     ], $hyoo_idea_person_page.prototype, "post_add", null);
@@ -26899,6 +26924,11 @@ var $;
                     left: 'auto',
                 },
             },
+            Personal: {
+                flex: {
+                    direction: 'column',
+                },
+            },
             Contacts: {
                 Content: {
                     flex: {
@@ -26984,6 +27014,9 @@ var $;
                 return super.location()
                     .replace('{city}', this.person().city());
             }
+            date_birth(next) {
+                return this.person().date_birth(next);
+            }
             summary_rows() {
                 return [
                     ...this.job_current() !== null ? [this.Position()] : [],
@@ -26997,8 +27030,24 @@ var $;
                     ...this.self() === false ? [this.Actions()] : [],
                 ];
             }
+            personal() {
+                return [
+                    ...!!this.about() ? [this.About()] : [],
+                    ...!!this.phone() || !!this.email() ? [this.Contacts()] : [],
+                    ...this.jobs().length > 0 ? [this.Jobs()] : [],
+                    ...this.education().length > 0 ? [this.Education()] : [],
+                ];
+            }
+            contacts_content() {
+                return [
+                    ...!!this.phone() ? [this.Contacts_phone()] : [],
+                    ...!!this.email() ? [this.Contacts_email()] : [],
+                ];
+            }
             jobs() {
-                return this.person().jobs().map((_, index) => this.Job(index));
+                return this.person().jobs()
+                    .filter(obj => !!obj.position && !!obj.company && !!obj.date_start && (!!obj.date_end || obj.present === true))
+                    .map((_, index) => this.Job(index));
             }
             job_position(id) {
                 return this.person().jobs()[id].position;
@@ -27017,7 +27066,9 @@ var $;
                 return this.person().jobs()[id].functions;
             }
             education() {
-                return this.person().institutions().map((_, index) => this.Education_row(index));
+                return this.person().institutions()
+                    .filter(obj => !!obj.specialty && !!obj.institution && !!obj.date_finish)
+                    .map((_, index) => this.Education_row(index));
             }
             education_head(id) {
                 const obj = this.person().institutions()[id];
@@ -27029,7 +27080,7 @@ var $;
                 const obj = this.person().institutions()[id];
                 return [
                     obj.institution,
-                    ...obj.date_finish ? [new $mol_time_moment(obj.date_finish).toString('YYYY')] : [],
+                    new $mol_time_moment(obj.date_finish).toString('YYYY'),
                 ].join(', ');
             }
             post(obj) {
@@ -27055,6 +27106,12 @@ var $;
         }
         __decorate([
             $mol_mem
+        ], $hyoo_idea_person_page.prototype, "tools", null);
+        __decorate([
+            $mol_mem
+        ], $hyoo_idea_person_page.prototype, "body", null);
+        __decorate([
+            $mol_mem
         ], $hyoo_idea_person_page.prototype, "job_current", null);
         __decorate([
             $mol_mem
@@ -27068,6 +27125,12 @@ var $;
         __decorate([
             $mol_mem
         ], $hyoo_idea_person_page.prototype, "neck", null);
+        __decorate([
+            $mol_mem
+        ], $hyoo_idea_person_page.prototype, "personal", null);
+        __decorate([
+            $mol_mem
+        ], $hyoo_idea_person_page.prototype, "contacts_content", null);
         __decorate([
             $mol_mem
         ], $hyoo_idea_person_page.prototype, "jobs", null);

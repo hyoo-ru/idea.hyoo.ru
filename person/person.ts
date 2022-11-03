@@ -77,7 +77,7 @@ namespace $ {
 		@ $mol_mem
 		date_birth( next?: $mol_time_moment ) {
 			const str = this.state().sub( 'date_birsth', $hyoo_crowd_reg ).str( next && next.toString() )
-			return new $mol_time_moment( str || undefined )
+			return str ? new $mol_time_moment( str ) : null
 		}
 
 		@ $mol_mem

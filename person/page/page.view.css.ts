@@ -112,6 +112,12 @@ namespace $.$$ {
 			},
 		},
 
+		Personal: {
+			flex: {
+				direction: 'column',
+			},
+		},
+
 		Contacts: {
 			Content: {
 				flex: {

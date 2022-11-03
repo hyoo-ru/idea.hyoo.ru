@@ -4,7 +4,6 @@ $hyoo_idea_person_page $mol_page
 		avatar => avatar
 		name_short => name_short
 		status => status
-		date_birth => date_birth
 		about => about
 		phone => phone
 		email => email
@@ -31,7 +30,7 @@ $hyoo_idea_person_page $mol_page
 				<= Location $mol_paragraph title <= location @ \{city}
 				<= Age $hyoo_idea_ago 
 					title @ \{count} {unit}
-					moment <= date_birth
+					moment <= date_birth $mol_time_moment
 			<= Actions $mol_view sub /
 				<= Subscribe $mol_button_minor
 					title @ \Subscribe
@@ -53,34 +52,35 @@ $hyoo_idea_person_page $mol_page
 				<= Sub_count $hyoo_idea_profile_stat
 					label @ \Subscribers
 					count <= sub_count \4
-		<= About $hyoo_idea_profile_block
-			title @ \About me
-			content / <= about
-		<= Contacts $hyoo_idea_profile_block
-			title @ \Contacts
-			content /
-				<= Contacts_phone $mol_view sub /
-					<= Phone_label $mol_paragraph title @ \Phone
-					<= Phone $mol_paragraph title <= phone
-				<= Contacts_email $mol_view sub /
-					<= Email_label $mol_paragraph title @ \Email
-					<= Email $mol_paragraph title <= email
-		<= Jobs $hyoo_idea_profile_block
-			title @ \Experience
-			content /
-				<= Jobs_list $mol_list rows <= jobs /
-					<= Job*0 $mol_list rows /
-						<= Job_position* $mol_paragraph title <= job_position* \
-						<= Job_company* $mol_paragraph title <= job_company* \
-						<= Job_dates* $mol_paragraph title <= job_dates* \
-						<= Job_functions* $mol_text text <= job_functions* \
-		<= Education $hyoo_idea_profile_block
-			title @ \Education
-			content /
-				<= Education_list $mol_list rows <= education /
-					<= Education_row*0 $mol_list rows /
-						<= Education_head* $mol_paragraph title <= education_head* \
-						<= Education_details* $mol_paragraph title <= education_details* \
+		<= Personal $mol_view sub <= personal /
+			<= About $hyoo_idea_profile_block
+				title @ \About me
+				content / <= about
+			<= Contacts $hyoo_idea_profile_block
+				title @ \Contacts
+				content <= contacts_content /
+					<= Contacts_phone $mol_view sub /
+						<= Phone_label $mol_paragraph title @ \Phone
+						<= Phone $mol_paragraph title <= phone
+					<= Contacts_email $mol_view sub /
+						<= Email_label $mol_paragraph title @ \Email
+						<= Email $mol_paragraph title <= email
+			<= Jobs $hyoo_idea_profile_block
+				title @ \Experience
+				content /
+					<= Jobs_list $mol_list rows <= jobs /
+						<= Job*0 $mol_list rows /
+							<= Job_position* $mol_paragraph title <= job_position* \
+							<= Job_company* $mol_paragraph title <= job_company* \
+							<= Job_dates* $mol_paragraph title <= job_dates* \
+							<= Job_functions* $mol_text text <= job_functions* \
+			<= Education $hyoo_idea_profile_block
+				title @ \Education
+				content /
+					<= Education_list $mol_list rows <= education /
+						<= Education_row*0 $mol_list rows /
+							<= Education_head* $mol_paragraph title <= education_head* \
+							<= Education_details* $mol_paragraph title <= education_details* \
 		<= Posts $hyoo_idea_profile_block
 			title @ \Posts
 			Expander null

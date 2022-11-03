@@ -1,8 +1,10 @@
 namespace $.$$ {
 
-	const { rem, px } = $mol_style_unit
+	const { per, rem, px } = $mol_style_unit
 
 	$mol_style_define( $.$hyoo_idea_profile_block, {
+
+		// width: per(100),
 
 		Label: {
 			alignItems: 'flex-end',

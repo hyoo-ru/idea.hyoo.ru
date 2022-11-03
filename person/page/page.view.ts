@@ -6,12 +6,14 @@ namespace $.$$ {
 			return this.person().id() === this.domain().user().id()
 		}
 
+		@ $mol_mem
 		tools() {
 			return [
 				... this.self() ? [this.Edit_button()] : [],
 			]
 		}
 
+		@ $mol_mem
 		body() {
 			return this.self() && this.editing() ? [this.Edit_form()] : super.body()
 		}
@@ -51,6 +53,10 @@ namespace $.$$ {
 				.replace('{city}', this.person().city())
 		}
 
+		date_birth(next?: $mol_time_moment) {
+			return this.person().date_birth( next )!
+		}
+
 		@ $mol_mem
 		summary_rows() {
 			return [
@@ -69,8 +75,28 @@ namespace $.$$ {
 		}
 
 		@ $mol_mem
+		personal() {
+			return [
+				... !!this.about() ? [this.About()] : [],
+				... !!this.phone() || !!this.email() ? [this.Contacts()] : [],
+				... this.jobs().length > 0 ? [this.Jobs()] : [],
+				... this.education().length > 0 ? [this.Education()] : [],
+			]
+		}
+
+		@ $mol_mem
+		contacts_content() {
+			return [
+				... !!this.phone() ? [this.Contacts_phone()] : [],
+				... !!this.email() ? [this.Contacts_email()] : [], 
+			]
+		}
+
+		@ $mol_mem
 		jobs() {
-			return this.person().jobs().map( (_, index) => this.Job( index ) )
+			return this.person().jobs()
+				.filter( obj => !!obj.position && !!obj.company && !!obj.date_start && (!!obj.date_end || obj.present === true) )
+				.map( (_, index) => this.Job( index ) )
 		}
 
 		job_position( id: number ) {
@@ -95,7 +121,9 @@ namespace $.$$ {
 
 		@ $mol_mem
 		education() {
-			return this.person().institutions().map( (_, index) => this.Education_row(index) )
+			return this.person().institutions()
+				.filter( obj => !!obj.specialty && !!obj.institution && !!obj.date_finish )
+				.map( (_, index) => this.Education_row(index) )
 		}
 
 		education_head( id: number ) {
@@ -109,7 +137,7 @@ namespace $.$$ {
 			const obj = this.person().institutions()[id]
 			return [
 				obj.institution,
-				... obj.date_finish ? [new $mol_time_moment(obj.date_finish).toString('YYYY')] : [],
+				new $mol_time_moment(obj.date_finish).toString('YYYY'),
 			].join(', ')
 		}
 

@@ -16,6 +16,8 @@ $hyoo_idea_person_form $mol_form
 		email? => email?
 		job_status? => job_status?
 		skills? => skills?
+	msg *
+		required @ \Required
 	form_fields /
 		<= Info $mol_deck
 			items /

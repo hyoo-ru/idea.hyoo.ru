@@ -7,6 +7,7 @@ $hyoo_idea_person_page $mol_page
 		about => about
 		phone => phone
 		email => email
+		projects => projects
 	self false
 	title @ \User page
 	msg *
@@ -18,6 +19,9 @@ $hyoo_idea_person_page $mol_page
 			checked? <=> editing? false
 	Edit_form $hyoo_idea_person_form
 		person <= person
+	Projet_list $hyoo_idea_project_list
+		projects <= projects
+		Projects => Projects
 	body /
 		<= Face $mol_row sub /
 			<= Avatar $hyoo_idea_person_avatar blob <= avatar_node
@@ -81,6 +85,9 @@ $hyoo_idea_person_page $mol_page
 						<= Education_row*0 $mol_list rows /
 							<= Education_head* $mol_paragraph title <= education_head* \
 							<= Education_details* $mol_paragraph title <= education_details* \
+		<= Projects_block $hyoo_idea_profile_block
+			title @ \Projects
+			content / <= Projects
 		<= Posts $hyoo_idea_profile_block
 			title @ \Posts
 			Expander null

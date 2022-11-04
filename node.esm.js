@@ -18731,6 +18731,9 @@ var $;
         email() {
             return this.person().email();
         }
+        projects() {
+            return this.person().projects();
+        }
         person() {
             const obj = new this.$.$hyoo_idea_person();
             return obj;
@@ -18756,12 +18759,21 @@ var $;
             obj.person = () => this.person();
             return obj;
         }
+        Projects() {
+            return this.Projet_list().Projects();
+        }
+        Projet_list() {
+            const obj = new this.$.$hyoo_idea_project_list();
+            obj.projects = () => this.projects();
+            return obj;
+        }
         body() {
             return [
                 this.Face(),
                 this.Neck(),
                 this.Stats(),
                 this.Personal(),
+                this.Projects_block(),
                 this.Posts()
             ];
         }
@@ -19105,6 +19117,14 @@ var $;
             obj.sub = () => this.personal();
             return obj;
         }
+        Projects_block() {
+            const obj = new this.$.$hyoo_idea_profile_block();
+            obj.title = () => this.$.$mol_locale.text('$hyoo_idea_person_page_Projects_block_title');
+            obj.content = () => [
+                this.Projects()
+            ];
+            return obj;
+        }
         post_add(next) {
             if (next !== undefined)
                 return next;
@@ -19155,6 +19175,9 @@ var $;
     __decorate([
         $mol_mem
     ], $hyoo_idea_person_page.prototype, "Edit_form", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_idea_person_page.prototype, "Projet_list", null);
     __decorate([
         $mol_mem
     ], $hyoo_idea_person_page.prototype, "Edit_icon", null);
@@ -19287,6 +19310,9 @@ var $;
     __decorate([
         $mol_mem
     ], $hyoo_idea_person_page.prototype, "Personal", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_idea_person_page.prototype, "Projects_block", null);
     __decorate([
         $mol_mem
     ], $hyoo_idea_person_page.prototype, "post_add", null);

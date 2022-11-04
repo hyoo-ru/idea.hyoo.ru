@@ -4955,6 +4955,7 @@ declare namespace $ {
         about(): string;
         phone(): string;
         email(): string;
+        projects(): $hyoo_idea_project[];
         person(): $hyoo_idea_person;
         self(): boolean;
         title(): string;
@@ -4963,6 +4964,8 @@ declare namespace $ {
         };
         tools(): readonly any[];
         Edit_form(): $$.$hyoo_idea_person_form;
+        Projects(): $$.$mol_list;
+        Projet_list(): $$.$hyoo_idea_project_list;
         body(): readonly any[];
         Edit_icon(): $mol_icon_pencil;
         editing(next?: any): boolean;
@@ -5026,6 +5029,7 @@ declare namespace $ {
         Education(): $$.$hyoo_idea_profile_block;
         personal(): readonly any[];
         Personal(): $mol_view;
+        Projects_block(): $$.$hyoo_idea_profile_block;
         post_add(next?: any): any;
         Post_add(): $$.$hyoo_idea_post_add;
         post(id: any): $hyoo_idea_post;

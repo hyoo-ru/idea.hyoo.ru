@@ -2111,6 +2111,7 @@ declare namespace $ {
         person(next?: $hyoo_idea_person): $hyoo_idea_person;
         logo_node(): $hyoo_crowd_blob;
         logo(): string;
+        brief(next?: string): string;
         name(next?: string): string;
         description_node(): $hyoo_crowd_text;
         description(next?: string): string;
@@ -2752,13 +2753,24 @@ declare namespace $.$$ {
 
 declare namespace $ {
     class $hyoo_idea_person_avatar extends $mol_view {
+        blob(): any;
+        placeholder(): string;
         sub(): readonly any[];
         uri(): string;
+        link(): string;
         Image(): $$.$mol_image2;
     }
 }
 
 declare namespace $.$$ {
+}
+
+declare namespace $.$$ {
+    class $hyoo_idea_person_avatar extends $.$hyoo_idea_person_avatar {
+        blob_exists(): boolean;
+        placeholder(): string;
+        uri(): any;
+    }
 }
 
 declare namespace $ {
@@ -3754,7 +3766,7 @@ declare namespace $ {
         avatar(): string;
         post(): $hyoo_idea_post;
         rows(): readonly any[];
-        Avatar(): $hyoo_idea_person_avatar;
+        Avatar(): $$.$hyoo_idea_person_avatar;
         person_id(): string;
         author_name(): string;
         Name(): $$.$mol_link;
@@ -3807,6 +3819,15 @@ declare namespace $.$$ {
         posts(): $hyoo_idea_post_full[];
         post(obj: $hyoo_idea_post): $hyoo_idea_post;
     }
+}
+
+declare namespace $ {
+    class $hyoo_idea_project_logo extends $hyoo_idea_person_avatar {
+        placeholder(): string;
+    }
+}
+
+declare namespace $.$$ {
 }
 
 declare namespace $ {
@@ -3917,13 +3938,12 @@ declare namespace $ {
     class $hyoo_idea_project_form extends $mol_form {
         name(next?: any): string;
         logo_node(): $hyoo_crowd_blob;
-        logo(): string;
         description_node(): $hyoo_crowd_text;
         description(next?: any): string;
         team(next?: any): $hyoo_idea_person[];
         project(): $hyoo_idea_project;
         form_fields(): readonly any[];
-        Logo(): $$.$mol_image2;
+        Logo(): $hyoo_idea_project_logo;
         logo_add(next?: any): readonly any[];
         Logo_upload(): $mol_button_open;
         logo_drop(next?: any): any;
@@ -3997,6 +4017,28 @@ declare namespace $ {
 }
 
 declare namespace $ {
+    class $hyoo_idea_project_card extends $mol_row {
+        id(): `${string}_${string}`;
+        logo_node(): $hyoo_crowd_blob;
+        brief(): string;
+        project(): $hyoo_idea_project;
+        default_name(): string;
+        sub(): readonly any[];
+        Logo(): $hyoo_idea_project_logo;
+        project_name(): string;
+        Name(): $$.$mol_link;
+        Brief(): $$.$mol_paragraph;
+        List(): $$.$mol_list;
+    }
+}
+
+declare namespace $.$$ {
+    class $hyoo_idea_project_card extends $.$hyoo_idea_project_card {
+        project_name(): string;
+    }
+}
+
+declare namespace $ {
     class $hyoo_idea_project_list extends $mol_page {
         domain(): $hyoo_idea_domain;
         projects(): readonly $hyoo_idea_project[];
@@ -4011,10 +4053,8 @@ declare namespace $ {
         Empty_add(): $mol_button_minor;
         empty(): readonly any[];
         Empty(): $mol_view;
-        project_id(id: any): string;
-        nameless_project(): string;
-        project_name(id: any): string;
-        Project(id: any): $$.$mol_link;
+        project(id: any): $hyoo_idea_project;
+        Card(id: any): $$.$hyoo_idea_project_card;
         project_rows(): readonly any[];
         Projects(): $$.$mol_list;
     }
@@ -4030,9 +4070,8 @@ declare namespace $.$$ {
         tools(): $mol_button_minor[];
         empty(): (string | $mol_button_minor)[];
         projects(): $hyoo_idea_project[];
-        project_rows(): $mol_view[];
-        project_id(obj: $hyoo_idea_project): `${string}_${string}`;
-        project_name(obj: $hyoo_idea_project): string;
+        project_rows(): $mol_view[] | $hyoo_idea_project_card[];
+        project(obj: $hyoo_idea_project): $hyoo_idea_project;
         add(): void;
     }
 }
@@ -4481,7 +4520,7 @@ declare namespace $.$$ {
 
 declare namespace $ {
     class $hyoo_idea_person_form extends $mol_form {
-        avatar(): string;
+        avatar_node(): $hyoo_crowd_blob;
         name_user(next?: any): string;
         status(next?: any): string;
         about(next?: any): string;
@@ -4489,7 +4528,6 @@ declare namespace $ {
         name_family(next?: any): string;
         name_father(next?: any): string;
         sex(next?: any): string;
-        date_birth(next?: any): $mol_time_moment | null;
         nationality(next?: any): string;
         country(next?: any): string;
         city(next?: any): string;
@@ -4502,7 +4540,7 @@ declare namespace $ {
             required: string;
         };
         form_fields(): readonly any[];
-        Avatar(): $hyoo_idea_person_avatar;
+        Avatar(): $$.$hyoo_idea_person_avatar;
         avatar_file(next?: any): readonly any[];
         Avatar_upload(): $mol_button_open;
         avatar_drop(next?: any): any;
@@ -4526,6 +4564,7 @@ declare namespace $ {
         Name_group(): $mol_form_group;
         Sex_control(): $$.$mol_switch;
         Sex_field(): $$.$mol_form_field;
+        date_birth(next?: any): $mol_time_moment;
         Date_birth_control(): $$.$mol_date;
         Date_birth_field(): $$.$mol_form_field;
         Body_group(): $mol_form_group;
@@ -4633,6 +4672,7 @@ declare namespace $.$$ {
     export class $hyoo_idea_person_form extends $.$hyoo_idea_person_form {
         avatar_file(next?: File[]): readonly any[];
         avatar_drop(): void;
+        date_birth(next?: $mol_time_moment): $mol_time_moment;
         job_rows(): $mol_list[];
         job_add(): void;
         job_drop(id: number): void;
@@ -4739,7 +4779,7 @@ declare namespace $.$$ {
 declare namespace $ {
     class $hyoo_idea_person_page extends $mol_page {
         domain(): $hyoo_idea_domain;
-        avatar(): string;
+        avatar_node(): $hyoo_crowd_blob;
         name_short(): string;
         status(): string;
         about(): string;
@@ -4757,7 +4797,7 @@ declare namespace $ {
         Edit_icon(): $mol_icon_pencil;
         editing(next?: any): boolean;
         Edit_button(): $mol_check_icon;
-        Avatar(): $hyoo_idea_person_avatar;
+        Avatar(): $$.$hyoo_idea_person_avatar;
         Name(): $$.$mol_paragraph;
         Status(): $$.$mol_paragraph;
         Face_list(): $$.$mol_list;

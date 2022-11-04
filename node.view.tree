@@ -299,9 +299,11 @@ $mol_image2 $mol_view
 				backgroundImage <= background \
 
 $hyoo_idea_person_avatar $mol_view
+	blob null
+	placeholder \https://robohash.org/${id}.png
 	sub /
 		<= Image $mol_image2
-			links / <= uri \
+			links / <= link <= uri \
 
 $hyoo_idea_plural $mol_object2
 	other @ \
@@ -765,6 +767,9 @@ $hyoo_idea_feed_page $mol_page
 				<= Post*0_0 $hyoo_idea_post_full
 					post <= post* $hyoo_idea_post
 
+$hyoo_idea_project_logo $hyoo_idea_person_avatar
+	placeholder \/hyoo/idea/project/logo/placeholder.png
+
 $mol_icon_upload $mol_icon path \M9,16V10H5L12,3L19,10H15V16H9M5,20V18H19V20H5Z
 
 $mol_button_open $mol_button_minor
@@ -821,7 +826,6 @@ $hyoo_idea_project_form $mol_form
 	project $hyoo_idea_project
 		name? => name?
 		logo_node => logo_node
-		logo => logo
 		description_node => description_node
 		description? => description?
 		team? => team?
@@ -829,8 +833,7 @@ $hyoo_idea_project_form $mol_form
 		<= Logo_field $mol_form_field
 			name @ \Logo
 			control <= Logo_control $mol_row sub /
-				<= Logo $mol_image2
-					links / <= logo
+				<= Logo $hyoo_idea_project_logo blob <= logo_node
 				<= Logo_upload $mol_button_open
 					files? <=> logo_add? /
 					multiple false
@@ -878,6 +881,20 @@ $hyoo_idea_project_page $mol_page
 
 $mol_icon_plus $mol_icon path \M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z
 
+$hyoo_idea_project_card $mol_row
+	project $hyoo_idea_project
+		id => id
+		logo_node => logo_node
+		brief => brief
+	default_name @ \Untitled Project
+	sub /
+		<= Logo $hyoo_idea_project_logo blob <= logo_node
+		<= List $mol_list rows /
+			<= Name $mol_link
+				arg * project <= id
+				title <= project_name \
+			<= Brief $mol_paragraph title <= brief
+
 $hyoo_idea_project_list $mol_page
 	domain $hyoo_idea_domain
 	projects /$hyoo_idea_project
@@ -896,9 +913,8 @@ $hyoo_idea_project_list $mol_page
 					minimal_height 24
 					title @ \Create project.
 					click? <=> add?
-			<= Project*0_0 $mol_link
-				arg * project <= project_id* \
-				sub / <= project_name* <= nameless_project @ \Untitled Project
+			<= Card*0_0 $hyoo_idea_project_card
+				project <= project* $hyoo_idea_project
 
 $mol_check_list $mol_view
 	Option* $mol_check
@@ -1094,7 +1110,7 @@ $mol_deck $mol_list
 
 $hyoo_idea_person_form $mol_form
 	person $hyoo_idea_person
-		avatar => avatar
+		avatar_node => avatar_node
 		name_user? => name_user?
 		status? => status?
 		about? => about?
@@ -1102,7 +1118,6 @@ $hyoo_idea_person_form $mol_form
 		name_family? => name_family?
 		name_father? => name_father?
 		sex? => sex?
-		date_birth? => date_birth?
 		nationality? => nationality?
 		country? => country?
 		city? => city?
@@ -1122,7 +1137,7 @@ $hyoo_idea_person_form $mol_form
 							name @ \Avatar
 							control <= Avatar_control $mol_row sub /
 								<= Avatar $hyoo_idea_person_avatar
-									uri <= avatar
+									blob <= avatar_node
 								<= Avatar_upload $mol_button_open
 									files? <=> avatar_file? /
 									multiple false
@@ -1175,7 +1190,7 @@ $hyoo_idea_person_form $mol_form
 							<= Date_birth_field $mol_form_field
 								name @ \Date of Birth
 								control <= Date_birth_control $mol_date
-									value_moment? <=> date_birth?
+									value_moment? <=> date_birth? $mol_time_moment
 						<= Nationality_field $mol_form_field
 							name @ \Nationality
 							control <= Nationality_control $mol_string
@@ -1347,7 +1362,7 @@ $hyoo_idea_post_add $mol_bar
 $hyoo_idea_person_page $mol_page
 	person $hyoo_idea_person
 		domain => domain
-		avatar => avatar
+		avatar_node => avatar_node
 		name_short => name_short
 		status => status
 		about => about
@@ -1366,7 +1381,7 @@ $hyoo_idea_person_page $mol_page
 		person <= person
 	body /
 		<= Face $mol_row sub /
-			<= Avatar $hyoo_idea_person_avatar uri <= avatar
+			<= Avatar $hyoo_idea_person_avatar blob <= avatar_node
 			<= Face_list $mol_list rows /
 				<= Name $mol_paragraph title <= name_short
 				<= Status $mol_paragraph title <= status

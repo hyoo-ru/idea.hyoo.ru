@@ -81,6 +81,67 @@ $hyoo_sync_online $mol_link
 		^
 		title <= message <= hint \$hyoo_sync
 
+$mol_theme_auto $mol_plugin
+	attr * mol_theme <= theme \
+
+$mol_speck $mol_view
+	attr *
+		^
+		mol_theme \$mol_theme_accent
+	style *
+		^
+		minHeight \1em
+	sub /
+		<= value null
+
+$mol_button $mol_view
+	enabled true
+	click?event null
+	event_click?event null
+	event *
+		^
+		click?event <=> event_activate?event null
+		dblclick?event <=> clicks?event null
+		keydown?event <=> event_key_press?event null 
+	attr *
+		^
+		disabled <= disabled false
+		role \button
+		tabindex <= tab_index 0
+		title <= hint_safe <= hint \
+	sub /$mol_view_content
+		<= title
+	Speck $mol_speck
+		value <= error \
+
+$mol_button_typed $mol_button
+	minimal_height 40
+	minimal_width 40
+
+$mol_button_minor $mol_button_typed
+
+$mol_check $mol_button_minor
+	attr *
+		^
+		mol_check_checked <= checked?val false
+		aria-checked <= checked?val false
+		role \checkbox
+	sub /$mol_view_content
+		<= Icon null
+		<= label /
+			<= Title $mol_view
+				sub /
+					<= title \
+
+$mol_check_icon $mol_check
+
+$mol_icon_brightness_6 $mol_icon path \M12,18V6C15.31,6 18,8.69 18,12C18,15.31 15.31,18 12,18M20,15.31L23.31,12L20,8.69V4H15.31L12,0.69L8.69,4H4V8.69L0.69,12L4,15.31V20H8.69L12,23.31L15.31,20H20V15.31Z
+
+$mol_lights_toggle $mol_check_icon
+	Icon <= Lights_icon $mol_icon_brightness_6
+	hint @ \Toggle lights
+	checked?val <=> lights?val false
+
 $mol_list $mol_view
 	render_visible_only true
 	render_over 0
@@ -204,40 +265,6 @@ $mol_form_group $mol_view
 $mol_format $mol_string
 	allow \0123456789
 	hint <= mask*0 \
-
-$mol_speck $mol_view
-	attr *
-		^
-		mol_theme \$mol_theme_accent
-	style *
-		^
-		minHeight \1em
-	sub /
-		<= value null
-
-$mol_button $mol_view
-	enabled true
-	click?event null
-	event_click?event null
-	event *
-		^
-		click?event <=> event_activate?event null
-		dblclick?event <=> clicks?event null
-		keydown?event <=> event_key_press?event null 
-	attr *
-		^
-		disabled <= disabled false
-		role \button
-		tabindex <= tab_index 0
-		title <= hint_safe <= hint \
-	sub /$mol_view_content
-		<= title
-	Speck $mol_speck
-		value <= error \
-
-$mol_button_typed $mol_button
-	minimal_height 40
-	minimal_width 40
 
 $mol_button_major $mol_button_typed
 	attr *
@@ -381,21 +408,6 @@ $mol_pop_bubble $mol_scroll
 		^
 		mol_pop_align <= align \
 		tabindex 0
-
-$mol_button_minor $mol_button_typed
-
-$mol_check $mol_button_minor
-	attr *
-		^
-		mol_check_checked <= checked?val false
-		aria-checked <= checked?val false
-		role \checkbox
-	sub /$mol_view_content
-		<= Icon null
-		<= label /
-			<= Title $mol_view
-				sub /
-					<= title \
 
 $mol_pick $mol_pop
 	event *
@@ -702,8 +714,6 @@ $mol_icon_lightbulb $mol_icon path \M12,2C8.13,2 5,5.13 5,9C5,11.38 6.19,13.47 8
 
 $mol_icon_lightbulb_on $mol_icon path \M12,6C15.31,6 18,8.69 18,12C18,14.22 16.79,16.16 15,17.2V19C15,19.55 14.55,20 14,20H10C9.45,20 9,19.55 9,19V17.2C7.21,16.16 6,14.22 6,12C6,8.69 8.69,6 12,6M14,21V22C14,22.55 13.55,23 13,23H11C10.45,23 10,22.55 10,22V21H14M20,11H23V13H20V11M1,11H4V13H1V11M13,1V4H11V1H13M4.92,3.5L7.05,5.64L5.63,7.05L3.5,4.93L4.92,3.5M16.95,5.63L19.07,3.5L20.5,4.93L18.37,7.05L16.95,5.63Z
 
-$mol_check_icon $mol_check
-
 $mol_icon_comment $mol_icon path \M9,22C8.45,22 8,21.55 8,21V18H4C2.9,18 2,17.1 2,16V4C2,2.89 2.9,2 4,2H20C21.1,2 22,2.9 22,4V16C22,17.1 21.1,18 20,18H13.9L10.2,21.71C10,21.9 9.75,22 9.5,22V22H9Z
 
 $mol_icon_comment_text $mol_icon path \M9,22C8.45,22 8,21.55 8,21V18H4C2.9,18 2,17.1 2,16V4C2,2.89 2.9,2 4,2H20C21.1,2 22,2.9 22,4V16C22,17.1 21.1,18 20,18H13.9L10.2,21.71C10,21.9 9.75,22 9.5,22V22H9M5,5V7H19V5H5M5,9V11H13V9H5M5,13V15H15V13H5Z
@@ -854,6 +864,16 @@ $hyoo_idea_project_form $mol_form
 
 $mol_icon_pencil $mol_icon path \M20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18,2.9 17.35,2.9 16.96,3.29L15.12,5.12L18.87,8.87M3,17.25V21H6.75L17.81,9.93L14.06,6.18L3,17.25Z
 
+$hyoo_idea_project_stage $mol_view
+	stages *
+		idea @ \Idea
+		teambuilding @ \Teambuilding
+		prototyping @ \Prototyping
+		pilot @ \Pilot
+		monetization @ \Monetization
+	stage \idea
+	sub / <= label \
+
 $hyoo_idea_project_page $mol_page
 	project $hyoo_idea_project
 		domain => domain
@@ -878,6 +898,7 @@ $hyoo_idea_project_page $mol_page
 				<= Face $mol_list rows /
 					<= Project_logo $mol_image2 links / <= logo
 					<= Name $mol_paragraph title <= name
+		<= Stage $hyoo_idea_project_stage stage \idea
 
 $mol_icon_plus $mol_icon path \M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z
 
@@ -1458,11 +1479,15 @@ $hyoo_idea_app $mol_book2
 	domain $hyoo_idea_domain
 		yard => yard
 		user => user
+	plugins /
+		<= Theme $mol_theme_auto
 	Online $hyoo_sync_online
 		yard <= yard
 	pages /
 		<= Menu $mol_page
 			title @ \$hyoo_idea
+			tools /
+				<= Lights $mol_lights_toggle
 			body /
 				<= Links $mol_list
 					rows /

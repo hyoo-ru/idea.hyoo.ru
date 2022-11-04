@@ -1,29 +1,42 @@
 $hyoo_idea_project_form $mol_form
 	project $hyoo_idea_project
 		name? => name?
+		brief? => brief?
 		logo_node => logo_node
 		description_node => description_node
 		description? => description?
 		team? => team?
 	form_fields /
-		<= Logo_field $mol_form_field
-			name @ \Logo
-			control <= Logo_control $mol_row sub /
-				<= Logo $hyoo_idea_project_logo blob <= logo_node
-				<= Logo_upload $mol_button_open
-					files? <=> logo_add? /
-					multiple false
-					accept \image/*
-				<= Logo_drop $mol_button_minor
-					hint @ \Remove logo
-					click? <=> logo_drop? null
-					sub / <= Logo_drop_icon $mol_icon_cross
-		<= Name_field $mol_form_field
-			name @ \Project Name
-			control <= Name_control $mol_textarea
-				value? <=> name?
-		<= Description_field $mol_form_field
-			name @ \Description 
-			control <= Description_control $mol_textarea
-				value? <=> description?
-				selection? <=> description_selection? /number
+		<= Deck $mol_deck items /
+			<= Project $mol_form
+				title @ \Project
+				form_fields /
+					<= Logo_field $mol_form_field
+						name @ \Logo
+						control <= Logo_control $mol_row sub /
+							<= Logo $hyoo_idea_project_logo blob <= logo_node
+							<= Logo_upload $mol_button_open
+								files? <=> logo_add? /
+								multiple false
+								accept \image/*
+							<= Logo_drop $mol_button_minor
+								hint @ \Remove logo
+								click? <=> logo_drop? null
+								sub / <= Logo_drop_icon $mol_icon_cross
+					<= Name_field $mol_form_field
+						name @ \Name
+						control <= Name_control $mol_textarea
+							value? <=> name?
+					<= Brief_field $mol_form_field
+						name @ \Brief
+						control <= Brief_control $mol_textarea
+							value? <=> brief?
+					<= Description_field $mol_form_field
+						name @ \Description 
+						control <= Description_control $mol_textarea
+							value? <=> description?
+							selection? <=> description_selection? /number
+			<= Team $mol_form
+				title @ \Team
+				form_fields /
+					\team

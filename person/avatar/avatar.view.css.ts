@@ -4,16 +4,16 @@ namespace $.$$ {
 
 	$mol_style_define( $hyoo_idea_person_avatar, {
 
-		width: rem(10),
-		height: rem(10),
+		width: rem(5),
+		height: rem(5),
 		justifyContent: 'center',
 
 		Image: {
-			width: per(100),
-			height: per(100),
 			border: {
 				radius: per(50),
 			},
+			width: per(100),
+			height: per(100),
 			box: {
 				shadow: [{
 					x: 0,

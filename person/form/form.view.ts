@@ -18,6 +18,10 @@ namespace $.$$ {
 			this.person().avatar_node().list([])
 		}
 
+		date_birth(next?: $mol_time_moment) {
+			return this.person().date_birth(next)!
+		}
+
 		@ $mol_mem
 		job_rows() {
 			return this.person().jobs().map( (_,id) => this.Job_form(id) ).reverse()

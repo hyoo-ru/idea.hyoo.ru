@@ -16,6 +16,5 @@ $hyoo_idea_project_list $mol_page
 					minimal_height 24
 					title @ \Create project.
 					click? <=> add?
-			<= Project*0_0 $mol_link
-				arg * project <= project_id* \
-				sub / <= project_name* <= nameless_project @ \Untitled Project
+			<= Card*0_0 $hyoo_idea_project_card
+				project <= project* $hyoo_idea_project

@@ -1,7 +1,7 @@
 $hyoo_idea_person_page $mol_page
 	person $hyoo_idea_person
 		domain => domain
-		avatar => avatar
+		avatar_node => avatar_node
 		name_short => name_short
 		status => status
 		about => about
@@ -20,7 +20,7 @@ $hyoo_idea_person_page $mol_page
 		person <= person
 	body /
 		<= Face $mol_row sub /
-			<= Avatar $hyoo_idea_person_avatar uri <= avatar
+			<= Avatar $hyoo_idea_person_avatar blob <= avatar_node
 			<= Face_list $mol_list rows /
 				<= Name $mol_paragraph title <= name_short
 				<= Status $mol_paragraph title <= status

@@ -19,6 +19,11 @@ namespace $ {
 		}
 
 		@ $mol_mem
+		brief( next?: string ) {
+			return this.state().sub( 'brief', $hyoo_crowd_reg ).str( next )
+		}
+
+		@ $mol_mem
 		name( next?: string ) {
 			return this.state().sub( 'name', $hyoo_crowd_reg ).str( next )
 		}

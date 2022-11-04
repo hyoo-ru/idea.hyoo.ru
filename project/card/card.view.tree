@@ -1,0 +1,13 @@
+$hyoo_idea_project_card $mol_row
+	project $hyoo_idea_project
+		id => id
+		logo_node => logo_node
+		brief => brief
+	default_name @ \Untitled Project
+	sub /
+		<= Logo $hyoo_idea_project_logo blob <= logo_node
+		<= List $mol_list rows /
+			<= Name $mol_link
+				arg * project <= id
+				title <= project_name \
+			<= Brief $mol_paragraph title <= brief

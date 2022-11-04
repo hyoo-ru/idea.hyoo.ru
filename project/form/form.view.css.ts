@@ -5,7 +5,8 @@ namespace $.$$ {
 	$mol_style_define( $.$hyoo_idea_project_form, {
 
 		Logo: {
-			width: rem(4),
+			width: rem(5),
+			height: rem(5),
 		},
 
 		Logo_control: {

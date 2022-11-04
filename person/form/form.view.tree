@@ -1,6 +1,6 @@
 $hyoo_idea_person_form $mol_form
 	person $hyoo_idea_person
-		avatar => avatar
+		avatar_node => avatar_node
 		name_user? => name_user?
 		status? => status?
 		about? => about?
@@ -8,7 +8,6 @@ $hyoo_idea_person_form $mol_form
 		name_family? => name_family?
 		name_father? => name_father?
 		sex? => sex?
-		date_birth? => date_birth?
 		nationality? => nationality?
 		country? => country?
 		city? => city?
@@ -28,7 +27,7 @@ $hyoo_idea_person_form $mol_form
 							name @ \Avatar
 							control <= Avatar_control $mol_row sub /
 								<= Avatar $hyoo_idea_person_avatar
-									uri <= avatar
+									blob <= avatar_node
 								<= Avatar_upload $mol_button_open
 									files? <=> avatar_file? /
 									multiple false
@@ -81,7 +80,7 @@ $hyoo_idea_person_form $mol_form
 							<= Date_birth_field $mol_form_field
 								name @ \Date of Birth
 								control <= Date_birth_control $mol_date
-									value_moment? <=> date_birth?
+									value_moment? <=> date_birth? $mol_time_moment
 						<= Nationality_field $mol_form_field
 							name @ \Nationality
 							control <= Nationality_control $mol_string

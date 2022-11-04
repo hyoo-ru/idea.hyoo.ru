@@ -31,15 +31,11 @@ namespace $.$$ {
 		project_rows() {
 			if (this.projects().length === 0) return [this.Empty()]
 
-			return this.projects().map( obj => this.Project(obj) )
+			return this.projects().map( obj => this.Card(obj) )
 		}
-
-		project_id( obj: $hyoo_idea_project ) {
-			return obj.id()
-		}
-
-		project_name( obj: $hyoo_idea_project ) {
-			return obj.name() || this.nameless_project()
+		
+		project( obj: $hyoo_idea_project ) {
+			return obj
 		}
 
 		add() {

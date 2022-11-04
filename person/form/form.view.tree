@@ -1,7 +1,6 @@
 $hyoo_idea_person_form $mol_form
 	person $hyoo_idea_person
 		avatar_node => avatar_node
-		name_user? => name_user?
 		status? => status?
 		about? => about?
 		name? => name?
@@ -35,11 +34,6 @@ $hyoo_idea_person_form $mol_form
 								hint @ \Remove avatar
 								click? <=> avatar_drop? null
 								sub / <= Avatar_drop_icon $mol_icon_cross
-					<= Name_user_field $mol_form_field
-						name @ \Username
-						control <= Name_user_control $mol_string
-							hint @ \Neo
-							value? <=> name_user?
 					<= Status_field $mol_form_field
 						name @ \Status
 						control <= Status_control $mol_string

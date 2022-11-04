@@ -832,35 +832,71 @@ $mol_textarea_edit $mol_string
 		^
 		scrollTop 0
 
+$mol_check_list $mol_view
+	Option* $mol_check
+		checked?val <=> option_checked*?val false
+		label <= option_label* /
+			<= option_title* \
+		enabled <= option_enabled* <= enabled true
+		hint <= option_hint* \
+		minimal_height 24
+	options *
+	keys /string
+	sub <= items /$mol_check
+
+$mol_switch $mol_check_list
+	value?val \
+
+$mol_deck $mol_list
+	items /$mol_view
+	rows /$mol_view
+		<= Switch $mol_switch
+			value?val <=> current?val \0
+			options <= switch_options *
+		<= Content $mol_view
+
 $hyoo_idea_project_form $mol_form
 	project $hyoo_idea_project
 		name? => name?
+		brief? => brief?
 		logo_node => logo_node
 		description_node => description_node
 		description? => description?
 		team? => team?
 	form_fields /
-		<= Logo_field $mol_form_field
-			name @ \Logo
-			control <= Logo_control $mol_row sub /
-				<= Logo $hyoo_idea_project_logo blob <= logo_node
-				<= Logo_upload $mol_button_open
-					files? <=> logo_add? /
-					multiple false
-					accept \image/*
-				<= Logo_drop $mol_button_minor
-					hint @ \Remove logo
-					click? <=> logo_drop? null
-					sub / <= Logo_drop_icon $mol_icon_cross
-		<= Name_field $mol_form_field
-			name @ \Project Name
-			control <= Name_control $mol_textarea
-				value? <=> name?
-		<= Description_field $mol_form_field
-			name @ \Description 
-			control <= Description_control $mol_textarea
-				value? <=> description?
-				selection? <=> description_selection? /number
+		<= Deck $mol_deck items /
+			<= Project $mol_form
+				title @ \Project
+				form_fields /
+					<= Logo_field $mol_form_field
+						name @ \Logo
+						control <= Logo_control $mol_row sub /
+							<= Logo $hyoo_idea_project_logo blob <= logo_node
+							<= Logo_upload $mol_button_open
+								files? <=> logo_add? /
+								multiple false
+								accept \image/*
+							<= Logo_drop $mol_button_minor
+								hint @ \Remove logo
+								click? <=> logo_drop? null
+								sub / <= Logo_drop_icon $mol_icon_cross
+					<= Name_field $mol_form_field
+						name @ \Name
+						control <= Name_control $mol_textarea
+							value? <=> name?
+					<= Brief_field $mol_form_field
+						name @ \Brief
+						control <= Brief_control $mol_textarea
+							value? <=> brief?
+					<= Description_field $mol_form_field
+						name @ \Description 
+						control <= Description_control $mol_textarea
+							value? <=> description?
+							selection? <=> description_selection? /number
+			<= Team $mol_form
+				title @ \Team
+				form_fields /
+					\team
 
 $mol_icon_pencil $mol_icon path \M20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18,2.9 17.35,2.9 16.96,3.29L15.12,5.12L18.87,8.87M3,17.25V21H6.75L17.81,9.93L14.06,6.18L3,17.25Z
 
@@ -936,21 +972,6 @@ $hyoo_idea_project_list $mol_page
 					click? <=> add?
 			<= Card*0_0 $hyoo_idea_project_card
 				project <= project* $hyoo_idea_project
-
-$mol_check_list $mol_view
-	Option* $mol_check
-		checked?val <=> option_checked*?val false
-		label <= option_label* /
-			<= option_title* \
-		enabled <= option_enabled* <= enabled true
-		hint <= option_hint* \
-		minimal_height 24
-	options *
-	keys /string
-	sub <= items /$mol_check
-
-$mol_switch $mol_check_list
-	value?val \
 
 $mol_icon_calendar $mol_icon path \M19,19H5V8H19M16,1V3H8V1H6V3H5C3.89,3 3,3.89 3,5V19C3,20.1 3.9,21 5,21H19C20.1,21 21,20.1 21,19V5C21,3.89 20.1,3 19,3H18V1M17,12H12V17H17V12Z
 
@@ -1121,14 +1142,6 @@ $mol_check_box $mol_check
 
 $mol_icon_delete $mol_icon path \M19,4H15.5L14.5,3H9.5L8.5,4H5V6H19M6,19C6,20.1 6.9,21 8,21H16C17.1,21 18,20.1 18,19V7H6V19Z
 
-$mol_deck $mol_list
-	items /$mol_view
-	rows /$mol_view
-		<= Switch $mol_switch
-			value?val <=> current?val \0
-			options <= switch_options *
-		<= Content $mol_view
-
 $hyoo_idea_person_form $mol_form
 	person $hyoo_idea_person
 		avatar_node => avatar_node
@@ -1149,206 +1162,205 @@ $hyoo_idea_person_form $mol_form
 	msg *
 		required @ \Required
 	form_fields /
-		<= Info $mol_deck
-			items /
-				<= Profile $mol_form
-					title @ \Profile
-					form_fields /
-						<= Avatar_field $mol_form_field
-							name @ \Avatar
-							control <= Avatar_control $mol_row sub /
-								<= Avatar $hyoo_idea_person_avatar
-									blob <= avatar_node
-								<= Avatar_upload $mol_button_open
-									files? <=> avatar_file? /
-									multiple false
-									accept \image/*
-								<= Avatar_drop $mol_button_minor
-									hint @ \Remove avatar
-									click? <=> avatar_drop? null
-									sub / <= Avatar_drop_icon $mol_icon_cross
-						<= Name_user_field $mol_form_field
-							name @ \Username
-							control <= Name_user_control $mol_string
-								hint @ \Neo
-								value? <=> name_user?
-						<= Status_field $mol_form_field
-							name @ \Status
-							control <= Status_control $mol_string
-								hint @ \What are you doing?
-								value? <=> status?
-						<= About_field $mol_form_field
-							name @ \About
-							control <= About_control $mol_textarea
-								hint @ \Tell us about yourself
-								value? <=> about?
-				<= Personal $mol_form
-					title @ \Personal
-					form_fields /
-						<= Name_group $mol_form_group sub /
-							<= Name_field $mol_form_field
-								name @ \Name
-								control <= Name_control $mol_string
-									hint @ \Thomas
-									value? <=> name?
-							<= Name_family_field $mol_form_field
-								name @ \Family Name
-								control <= Name_family_control $mol_string
-									hint @ \Andreson
-									value? <=> name_family?
-							<= Name_father_field $mol_form_field
-								name @ \Father's Name
-								control <= Name_father_control $mol_string
-									value? <=> name_father?
-						<= Body_group $mol_form_group sub /
-							<= Sex_field $mol_form_field
-								name @ \Sex
-								control <= Sex_control $mol_switch
-									value? <=> sex?
-									options *
-										male @ \Male
-										female @ \Female
-							<= Date_birth_field $mol_form_field
-								name @ \Date of Birth
-								control <= Date_birth_control $mol_date
-									value_moment? <=> date_birth? $mol_time_moment
-						<= Nationality_field $mol_form_field
-							name @ \Nationality
-							control <= Nationality_control $mol_string
-								value? <=> nationality?
-				<= Location $mol_form
-					title @ \Location
-					form_fields /
-						<= Country_field $mol_form_field
-							name @ \Country
-							control <= Country_control $mol_string
-								hint @ \Russia
-								value? <=> country?
-						<= City_field $mol_form_field
-							name @ \City
-							control <= City_control $mol_string
-								hint @ \Moscow
-								value? <=> city?
-				<= Contacts $mol_form
-					title @ \Contacts
-					form_fields /
-						<= Phone_field $mol_form_field
-							name @ \Phone
-							control <= Phone_control $mol_phone
-								value? <=> phone?
-						<= Email_field $mol_form_field
-							name @ \Email
-							control <= Email_control $mol_string
-								hint @ \my_email@mail.ru
-								value? <=> email?
-				<= Work $mol_form
-					title @ \Work
-					form_fields /
-						- \job_status skills languages position company industry functions date_start date_end
-						<= Job_status_field $mol_form_field
-							name @ \Job status
-							control <= Job_status_control $mol_switch
-								value? <=> job_status?
+		<= Deck $mol_deck items /
+			<= Profile $mol_form
+				title @ \Profile
+				form_fields /
+					<= Avatar_field $mol_form_field
+						name @ \Avatar
+						control <= Avatar_control $mol_row sub /
+							<= Avatar $hyoo_idea_person_avatar
+								blob <= avatar_node
+							<= Avatar_upload $mol_button_open
+								files? <=> avatar_file? /
+								multiple false
+								accept \image/*
+							<= Avatar_drop $mol_button_minor
+								hint @ \Remove avatar
+								click? <=> avatar_drop? null
+								sub / <= Avatar_drop_icon $mol_icon_cross
+					<= Name_user_field $mol_form_field
+						name @ \Username
+						control <= Name_user_control $mol_string
+							hint @ \Neo
+							value? <=> name_user?
+					<= Status_field $mol_form_field
+						name @ \Status
+						control <= Status_control $mol_string
+							hint @ \What are you doing?
+							value? <=> status?
+					<= About_field $mol_form_field
+						name @ \About
+						control <= About_control $mol_textarea
+							hint @ \Tell us about yourself
+							value? <=> about?
+			<= Personal $mol_form
+				title @ \Personal
+				form_fields /
+					<= Name_group $mol_form_group sub /
+						<= Name_field $mol_form_field
+							name @ \Name
+							control <= Name_control $mol_string
+								hint @ \Thomas
+								value? <=> name?
+						<= Name_family_field $mol_form_field
+							name @ \Family Name
+							control <= Name_family_control $mol_string
+								hint @ \Andreson
+								value? <=> name_family?
+						<= Name_father_field $mol_form_field
+							name @ \Father's Name
+							control <= Name_father_control $mol_string
+								value? <=> name_father?
+					<= Body_group $mol_form_group sub /
+						<= Sex_field $mol_form_field
+							name @ \Sex
+							control <= Sex_control $mol_switch
+								value? <=> sex?
 								options *
-									working_for_hire @ \Working for hire
-									self_employed @ \Self-employed
-									unemployed @ \Unemployed
-						<= Skills_field $mol_form_field
-							name @ \Skills
-							control <= Skills_control $mol_select_list
-								value? <=> skills?
-								dictionary <= skills_dict *
-									programming @ \Programming
-									design @ \Design
-									managment @ \Managment
-						<= Jobs_field $mol_form_field
-							label /
-								<= jobs_field_name @ \Experience
-								<= Job_add $mol_button_minor
-									sub / <= Job_add_icon $mol_icon_plus
-									click? <=> job_add? null
-							Content <= Jobs_content $mol_list
-								rows <= job_rows /
-									<= Job_form*0 $mol_list
-										rows /
-											<= Employer_group* $mol_form_group sub /
-												<= Position_field* $mol_form_field
-													name @ \Position
-													control <= Position_control* $mol_string
-														value? <=> position*? \
-											<= Date_group* $mol_form_group sub /
-												<= Date_start_field* $mol_form_field
-													name @ \Start date
-													control <= Date_start_control* $mol_date
-														value_moment? <=> date_start*? null
-												<= Date_end_field* $mol_form_field
-													name @ \End date
-													Content <= Date_end_content* $mol_view sub /
-														<= Date_end_control* $mol_date
-															value_moment? <=> date_end*? null
-														<= Up_to_present_control* $mol_check_box
-															title @ \Up to present
-															checked? <=> present*? false
-											<= Company_group* $mol_form_group sub /
-												<= Company_field* $mol_form_field
-													name @ \Company
-													control <= Company_control* $mol_string
-														value? <=> company*? \
-												<= Industry_field* $mol_form_field
-													name @ \Industry
-													control <= Industry_contrl* $mol_string
-														value? <=> industry*? \
-											<= Functions_field* $mol_form_field
-												name @ \Functions
-												control <= Functions_control* $mol_textarea
-													hint @ \Your job functions
-													value? <=> functions*? \
-											<= Job_drop_row* $mol_row sub /
-												<= Job_drop* $mol_button_minor
-													sub / <= Job_drop_icon* $mol_icon_delete
-													click? <=> job_drop*? null
-				<= Education $mol_form
-					title @ \Education
-					form_fields /
-						<= Institutions_field $mol_form_field
-							label /
-								<= institutions_field_name @ \Institutions
-								<= Institution_add $mol_button_minor
-									sub / <= Institution_add_icon $mol_icon_plus
-									click? <=> institution_add? null
-							Content <= Institution_content $mol_list
-								rows <= institution_rows /
-									<= Institution_form*0 $mol_list rows /
-										<= Student_group* $mol_form_group sub /
-											<= Specialty_field* $mol_form_field
-												name @ \Specialty
-												control <= Specialty_control* $mol_string
-													value? <=> specialty*? \
-											<= Degree_field* $mol_form_field
-												name @ \Degree
-												control <= Degree_control* $mol_string
-													value? <=> degree*? \
-										<= Date_finish* $mol_form_field
-											name @ \Graduation date
-											control <= Date_finish_control* $mol_date
-												value_moment? <=> date_finish*? null
-										<= Institution_group* $mol_form_group sub /
-											<= Institution_field* $mol_form_field
-												name @ \Institution
-												control <= Institution_control* $mol_string
-													value? <=> institution*? \
-											<= Department_field* $mol_form_field
-												name @ \Department
-												control <= Department_control* $mol_string
-													value? <=> department*? \
-										<= Institution_drop_row* $mol_row sub /
-											<= Institution_drop* $mol_button_minor
-												sub / <= Institution_drop_icon* $mol_icon_delete
-												click? <=> institution_drop*? null
-				- <= Achivements $mol_view
-					title @ \Achivements
-					sub /
-						\patents projects publications
+									male @ \Male
+									female @ \Female
+						<= Date_birth_field $mol_form_field
+							name @ \Date of Birth
+							control <= Date_birth_control $mol_date
+								value_moment? <=> date_birth? $mol_time_moment
+					<= Nationality_field $mol_form_field
+						name @ \Nationality
+						control <= Nationality_control $mol_string
+							value? <=> nationality?
+			<= Location $mol_form
+				title @ \Location
+				form_fields /
+					<= Country_field $mol_form_field
+						name @ \Country
+						control <= Country_control $mol_string
+							hint @ \Russia
+							value? <=> country?
+					<= City_field $mol_form_field
+						name @ \City
+						control <= City_control $mol_string
+							hint @ \Moscow
+							value? <=> city?
+			<= Contacts $mol_form
+				title @ \Contacts
+				form_fields /
+					<= Phone_field $mol_form_field
+						name @ \Phone
+						control <= Phone_control $mol_phone
+							value? <=> phone?
+					<= Email_field $mol_form_field
+						name @ \Email
+						control <= Email_control $mol_string
+							hint @ \my_email@mail.ru
+							value? <=> email?
+			<= Work $mol_form
+				title @ \Work
+				form_fields /
+					- \job_status skills languages position company industry functions date_start date_end
+					<= Job_status_field $mol_form_field
+						name @ \Job status
+						control <= Job_status_control $mol_switch
+							value? <=> job_status?
+							options *
+								working_for_hire @ \Working for hire
+								self_employed @ \Self-employed
+								unemployed @ \Unemployed
+					<= Skills_field $mol_form_field
+						name @ \Skills
+						control <= Skills_control $mol_select_list
+							value? <=> skills?
+							dictionary <= skills_dict *
+								programming @ \Programming
+								design @ \Design
+								managment @ \Managment
+					<= Jobs_field $mol_form_field
+						label /
+							<= jobs_field_name @ \Experience
+							<= Job_add $mol_button_minor
+								sub / <= Job_add_icon $mol_icon_plus
+								click? <=> job_add? null
+						Content <= Jobs_content $mol_list
+							rows <= job_rows /
+								<= Job_form*0 $mol_list
+									rows /
+										<= Employer_group* $mol_form_group sub /
+											<= Position_field* $mol_form_field
+												name @ \Position
+												control <= Position_control* $mol_string
+													value? <=> position*? \
+										<= Date_group* $mol_form_group sub /
+											<= Date_start_field* $mol_form_field
+												name @ \Start date
+												control <= Date_start_control* $mol_date
+													value_moment? <=> date_start*? null
+											<= Date_end_field* $mol_form_field
+												name @ \End date
+												Content <= Date_end_content* $mol_view sub /
+													<= Date_end_control* $mol_date
+														value_moment? <=> date_end*? null
+													<= Up_to_present_control* $mol_check_box
+														title @ \Up to present
+														checked? <=> present*? false
+										<= Company_group* $mol_form_group sub /
+											<= Company_field* $mol_form_field
+												name @ \Company
+												control <= Company_control* $mol_string
+													value? <=> company*? \
+											<= Industry_field* $mol_form_field
+												name @ \Industry
+												control <= Industry_contrl* $mol_string
+													value? <=> industry*? \
+										<= Functions_field* $mol_form_field
+											name @ \Functions
+											control <= Functions_control* $mol_textarea
+												hint @ \Your job functions
+												value? <=> functions*? \
+										<= Job_drop_row* $mol_row sub /
+											<= Job_drop* $mol_button_minor
+												sub / <= Job_drop_icon* $mol_icon_delete
+												click? <=> job_drop*? null
+			<= Education $mol_form
+				title @ \Education
+				form_fields /
+					<= Institutions_field $mol_form_field
+						label /
+							<= institutions_field_name @ \Institutions
+							<= Institution_add $mol_button_minor
+								sub / <= Institution_add_icon $mol_icon_plus
+								click? <=> institution_add? null
+						Content <= Institution_content $mol_list
+							rows <= institution_rows /
+								<= Institution_form*0 $mol_list rows /
+									<= Student_group* $mol_form_group sub /
+										<= Specialty_field* $mol_form_field
+											name @ \Specialty
+											control <= Specialty_control* $mol_string
+												value? <=> specialty*? \
+										<= Degree_field* $mol_form_field
+											name @ \Degree
+											control <= Degree_control* $mol_string
+												value? <=> degree*? \
+									<= Date_finish* $mol_form_field
+										name @ \Graduation date
+										control <= Date_finish_control* $mol_date
+											value_moment? <=> date_finish*? null
+									<= Institution_group* $mol_form_group sub /
+										<= Institution_field* $mol_form_field
+											name @ \Institution
+											control <= Institution_control* $mol_string
+												value? <=> institution*? \
+										<= Department_field* $mol_form_field
+											name @ \Department
+											control <= Department_control* $mol_string
+												value? <=> department*? \
+									<= Institution_drop_row* $mol_row sub /
+										<= Institution_drop* $mol_button_minor
+											sub / <= Institution_drop_icon* $mol_icon_delete
+											click? <=> institution_drop*? null
+			- <= Achivements $mol_view
+				title @ \Achivements
+				sub /
+					\patents projects publications
 
 $hyoo_idea_profile_stats $mol_view
 

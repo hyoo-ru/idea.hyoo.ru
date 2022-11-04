@@ -3956,8 +3956,71 @@ declare namespace $.$$ {
 }
 
 declare namespace $ {
+    class $mol_check_list extends $mol_view {
+        Option(id: any): $$.$mol_check;
+        options(): {};
+        keys(): readonly string[];
+        sub(): readonly $mol_check[];
+        option_checked(id: any, val?: any): boolean;
+        option_title(id: any): string;
+        option_label(id: any): readonly any[];
+        enabled(): boolean;
+        option_enabled(id: any): boolean;
+        option_hint(id: any): string;
+        items(): readonly $mol_check[];
+    }
+}
+
+declare namespace $ {
+}
+
+declare namespace $.$$ {
+    class $mol_check_list extends $.$mol_check_list {
+        options(): {
+            [key: string]: string;
+        };
+        keys(): readonly string[];
+        items(): $mol_check[];
+        option_title(key: string): string;
+    }
+}
+
+declare namespace $ {
+    class $mol_switch extends $mol_check_list {
+        value(val?: any): string;
+    }
+}
+
+declare namespace $.$$ {
+    class $mol_switch extends $.$mol_switch {
+        value(next?: any): any;
+        option_checked(key: string, next?: boolean): boolean;
+    }
+}
+
+declare namespace $ {
+    class $mol_deck extends $mol_list {
+        items(): readonly $mol_view[];
+        rows(): readonly $mol_view[];
+        current(val?: any): string;
+        switch_options(): {};
+        Switch(): $$.$mol_switch;
+        Content(): $mol_view;
+    }
+}
+
+declare namespace $.$$ {
+    class $mol_deck extends $.$mol_deck {
+        current(next?: string): string;
+        switch_options(): Record<string, string>;
+        Content(): any;
+    }
+}
+
+declare namespace $ {
     class $hyoo_idea_project_form extends $mol_form {
         name(next?: any): string;
+        brief(next?: any): string;
         logo_node(): $hyoo_crowd_blob;
         description_node(): $hyoo_crowd_text;
         description(next?: any): string;
@@ -3974,9 +4037,14 @@ declare namespace $ {
         Logo_field(): $$.$mol_form_field;
         Name_control(): $$.$mol_textarea;
         Name_field(): $$.$mol_form_field;
+        Brief_control(): $$.$mol_textarea;
+        Brief_field(): $$.$mol_form_field;
         description_selection(next?: any): readonly number[];
         Description_control(): $$.$mol_textarea;
         Description_field(): $$.$mol_form_field;
+        Project(): $$.$mol_form;
+        Team(): $$.$mol_form;
+        Deck(): $$.$mol_deck;
     }
 }
 
@@ -4077,6 +4145,9 @@ declare namespace $ {
 }
 
 declare namespace $.$$ {
+}
+
+declare namespace $.$$ {
     class $hyoo_idea_project_card extends $.$hyoo_idea_project_card {
         project_name(): string;
     }
@@ -4117,49 +4188,6 @@ declare namespace $.$$ {
         project_rows(): $mol_view[] | $hyoo_idea_project_card[];
         project(obj: $hyoo_idea_project): $hyoo_idea_project;
         add(): void;
-    }
-}
-
-declare namespace $ {
-    class $mol_check_list extends $mol_view {
-        Option(id: any): $$.$mol_check;
-        options(): {};
-        keys(): readonly string[];
-        sub(): readonly $mol_check[];
-        option_checked(id: any, val?: any): boolean;
-        option_title(id: any): string;
-        option_label(id: any): readonly any[];
-        enabled(): boolean;
-        option_enabled(id: any): boolean;
-        option_hint(id: any): string;
-        items(): readonly $mol_check[];
-    }
-}
-
-declare namespace $ {
-}
-
-declare namespace $.$$ {
-    class $mol_check_list extends $.$mol_check_list {
-        options(): {
-            [key: string]: string;
-        };
-        keys(): readonly string[];
-        items(): $mol_check[];
-        option_title(key: string): string;
-    }
-}
-
-declare namespace $ {
-    class $mol_switch extends $mol_check_list {
-        value(val?: any): string;
-    }
-}
-
-declare namespace $.$$ {
-    class $mol_switch extends $.$mol_switch {
-        value(next?: any): any;
-        option_checked(key: string, next?: boolean): boolean;
     }
 }
 
@@ -4544,25 +4572,6 @@ declare namespace $ {
 }
 
 declare namespace $ {
-    class $mol_deck extends $mol_list {
-        items(): readonly $mol_view[];
-        rows(): readonly $mol_view[];
-        current(val?: any): string;
-        switch_options(): {};
-        Switch(): $$.$mol_switch;
-        Content(): $mol_view;
-    }
-}
-
-declare namespace $.$$ {
-    class $mol_deck extends $.$mol_deck {
-        current(next?: string): string;
-        switch_options(): Record<string, string>;
-        Content(): any;
-    }
-}
-
-declare namespace $ {
     class $hyoo_idea_person_form extends $mol_form {
         avatar_node(): $hyoo_crowd_blob;
         name_user(next?: any): string;
@@ -4701,7 +4710,7 @@ declare namespace $ {
         Institution_content(): $$.$mol_list;
         Institutions_field(): $$.$mol_form_field;
         Education(): $$.$mol_form;
-        Info(): $$.$mol_deck;
+        Deck(): $$.$mol_deck;
     }
 }
 

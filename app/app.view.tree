@@ -2,11 +2,15 @@ $hyoo_idea_app $mol_book2
 	domain $hyoo_idea_domain
 		yard => yard
 		user => user
+	plugins /
+		<= Theme $mol_theme_auto
 	Online $hyoo_sync_online
 		yard <= yard
 	pages /
 		<= Menu $mol_page
 			title @ \$hyoo_idea
+			tools /
+				<= Lights $mol_lights_toggle
 			body /
 				<= Links $mol_list
 					rows /

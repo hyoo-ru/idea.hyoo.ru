@@ -1,0 +1,9 @@
+$hyoo_idea_project_stage $mol_view
+	stages *
+		idea @ \Idea
+		teambuilding @ \Teambuilding
+		prototyping @ \Prototyping
+		pilot @ \Pilot
+		monetization @ \Monetization
+	stage \idea
+	sub / <= label \

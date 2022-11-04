@@ -1,5 +1,7 @@
 namespace $ {
 
+	export type $hyoo_idea_project_stages = 'idea' | 'teambuilding' | 'prototyping' | 'pilot' | 'monetization'
+
 	export class $hyoo_idea_project extends $hyoo_idea_entity {
 
 		@ $mol_mem
@@ -47,6 +49,11 @@ namespace $ {
 		team( next?: $hyoo_idea_person[] ) {
 			const ids = this.team_node().list( next )
 			return ids.map( id => this.domain().person( $mol_int62_string_ensure(id)! ) )
+		}
+
+		@ $mol_mem
+		stage( next? : $hyoo_idea_project_stages ) {
+			return this.state().sub( 'stage', $hyoo_crowd_reg ).str( next ) as typeof next || 'idea'
 		}
 
 	}

@@ -22,3 +22,4 @@ $hyoo_idea_project_page $mol_page
 				<= Face $mol_list rows /
 					<= Project_logo $mol_image2 links / <= logo
 					<= Name $mol_paragraph title <= name
+		<= Stage $hyoo_idea_project_stage stage \idea

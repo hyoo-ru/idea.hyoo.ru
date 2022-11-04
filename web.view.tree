@@ -262,10 +262,6 @@ $mol_form $mol_list
 
 $mol_form_group $mol_view
 
-$mol_format $mol_string
-	allow \0123456789
-	hint <= mask*0 \
-
 $mol_button_major $mol_button_typed
 	attr *
 		^
@@ -275,14 +271,12 @@ $hyoo_idea_sign_up_page $mol_page
 	person $hyoo_idea_person
 		name? => name?
 		name_family? => name_family?
-		name_user? => name_user?
 	title @ \Sign up
 	Head null
 	messages *
 		required @ \Required
 		no_spaces @ \No spaces!
 		need_less_letters @ \{count} or less letters
-	name_user_max_letters_count 15
 	body /
 		<= Logo $mol_image
 			uri \http://placehold.jp/328x328.png?text=$hyoo_idea
@@ -301,13 +295,6 @@ $hyoo_idea_sign_up_page $mol_page
 						Content <= Name_family_control $mol_string
 							hint @ \Anderson
 							value? <=> name_family?
-				<= Name_user_field $mol_form_field
-					name @ \Username
-					bid <= name_user_bid \
-					Content <= Mask_test_control $mol_format
-						allow \abcdefghijklmnopqrstuvwxyz0123456789_
-						mask \@
-						value? <=> name_user?
 			submit?val <=> signup?val null
 			submit_allowed => signup_allowed
 			buttons /
@@ -940,6 +927,10 @@ $mol_date_calendar $mol_calendar
 			event_click?event <=> day_click*?event null
 			minimal_height 24
 
+$mol_format $mol_string
+	allow \0123456789
+	hint <= mask*0 \
+
 $mol_phone $mol_format
 	mask* \+___ (___) ___-__-__
 	keyboard \tel
@@ -1036,7 +1027,6 @@ $mol_deck $mol_list
 $hyoo_idea_person_form $mol_form
 	person $hyoo_idea_person
 		avatar_node => avatar_node
-		name_user? => name_user?
 		status? => status?
 		about? => about?
 		name? => name?
@@ -1070,11 +1060,6 @@ $hyoo_idea_person_form $mol_form
 								hint @ \Remove avatar
 								click? <=> avatar_drop? null
 								sub / <= Avatar_drop_icon $mol_icon_cross
-					<= Name_user_field $mol_form_field
-						name @ \Username
-						control <= Name_user_control $mol_string
-							hint @ \Neo
-							value? <=> name_user?
 					<= Status_field $mol_form_field
 						name @ \Status
 						control <= Status_control $mol_string

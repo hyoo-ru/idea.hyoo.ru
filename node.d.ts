@@ -2418,7 +2418,6 @@ declare namespace $ {
         name(next?: string): string;
         about(next?: string): string;
         status(next?: string): string;
-        name_user(next?: string): string;
         name_family(next?: string): string;
         name_father(next?: string): string;
         name_short(): string;
@@ -2761,25 +2760,6 @@ declare namespace $ {
 }
 
 declare namespace $ {
-    class $mol_format extends $mol_string {
-        allow(): string;
-        hint(): string;
-        mask(id: any): string;
-    }
-}
-
-declare namespace $ {
-}
-
-declare namespace $.$$ {
-    class $mol_format extends $.$mol_format {
-        selection([from, to]?: [number, number]): number[];
-        value_changed(next?: string): string;
-        event_change(next?: InputEvent): void;
-    }
-}
-
-declare namespace $ {
     class $mol_button_major extends $mol_button_typed {
         attr(): {
             mol_theme: string;
@@ -2798,7 +2778,6 @@ declare namespace $ {
     class $hyoo_idea_sign_up_page extends $mol_page {
         name(next?: any): string;
         name_family(next?: any): string;
-        name_user(next?: any): string;
         person(): $hyoo_idea_person;
         title(): string;
         Head(): any;
@@ -2807,7 +2786,6 @@ declare namespace $ {
             no_spaces: string;
             need_less_letters: string;
         };
-        name_user_max_letters_count(): number;
         body(): readonly any[];
         Logo(): $mol_image;
         name_bid(): string;
@@ -2817,9 +2795,6 @@ declare namespace $ {
         Name_family_control(): $$.$mol_string;
         Name_family_field(): $$.$mol_form_field;
         Names(): $mol_form_group;
-        name_user_bid(): string;
-        Mask_test_control(): $$.$mol_format;
-        Name_user_field(): $$.$mol_form_field;
         signup(val?: any): any;
         Signup(): $mol_button_major;
         signup_allowed(): boolean;
@@ -2835,7 +2810,6 @@ declare namespace $.$$ {
         signup(): void;
         name_bid(): string;
         name_family_bid(): string;
-        name_user_bid(): string;
     }
 }
 
@@ -4220,6 +4194,25 @@ declare namespace $.$$ {
 }
 
 declare namespace $ {
+    class $mol_format extends $mol_string {
+        allow(): string;
+        hint(): string;
+        mask(id: any): string;
+    }
+}
+
+declare namespace $ {
+}
+
+declare namespace $.$$ {
+    class $mol_format extends $.$mol_format {
+        selection([from, to]?: [number, number]): number[];
+        value_changed(next?: string): string;
+        event_change(next?: InputEvent): void;
+    }
+}
+
+declare namespace $ {
     class $mol_phone extends $mol_format {
         mask(id: any): string;
         keyboard(): string;
@@ -4457,7 +4450,6 @@ declare namespace $.$$ {
 declare namespace $ {
     class $hyoo_idea_person_form extends $mol_form {
         avatar_node(): $hyoo_crowd_blob;
-        name_user(next?: any): string;
         status(next?: any): string;
         about(next?: any): string;
         name(next?: any): string;
@@ -4484,8 +4476,6 @@ declare namespace $ {
         Avatar_drop(): $mol_button_minor;
         Avatar_control(): $mol_row;
         Avatar_field(): $$.$mol_form_field;
-        Name_user_control(): $$.$mol_string;
-        Name_user_field(): $$.$mol_form_field;
         Status_control(): $$.$mol_string;
         Status_field(): $$.$mol_form_field;
         About_control(): $$.$mol_textarea;

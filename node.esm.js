@@ -8872,9 +8872,6 @@ var $;
         status(next) {
             return this.state().sub('status', $hyoo_crowd_reg).str(next);
         }
-        name_user(next) {
-            return this.state().sub('name_user', $hyoo_crowd_reg).str(next);
-        }
         name_family(next) {
             return this.state().sub('name_family', $hyoo_crowd_reg).str(next);
         }
@@ -8925,7 +8922,7 @@ var $;
             return this.institutions_node().list(next);
         }
         registered() {
-            return !!this.name() && !!this.name_user() && !!this.name_family();
+            return !!this.name() && !!this.name_family();
         }
         posts_node() {
             return this.state().sub('posts', $hyoo_crowd_list);
@@ -8986,9 +8983,6 @@ var $;
     __decorate([
         $mol_mem
     ], $hyoo_idea_person.prototype, "status", null);
-    __decorate([
-        $mol_mem
-    ], $hyoo_idea_person.prototype, "name_user", null);
     __decorate([
         $mol_mem
     ], $hyoo_idea_person.prototype, "name_family", null);
@@ -9640,86 +9634,6 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    class $mol_format extends $mol_string {
-        allow() {
-            return "0123456789";
-        }
-        hint() {
-            return this.mask("0");
-        }
-        mask(id) {
-            return "";
-        }
-    }
-    $.$mol_format = $mol_format;
-})($ || ($ = {}));
-//mol/format/-view.tree/format.view.tree.ts
-;
-"use strict";
-var $;
-(function ($) {
-    $mol_style_attach("mol/format/format.view.css", "[mol_format] {\n\tfont-family: monospace;\n}\n");
-})($ || ($ = {}));
-//mol/format/-css/format.view.css.ts
-;
-"use strict";
-var $;
-(function ($) {
-    var $$;
-    (function ($$) {
-        class $mol_format extends $.$mol_format {
-            selection([from, to] = [0, 0]) {
-                const prev = $mol_wire_probe(() => this.selection());
-                if (!prev)
-                    return [0, 100];
-                if (from === to) {
-                    const allow = this.allow();
-                    const mask = this.mask([...this.value_changed()].filter(letter => allow.includes(letter)).join(''));
-                    if ((prev?.[0] ?? 0) < from) {
-                        while (from && mask[from] && mask[from] !== '_') {
-                            ++from;
-                            ++to;
-                        }
-                    }
-                }
-                return [from, to];
-            }
-            value_changed(next) {
-                const allow = this.allow();
-                const normalize = (val) => {
-                    val = [...val].filter(letter => allow.includes(letter)).join('');
-                    const letters = [...val].reverse();
-                    return this.mask(val).replace(/_/gu, () => letters.pop() ?? '_') + letters.reverse().join('');
-                };
-                if (next !== undefined) {
-                    next = normalize(next);
-                    if (next.includes('_'))
-                        return next;
-                }
-                return normalize(this.value(next));
-            }
-            event_change(next) {
-                if (!next)
-                    return;
-                if (next.data && !this.allow().includes(next.data))
-                    return;
-                super.event_change(next);
-            }
-        }
-        __decorate([
-            $mol_mem
-        ], $mol_format.prototype, "selection", null);
-        __decorate([
-            $mol_mem
-        ], $mol_format.prototype, "value_changed", null);
-        $$.$mol_format = $mol_format;
-    })($$ = $.$$ || ($.$$ = {}));
-})($ || ($ = {}));
-//mol/format/format.view.ts
-;
-"use strict";
-var $;
-(function ($) {
     class $mol_button_major extends $mol_button_typed {
         attr() {
             return {
@@ -9749,9 +9663,6 @@ var $;
         name_family(next) {
             return this.person().name_family(next);
         }
-        name_user(next) {
-            return this.person().name_user(next);
-        }
         person() {
             const obj = new this.$.$hyoo_idea_person();
             return obj;
@@ -9768,9 +9679,6 @@ var $;
                 no_spaces: this.$.$mol_locale.text('$hyoo_idea_sign_up_page_messages_no_spaces'),
                 need_less_letters: this.$.$mol_locale.text('$hyoo_idea_sign_up_page_messages_need_less_letters')
             };
-        }
-        name_user_max_letters_count() {
-            return 15;
         }
         body() {
             return [
@@ -9823,23 +9731,6 @@ var $;
             ];
             return obj;
         }
-        name_user_bid() {
-            return "";
-        }
-        Mask_test_control() {
-            const obj = new this.$.$mol_format();
-            obj.allow = () => "abcdefghijklmnopqrstuvwxyz0123456789_";
-            obj.mask = () => "@";
-            obj.value = (next) => this.name_user(next);
-            return obj;
-        }
-        Name_user_field() {
-            const obj = new this.$.$mol_form_field();
-            obj.name = () => this.$.$mol_locale.text('$hyoo_idea_sign_up_page_Name_user_field_name');
-            obj.bid = () => this.name_user_bid();
-            obj.Content = () => this.Mask_test_control();
-            return obj;
-        }
         signup(val) {
             if (val !== undefined)
                 return val;
@@ -9858,8 +9749,7 @@ var $;
         Form() {
             const obj = new this.$.$mol_form();
             obj.body = () => [
-                this.Names(),
-                this.Name_user_field()
+                this.Names()
             ];
             obj.submit = (val) => this.signup(val);
             obj.buttons = () => [
@@ -9889,12 +9779,6 @@ var $;
     __decorate([
         $mol_mem
     ], $hyoo_idea_sign_up_page.prototype, "Names", null);
-    __decorate([
-        $mol_mem
-    ], $hyoo_idea_sign_up_page.prototype, "Mask_test_control", null);
-    __decorate([
-        $mol_mem
-    ], $hyoo_idea_sign_up_page.prototype, "Name_user_field", null);
     __decorate([
         $mol_mem
     ], $hyoo_idea_sign_up_page.prototype, "signup", null);
@@ -9943,16 +9827,6 @@ var $;
             }
             name_family_bid() {
                 return !this.name_family() ? this.messages().required : '';
-            }
-            name_user_bid() {
-                const val = this.name_user();
-                if (val.includes(' '))
-                    return this.messages().no_spaces;
-                if (val.length > 15)
-                    return this.messages().need_less_letters.replace('{count}', this.name_user_max_letters_count().toString());
-                if (!val)
-                    return this.messages().required;
-                return '';
             }
         }
         $$.$hyoo_idea_sign_up_page = $hyoo_idea_sign_up_page;
@@ -14948,6 +14822,86 @@ var $;
 "use strict";
 var $;
 (function ($) {
+    class $mol_format extends $mol_string {
+        allow() {
+            return "0123456789";
+        }
+        hint() {
+            return this.mask("0");
+        }
+        mask(id) {
+            return "";
+        }
+    }
+    $.$mol_format = $mol_format;
+})($ || ($ = {}));
+//mol/format/-view.tree/format.view.tree.ts
+;
+"use strict";
+var $;
+(function ($) {
+    $mol_style_attach("mol/format/format.view.css", "[mol_format] {\n\tfont-family: monospace;\n}\n");
+})($ || ($ = {}));
+//mol/format/-css/format.view.css.ts
+;
+"use strict";
+var $;
+(function ($) {
+    var $$;
+    (function ($$) {
+        class $mol_format extends $.$mol_format {
+            selection([from, to] = [0, 0]) {
+                const prev = $mol_wire_probe(() => this.selection());
+                if (!prev)
+                    return [0, 100];
+                if (from === to) {
+                    const allow = this.allow();
+                    const mask = this.mask([...this.value_changed()].filter(letter => allow.includes(letter)).join(''));
+                    if ((prev?.[0] ?? 0) < from) {
+                        while (from && mask[from] && mask[from] !== '_') {
+                            ++from;
+                            ++to;
+                        }
+                    }
+                }
+                return [from, to];
+            }
+            value_changed(next) {
+                const allow = this.allow();
+                const normalize = (val) => {
+                    val = [...val].filter(letter => allow.includes(letter)).join('');
+                    const letters = [...val].reverse();
+                    return this.mask(val).replace(/_/gu, () => letters.pop() ?? '_') + letters.reverse().join('');
+                };
+                if (next !== undefined) {
+                    next = normalize(next);
+                    if (next.includes('_'))
+                        return next;
+                }
+                return normalize(this.value(next));
+            }
+            event_change(next) {
+                if (!next)
+                    return;
+                if (next.data && !this.allow().includes(next.data))
+                    return;
+                super.event_change(next);
+            }
+        }
+        __decorate([
+            $mol_mem
+        ], $mol_format.prototype, "selection", null);
+        __decorate([
+            $mol_mem
+        ], $mol_format.prototype, "value_changed", null);
+        $$.$mol_format = $mol_format;
+    })($$ = $.$$ || ($.$$ = {}));
+})($ || ($ = {}));
+//mol/format/format.view.ts
+;
+"use strict";
+var $;
+(function ($) {
     class $mol_phone extends $mol_format {
         mask(id) {
             return "+___ (___) ___-__-__";
@@ -15857,9 +15811,6 @@ var $;
         avatar_node() {
             return this.person().avatar_node();
         }
-        name_user(next) {
-            return this.person().name_user(next);
-        }
         status(next) {
             return this.person().status(next);
         }
@@ -15963,18 +15914,6 @@ var $;
             obj.control = () => this.Avatar_control();
             return obj;
         }
-        Name_user_control() {
-            const obj = new this.$.$mol_string();
-            obj.hint = () => this.$.$mol_locale.text('$hyoo_idea_person_form_Name_user_control_hint');
-            obj.value = (next) => this.name_user(next);
-            return obj;
-        }
-        Name_user_field() {
-            const obj = new this.$.$mol_form_field();
-            obj.name = () => this.$.$mol_locale.text('$hyoo_idea_person_form_Name_user_field_name');
-            obj.control = () => this.Name_user_control();
-            return obj;
-        }
         Status_control() {
             const obj = new this.$.$mol_string();
             obj.hint = () => this.$.$mol_locale.text('$hyoo_idea_person_form_Status_control_hint');
@@ -16004,7 +15943,6 @@ var $;
             obj.title = () => this.$.$mol_locale.text('$hyoo_idea_person_form_Profile_title');
             obj.form_fields = () => [
                 this.Avatar_field(),
-                this.Name_user_field(),
                 this.Status_field(),
                 this.About_field()
             ];
@@ -16655,12 +16593,6 @@ var $;
     __decorate([
         $mol_mem
     ], $hyoo_idea_person_form.prototype, "Avatar_field", null);
-    __decorate([
-        $mol_mem
-    ], $hyoo_idea_person_form.prototype, "Name_user_control", null);
-    __decorate([
-        $mol_mem
-    ], $hyoo_idea_person_form.prototype, "Name_user_field", null);
     __decorate([
         $mol_mem
     ], $hyoo_idea_person_form.prototype, "Status_control", null);

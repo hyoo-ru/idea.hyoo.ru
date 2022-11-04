@@ -56,6 +56,22 @@ namespace $ {
 			return this.state().sub( 'stage', $hyoo_crowd_reg ).str( next ) as typeof next || 'idea'
 		}
 
+		@ $mol_mem
+		roles_node() {
+			return this.state().sub( 'jobs', $hyoo_crowd_list )
+		}
+
+		@ $mol_mem
+		roles(
+			next?: Array<{
+				name: string,
+				functions: string,
+				count: number,
+			}>
+		) {
+			return this.roles_node().list( next ) as Exclude<typeof next, undefined>
+		}
+
 	}
 
 }

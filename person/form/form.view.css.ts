@@ -2,7 +2,7 @@ namespace $.$$ {
 
 	const { rem, px } = $mol_style_unit
 
-	const multy_form = {
+	export const $hyoo_idea_person_form_multy = {
 		margin: $mol_gap.block,
 		padding: {
 			bottom: $mol_gap.block,
@@ -38,14 +38,14 @@ namespace $.$$ {
 			alignItems: 'center',
 		},
 
-		Job_form: multy_form,
+		Job_form: $hyoo_idea_person_form_multy,
 		Jobs_field: {
 			Label: {
 				alignItems: 'center',
 			},
 		},
 
-		Institution_form: multy_form,
+		Institution_form: $hyoo_idea_person_form_multy,
 		Institutions_field: {
 			Label: {
 				alignItems: 'center',

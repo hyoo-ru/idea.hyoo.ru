@@ -5,6 +5,7 @@ $hyoo_idea_project_form $mol_form
 		logo_node => logo_node
 		description_node => description_node
 		description? => description?
+		stage? => stage?
 		team? => team?
 	form_fields /
 		<= Deck $mol_deck items /
@@ -36,7 +37,40 @@ $hyoo_idea_project_form $mol_form
 						control <= Description_control $mol_textarea
 							value? <=> description?
 							selection? <=> description_selection? /number
-			<= Team $mol_form
-				title @ \Team
+			<= Stage $mol_form
+				title @ \Stage
 				form_fields /
-					\team
+					<= Stage_field $mol_form_field
+						name @ \Stage
+						control <= Stage_control $mol_switch
+							value? <=> stage?
+							options <= stage_options *
+			<= Roles $mol_form
+				title @ \Roles
+				form_fields /
+					<= Roles_field $mol_form_field
+						label /
+							<= roles_field_name @ \Roles
+							<= Role_add $mol_button_minor
+								sub / <= Role_add_icon $mol_icon_plus
+								click? <=> role_add? null
+						Content <= Roles_content $mol_list
+							rows <= role_rows /
+								<= Role_form*0 $mol_list rows /
+									<= Role_head_group* $mol_form_group sub /
+									<= Role_name_field* $mol_form_field
+										name @ \Role name
+										control <= Role_name_control* $mol_string
+											value? <=> role_name*? \
+									<= Role_count_field* $mol_form_field
+										name @ \Number of people
+										control <= Role_count_control* $mol_number
+											value? <=> role_count*? 1
+									<= Role_functions_field* $mol_form_field
+										name @ \Functions
+										control <= Role_functions_control* $mol_textarea
+											value? <=> role_functions*? \
+									<= Role_drop_row* $mol_row sub /
+										<= Role_drop* $mol_button_minor
+											sub / <= Role_drop_icon* $mol_icon_delete
+											click? <=> role_drop*? null

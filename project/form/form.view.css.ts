@@ -13,6 +13,13 @@ namespace $.$$ {
 			alignItems: 'center',
 		},
 
+		Role_form: $hyoo_idea_person_form_multy,
+		Roles_field: {
+			Label: {
+				alignItems: 'center',
+			},
+		},
+
 	} )
 
 }

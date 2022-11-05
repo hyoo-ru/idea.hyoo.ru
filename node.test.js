@@ -5348,6 +5348,13 @@ var $;
             const land = this.yard().land_grab();
             return this.project(land.id());
         }
+        invite(id) {
+            return $hyoo_idea_invite.make({ id: $mol_const(id), domain: $mol_const(this) });
+        }
+        invite_add() {
+            const land = this.yard().land_grab();
+            return this.invite(land.id());
+        }
     }
     __decorate([
         $mol_mem
@@ -5370,6 +5377,12 @@ var $;
     __decorate([
         $mol_action
     ], $hyoo_idea_domain.prototype, "project_add", null);
+    __decorate([
+        $mol_mem_key
+    ], $hyoo_idea_domain.prototype, "invite", null);
+    __decorate([
+        $mol_action
+    ], $hyoo_idea_domain.prototype, "invite_add", null);
     __decorate([
         $mol_mem
     ], $hyoo_idea_domain, "yard", null);
@@ -8741,6 +8754,48 @@ var $;
 "use strict";
 var $;
 (function ($) {
+    class $hyoo_idea_invite extends $hyoo_idea_entity {
+        project(next) {
+            const id = $mol_int62_string_ensure(this.state().sub('project', $hyoo_crowd_reg).str(next && next.id()));
+            return id ? this.domain().project(id) : null;
+        }
+        candidate(next) {
+            const id = $mol_int62_string_ensure(this.state().sub('candidate', $hyoo_crowd_reg).str(next && next.id()));
+            return id ? this.domain().person(id) : null;
+        }
+        person(next) {
+            const id = $mol_int62_string_ensure(this.state().sub('person', $hyoo_crowd_reg).str(next && next.id()));
+            return id ? this.domain().person(id) : null;
+        }
+        comment(next) {
+            return this.state().sub('comment', $hyoo_crowd_reg).str(next);
+        }
+        status(next) {
+            return this.state().sub('status', $hyoo_crowd_reg).str(next) || 'pending';
+        }
+    }
+    __decorate([
+        $mol_mem
+    ], $hyoo_idea_invite.prototype, "project", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_idea_invite.prototype, "candidate", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_idea_invite.prototype, "person", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_idea_invite.prototype, "comment", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_idea_invite.prototype, "status", null);
+    $.$hyoo_idea_invite = $hyoo_idea_invite;
+})($ || ($ = {}));
+//hyoo/idea/invite/invite.ts
+;
+"use strict";
+var $;
+(function ($) {
     class $hyoo_idea_project extends $hyoo_idea_entity {
         person(next) {
             const id = this.state().sub('person', $hyoo_crowd_reg).str(next && next.id());
@@ -8767,10 +8822,6 @@ var $;
         team_node() {
             return this.state().sub('team', $hyoo_crowd_list);
         }
-        team(next) {
-            const ids = this.team_node().list(next);
-            return ids.map(id => this.domain().person($mol_int62_string_ensure(id)));
-        }
         stage(next) {
             return this.state().sub('stage', $hyoo_crowd_reg).str(next) || 'idea';
         }
@@ -8779,6 +8830,14 @@ var $;
         }
         roles(next) {
             return this.roles_node().list(next);
+        }
+        team(next) {
+            const ids = this.team_node().list(next);
+            return ids.map(id => this.domain().person($mol_int62_string_ensure(id)));
+        }
+        team_invites(next) {
+            const ids = this.state().sub('team_invites', $hyoo_crowd_list).list(next && next.map(obj => obj.id()));
+            return ids.map(id => this.domain().invite($mol_int62_string_ensure(id)));
         }
     }
     __decorate([
@@ -8807,9 +8866,6 @@ var $;
     ], $hyoo_idea_project.prototype, "team_node", null);
     __decorate([
         $mol_mem
-    ], $hyoo_idea_project.prototype, "team", null);
-    __decorate([
-        $mol_mem
     ], $hyoo_idea_project.prototype, "stage", null);
     __decorate([
         $mol_mem
@@ -8817,6 +8873,12 @@ var $;
     __decorate([
         $mol_mem
     ], $hyoo_idea_project.prototype, "roles", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_idea_project.prototype, "team", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_idea_project.prototype, "team_invites", null);
     $.$hyoo_idea_project = $hyoo_idea_project;
 })($ || ($ = {}));
 //hyoo/idea/project/project.ts
@@ -8952,6 +9014,10 @@ var $;
                 .filter(id => $mol_int62_string_ensure(id))
                 .map(id => this.domain().person($mol_int62_string_ensure(id)));
         }
+        project_invites(next) {
+            const ids = this.state().sub('project_invites', $hyoo_crowd_list).list(next && next.map(obj => obj.id()));
+            return ids.map(id => this.domain().invite($mol_int62_string_ensure(id)));
+        }
     }
     __decorate([
         $mol_mem
@@ -9049,6 +9115,9 @@ var $;
     __decorate([
         $mol_mem
     ], $hyoo_idea_person.prototype, "subs", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_idea_person.prototype, "project_invites", null);
     $.$hyoo_idea_person = $hyoo_idea_person;
 })($ || ($ = {}));
 //hyoo/idea/person/person.ts
@@ -9825,162 +9894,6 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    class $mol_image2 extends $mol_view {
-        links() {
-            return [];
-        }
-        aspect() {
-            return 1;
-        }
-        sub() {
-            return [
-                this.Content()
-            ];
-        }
-        height() {
-            return "100%";
-        }
-        background() {
-            return "";
-        }
-        Content() {
-            const obj = new this.$.$mol_view();
-            obj.style = () => ({
-                paddingTop: this.height(),
-                backgroundImage: this.background()
-            });
-            return obj;
-        }
-    }
-    __decorate([
-        $mol_mem
-    ], $mol_image2.prototype, "Content", null);
-    $.$mol_image2 = $mol_image2;
-})($ || ($ = {}));
-//mol/image2/-view.tree/image2.view.tree.ts
-;
-"use strict";
-var $;
-(function ($) {
-    $mol_style_attach("mol/image2/image2.view.css", "[mol_image2] {\n\tflex: 0 1 auto;\n\tmax-width: 100%;\n\tbox-shadow: 0 0 0 1px var(--mol_theme_line);\n\tborder-radius: var(--mol_gap_round);\n\toverflow: hidden;\n}\n\n[mol_image2_content] {\n\tdisplay: block;\n\tbackground-size: cover;\n\tbackground-position: top center;\n\tflex: auto;\n}\n");
-})($ || ($ = {}));
-//mol/image2/-css/image2.view.css.ts
-;
-"use strict";
-var $;
-(function ($) {
-    var $$;
-    (function ($$) {
-        class $mol_image2 extends $.$mol_image2 {
-            background() {
-                return this.links().map(link => `url("${link}")`).join(' , ');
-            }
-            height() {
-                return `${100 / this.aspect()}%`;
-            }
-        }
-        __decorate([
-            $mol_mem
-        ], $mol_image2.prototype, "background", null);
-        __decorate([
-            $mol_mem
-        ], $mol_image2.prototype, "height", null);
-        $$.$mol_image2 = $mol_image2;
-    })($$ = $.$$ || ($.$$ = {}));
-})($ || ($ = {}));
-//mol/image2/image2.view.ts
-;
-"use strict";
-var $;
-(function ($) {
-    class $hyoo_idea_person_avatar extends $mol_view {
-        blob() {
-            return null;
-        }
-        placeholder() {
-            return "https://robohash.org/${id}.png";
-        }
-        sub() {
-            return [
-                this.Image()
-            ];
-        }
-        uri() {
-            return "";
-        }
-        link() {
-            return this.uri();
-        }
-        Image() {
-            const obj = new this.$.$mol_image2();
-            obj.links = () => [
-                this.link()
-            ];
-            return obj;
-        }
-    }
-    __decorate([
-        $mol_mem
-    ], $hyoo_idea_person_avatar.prototype, "Image", null);
-    $.$hyoo_idea_person_avatar = $hyoo_idea_person_avatar;
-})($ || ($ = {}));
-//hyoo/idea/person/avatar/-view.tree/avatar.view.tree.ts
-;
-"use strict";
-var $;
-(function ($) {
-    var $$;
-    (function ($$) {
-        const { per, rem } = $mol_style_unit;
-        $mol_style_define($hyoo_idea_person_avatar, {
-            width: rem(5),
-            height: rem(5),
-            justifyContent: 'center',
-            Image: {
-                border: {
-                    radius: per(50),
-                },
-                width: per(100),
-                height: per(100),
-                box: {
-                    shadow: [{
-                            x: 0,
-                            y: 0,
-                            blur: 0,
-                            spread: rem(0.15),
-                            color: $mol_theme.text,
-                        }],
-                }
-            },
-        });
-    })($$ = $.$$ || ($.$$ = {}));
-})($ || ($ = {}));
-//hyoo/idea/person/avatar/avatar.view.css.ts
-;
-"use strict";
-var $;
-(function ($) {
-    var $$;
-    (function ($$) {
-        class $hyoo_idea_person_avatar extends $.$hyoo_idea_person_avatar {
-            blob_exists() {
-                return this.blob().list().length > 0;
-            }
-            placeholder() {
-                return super.placeholder().replace('{id}', this.blob().land.id);
-            }
-            uri() {
-                return this.blob_exists() ? this.blob().uri() : this.placeholder();
-            }
-        }
-        $$.$hyoo_idea_person_avatar = $hyoo_idea_person_avatar;
-    })($$ = $.$$ || ($.$$ = {}));
-})($ || ($ = {}));
-//hyoo/idea/person/avatar/avatar.view.ts
-;
-"use strict";
-var $;
-(function ($) {
     class $hyoo_idea_plural extends $mol_object2 {
         other() {
             return this.$.$mol_locale.text('$hyoo_idea_plural_other');
@@ -10190,6 +10103,162 @@ var $;
     })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));
 //hyoo/idea/ago/ago.view.ts
+;
+"use strict";
+var $;
+(function ($) {
+    class $mol_image2 extends $mol_view {
+        links() {
+            return [];
+        }
+        aspect() {
+            return 1;
+        }
+        sub() {
+            return [
+                this.Content()
+            ];
+        }
+        height() {
+            return "100%";
+        }
+        background() {
+            return "";
+        }
+        Content() {
+            const obj = new this.$.$mol_view();
+            obj.style = () => ({
+                paddingTop: this.height(),
+                backgroundImage: this.background()
+            });
+            return obj;
+        }
+    }
+    __decorate([
+        $mol_mem
+    ], $mol_image2.prototype, "Content", null);
+    $.$mol_image2 = $mol_image2;
+})($ || ($ = {}));
+//mol/image2/-view.tree/image2.view.tree.ts
+;
+"use strict";
+var $;
+(function ($) {
+    $mol_style_attach("mol/image2/image2.view.css", "[mol_image2] {\n\tflex: 0 1 auto;\n\tmax-width: 100%;\n\tbox-shadow: 0 0 0 1px var(--mol_theme_line);\n\tborder-radius: var(--mol_gap_round);\n\toverflow: hidden;\n}\n\n[mol_image2_content] {\n\tdisplay: block;\n\tbackground-size: cover;\n\tbackground-position: top center;\n\tflex: auto;\n}\n");
+})($ || ($ = {}));
+//mol/image2/-css/image2.view.css.ts
+;
+"use strict";
+var $;
+(function ($) {
+    var $$;
+    (function ($$) {
+        class $mol_image2 extends $.$mol_image2 {
+            background() {
+                return this.links().map(link => `url("${link}")`).join(' , ');
+            }
+            height() {
+                return `${100 / this.aspect()}%`;
+            }
+        }
+        __decorate([
+            $mol_mem
+        ], $mol_image2.prototype, "background", null);
+        __decorate([
+            $mol_mem
+        ], $mol_image2.prototype, "height", null);
+        $$.$mol_image2 = $mol_image2;
+    })($$ = $.$$ || ($.$$ = {}));
+})($ || ($ = {}));
+//mol/image2/image2.view.ts
+;
+"use strict";
+var $;
+(function ($) {
+    class $hyoo_idea_person_avatar extends $mol_view {
+        blob() {
+            return null;
+        }
+        placeholder() {
+            return "https://robohash.org/${id}.png";
+        }
+        sub() {
+            return [
+                this.Image()
+            ];
+        }
+        uri() {
+            return "";
+        }
+        link() {
+            return this.uri();
+        }
+        Image() {
+            const obj = new this.$.$mol_image2();
+            obj.links = () => [
+                this.link()
+            ];
+            return obj;
+        }
+    }
+    __decorate([
+        $mol_mem
+    ], $hyoo_idea_person_avatar.prototype, "Image", null);
+    $.$hyoo_idea_person_avatar = $hyoo_idea_person_avatar;
+})($ || ($ = {}));
+//hyoo/idea/person/avatar/-view.tree/avatar.view.tree.ts
+;
+"use strict";
+var $;
+(function ($) {
+    var $$;
+    (function ($$) {
+        const { per, rem } = $mol_style_unit;
+        $mol_style_define($hyoo_idea_person_avatar, {
+            width: rem(5),
+            height: rem(5),
+            justifyContent: 'center',
+            Image: {
+                border: {
+                    radius: per(50),
+                },
+                width: per(100),
+                height: per(100),
+                box: {
+                    shadow: [{
+                            x: 0,
+                            y: 0,
+                            blur: 0,
+                            spread: rem(0.15),
+                            color: $mol_theme.text,
+                        }],
+                }
+            },
+        });
+    })($$ = $.$$ || ($.$$ = {}));
+})($ || ($ = {}));
+//hyoo/idea/person/avatar/avatar.view.css.ts
+;
+"use strict";
+var $;
+(function ($) {
+    var $$;
+    (function ($$) {
+        class $hyoo_idea_person_avatar extends $.$hyoo_idea_person_avatar {
+            blob_exists() {
+                return this.blob().list().length > 0;
+            }
+            placeholder() {
+                return super.placeholder().replace('{id}', this.blob().land.id);
+            }
+            uri() {
+                return this.blob_exists() ? this.blob().uri() : this.placeholder();
+            }
+        }
+        $$.$hyoo_idea_person_avatar = $hyoo_idea_person_avatar;
+    })($$ = $.$$ || ($.$$ = {}));
+})($ || ($ = {}));
+//hyoo/idea/person/avatar/avatar.view.ts
 ;
 "use strict";
 var $;
@@ -10460,6 +10529,121 @@ var $;
     })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));
 //mol/pick/pick.view.ts
+;
+"use strict";
+var $;
+(function ($) {
+    class $hyoo_idea_person_card extends $mol_row {
+        id() {
+            return this.person().id();
+        }
+        name_short() {
+            return this.person().name_short();
+        }
+        avatar_node() {
+            return this.person().avatar_node();
+        }
+        person() {
+            const obj = new this.$.$hyoo_idea_person();
+            return obj;
+        }
+        sub() {
+            return [
+                this.Avatar(),
+                this.Name(),
+                this.Actions()
+            ];
+        }
+        Avatar() {
+            const obj = new this.$.$hyoo_idea_person_avatar();
+            obj.blob = () => this.avatar_node();
+            return obj;
+        }
+        Name_link() {
+            const obj = new this.$.$mol_link();
+            obj.arg = () => ({
+                person: this.id()
+            });
+            obj.title = () => this.name_short();
+            return obj;
+        }
+        name_sub() {
+            return [];
+        }
+        Name_sub() {
+            const obj = new this.$.$mol_view();
+            obj.sub = () => this.name_sub();
+            return obj;
+        }
+        Name() {
+            const obj = new this.$.$mol_list();
+            obj.rows = () => [
+                this.Name_link(),
+                this.Name_sub()
+            ];
+            return obj;
+        }
+        Actions_icon() {
+            const obj = new this.$.$mol_icon_dots_horizontal();
+            return obj;
+        }
+        Actions() {
+            const obj = new this.$.$mol_pick();
+            obj.hint = () => this.$.$mol_locale.text('$hyoo_idea_person_card_Actions_hint');
+            obj.trigger_content = () => [
+                this.Actions_icon()
+            ];
+            obj.bubble_content = () => [
+                "comming soon"
+            ];
+            return obj;
+        }
+    }
+    __decorate([
+        $mol_mem
+    ], $hyoo_idea_person_card.prototype, "person", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_idea_person_card.prototype, "Avatar", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_idea_person_card.prototype, "Name_link", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_idea_person_card.prototype, "Name_sub", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_idea_person_card.prototype, "Name", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_idea_person_card.prototype, "Actions_icon", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_idea_person_card.prototype, "Actions", null);
+    $.$hyoo_idea_person_card = $hyoo_idea_person_card;
+})($ || ($ = {}));
+//hyoo/idea/person/card/-view.tree/card.view.tree.ts
+;
+"use strict";
+var $;
+(function ($) {
+    var $$;
+    (function ($$) {
+        $mol_style_define($.$hyoo_idea_person_card, {
+            alignItems: 'flex-start',
+            Actions: {
+                margin: {
+                    left: 'auto',
+                },
+            },
+            Name_link: {
+                display: 'inline-flex',
+                padding: 0,
+            },
+        });
+    })($$ = $.$$ || ($.$$ = {}));
+})($ || ($ = {}));
+//hyoo/idea/person/card/card.view.css.ts
 ;
 "use strict";
 var $;
@@ -13236,7 +13420,7 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    class $hyoo_idea_post_full extends $mol_list {
+    class $hyoo_idea_post_card extends $mol_list {
         id() {
             return this.post().id();
         }
@@ -13245,6 +13429,9 @@ var $;
         }
         created_moment() {
             return this.post().created_moment();
+        }
+        person() {
+            return this.post().person();
         }
         avatar() {
             return this.post().person().avatar();
@@ -13260,60 +13447,17 @@ var $;
                 this.Foot()
             ];
         }
-        Avatar() {
-            const obj = new this.$.$hyoo_idea_person_avatar();
-            obj.uri = () => this.avatar();
-            return obj;
-        }
-        person_id() {
-            return "";
-        }
-        author_name() {
-            return "";
-        }
-        Name() {
-            const obj = new this.$.$mol_link();
-            obj.arg = () => ({
-                person: this.person_id()
-            });
-            obj.title = () => this.author_name();
-            return obj;
-        }
         Ago() {
             const obj = new this.$.$hyoo_idea_ago();
-            obj.title = () => this.$.$mol_locale.text('$hyoo_idea_post_full_Ago_title');
+            obj.title = () => this.$.$mol_locale.text('$hyoo_idea_post_card_Ago_title');
             obj.moment = () => this.created_moment();
             return obj;
         }
-        Name_col() {
-            const obj = new this.$.$mol_list();
-            obj.rows = () => [
-                this.Name(),
-                this.Ago()
-            ];
-            return obj;
-        }
-        Menu_icon() {
-            const obj = new this.$.$mol_icon_dots_horizontal();
-            return obj;
-        }
-        Menu() {
-            const obj = new this.$.$mol_pick();
-            obj.hint = () => this.$.$mol_locale.text('$hyoo_idea_post_full_Menu_hint');
-            obj.trigger_content = () => [
-                this.Menu_icon()
-            ];
-            obj.bubble_content = () => [
-                "comming soon"
-            ];
-            return obj;
-        }
         Head() {
-            const obj = new this.$.$mol_row();
-            obj.sub = () => [
-                this.Avatar(),
-                this.Name_col(),
-                this.Menu()
+            const obj = new this.$.$hyoo_idea_person_card();
+            obj.person = () => this.person();
+            obj.name_sub = () => [
+                this.Ago()
             ];
             return obj;
         }
@@ -13382,61 +13526,46 @@ var $;
     }
     __decorate([
         $mol_mem
-    ], $hyoo_idea_post_full.prototype, "post", null);
+    ], $hyoo_idea_post_card.prototype, "post", null);
     __decorate([
         $mol_mem
-    ], $hyoo_idea_post_full.prototype, "Avatar", null);
+    ], $hyoo_idea_post_card.prototype, "Ago", null);
     __decorate([
         $mol_mem
-    ], $hyoo_idea_post_full.prototype, "Name", null);
+    ], $hyoo_idea_post_card.prototype, "Head", null);
     __decorate([
         $mol_mem
-    ], $hyoo_idea_post_full.prototype, "Ago", null);
+    ], $hyoo_idea_post_card.prototype, "Content", null);
     __decorate([
         $mol_mem
-    ], $hyoo_idea_post_full.prototype, "Name_col", null);
+    ], $hyoo_idea_post_card.prototype, "Like_icon", null);
     __decorate([
         $mol_mem
-    ], $hyoo_idea_post_full.prototype, "Menu_icon", null);
+    ], $hyoo_idea_post_card.prototype, "Like_count", null);
     __decorate([
         $mol_mem
-    ], $hyoo_idea_post_full.prototype, "Menu", null);
+    ], $hyoo_idea_post_card.prototype, "Like", null);
     __decorate([
         $mol_mem
-    ], $hyoo_idea_post_full.prototype, "Head", null);
+    ], $hyoo_idea_post_card.prototype, "Reaction", null);
     __decorate([
         $mol_mem
-    ], $hyoo_idea_post_full.prototype, "Content", null);
+    ], $hyoo_idea_post_card.prototype, "Comments_icon", null);
     __decorate([
         $mol_mem
-    ], $hyoo_idea_post_full.prototype, "Like_icon", null);
+    ], $hyoo_idea_post_card.prototype, "Comments_count", null);
     __decorate([
         $mol_mem
-    ], $hyoo_idea_post_full.prototype, "Like_count", null);
+    ], $hyoo_idea_post_card.prototype, "Comments", null);
     __decorate([
         $mol_mem
-    ], $hyoo_idea_post_full.prototype, "Like", null);
+    ], $hyoo_idea_post_card.prototype, "Share", null);
     __decorate([
         $mol_mem
-    ], $hyoo_idea_post_full.prototype, "Reaction", null);
-    __decorate([
-        $mol_mem
-    ], $hyoo_idea_post_full.prototype, "Comments_icon", null);
-    __decorate([
-        $mol_mem
-    ], $hyoo_idea_post_full.prototype, "Comments_count", null);
-    __decorate([
-        $mol_mem
-    ], $hyoo_idea_post_full.prototype, "Comments", null);
-    __decorate([
-        $mol_mem
-    ], $hyoo_idea_post_full.prototype, "Share", null);
-    __decorate([
-        $mol_mem
-    ], $hyoo_idea_post_full.prototype, "Foot", null);
-    $.$hyoo_idea_post_full = $hyoo_idea_post_full;
+    ], $hyoo_idea_post_card.prototype, "Foot", null);
+    $.$hyoo_idea_post_card = $hyoo_idea_post_card;
 })($ || ($ = {}));
-//hyoo/idea/post/full/-view.tree/full.view.tree.ts
+//hyoo/idea/post/card/-view.tree/card.view.tree.ts
 ;
 "use strict";
 var $;
@@ -13444,7 +13573,7 @@ var $;
     var $$;
     (function ($$) {
         const { rem, per } = $mol_style_unit;
-        $mol_style_define($.$hyoo_idea_post_full, {
+        $mol_style_define($.$hyoo_idea_post_card, {
             width: per(100),
             background: {
                 color: $mol_theme.card,
@@ -13455,12 +13584,7 @@ var $;
             border: {
                 radius: $mol_gap.round,
             },
-            Avatar: {
-                width: rem(3),
-                height: rem(3),
-            },
             Head: {
-                alignItems: 'center',
                 margin: {
                     bottom: $mol_gap.block,
                 },
@@ -13468,12 +13592,6 @@ var $;
             Ago: {
                 font: {
                     size: rem(0.75),
-                },
-            },
-            Menu: {
-                alignSelf: 'flex-start',
-                margin: {
-                    left: 'auto',
                 },
             },
             Foot: {
@@ -13489,14 +13607,14 @@ var $;
         });
     })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));
-//hyoo/idea/post/full/full.view.css.ts
+//hyoo/idea/post/card/card.view.css.ts
 ;
 "use strict";
 var $;
 (function ($) {
     var $$;
     (function ($$) {
-        class $hyoo_idea_post_full extends $.$hyoo_idea_post_full {
+        class $hyoo_idea_post_card extends $.$hyoo_idea_post_card {
             author() {
                 return this.post().person();
             }
@@ -13507,10 +13625,10 @@ var $;
                 return this.author().id();
             }
         }
-        $$.$hyoo_idea_post_full = $hyoo_idea_post_full;
+        $$.$hyoo_idea_post_card = $hyoo_idea_post_card;
     })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));
-//hyoo/idea/post/full/full.view.ts
+//hyoo/idea/post/card/card.view.ts
 ;
 "use strict";
 var $;
@@ -13533,7 +13651,7 @@ var $;
             return obj;
         }
         Post(id) {
-            const obj = new this.$.$hyoo_idea_post_full();
+            const obj = new this.$.$hyoo_idea_post_card();
             obj.post = () => this.post(id);
             return obj;
         }
@@ -17572,12 +17690,19 @@ var $;
             ];
             return obj;
         }
+        Team() {
+            const obj = new this.$.$mol_form();
+            obj.title = () => this.$.$mol_locale.text('$hyoo_idea_project_form_Team_title');
+            obj.form_fields = () => [];
+            return obj;
+        }
         Deck() {
             const obj = new this.$.$mol_deck();
             obj.items = () => [
                 this.Project(),
                 this.Stage(),
-                this.Roles()
+                this.Roles(),
+                this.Team()
             ];
             return obj;
         }
@@ -17705,6 +17830,9 @@ var $;
     __decorate([
         $mol_mem
     ], $hyoo_idea_project_form.prototype, "Roles", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_idea_project_form.prototype, "Team", null);
     __decorate([
         $mol_mem
     ], $hyoo_idea_project_form.prototype, "Deck", null);
@@ -19076,7 +19204,7 @@ var $;
             return obj;
         }
         Post(id) {
-            const obj = new this.$.$hyoo_idea_post_full();
+            const obj = new this.$.$hyoo_idea_post_card();
             obj.post = () => this.post(id);
             return obj;
         }

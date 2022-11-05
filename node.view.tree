@@ -303,22 +303,6 @@ $hyoo_idea_sign_up_page $mol_page
 					click? <=> signup? null
 					enabled <= signup_allowed
 
-$mol_image2 $mol_view
-	links /
-	aspect 1
-	sub /
-		<= Content $mol_view
-			style *
-				paddingTop <= height \100%
-				backgroundImage <= background \
-
-$hyoo_idea_person_avatar $mol_view
-	blob null
-	placeholder \https://robohash.org/${id}.png
-	sub /
-		<= Image $mol_image2
-			links / <= link <= uri \
-
 $hyoo_idea_plural $mol_object2
 	other @ \
 	one @ \
@@ -371,6 +355,22 @@ $hyoo_idea_ago $mol_view
 			few @ \
 			many @ \
 
+$mol_image2 $mol_view
+	links /
+	aspect 1
+	sub /
+		<= Content $mol_view
+			style *
+				paddingTop <= height \100%
+				backgroundImage <= background \
+
+$hyoo_idea_person_avatar $mol_view
+	blob null
+	placeholder \https://robohash.org/${id}.png
+	sub /
+		<= Image $mol_image2
+			links / <= link <= uri \
+
 $mol_icon_dots_horizontal $mol_icon path \M16,12C16,10.9 16.9,10 18,10C19.1,10 20,10.9 20,12C20,13.1 19.1,14 18,14C16.9,14 16,13.1 16,12M10,12C10,10.9 10.9,10 12,10C13.1,10 14,10.9 14,12C14,13.1 13.1,14 12,14C10.9,14 10,13.1 10,12M4,12C4,10.9 4.9,10 6,10C7.1,10 8,10.9 8,12C8,13.1 7.1,14 6,14C4.9,14 4,13.1 4,12Z
 
 $mol_pop $mol_view
@@ -407,6 +407,24 @@ $mol_pick $mol_pop
 		checked?val <=> showed?val
 		sub <= trigger_content /$mol_view_content
 		hint <= hint \
+
+$hyoo_idea_person_card $mol_row
+	person $hyoo_idea_person
+		id => id
+		name_short => name_short
+		avatar_node => avatar_node
+	sub /
+		<= Avatar $hyoo_idea_person_avatar blob <= avatar_node
+		<= Name $mol_list
+			rows /
+				<= Name_link $mol_link
+					arg * person <= id
+					title <= name_short
+				<= Name_sub $mol_view sub <= name_sub /
+		<= Actions $mol_pick
+			hint @ \Actions
+			trigger_content / <= Actions_icon $mol_icon_dots_horizontal
+			bubble_content / \comming soon
 
 $mol_paragraph $mol_view
 	line_height 24
@@ -718,28 +736,20 @@ $mol_button_share $mol_button_minor
 	sub /
 		<= Icon $mol_icon_share_variant
 
-$hyoo_idea_post_full $mol_list
+$hyoo_idea_post_card $mol_list
 	post $hyoo_idea_post
 		id => id
 		content => content
 		created_moment => created_moment
+		person => person
 		person().avatar => avatar
 	rows /
-		<= Head $mol_row sub /
-			<= Avatar $hyoo_idea_person_avatar
-				uri <= avatar
-			<= Name_col $mol_list
-				rows /
-					<= Name $mol_link
-						arg * person <= person_id \
-						title <= author_name \
-					<= Ago $hyoo_idea_ago
-						title @ \{count} {unit} назад
-						moment <= created_moment
-			<= Menu $mol_pick
-				hint @ \Menu
-				trigger_content / <= Menu_icon $mol_icon_dots_horizontal
-				bubble_content / \comming soon
+		<= Head $hyoo_idea_person_card
+			person <= person
+			name_sub /
+				<= Ago $hyoo_idea_ago
+					title @ \{count} {unit} назад
+					moment <= created_moment
 		<= Content $mol_text
 			text <= content
 		<= Foot $mol_row sub /
@@ -761,7 +771,7 @@ $hyoo_idea_feed_page $mol_page
 	body /
 		<= Posts $mol_list
 			rows <= posts /
-				<= Post*0_0 $hyoo_idea_post_full
+				<= Post*0_0 $hyoo_idea_post_card
 					post <= post* $hyoo_idea_post
 
 $hyoo_idea_project_stage $mol_view
@@ -1340,6 +1350,10 @@ $hyoo_idea_project_form $mol_form
 										<= Role_drop* $mol_button_minor
 											sub / <= Role_drop_icon* $mol_icon_delete
 											click? <=> role_drop*? null
+			<= Team $mol_form
+				title @ \Team
+				form_fields /
+					
 
 $mol_icon_pencil $mol_icon path \M20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18,2.9 17.35,2.9 16.96,3.29L15.12,5.12L18.87,8.87M3,17.25V21H6.75L17.81,9.93L14.06,6.18L3,17.25Z
 
@@ -1533,7 +1547,7 @@ $hyoo_idea_person_page $mol_page
 					submit? <=> post_add? null
 				<= Post_list $mol_list
 					rows <= post_list /
-						<= Post*0_0 $hyoo_idea_post_full
+						<= Post*0_0 $hyoo_idea_post_card
 							post <= post* $hyoo_idea_post
 
 $hyoo_idea_app $mol_book2

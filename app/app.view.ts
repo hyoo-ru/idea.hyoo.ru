@@ -29,8 +29,8 @@ namespace $.$$ {
 
 		@ $mol_mem
 		pages() {
-			this.signup_open()
-			if (this.signup_opened()) return [this.Sign_up()]
+			// this.signup_open()
+			// if (this.signup_opened()) return [this.Sign_up()]
 
 			return [
 				this.Menu(),

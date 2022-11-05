@@ -9,6 +9,39 @@ namespace $.$$ {
 		body() {
 			return this.editing() ? [this.Form()] : super.body()
 		}
+		
+		@ $mol_mem
+		slides() {
+			const source = this.$.$mol_state_arg.href() + '/'
+			return super.slides().replace( '{source}', encodeURIComponent( source ) )
+		}
+		
+		@ $mol_mem
+		slides_content() {
+			return super.slides_content()
+				.replace( '{name}', this.project().name() || '{name}' )
+				.replace( '{brief}', this.project().brief() || '{brief}' )
+				.replace( '{description}', this.project().description() || '{description}' )
+		}
+
+		@ $mol_mem
+		message_listener() {
+
+			return new $mol_dom_listener(
+				$mol_dom_context,
+				'message',
+				$mol_wire_async( ( event: MessageEvent< any > )=> {
+					
+					const data = event.data
+					if( !Array.isArray( data ) ) return
+					if( data[0] !== 'content' ) return
+					
+					event.source?.postMessage( [ 'done', this.slides_content() ], { targetOrigin: '*' } )
+					
+				} )
+			)
+			
+		}
 
 	}
 

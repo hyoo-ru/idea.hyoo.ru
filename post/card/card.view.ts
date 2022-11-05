@@ -1,6 +1,6 @@
 namespace $.$$ {
 
-	export class $hyoo_idea_post_full extends $.$hyoo_idea_post_full {
+	export class $hyoo_idea_post_card extends $.$hyoo_idea_post_card {
 
 		author() {
 			return this.post().person()

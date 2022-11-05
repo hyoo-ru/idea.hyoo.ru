@@ -4,5 +4,5 @@ $hyoo_idea_feed_page $mol_page
 	body /
 		<= Posts $mol_list
 			rows <= posts /
-				<= Post*0_0 $hyoo_idea_post_full
+				<= Post*0_0 $hyoo_idea_post_card
 					post <= post* $hyoo_idea_post

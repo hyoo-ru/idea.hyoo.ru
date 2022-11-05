@@ -2,7 +2,7 @@ namespace $.$$ {
 
 	const { rem, per } = $mol_style_unit
 
-	$mol_style_define( $.$hyoo_idea_post_full, {
+	$mol_style_define( $.$hyoo_idea_post_card, {
 
 		width: per(100),
 
@@ -18,13 +18,7 @@ namespace $.$$ {
 			radius: $mol_gap.round,
 		},
 
-		Avatar: {
-			width: rem(3),
-			height: rem(3),
-		},
-
 		Head: {
-			alignItems: 'center',
 			margin: {
 				bottom: $mol_gap.block,
 			},
@@ -33,13 +27,6 @@ namespace $.$$ {
 		Ago: {
 			font: {
 				size: rem(0.75),
-			},
-		},
-
-		Menu: {
-			alignSelf: 'flex-start',
-			margin: {
-				left: 'auto',
 			},
 		},
 

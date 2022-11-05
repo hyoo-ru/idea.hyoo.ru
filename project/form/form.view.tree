@@ -74,3 +74,7 @@ $hyoo_idea_project_form $mol_form
 										<= Role_drop* $mol_button_minor
 											sub / <= Role_drop_icon* $mol_icon_delete
 											click? <=> role_drop*? null
+			<= Team $mol_form
+				title @ \Team
+				form_fields /
+					

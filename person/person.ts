@@ -213,6 +213,12 @@ namespace $ {
 				.map( id => this.domain().person( $mol_int62_string_ensure(id)! ) )
 		}
 
+		@ $mol_mem
+		project_invites( next?: $hyoo_idea_invite[] ) {
+			const ids = this.state().sub( 'project_invites', $hyoo_crowd_list ).list( next && next.map( obj => obj.id() ) )
+			return ids.map( id => this.domain().invite( $mol_int62_string_ensure(id)! ) )
+		}
+
 	}
 
 }

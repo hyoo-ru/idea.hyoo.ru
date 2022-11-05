@@ -13577,6 +13577,22 @@ var $;
 (function ($) {
     var $$;
     (function ($$) {
+        const { rem } = $mol_style_unit;
+        $mol_style_define($.$hyoo_idea_feed_page, {
+            flex: {
+                basis: rem(40),
+                shrink: 0,
+            },
+        });
+    })($$ = $.$$ || ($.$$ = {}));
+})($ || ($ = {}));
+//hyoo/idea/feed/page/page.view.css.ts
+;
+"use strict";
+var $;
+(function ($) {
+    var $$;
+    (function ($$) {
         class $hyoo_idea_feed_page extends $.$hyoo_idea_feed_page {
             domain() {
                 return this.person().domain();

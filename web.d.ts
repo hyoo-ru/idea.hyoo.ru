@@ -3817,6 +3817,9 @@ declare namespace $ {
 }
 
 declare namespace $.$$ {
+}
+
+declare namespace $.$$ {
     class $hyoo_idea_feed_page extends $.$hyoo_idea_feed_page {
         domain(): $hyoo_idea_domain;
         posts_all(): $hyoo_idea_post[];

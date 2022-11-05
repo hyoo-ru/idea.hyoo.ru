@@ -19811,9 +19811,6 @@ var $;
                     this.$.$mol_state_arg.value('signup', '');
             }
             pages() {
-                this.signup_open();
-                if (this.signup_opened())
-                    return [this.Sign_up()];
                 return [
                     this.Menu(),
                     ...this.section() === 'feed' ? [this.Feed()] : [],

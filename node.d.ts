@@ -5140,7 +5140,7 @@ declare namespace $.$$ {
         signup_opened(): boolean;
         project_opened(): $hyoo_idea_project;
         signup_open(): void;
-        pages(): $hyoo_idea_sign_up_page[] | ($mol_page | $hyoo_idea_feed_page | $hyoo_idea_project_page | $hyoo_idea_project_list | $hyoo_idea_person_page)[];
+        pages(): ($mol_page | $hyoo_idea_feed_page | $hyoo_idea_project_page | $hyoo_idea_project_list | $hyoo_idea_person_page)[];
         sync(): void;
         person_register(): void;
         auto(): void;

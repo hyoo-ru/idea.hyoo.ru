@@ -17959,6 +17959,11 @@ var $;
 var $;
 (function ($) {
     class $hyoo_idea_project_page extends $mol_page {
+        auto() {
+            return [
+                this.message_listener()
+            ];
+        }
         domain() {
             return this.project().domain();
         }
@@ -17975,8 +17980,12 @@ var $;
         title() {
             return this.$.$mol_locale.text('$hyoo_idea_project_page_title');
         }
+        slides_content() {
+            return "# {name}\n\n> {brief}\n\n{description}";
+        }
         tools() {
             return [
+                this.Slides(),
                 this.Edit(),
                 this.Close()
             ];
@@ -17994,6 +18003,18 @@ var $;
                 this.Blocks(),
                 this.Stage()
             ];
+        }
+        message_listener() {
+            return null;
+        }
+        slides() {
+            return "https://slides.hyoo.ru/#!slides={source}";
+        }
+        Slides() {
+            const obj = new this.$.$mol_link_iconed();
+            obj.uri = () => this.slides();
+            obj.title = () => "";
+            return obj;
         }
         Edit_icon() {
             const obj = new this.$.$mol_icon_pencil();
@@ -18066,6 +18087,9 @@ var $;
     __decorate([
         $mol_mem
     ], $hyoo_idea_project_page.prototype, "Form", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_idea_project_page.prototype, "Slides", null);
     __decorate([
         $mol_mem
     ], $hyoo_idea_project_page.prototype, "Edit_icon", null);
@@ -18147,7 +18171,36 @@ var $;
             body() {
                 return this.editing() ? [this.Form()] : super.body();
             }
+            slides() {
+                const source = this.$.$mol_state_arg.href() + '/';
+                return super.slides().replace('{source}', encodeURIComponent(source));
+            }
+            slides_content() {
+                return super.slides_content()
+                    .replace('{name}', this.project().name() || '{name}')
+                    .replace('{brief}', this.project().brief() || '{brief}')
+                    .replace('{description}', this.project().description() || '{description}');
+            }
+            message_listener() {
+                return new $mol_dom_listener($mol_dom_context, 'message', $mol_wire_async((event) => {
+                    const data = event.data;
+                    if (!Array.isArray(data))
+                        return;
+                    if (data[0] !== 'content')
+                        return;
+                    event.source?.postMessage(['done', this.slides_content()], { targetOrigin: '*' });
+                }));
+            }
         }
+        __decorate([
+            $mol_mem
+        ], $hyoo_idea_project_page.prototype, "slides", null);
+        __decorate([
+            $mol_mem
+        ], $hyoo_idea_project_page.prototype, "slides_content", null);
+        __decorate([
+            $mol_mem
+        ], $hyoo_idea_project_page.prototype, "message_listener", null);
         $$.$hyoo_idea_project_page = $hyoo_idea_project_page;
     })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));

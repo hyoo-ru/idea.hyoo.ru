@@ -4800,15 +4800,20 @@ declare namespace $ {
 
 declare namespace $ {
     class $hyoo_idea_project_page extends $mol_page {
+        auto(): readonly any[];
         domain(): $hyoo_idea_domain;
         logo(): string;
         name(): string;
         project(): $hyoo_idea_project;
         title(): string;
+        slides_content(): string;
         tools(): readonly any[];
         editing(): boolean;
         Form(): $$.$hyoo_idea_project_form;
         body(): readonly any[];
+        message_listener(): any;
+        slides(): string;
+        Slides(): $$.$mol_link_iconed;
         Edit_icon(): $mol_icon_pencil;
         Edit(): $$.$mol_link;
         Close_icon(): $mol_icon_cross;
@@ -4829,6 +4834,9 @@ declare namespace $.$$ {
     class $hyoo_idea_project_page extends $.$hyoo_idea_project_page {
         editing(): boolean;
         body(): readonly any[];
+        slides(): string;
+        slides_content(): string;
+        message_listener(): $mol_dom_listener;
     }
 }
 

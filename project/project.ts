@@ -46,12 +46,6 @@ namespace $ {
 		}
 		
 		@ $mol_mem
-		team( next?: $hyoo_idea_person[] ) {
-			const ids = this.team_node().list( next )
-			return ids.map( id => this.domain().person( $mol_int62_string_ensure(id)! ) )
-		}
-
-		@ $mol_mem
 		stage( next? : $hyoo_idea_project_stages ) {
 			return this.state().sub( 'stage', $hyoo_crowd_reg ).str( next ) as typeof next || 'idea'
 		}
@@ -72,6 +66,17 @@ namespace $ {
 			return this.roles_node().list( next ) as Exclude<typeof next, undefined>
 		}
 
+		@ $mol_mem
+		team( next?: $hyoo_idea_person[] ) {
+			const ids = this.team_node().list( next )
+			return ids.map( id => this.domain().person( $mol_int62_string_ensure(id)! ) )
+		}
+
+		@ $mol_mem
+		team_invites( next?: $hyoo_idea_invite[] ) {
+			const ids = this.state().sub( 'team_invites', $hyoo_crowd_list ).list( next && next.map( obj => obj.id() ) )
+			return ids.map( id => this.domain().invite( $mol_int62_string_ensure(id)! ) )
+		}
 	}
 
 }

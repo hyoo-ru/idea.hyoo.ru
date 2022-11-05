@@ -1,0 +1,17 @@
+$hyoo_idea_person_card $mol_row
+	person $hyoo_idea_person
+		id => id
+		name_short => name_short
+		avatar_node => avatar_node
+	sub /
+		<= Avatar $hyoo_idea_person_avatar blob <= avatar_node
+		<= Name $mol_list
+			rows /
+				<= Name_link $mol_link
+					arg * person <= id
+					title <= name_short
+				<= Name_sub $mol_view sub <= name_sub /
+		<= Actions $mol_pick
+			hint @ \Actions
+			trigger_content / <= Actions_icon $mol_icon_dots_horizontal
+			bubble_content / \comming soon

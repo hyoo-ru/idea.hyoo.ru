@@ -97,5 +97,5 @@ $hyoo_idea_person_page $mol_page
 					submit? <=> post_add? null
 				<= Post_list $mol_list
 					rows <= post_list /
-						<= Post*0_0 $hyoo_idea_post_full
+						<= Post*0_0 $hyoo_idea_post_card
 							post <= post* $hyoo_idea_post

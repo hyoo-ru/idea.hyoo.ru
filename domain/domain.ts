@@ -50,6 +50,17 @@ namespace $ {
 			return this.project( land.id() )
 		}
 
+		@ $mol_mem_key
+		invite( id: $mol_int62_string ) {
+			return $hyoo_idea_invite.make({ id: $mol_const(id), domain: $mol_const(this) })
+		}
+
+		@ $mol_action
+		invite_add() {
+			const land = this.yard().land_grab()
+			return this.invite( land.id() )
+		}
+
 	}
 
 }

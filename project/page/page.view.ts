@@ -65,6 +65,56 @@ namespace $.$$ {
 			this.domain().user().projects_node().drop( this.project().id() )
 		}
 
+
+		post(obj: $hyoo_idea_post) {
+			return obj
+		}
+
+		post_list() {
+			return this.project().posts()
+				.sort( (a, b) => b.created_moment().valueOf() - a.created_moment().valueOf() )
+				.map( obj => this.Post( obj ) )
+		}
+
+		post_add(text: string) {
+			const obj = this.domain().post_add()
+			obj.content( text )
+			this.project().post_add( obj , this.domain().user() )
+		}
+
+		posts_content() {
+			return [
+				... this.self() ? [this.Post_add()] : [],
+				this.Post_list(),
+			]
+		}
+
+		team_stat() {
+			const roles = this.project().roles()
+			return `${roles.filter( obj => !!obj.person ).length}/${roles.length}`
+		}
+
+		sub_count() {
+			return this.project().subs().length.toString()
+		}
+
+		post_count() {
+			return this.project().posts().length.toString()
+		}
+
+		team_member_list() {
+			return this.project().team_members().map( obj => this.Team_member(obj) )
+		}
+
+		team_member( obj: $hyoo_idea_person ) {
+			return obj
+		}
+
+		team_member_role( obj: $hyoo_idea_person ) {
+			const role = this.project().roles().find( role => role.person === obj.id() )
+			return role?.name || this.team_member_no_role()
+		}
+
 	}
 
 }

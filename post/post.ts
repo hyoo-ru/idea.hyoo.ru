@@ -3,6 +3,12 @@ namespace $ {
 	export class $hyoo_idea_post extends $hyoo_idea_entity {
 
 		@ $mol_mem
+		project( next?: $hyoo_idea_project ) {
+			const id = this.state().sub( 'project', $hyoo_crowd_reg ).str( next && next.id() )
+			return this.domain().project( id as $mol_int62_string )
+		}
+
+		@ $mol_mem
 		person( next?: $hyoo_idea_person ) {
 			const id = this.state().sub( 'person', $hyoo_crowd_reg ).str( next && next.id() )
 			return this.domain().person( id as $mol_int62_string )

@@ -59,6 +59,24 @@ namespace $.$$ {
 			},
 		},
 
+		Team_list: {
+			flex: {
+				grow: 1,
+			},
+		},
+
+		Posts: {
+			Content: {
+				flex: {
+					direction: 'column',
+				},
+				padding: 0,
+				background: {
+					color: 'unset',
+				},
+			},
+		},
+
 	} )
 
 }

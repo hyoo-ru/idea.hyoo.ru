@@ -10,6 +10,7 @@ $hyoo_idea_project_page $mol_page
 		name => name
 		brief => brief
 		stage => stage
+		description => description
 	title @ \Project
 	slides_content \
 		\# {name}
@@ -18,6 +19,7 @@ $hyoo_idea_project_page $mol_page
 		\
 		\{description}
 	self false
+	team_member_no_role @ \No role
 	tools /
 		<= Slides $mol_link_iconed
 			uri <= slides \https://slides.hyoo.ru/#!slides={source}
@@ -61,7 +63,7 @@ $hyoo_idea_project_page $mol_page
 			content / <= Stats_content $hyoo_idea_profile_stats sub /
 				<= Stage_stat $hyoo_idea_profile_stat
 					label @ \Stage
-					count <= Stage $hyoo_idea_project_stage stage <= stage
+					Count <= Stage $hyoo_idea_project_stage stage <= stage
 				<= Team_stat $hyoo_idea_profile_stat
 					label @ \Team
 					count <= team_stat \3/5
@@ -71,3 +73,29 @@ $hyoo_idea_project_page $mol_page
 				<= Sub_count $hyoo_idea_profile_stat
 					label @ \Subscribers
 					count <= sub_count \4
+		<= Description $hyoo_idea_profile_block
+			title @ \Description
+			expanded true
+			Expander null
+			content / <= Description_text $mol_text
+				text <= description
+		<= Team $hyoo_idea_profile_block
+			title @ \Team
+			expanded true
+			Expander null
+			content / <= Team_list $mol_list rows <= team_member_list /
+				<= Team_member*0_0 $hyoo_idea_person_card
+					person <= team_member* $hyoo_idea_person
+					actions /
+						<= Team_member_role* $mol_paragraph title <= team_member_role* \
+		<= Posts $hyoo_idea_profile_block
+			title @ \Posts
+			Expander null
+			expanded true
+			content <= posts_content /
+				<= Post_add $hyoo_idea_post_add
+					submit? <=> post_add? null
+				<= Post_list $mol_list
+					rows <= post_list /
+						<= Post*0_0 $hyoo_idea_post_card
+							post <= post* $hyoo_idea_post

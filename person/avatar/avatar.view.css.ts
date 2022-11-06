@@ -14,16 +14,8 @@ namespace $.$$ {
 			},
 			width: per(100),
 			height: per(100),
-			box: {
-				shadow: [{
-					x: 0,
-					y: 0,
-					blur: 0,
-					spread: rem(0.15),
-					color: $mol_theme.text,
-				}],
-			}
 		},
+
 	} )
 
 }

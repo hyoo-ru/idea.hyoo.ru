@@ -95,6 +95,38 @@ namespace $ {
 			return this.team().filter( obj => !obj.projects_node().has( this.id() ) )
 		}
 
+		@ $mol_mem
+		posts_node() {
+			return this.state().sub( 'posts', $hyoo_crowd_list )
+		}
+
+		@ $mol_mem
+		posts( next?: $hyoo_idea_post[] ) {
+			const ids = this.posts_node().list( next && next.map( obj => obj.id() ) )
+			return ids.map( id => this.domain().post( id as $mol_int62_string ) )
+		}
+
+		@ $mol_action
+		post_add( obj: $hyoo_idea_post, person?: $hyoo_idea_person ) {
+			obj.person( person )
+			obj.project( this )
+			this.posts_node().add( obj.id() )
+		}
+
+		@ $mol_action
+		post_drop( obj: $hyoo_idea_post ) {
+			this.posts_node().drop( obj.id() )
+		}
+
+
+		@ $mol_mem
+		subs(next?: $hyoo_idea_person[]) {
+			const ids = this.state().sub('subs', $hyoo_crowd_list).list( next && next.map( obj => obj.id() ) )
+			return ids
+				.filter( id => $mol_int62_string_ensure(id))
+				.map( id => this.domain().person( $mol_int62_string_ensure(id)! ) )
+		}
+
 	}
 
 }

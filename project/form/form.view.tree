@@ -7,6 +7,7 @@ $hyoo_idea_project_form $mol_form
 		description? => description?
 		stage? => stage?
 		team? => team?
+	role_not_label @ \No role
 	form_fields /
 		<= Deck $mol_deck items /
 			<= Project $mol_form
@@ -62,14 +63,15 @@ $hyoo_idea_project_form $mol_form
 										name @ \Role name
 										control <= Role_name_control* $mol_string
 											value? <=> role_name*? \
-									<= Role_count_field* $mol_form_field
-										name @ \Number of people
-										control <= Role_count_control* $mol_number
-											value? <=> role_count*? 1
 									<= Role_functions_field* $mol_form_field
 										name @ \Functions
 										control <= Role_functions_control* $mol_textarea
 											value? <=> role_functions*? \
+									<= Role_team_member_field* $mol_form_field
+										name @ \Team member
+										control <= Role_team_member_control* $mol_select
+											value? <=> role_team_member*? \
+											dictionary <= team_member_dict *
 									<= Role_drop_row* $mol_row sub /
 										<= Role_drop* $mol_button_minor
 											sub / <= Role_drop_icon* $mol_icon_delete
@@ -83,6 +85,7 @@ $hyoo_idea_project_form $mol_form
 							<= Team_member*0_0 $hyoo_idea_person_card
 								person <= member* $hyoo_idea_person
 								actions <= team_actions* /
+									<= Member_role* $mol_paragraph title <= member_role* \
 									<= Team_kick* $mol_button_minor
 										hint @ \Remove from team
 										sub / <= Team_kick_icon* $mol_icon_cross

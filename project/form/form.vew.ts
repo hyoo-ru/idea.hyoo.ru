@@ -64,13 +64,29 @@ namespace $.$$ {
 			return this.role_change( { id, key: 'name' }, next ) as string
 		}
 
-		role_count( id: number, next?: string ) {
-			return this.role_change( { id, key: 'count' }, next ) as number || 1
-		}
-
 		role_functions( id: number, next?: string ) {
 			return this.role_change( { id, key: 'functions' }, next ) as string
 		}
+
+		role_team_member( id: number, next?: string ) {
+			return this.role_change( { id, key: 'person' }, next ) as string
+		}
+
+		@ $mol_mem
+		team_member_dict() {
+			return this.project().team_members().reduce( (dict, obj) => {
+				dict[obj.id()] = obj.name_short()
+				return dict
+			}, {} )
+		}
+
+		@ $mol_mem_key
+		member_role( obj: $hyoo_idea_person ) {
+			const roles = this.project().roles()
+			const role = roles.find( role => role.person === obj.id() )
+			return role?.name || this.role_not_label()
+		}
+
 
 		team_fields() {
 			return [
@@ -116,7 +132,10 @@ namespace $.$$ {
 
 		@ $mol_mem_key
 		team_actions( obj: $hyoo_idea_person ) {
-			return this.project().owner().id() === obj.id() ? [] : [this.Team_kick(obj)]
+			return [
+				this.Member_role(obj),
+				... this.project().owner().id() !== obj.id() ? [this.Team_kick(obj)] : [],
+			]
 		}
 
 	}

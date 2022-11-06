@@ -17037,7 +17037,7 @@ var $;
                 return this.job({ id, key: 'industry' }, next);
             }
             functions(id, next) {
-                return this.job({ id, key: 'functions' }, next);
+                return this.job({ id, key: 'functions' }, next) ?? '';
             }
             present(id, next) {
                 return this.job({ id, key: 'present' }, next);

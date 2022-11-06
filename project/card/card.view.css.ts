@@ -23,6 +23,11 @@ namespace $.$$ {
 			color: $mol_theme.shade,
 		},
 
+		Logo: {
+			width: rem(3),
+			height: rem(3),
+		}
+
 	} )
 
 }

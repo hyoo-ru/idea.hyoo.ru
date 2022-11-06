@@ -8,6 +8,8 @@ namespace $.$$ {
 
 		justifyContent: 'space-between',
 
+		color: $mol_theme.text,
+
 	} )
 
 	$mol_style_define( $.$hyoo_idea_profile_stat, {

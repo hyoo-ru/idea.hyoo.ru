@@ -53,10 +53,6 @@ namespace $.$$ {
 			shrink: 0,
 		},
 
-		padding: {
-			bottom: $mol_gap.block,
-		},
-
 		Face: {
 			flex: {
 				wrap: 'nowrap',

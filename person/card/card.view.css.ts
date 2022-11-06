@@ -10,6 +10,7 @@ namespace $.$$ {
 			margin: {
 				left: 'auto',
 			},
+			alignItems: 'center',
 		},
 
 		Name_link: {

@@ -64,7 +64,7 @@ namespace $ {
 			next?: Array<{
 				name: string,
 				functions: string,
-				count: number,
+				person: string,
 			}>
 		) {
 			return this.roles_node().list( next ) as Exclude<typeof next, undefined>

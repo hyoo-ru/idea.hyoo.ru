@@ -43,6 +43,16 @@ namespace $.$$ {
 			
 		}
 
+		@ $mol_action
+		join_request() {
+			this.domain().user().projects_node().add( this.project().id() )
+		}
+
+		@ $mol_action
+		join_cancel() {
+			this.domain().user().projects_node().drop( this.project().id() )
+		}
+
 	}
 
 }

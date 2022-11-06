@@ -38,4 +38,8 @@ $hyoo_idea_app $mol_book2
 			domain <= domain
 		<= Person_page $hyoo_idea_person_page
 			person <= person_opened $hyoo_idea_person
+		<= My_page $hyoo_idea_person_page
+			person <= user
+		<= Invite_page $hyoo_idea_invite_page
+			domain <= domain
 	Placeholder null

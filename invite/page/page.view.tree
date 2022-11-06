@@ -1,7 +1,48 @@
 $hyoo_idea_invite_page $mol_page
+	domain $hyoo_idea_domain
 	title @ \Invite
-	body / <= Form $mol_form form_fields /
-		<= Project_field $mol_form_field
-			name @ \Project
-			Content <= Project_content $hyoo_idea_project_card
-				project <= project $hyoo_idea_project
+	tools /
+		<= Close_head $mol_link
+			arg *
+				invite_project null
+				invite_person null
+			sub / <= Close_icon $mol_icon_cross
+	status *
+		sended @ \Invitation sent
+		joined @ \The user is already on the project team
+		none @ \None
+	body /
+		<= Form $mol_form
+			form_fields <= fields /
+				<= Project_select_field $mol_form_field
+					name @ \Select project
+					control <= Project_select_control $mol_select
+						value? <=> project_id? \
+						dictionary <= project_dict *
+				<= Project_field $mol_form_field
+					name @ \Project
+					Content <= Project_content $hyoo_idea_project_card
+						project <= project $hyoo_idea_project
+				<= Person_select_field $mol_form_field
+					name @ \Select person
+					control <= Person_select_control $mol_select
+						value? <=> person_id? \
+						dictionary <= person_dict *
+				<= Person_field $mol_form_field
+					name @ \Person
+					Content <= Person_content $hyoo_idea_person_card
+						person <= person $hyoo_idea_person
+						Actions null
+				<= Status_field $mol_form_field
+					name @ \Status
+					Content <= Statuc_content $mol_paragraph title <= status_text \
+			buttons /
+				<= Submit $mol_button_major
+					title @ \Invite
+					click? <=> submit? null
+					enabled <= submit_enabled true
+				<= Close $mol_link
+					arg *
+						invite_project null
+						invite_person null
+					title @ \Close

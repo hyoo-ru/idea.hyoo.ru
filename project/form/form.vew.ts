@@ -72,6 +72,53 @@ namespace $.$$ {
 			return this.role_change( { id, key: 'functions' }, next ) as string
 		}
 
+		team_fields() {
+			return [
+				... this.project().team_members().length > 0 ? [this.Team_field()] : [],
+				... this.project().team_requests().length > 0 ? [this.Requests_field()] : [],
+				... this.project().team_invites().length > 0 ? [this.Invites_field()] : [],
+			]
+		}
+
+		@ $mol_mem
+		team_rows() {
+			return this.project().team_members().map( obj => this.Team_member(obj) )
+		}
+
+		@ $mol_mem
+		requests_rows() {
+			return this.project().team_requests().map( obj => this.Request_member(obj) )
+		}
+
+		@ $mol_mem
+		invites_rows() {
+			return this.project().team_invites().map( obj => this.Invite_member(obj) )
+		}
+
+		member( obj: $hyoo_idea_person ) {
+			return obj
+		}
+
+		@ $mol_action
+		team_kick( obj: $hyoo_idea_person ) {
+			this.project().team_node().drop( obj.id() )
+		}
+
+		@ $mol_action
+		request_accept( obj: $hyoo_idea_person ) {
+			this.project().team_node().add( obj.id() )
+		}
+
+		@ $mol_action
+		invite_cancel( obj: $hyoo_idea_person ) {
+			this.project().team_node().drop( obj.id() )
+		}
+
+		@ $mol_mem_key
+		team_actions( obj: $hyoo_idea_person ) {
+			return this.project().owner().id() === obj.id() ? [] : [this.Team_kick(obj)]
+		}
+
 	}
 
 }

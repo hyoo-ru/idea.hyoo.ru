@@ -1,5 +1,6 @@
 $hyoo_idea_person_page $mol_page
 	person $hyoo_idea_person
+		id => id
 		domain => domain
 		avatar_node => avatar_node
 		name_short => name_short
@@ -9,6 +10,7 @@ $hyoo_idea_person_page $mol_page
 		email => email
 		projects => projects
 	self false
+	show_confirm? false
 	title @ \User page
 	msg *
 		job_present @ \Up to present
@@ -35,7 +37,15 @@ $hyoo_idea_person_page $mol_page
 				<= Age $hyoo_idea_ago 
 					title @ \{count} {unit}
 					moment <= date_birth $mol_time_moment
-			<= Actions $mol_view sub /
+			<= Actions $mol_view sub <= actions /
+				<= More $mol_pick
+					hint @ \More...
+					trigger_content / <= More_icon $mol_icon_dots_vertical
+					bubble_content <= more_content /
+						<= More_list $mol_list rows /
+							<= Invite_button $mol_link
+								arg * invite_person <= id
+								title @ \Invite to project
 				<= Subscribe $mol_button_minor
 					title @ \Subscribe
 				<= Message $mol_button_major

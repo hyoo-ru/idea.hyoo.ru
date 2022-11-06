@@ -22,6 +22,14 @@ namespace $.$$ {
 			display: 'inline-flex',
 		},
 
+		Deck: {
+			Switch: {
+				margin: {
+					bottom: $mol_gap.block,
+				},
+			},
+		},
+
 	} )
 
 }

@@ -19,7 +19,7 @@ namespace $ {
 		@ $mol_mem
 		persons() {
 			// const land = 'nkxkna_4ekv5r' as $mol_int62_string
-			const land = 'prc5a5_vem6li' as $mol_int62_string
+			const land = 'n1ctq4_docviq' as $mol_int62_string
 			return $hyoo_idea_persons.make({ id: $mol_const(land), domain: $mol_const(this) })
 		}
 		
@@ -48,17 +48,6 @@ namespace $ {
 		project_add() {
 			const land = this.yard().land_grab()
 			return this.project( land.id() )
-		}
-
-		@ $mol_mem_key
-		invite( id: $mol_int62_string ) {
-			return $hyoo_idea_invite.make({ id: $mol_const(id), domain: $mol_const(this) })
-		}
-
-		@ $mol_action
-		invite_add() {
-			const land = this.yard().land_grab()
-			return this.invite( land.id() )
 		}
 
 	}

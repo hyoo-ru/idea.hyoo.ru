@@ -10647,6 +10647,7 @@ var $;
                 margin: {
                     left: 'auto',
                 },
+                alignItems: 'center',
             },
             Name_link: {
                 display: 'inline-flex',
@@ -17241,182 +17242,6 @@ var $node = $node || {} ; $node[ "/hyoo/idea/project/logo/placeholder.png" ] = "
 "use strict";
 var $;
 (function ($) {
-    class $mol_icon_minus extends $mol_icon {
-        path() {
-            return "M19,13H5V11H19V13Z";
-        }
-    }
-    $.$mol_icon_minus = $mol_icon_minus;
-})($ || ($ = {}));
-//mol/icon/minus/-view.tree/minus.view.tree.ts
-;
-"use strict";
-var $;
-(function ($) {
-    class $mol_number extends $mol_view {
-        precision_view() {
-            return this.precision();
-        }
-        precision_change() {
-            return this.precision();
-        }
-        value(val) {
-            if (val !== undefined)
-                return val;
-            return +NaN;
-        }
-        sub() {
-            return [
-                this.String(),
-                this.Dec(),
-                this.Inc()
-            ];
-        }
-        precision() {
-            return 1;
-        }
-        value_string(val) {
-            if (val !== undefined)
-                return val;
-            return "";
-        }
-        hint() {
-            return " ";
-        }
-        enabled() {
-            return true;
-        }
-        string_enabled() {
-            return this.enabled();
-        }
-        String() {
-            const obj = new this.$.$mol_string();
-            obj.type = () => "tel";
-            obj.value = (val) => this.value_string(val);
-            obj.hint = () => this.hint();
-            obj.enabled = () => this.string_enabled();
-            return obj;
-        }
-        event_dec(val) {
-            if (val !== undefined)
-                return val;
-            return null;
-        }
-        dec_enabled() {
-            return this.enabled();
-        }
-        dec_icon() {
-            const obj = new this.$.$mol_icon_minus();
-            return obj;
-        }
-        Dec() {
-            const obj = new this.$.$mol_button_minor();
-            obj.event_click = (val) => this.event_dec(val);
-            obj.enabled = () => this.dec_enabled();
-            obj.sub = () => [
-                this.dec_icon()
-            ];
-            return obj;
-        }
-        event_inc(val) {
-            if (val !== undefined)
-                return val;
-            return null;
-        }
-        inc_enabled() {
-            return this.enabled();
-        }
-        inc_icon() {
-            const obj = new this.$.$mol_icon_plus();
-            return obj;
-        }
-        Inc() {
-            const obj = new this.$.$mol_button_minor();
-            obj.event_click = (val) => this.event_inc(val);
-            obj.enabled = () => this.inc_enabled();
-            obj.sub = () => [
-                this.inc_icon()
-            ];
-            return obj;
-        }
-    }
-    __decorate([
-        $mol_mem
-    ], $mol_number.prototype, "value", null);
-    __decorate([
-        $mol_mem
-    ], $mol_number.prototype, "value_string", null);
-    __decorate([
-        $mol_mem
-    ], $mol_number.prototype, "String", null);
-    __decorate([
-        $mol_mem
-    ], $mol_number.prototype, "event_dec", null);
-    __decorate([
-        $mol_mem
-    ], $mol_number.prototype, "dec_icon", null);
-    __decorate([
-        $mol_mem
-    ], $mol_number.prototype, "Dec", null);
-    __decorate([
-        $mol_mem
-    ], $mol_number.prototype, "event_inc", null);
-    __decorate([
-        $mol_mem
-    ], $mol_number.prototype, "inc_icon", null);
-    __decorate([
-        $mol_mem
-    ], $mol_number.prototype, "Inc", null);
-    $.$mol_number = $mol_number;
-})($ || ($ = {}));
-//mol/number/-view.tree/number.view.tree.ts
-;
-"use strict";
-var $;
-(function ($) {
-    $mol_style_attach("mol/number/number.css", "[mol_number] {\n\tdisplay: flex;\n\tflex: 0 1 auto;\n\tposition: relative;\n\talign-items: stretch;\n\tmax-width: 100%;\n}\n\n[mol_number]:hover {\n\tz-index: 2;\n}\n\n[mol_number_string] {\n\tappearance: textfield;\n\tflex: 1 1 7rem;\n\twidth: 7rem;\n}\n\n[mol_number_string]::-webkit-inner-spin-button {\n\tdisplay: none;\n}\n\n[mol_number_inc][disabled],\n[mol_number_dec][disabled] {\n\tvisibility: hidden;\n}\n");
-})($ || ($ = {}));
-//mol/number/-css/number.css.ts
-;
-"use strict";
-var $;
-(function ($) {
-    var $$;
-    (function ($$) {
-        class $mol_number extends $.$mol_number {
-            event_dec(next) {
-                this.value((Number(this.value()) || 0) - this.precision_change());
-            }
-            event_inc(next) {
-                this.value((Number(this.value()) || 0) + this.precision_change());
-            }
-            value_string(next) {
-                if (next !== void 0) {
-                    this.value(next === '' ? null : Number(next));
-                }
-                const precisionView = this.precision_view();
-                const value = next ? Number(next) : this.value();
-                if (value === 0)
-                    return '0';
-                if (!value)
-                    return '';
-                if (precisionView >= 1) {
-                    return (value / precisionView).toFixed();
-                }
-                else {
-                    const fixedNumber = Math.log10(1 / precisionView);
-                    return value.toFixed(fixedNumber);
-                }
-            }
-        }
-        $$.$mol_number = $mol_number;
-    })($$ = $.$$ || ($.$$ = {}));
-})($ || ($ = {}));
-//mol/number/number.view.ts
-;
-"use strict";
-var $;
-(function ($) {
     class $mol_icon_check extends $mol_icon {
         path() {
             return "M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z";
@@ -17466,6 +17291,9 @@ var $;
         project() {
             const obj = new this.$.$hyoo_idea_project();
             return obj;
+        }
+        role_not_label() {
+            return this.$.$mol_locale.text('$hyoo_idea_project_form_role_not_label');
         }
         form_fields() {
             return [
@@ -17636,22 +17464,6 @@ var $;
             obj.control = () => this.Role_name_control(id);
             return obj;
         }
-        role_count(id, next) {
-            if (next !== undefined)
-                return next;
-            return 1;
-        }
-        Role_count_control(id) {
-            const obj = new this.$.$mol_number();
-            obj.value = (next) => this.role_count(id, next);
-            return obj;
-        }
-        Role_count_field(id) {
-            const obj = new this.$.$mol_form_field();
-            obj.name = () => this.$.$mol_locale.text('$hyoo_idea_project_form_Role_count_field_name');
-            obj.control = () => this.Role_count_control(id);
-            return obj;
-        }
         role_functions(id, next) {
             if (next !== undefined)
                 return next;
@@ -17666,6 +17478,26 @@ var $;
             const obj = new this.$.$mol_form_field();
             obj.name = () => this.$.$mol_locale.text('$hyoo_idea_project_form_Role_functions_field_name');
             obj.control = () => this.Role_functions_control(id);
+            return obj;
+        }
+        role_team_member(id, next) {
+            if (next !== undefined)
+                return next;
+            return "";
+        }
+        team_member_dict() {
+            return {};
+        }
+        Role_team_member_control(id) {
+            const obj = new this.$.$mol_select();
+            obj.value = (next) => this.role_team_member(id, next);
+            obj.dictionary = () => this.team_member_dict();
+            return obj;
+        }
+        Role_team_member_field(id) {
+            const obj = new this.$.$mol_form_field();
+            obj.name = () => this.$.$mol_locale.text('$hyoo_idea_project_form_Role_team_member_field_name');
+            obj.control = () => this.Role_team_member_control(id);
             return obj;
         }
         Role_drop_icon(id) {
@@ -17697,8 +17529,8 @@ var $;
             obj.rows = () => [
                 this.Role_head_group(id),
                 this.Role_name_field(id),
-                this.Role_count_field(id),
                 this.Role_functions_field(id),
+                this.Role_team_member_field(id),
                 this.Role_drop_row(id)
             ];
             return obj;
@@ -17734,6 +17566,14 @@ var $;
             const obj = new this.$.$hyoo_idea_person();
             return obj;
         }
+        member_role(id) {
+            return "";
+        }
+        Member_role(id) {
+            const obj = new this.$.$mol_paragraph();
+            obj.title = () => this.member_role(id);
+            return obj;
+        }
         Team_kick_icon(id) {
             const obj = new this.$.$mol_icon_cross();
             return obj;
@@ -17754,6 +17594,7 @@ var $;
         }
         team_actions(id) {
             return [
+                this.Member_role(id),
                 this.Team_kick(id)
             ];
         }
@@ -17970,15 +17811,6 @@ var $;
     ], $hyoo_idea_project_form.prototype, "Role_name_field", null);
     __decorate([
         $mol_mem_key
-    ], $hyoo_idea_project_form.prototype, "role_count", null);
-    __decorate([
-        $mol_mem_key
-    ], $hyoo_idea_project_form.prototype, "Role_count_control", null);
-    __decorate([
-        $mol_mem_key
-    ], $hyoo_idea_project_form.prototype, "Role_count_field", null);
-    __decorate([
-        $mol_mem_key
     ], $hyoo_idea_project_form.prototype, "role_functions", null);
     __decorate([
         $mol_mem_key
@@ -17986,6 +17818,15 @@ var $;
     __decorate([
         $mol_mem_key
     ], $hyoo_idea_project_form.prototype, "Role_functions_field", null);
+    __decorate([
+        $mol_mem_key
+    ], $hyoo_idea_project_form.prototype, "role_team_member", null);
+    __decorate([
+        $mol_mem_key
+    ], $hyoo_idea_project_form.prototype, "Role_team_member_control", null);
+    __decorate([
+        $mol_mem_key
+    ], $hyoo_idea_project_form.prototype, "Role_team_member_field", null);
     __decorate([
         $mol_mem_key
     ], $hyoo_idea_project_form.prototype, "Role_drop_icon", null);
@@ -18013,6 +17854,9 @@ var $;
     __decorate([
         $mol_mem_key
     ], $hyoo_idea_project_form.prototype, "member", null);
+    __decorate([
+        $mol_mem_key
+    ], $hyoo_idea_project_form.prototype, "Member_role", null);
     __decorate([
         $mol_mem_key
     ], $hyoo_idea_project_form.prototype, "Team_kick_icon", null);
@@ -18126,11 +17970,22 @@ var $;
             role_name(id, next) {
                 return this.role_change({ id, key: 'name' }, next);
             }
-            role_count(id, next) {
-                return this.role_change({ id, key: 'count' }, next) || 1;
-            }
             role_functions(id, next) {
                 return this.role_change({ id, key: 'functions' }, next);
+            }
+            role_team_member(id, next) {
+                return this.role_change({ id, key: 'person' }, next);
+            }
+            team_member_dict() {
+                return this.project().team_members().reduce((dict, obj) => {
+                    dict[obj.id()] = obj.name_short();
+                    return dict;
+                }, {});
+            }
+            member_role(obj) {
+                const roles = this.project().roles();
+                const role = roles.find(role => role.person === obj.id());
+                return role?.name || this.role_not_label();
             }
             team_fields() {
                 return [
@@ -18161,7 +18016,10 @@ var $;
                 this.project().team_node().drop(obj.id());
             }
             team_actions(obj) {
-                return this.project().owner().id() === obj.id() ? [] : [this.Team_kick(obj)];
+                return [
+                    this.Member_role(obj),
+                    ...this.project().owner().id() !== obj.id() ? [this.Team_kick(obj)] : [],
+                ];
             }
         }
         __decorate([
@@ -18173,6 +18031,12 @@ var $;
         __decorate([
             $mol_mem_key
         ], $hyoo_idea_project_form.prototype, "role_change", null);
+        __decorate([
+            $mol_mem
+        ], $hyoo_idea_project_form.prototype, "team_member_dict", null);
+        __decorate([
+            $mol_mem_key
+        ], $hyoo_idea_project_form.prototype, "member_role", null);
         __decorate([
             $mol_mem
         ], $hyoo_idea_project_form.prototype, "team_rows", null);

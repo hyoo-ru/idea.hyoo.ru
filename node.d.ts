@@ -2410,11 +2410,11 @@ declare namespace $ {
         roles(next?: Array<{
             name: string;
             functions: string;
-            count: number;
+            person: string;
         }>): {
             name: string;
             functions: string;
-            count: number;
+            person: string;
         }[];
         team(next?: $hyoo_idea_person[]): $hyoo_idea_person[];
         team_members(): $hyoo_idea_person[];
@@ -4696,46 +4696,6 @@ declare namespace $.$$ {
 }
 
 declare namespace $ {
-    class $mol_icon_minus extends $mol_icon {
-        path(): string;
-    }
-}
-
-declare namespace $ {
-    class $mol_number extends $mol_view {
-        precision_view(): number;
-        precision_change(): number;
-        value(val?: any): number;
-        sub(): readonly any[];
-        precision(): number;
-        value_string(val?: any): string;
-        hint(): string;
-        enabled(): boolean;
-        string_enabled(): boolean;
-        String(): $$.$mol_string;
-        event_dec(val?: any): any;
-        dec_enabled(): boolean;
-        dec_icon(): $mol_icon_minus;
-        Dec(): $mol_button_minor;
-        event_inc(val?: any): any;
-        inc_enabled(): boolean;
-        inc_icon(): $mol_icon_plus;
-        Inc(): $mol_button_minor;
-    }
-}
-
-declare namespace $ {
-}
-
-declare namespace $.$$ {
-    class $mol_number extends $.$mol_number {
-        event_dec(next?: Event): void;
-        event_inc(next?: Event): void;
-        value_string(next?: string): string;
-    }
-}
-
-declare namespace $ {
     class $mol_icon_check extends $mol_icon {
         path(): string;
     }
@@ -4757,6 +4717,7 @@ declare namespace $ {
         stage(next?: any): $hyoo_idea_project_stages;
         team(next?: any): $hyoo_idea_person[];
         project(): $hyoo_idea_project;
+        role_not_label(): string;
         form_fields(): readonly any[];
         Logo(): $hyoo_idea_project_logo;
         logo_add(next?: any): readonly any[];
@@ -4786,12 +4747,13 @@ declare namespace $ {
         role_name(id: any, next?: any): string;
         Role_name_control(id: any): $$.$mol_string;
         Role_name_field(id: any): $$.$mol_form_field;
-        role_count(id: any, next?: any): number;
-        Role_count_control(id: any): $$.$mol_number;
-        Role_count_field(id: any): $$.$mol_form_field;
         role_functions(id: any, next?: any): string;
         Role_functions_control(id: any): $$.$mol_textarea;
         Role_functions_field(id: any): $$.$mol_form_field;
+        role_team_member(id: any, next?: any): string;
+        team_member_dict(): {};
+        Role_team_member_control(id: any): $$.$mol_select;
+        Role_team_member_field(id: any): $$.$mol_form_field;
         Role_drop_icon(id: any): $mol_icon_delete;
         role_drop(id: any, next?: any): any;
         Role_drop(id: any): $mol_button_minor;
@@ -4802,6 +4764,8 @@ declare namespace $ {
         Roles_field(): $$.$mol_form_field;
         Roles(): $$.$mol_form;
         member(id: any): $hyoo_idea_person;
+        member_role(id: any): string;
+        Member_role(id: any): $$.$mol_paragraph;
         Team_kick_icon(id: any): $mol_icon_cross;
         team_kick(id: any, next?: any): any;
         Team_kick(id: any): $mol_button_minor;
@@ -4851,10 +4815,12 @@ declare namespace $.$$ {
         role_change({ id, key }: {
             id: number;
             key: Role_keys;
-        }, next?: string): string | number;
+        }, next?: string): string;
         role_name(id: number, next?: string): string;
-        role_count(id: number, next?: string): number;
         role_functions(id: number, next?: string): string;
+        role_team_member(id: number, next?: string): string;
+        team_member_dict(): {};
+        member_role(obj: $hyoo_idea_person): string;
         team_fields(): $mol_form_field[];
         team_rows(): $hyoo_idea_person_card[];
         requests_rows(): $hyoo_idea_person_card[];
@@ -4863,7 +4829,7 @@ declare namespace $.$$ {
         team_kick(obj: $hyoo_idea_person): void;
         request_accept(obj: $hyoo_idea_person): void;
         invite_cancel(obj: $hyoo_idea_person): void;
-        team_actions(obj: $hyoo_idea_person): $mol_button_minor[];
+        team_actions(obj: $hyoo_idea_person): ($mol_button_minor | $mol_paragraph)[];
     }
     export {};
 }

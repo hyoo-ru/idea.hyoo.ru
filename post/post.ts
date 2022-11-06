@@ -25,6 +25,11 @@ namespace $ {
 			return new $mol_time_moment( ms )
 		}
 
+		@ $mol_mem
+		likes_node() {
+			return this.state().sub( 'likes', $hyoo_crowd_counter )
+		}
+
 	}
 
 }

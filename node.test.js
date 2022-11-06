@@ -8333,6 +8333,19 @@ var $;
         liked(next) {
             return this.likes_node().counted(next) ?? false;
         }
+        comments_node() {
+            return this.state().yoke('comments', $hyoo_crowd_list, [], [], ['0_0']);
+        }
+        comment_add(text, person) {
+            const comment = this.domain().post_add();
+            comment.content(text);
+            comment.person(person);
+            this.comments_node()?.add(comment.id());
+        }
+        comments(next) {
+            const ids = this.comments_node()?.list(next && next.map(obj => obj.id())) || [];
+            return ids.map(id => this.domain().post(id));
+        }
     }
     __decorate([
         $mol_mem
@@ -8355,6 +8368,15 @@ var $;
     __decorate([
         $mol_mem
     ], $hyoo_idea_post.prototype, "liked", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_idea_post.prototype, "comments_node", null);
+    __decorate([
+        $mol_action
+    ], $hyoo_idea_post.prototype, "comment_add", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_idea_post.prototype, "comments", null);
     $.$hyoo_idea_post = $hyoo_idea_post;
 })($ || ($ = {}));
 //hyoo/idea/post/post.ts
@@ -13311,7 +13333,209 @@ var $;
 "use strict";
 var $;
 (function ($) {
+    class $mol_textarea extends $mol_stack {
+        attr() {
+            return {
+                ...super.attr(),
+                mol_textarea_clickable: this.clickable(),
+                mol_textarea_sidebar_showed: this.sidebar_showed()
+            };
+        }
+        event() {
+            return {
+                keydown: (event) => this.press(event),
+                pointermove: (event) => this.hover(event)
+            };
+        }
+        sub() {
+            return [
+                this.Edit(),
+                this.View()
+            ];
+        }
+        clickable(val) {
+            if (val !== undefined)
+                return val;
+            return false;
+        }
+        sidebar_showed() {
+            return false;
+        }
+        press(event) {
+            if (event !== undefined)
+                return event;
+            return null;
+        }
+        hover(event) {
+            if (event !== undefined)
+                return event;
+            return null;
+        }
+        value(val) {
+            if (val !== undefined)
+                return val;
+            return "";
+        }
+        hint() {
+            return " ";
+        }
+        enabled() {
+            return true;
+        }
+        spellcheck() {
+            return true;
+        }
+        length_max() {
+            return +Infinity;
+        }
+        selection(val) {
+            if (val !== undefined)
+                return val;
+            return [];
+        }
+        bring() {
+            return this.Edit().bring();
+        }
+        Edit() {
+            const obj = new this.$.$mol_textarea_edit();
+            obj.value = (val) => this.value(val);
+            obj.hint = () => this.hint();
+            obj.enabled = () => this.enabled();
+            obj.spellcheck = () => this.spellcheck();
+            obj.length_max = () => this.length_max();
+            obj.selection = (val) => this.selection(val);
+            return obj;
+        }
+        row_numb(id) {
+            return 0;
+        }
+        highlight() {
+            return "";
+        }
+        View() {
+            const obj = new this.$.$mol_text_code();
+            obj.text = () => this.value();
+            obj.render_visible_only = () => false;
+            obj.row_numb = (id) => this.row_numb(id);
+            obj.sidebar_showed = () => this.sidebar_showed();
+            obj.highlight = () => this.highlight();
+            return obj;
+        }
+    }
+    __decorate([
+        $mol_mem
+    ], $mol_textarea.prototype, "clickable", null);
+    __decorate([
+        $mol_mem
+    ], $mol_textarea.prototype, "press", null);
+    __decorate([
+        $mol_mem
+    ], $mol_textarea.prototype, "hover", null);
+    __decorate([
+        $mol_mem
+    ], $mol_textarea.prototype, "value", null);
+    __decorate([
+        $mol_mem
+    ], $mol_textarea.prototype, "selection", null);
+    __decorate([
+        $mol_mem
+    ], $mol_textarea.prototype, "Edit", null);
+    __decorate([
+        $mol_mem
+    ], $mol_textarea.prototype, "View", null);
+    $.$mol_textarea = $mol_textarea;
+    class $mol_textarea_edit extends $mol_string {
+        dom_name() {
+            return "textarea";
+        }
+        field() {
+            return {
+                ...super.field(),
+                scrollTop: 0
+            };
+        }
+    }
+    $.$mol_textarea_edit = $mol_textarea_edit;
+})($ || ($ = {}));
+//mol/textarea/-view.tree/textarea.view.tree.ts
+;
+"use strict";
+var $;
+(function ($) {
+    $mol_style_attach("mol/textarea/textarea.view.css", "[mol_textarea] {\n\tflex: 1 0 auto;\n\tflex-direction: column;\n\tvertical-align: top;\n\tmin-height: max-content;\n\twhite-space: pre-wrap;\n\tborder-radius: var(--mol_gap_round);\n\tfont-family: monospace;\n\tposition: relative;\n\ttab-size: 4;\n}\n\n[mol_textarea_view] {\n\tz-index: 1;\n\tpointer-events: none;\n\twhite-space: inherit;\n\tfont-family: inherit;\n\ttab-size: inherit;\n}\n\n[mol_textarea_view_copy] {\n\tpointer-events: all;\n}\n\n[mol_textarea_clickable] > [mol_textarea_view] {\n\tpointer-events: all;\n}\n\n[mol_textarea_edit] {\n\tfont-family: inherit;\n\tpadding: var(--mol_gap_text);\n\tcolor: transparent !important;\n\tcaret-color: var(--mol_theme_text);\n\tresize: none;\n\ttext-align: inherit;\n\twhite-space: inherit;\n\tborder-radius: inherit;\n\toverflow-anchor: none;\n\tposition: absolute;\n\theight: 100%;\n\twidth: 100%;\n\ttab-size: inherit;\n}\n\n[mol_textarea_sidebar_showed] [mol_textarea_edit] {\n\tleft: 1.5rem;\n\twidth: calc( 100% - 1.5rem );\n}\n");
+})($ || ($ = {}));
+//mol/textarea/-css/textarea.view.css.ts
+;
+"use strict";
+var $;
+(function ($) {
+    var $$;
+    (function ($$) {
+        class $mol_textarea extends $.$mol_textarea {
+            indent_inc() {
+                document.execCommand('insertText', false, '\t');
+            }
+            indent_dec() {
+            }
+            hover(event) {
+                this.clickable(event.ctrlKey);
+            }
+            press(event) {
+                switch (event.keyCode) {
+                    case $mol_keyboard_code.tab:
+                        this.indent_inc();
+                        break;
+                    case event.shiftKey && $mol_keyboard_code.tab:
+                        this.indent_dec();
+                        break;
+                    default: return;
+                }
+                event.preventDefault();
+            }
+            row_numb(index) {
+                return index;
+            }
+        }
+        $$.$mol_textarea = $mol_textarea;
+    })($$ = $.$$ || ($.$$ = {}));
+})($ || ($ = {}));
+//mol/textarea/textarea.view.ts
+;
+"use strict";
+var $;
+(function ($) {
+    class $mol_icon_send extends $mol_icon {
+        path() {
+            return "M2,21L23,12L2,3V10L17,12L2,14V21Z";
+        }
+    }
+    $.$mol_icon_send = $mol_icon_send;
+})($ || ($ = {}));
+//mol/icon/send/-view.tree/send.view.tree.ts
+;
+"use strict";
+var $;
+(function ($) {
+    class $mol_bar extends $mol_view {
+    }
+    $.$mol_bar = $mol_bar;
+})($ || ($ = {}));
+//mol/bar/-view.tree/bar.view.tree.ts
+;
+"use strict";
+var $;
+(function ($) {
+    $mol_style_attach("mol/bar/bar.view.css", "[mol_bar] {\n\tdisplay: flex;\n\t/* box-shadow: inset 0 0 0 1px var(--mol_theme_line); */\n\tborder-radius: var(--mol_gap_round);\n}\n");
+})($ || ($ = {}));
+//mol/bar/-css/bar.view.css.ts
+;
+"use strict";
+var $;
+(function ($) {
     class $hyoo_idea_post_card extends $mol_list {
+        avatar_node() {
+            return this.post().domain().user().avatar_node();
+        }
         id() {
             return this.post().id();
         }
@@ -13341,7 +13565,9 @@ var $;
             return [
                 this.Head(),
                 this.Content(),
-                this.Foot()
+                this.Foot(),
+                this.Comments(),
+                this.Comment_add()
             ];
         }
         Ago() {
@@ -13396,7 +13622,7 @@ var $;
             obj.title = () => "13";
             return obj;
         }
-        Comments() {
+        Comments_link() {
             const obj = new this.$.$mol_link();
             obj.arg = () => ({
                 comments: this.id()
@@ -13415,8 +13641,99 @@ var $;
             const obj = new this.$.$mol_row();
             obj.sub = () => [
                 this.Like(),
-                this.Comments(),
+                this.Comments_link(),
                 this.Share()
+            ];
+            return obj;
+        }
+        comment_author(id) {
+            const obj = new this.$.$hyoo_idea_person();
+            return obj;
+        }
+        comment_text(id) {
+            return "";
+        }
+        Comment_text(id) {
+            const obj = new this.$.$mol_paragraph();
+            obj.title = () => this.comment_text(id);
+            return obj;
+        }
+        comment_created_moment(id) {
+            const obj = new this.$.$mol_time_moment();
+            return obj;
+        }
+        Comment_ago(id) {
+            const obj = new this.$.$hyoo_idea_ago();
+            obj.title = () => this.$.$mol_locale.text('$hyoo_idea_post_card_Comment_ago_title');
+            obj.moment = () => this.comment_created_moment(id);
+            return obj;
+        }
+        Name_sub_list(id) {
+            const obj = new this.$.$mol_list();
+            obj.rows = () => [
+                this.Comment_text(id),
+                this.Comment_ago(id)
+            ];
+            return obj;
+        }
+        Comment(id) {
+            const obj = new this.$.$hyoo_idea_person_card();
+            obj.person = () => this.comment_author(id);
+            obj.name_sub = () => [
+                this.Name_sub_list(id)
+            ];
+            return obj;
+        }
+        comment_rows() {
+            return [
+                this.Comment("0_0")
+            ];
+        }
+        Comments() {
+            const obj = new this.$.$mol_list();
+            obj.rows = () => this.comment_rows();
+            return obj;
+        }
+        Avatar() {
+            const obj = new this.$.$hyoo_idea_person_avatar();
+            obj.blob = () => this.avatar_node();
+            return obj;
+        }
+        comment(next) {
+            if (next !== undefined)
+                return next;
+            return "";
+        }
+        Text() {
+            const obj = new this.$.$mol_textarea();
+            obj.hint = () => this.$.$mol_locale.text('$hyoo_idea_post_card_Text_hint');
+            obj.value = (next) => this.comment(next);
+            return obj;
+        }
+        comment_add(next) {
+            if (next !== undefined)
+                return next;
+            return null;
+        }
+        Submit_icon() {
+            const obj = new this.$.$mol_icon_send();
+            return obj;
+        }
+        Submit() {
+            const obj = new this.$.$mol_button_minor();
+            obj.hint = () => this.$.$mol_locale.text('$hyoo_idea_post_card_Submit_hint');
+            obj.click = (next) => this.comment_add(next);
+            obj.sub = () => [
+                this.Submit_icon()
+            ];
+            return obj;
+        }
+        Comment_add() {
+            const obj = new this.$.$mol_bar();
+            obj.sub = () => [
+                this.Avatar(),
+                this.Text(),
+                this.Submit()
             ];
             return obj;
         }
@@ -13450,13 +13767,55 @@ var $;
     ], $hyoo_idea_post_card.prototype, "Comments_count", null);
     __decorate([
         $mol_mem
-    ], $hyoo_idea_post_card.prototype, "Comments", null);
+    ], $hyoo_idea_post_card.prototype, "Comments_link", null);
     __decorate([
         $mol_mem
     ], $hyoo_idea_post_card.prototype, "Share", null);
     __decorate([
         $mol_mem
     ], $hyoo_idea_post_card.prototype, "Foot", null);
+    __decorate([
+        $mol_mem_key
+    ], $hyoo_idea_post_card.prototype, "comment_author", null);
+    __decorate([
+        $mol_mem_key
+    ], $hyoo_idea_post_card.prototype, "Comment_text", null);
+    __decorate([
+        $mol_mem_key
+    ], $hyoo_idea_post_card.prototype, "comment_created_moment", null);
+    __decorate([
+        $mol_mem_key
+    ], $hyoo_idea_post_card.prototype, "Comment_ago", null);
+    __decorate([
+        $mol_mem_key
+    ], $hyoo_idea_post_card.prototype, "Name_sub_list", null);
+    __decorate([
+        $mol_mem_key
+    ], $hyoo_idea_post_card.prototype, "Comment", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_idea_post_card.prototype, "Comments", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_idea_post_card.prototype, "Avatar", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_idea_post_card.prototype, "comment", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_idea_post_card.prototype, "Text", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_idea_post_card.prototype, "comment_add", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_idea_post_card.prototype, "Submit_icon", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_idea_post_card.prototype, "Submit", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_idea_post_card.prototype, "Comment_add", null);
     $.$hyoo_idea_post_card = $hyoo_idea_post_card;
 })($ || ($ = {}));
 //hyoo/idea/post/card/-view.tree/card.view.tree.ts
@@ -13469,6 +13828,9 @@ var $;
         const { rem, per } = $mol_style_unit;
         $mol_style_define($.$hyoo_idea_post_card, {
             width: per(100),
+            padding: {
+                bottom: $mol_gap.block,
+            },
             background: {
                 color: $mol_theme.card,
             },
@@ -13496,6 +13858,34 @@ var $;
             Share: {
                 margin: {
                     left: 'auto',
+                },
+            },
+            Comment_add: {
+                alignItems: 'center',
+            },
+            Avatar: {
+                width: rem(2),
+                height: rem(2),
+            },
+            Comment: {
+                Avatar: {
+                    margin: 0,
+                    alignSelf: 'flex-start',
+                },
+                Actions: {
+                    alignSelf: 'flex-start',
+                },
+            },
+            Comment_ago: {
+                opacity: 0.8,
+                font: {
+                    size: rem(0.75),
+                },
+            },
+            Comment_text: {
+                padding: {
+                    top: $mol_gap.space,
+                    bottom: $mol_gap.space,
                 },
             },
         });
@@ -13527,10 +13917,33 @@ var $;
             likes() {
                 return this.likes_total().toString();
             }
+            comment_add() {
+                const text = this.comment();
+                this.comment('');
+                this.post().comment_add(text, this.post().domain().user());
+            }
+            comment_rows() {
+                return this.post().comments().map(obj => this.Comment(obj));
+            }
+            comment_author(obj) {
+                return obj.person();
+            }
+            comment_text(obj) {
+                return obj.content();
+            }
+            comment_created_moment(obj) {
+                return obj.created_moment();
+            }
         }
         __decorate([
             $mol_mem
         ], $hyoo_idea_post_card.prototype, "like_sub", null);
+        __decorate([
+            $mol_action
+        ], $hyoo_idea_post_card.prototype, "comment_add", null);
+        __decorate([
+            $mol_mem
+        ], $hyoo_idea_post_card.prototype, "comment_rows", null);
         $$.$hyoo_idea_post_card = $hyoo_idea_post_card;
     })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));
@@ -13842,177 +14255,6 @@ var $;
     })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));
 //mol/button/open/open.view.ts
-;
-"use strict";
-var $;
-(function ($) {
-    class $mol_textarea extends $mol_stack {
-        attr() {
-            return {
-                ...super.attr(),
-                mol_textarea_clickable: this.clickable(),
-                mol_textarea_sidebar_showed: this.sidebar_showed()
-            };
-        }
-        event() {
-            return {
-                keydown: (event) => this.press(event),
-                pointermove: (event) => this.hover(event)
-            };
-        }
-        sub() {
-            return [
-                this.Edit(),
-                this.View()
-            ];
-        }
-        clickable(val) {
-            if (val !== undefined)
-                return val;
-            return false;
-        }
-        sidebar_showed() {
-            return false;
-        }
-        press(event) {
-            if (event !== undefined)
-                return event;
-            return null;
-        }
-        hover(event) {
-            if (event !== undefined)
-                return event;
-            return null;
-        }
-        value(val) {
-            if (val !== undefined)
-                return val;
-            return "";
-        }
-        hint() {
-            return " ";
-        }
-        enabled() {
-            return true;
-        }
-        spellcheck() {
-            return true;
-        }
-        length_max() {
-            return +Infinity;
-        }
-        selection(val) {
-            if (val !== undefined)
-                return val;
-            return [];
-        }
-        bring() {
-            return this.Edit().bring();
-        }
-        Edit() {
-            const obj = new this.$.$mol_textarea_edit();
-            obj.value = (val) => this.value(val);
-            obj.hint = () => this.hint();
-            obj.enabled = () => this.enabled();
-            obj.spellcheck = () => this.spellcheck();
-            obj.length_max = () => this.length_max();
-            obj.selection = (val) => this.selection(val);
-            return obj;
-        }
-        row_numb(id) {
-            return 0;
-        }
-        highlight() {
-            return "";
-        }
-        View() {
-            const obj = new this.$.$mol_text_code();
-            obj.text = () => this.value();
-            obj.render_visible_only = () => false;
-            obj.row_numb = (id) => this.row_numb(id);
-            obj.sidebar_showed = () => this.sidebar_showed();
-            obj.highlight = () => this.highlight();
-            return obj;
-        }
-    }
-    __decorate([
-        $mol_mem
-    ], $mol_textarea.prototype, "clickable", null);
-    __decorate([
-        $mol_mem
-    ], $mol_textarea.prototype, "press", null);
-    __decorate([
-        $mol_mem
-    ], $mol_textarea.prototype, "hover", null);
-    __decorate([
-        $mol_mem
-    ], $mol_textarea.prototype, "value", null);
-    __decorate([
-        $mol_mem
-    ], $mol_textarea.prototype, "selection", null);
-    __decorate([
-        $mol_mem
-    ], $mol_textarea.prototype, "Edit", null);
-    __decorate([
-        $mol_mem
-    ], $mol_textarea.prototype, "View", null);
-    $.$mol_textarea = $mol_textarea;
-    class $mol_textarea_edit extends $mol_string {
-        dom_name() {
-            return "textarea";
-        }
-        field() {
-            return {
-                ...super.field(),
-                scrollTop: 0
-            };
-        }
-    }
-    $.$mol_textarea_edit = $mol_textarea_edit;
-})($ || ($ = {}));
-//mol/textarea/-view.tree/textarea.view.tree.ts
-;
-"use strict";
-var $;
-(function ($) {
-    $mol_style_attach("mol/textarea/textarea.view.css", "[mol_textarea] {\n\tflex: 1 0 auto;\n\tflex-direction: column;\n\tvertical-align: top;\n\tmin-height: max-content;\n\twhite-space: pre-wrap;\n\tborder-radius: var(--mol_gap_round);\n\tfont-family: monospace;\n\tposition: relative;\n\ttab-size: 4;\n}\n\n[mol_textarea_view] {\n\tz-index: 1;\n\tpointer-events: none;\n\twhite-space: inherit;\n\tfont-family: inherit;\n\ttab-size: inherit;\n}\n\n[mol_textarea_view_copy] {\n\tpointer-events: all;\n}\n\n[mol_textarea_clickable] > [mol_textarea_view] {\n\tpointer-events: all;\n}\n\n[mol_textarea_edit] {\n\tfont-family: inherit;\n\tpadding: var(--mol_gap_text);\n\tcolor: transparent !important;\n\tcaret-color: var(--mol_theme_text);\n\tresize: none;\n\ttext-align: inherit;\n\twhite-space: inherit;\n\tborder-radius: inherit;\n\toverflow-anchor: none;\n\tposition: absolute;\n\theight: 100%;\n\twidth: 100%;\n\ttab-size: inherit;\n}\n\n[mol_textarea_sidebar_showed] [mol_textarea_edit] {\n\tleft: 1.5rem;\n\twidth: calc( 100% - 1.5rem );\n}\n");
-})($ || ($ = {}));
-//mol/textarea/-css/textarea.view.css.ts
-;
-"use strict";
-var $;
-(function ($) {
-    var $$;
-    (function ($$) {
-        class $mol_textarea extends $.$mol_textarea {
-            indent_inc() {
-                document.execCommand('insertText', false, '\t');
-            }
-            indent_dec() {
-            }
-            hover(event) {
-                this.clickable(event.ctrlKey);
-            }
-            press(event) {
-                switch (event.keyCode) {
-                    case $mol_keyboard_code.tab:
-                        this.indent_inc();
-                        break;
-                    case event.shiftKey && $mol_keyboard_code.tab:
-                        this.indent_dec();
-                        break;
-                    default: return;
-                }
-                event.preventDefault();
-            }
-            row_numb(index) {
-                return index;
-            }
-        }
-        $$.$mol_textarea = $mol_textarea;
-    })($$ = $.$$ || ($.$$ = {}));
-})($ || ($ = {}));
-//mol/textarea/textarea.view.ts
 ;
 "use strict";
 var $;
@@ -18306,34 +18548,6 @@ var $;
     })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));
 //hyoo/idea/profile/block/block.view.ts
-;
-"use strict";
-var $;
-(function ($) {
-    class $mol_bar extends $mol_view {
-    }
-    $.$mol_bar = $mol_bar;
-})($ || ($ = {}));
-//mol/bar/-view.tree/bar.view.tree.ts
-;
-"use strict";
-var $;
-(function ($) {
-    $mol_style_attach("mol/bar/bar.view.css", "[mol_bar] {\n\tdisplay: flex;\n\t/* box-shadow: inset 0 0 0 1px var(--mol_theme_line); */\n\tborder-radius: var(--mol_gap_round);\n}\n");
-})($ || ($ = {}));
-//mol/bar/-css/bar.view.css.ts
-;
-"use strict";
-var $;
-(function ($) {
-    class $mol_icon_send extends $mol_icon {
-        path() {
-            return "M2,21L23,12L2,3V10L17,12L2,14V21Z";
-        }
-    }
-    $.$mol_icon_send = $mol_icon_send;
-})($ || ($ = {}));
-//mol/icon/send/-view.tree/send.view.tree.ts
 ;
 "use strict";
 var $;

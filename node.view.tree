@@ -727,8 +727,43 @@ $mol_button_share $mol_button_minor
 	sub /
 		<= Icon $mol_icon_share_variant
 
+$mol_textarea $mol_stack
+	attr *
+		^
+		mol_textarea_clickable <= clickable?val false
+		mol_textarea_sidebar_showed <= sidebar_showed false
+	event *
+		keydown?event <=> press?event null
+		pointermove?event <=> hover?event null
+	sub /
+		<= Edit $mol_textarea_edit
+			value?val <=> value?val \
+			hint <= hint \ 
+			enabled <= enabled true
+			spellcheck <= spellcheck true
+			length_max <= length_max +Infinity
+			selection?val <=> selection?val /number
+			bring => bring
+		<= View $mol_text_code
+			text <= value
+			render_visible_only false
+			row_numb* <= row_numb* 0
+			sidebar_showed <= sidebar_showed
+			highlight <= highlight \
+
+$mol_textarea_edit $mol_string
+	dom_name \textarea
+	field *
+		^
+		scrollTop 0
+
+$mol_icon_send $mol_icon path \M2,21L23,12L2,3V10L17,12L2,14V21Z
+
+$mol_bar $mol_view
+
 $hyoo_idea_post_card $mol_list
 	post $hyoo_idea_post
+		domain().user().avatar_node => avatar_node
 		id => id
 		content => content
 		created_moment => created_moment
@@ -751,12 +786,31 @@ $hyoo_idea_post_card $mol_list
 				sub <= like_sub /
 					<= Like_icon $mol_icon_lightbulb_on
 					<= Like_count $mol_paragraph title <= likes \
-			<= Comments $mol_link
+			<= Comments_link $mol_link
 				arg * comments <= id
 				sub /
 					<= Comments_icon $mol_icon_comment_text_multiple
 					<= Comments_count $mol_paragraph title \13
 			<= Share $mol_button_share
+		<= Comments $mol_list rows <= comment_rows /
+			<= Comment*0_0 $hyoo_idea_person_card
+				person <= comment_author* $hyoo_idea_person
+				name_sub /
+					<= Name_sub_list* $mol_list rows /
+						<= Comment_text* $mol_paragraph title <= comment_text* \
+						<= Comment_ago* $hyoo_idea_ago
+							title @ \{count} {unit} назад
+							moment <= comment_created_moment* $mol_time_moment
+		<= Comment_add $mol_bar sub /
+			<= Avatar $hyoo_idea_person_avatar
+				blob <= avatar_node
+			<= Text $mol_textarea
+				hint @ \Add comment
+				value? <=> comment? \
+			<= Submit $mol_button_minor
+				hint @ \Send comment
+				click? <=> comment_add? null
+				sub / <= Submit_icon $mol_icon_send
 
 $hyoo_idea_feed_page $mol_page
 	person $hyoo_idea_person
@@ -800,36 +854,6 @@ $mol_button_open_native $mol_view
 		multiple <= multiple true
 	event *
 		change?next <=> picked?next null
-
-$mol_textarea $mol_stack
-	attr *
-		^
-		mol_textarea_clickable <= clickable?val false
-		mol_textarea_sidebar_showed <= sidebar_showed false
-	event *
-		keydown?event <=> press?event null
-		pointermove?event <=> hover?event null
-	sub /
-		<= Edit $mol_textarea_edit
-			value?val <=> value?val \
-			hint <= hint \ 
-			enabled <= enabled true
-			spellcheck <= spellcheck true
-			length_max <= length_max +Infinity
-			selection?val <=> selection?val /number
-			bring => bring
-		<= View $mol_text_code
-			text <= value
-			render_visible_only false
-			row_numb* <= row_numb* 0
-			sidebar_showed <= sidebar_showed
-			highlight <= highlight \
-
-$mol_textarea_edit $mol_string
-	dom_name \textarea
-	field *
-		^
-		scrollTop 0
 
 $mol_check_list $mol_view
 	Option* $mol_check
@@ -1401,10 +1425,6 @@ $mol_expander $mol_list
 $hyoo_idea_profile_block $mol_expander
 	Content $mol_list rows /
 		<= Content_card $mol_card sub <= content /
-
-$mol_bar $mol_view
-
-$mol_icon_send $mol_icon path \M2,21L23,12L2,3V10L17,12L2,14V21Z
 
 $hyoo_idea_post_add $mol_bar
 	submit? null

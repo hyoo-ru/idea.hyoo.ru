@@ -2163,6 +2163,9 @@ declare namespace $ {
         likes_node(): $hyoo_crowd_counter;
         likes_total(): number;
         liked(next?: boolean): boolean;
+        comments_node(): $hyoo_crowd_list | null;
+        comment_add(text: string, person: $hyoo_idea_person): void;
+        comments(next?: $hyoo_idea_post[]): $hyoo_idea_post[];
     }
 }
 
@@ -3786,7 +3789,78 @@ declare namespace $.$$ {
 }
 
 declare namespace $ {
+    class $mol_textarea extends $mol_stack {
+        attr(): {
+            mol_textarea_clickable: boolean;
+            mol_textarea_sidebar_showed: boolean;
+        };
+        event(): {
+            keydown: (event?: any) => any;
+            pointermove: (event?: any) => any;
+        };
+        sub(): readonly any[];
+        clickable(val?: any): boolean;
+        sidebar_showed(): boolean;
+        press(event?: any): any;
+        hover(event?: any): any;
+        value(val?: any): string;
+        hint(): string;
+        enabled(): boolean;
+        spellcheck(): boolean;
+        length_max(): number;
+        selection(val?: any): readonly number[];
+        bring(): void;
+        Edit(): $mol_textarea_edit;
+        row_numb(id: any): number;
+        highlight(): string;
+        View(): $$.$mol_text_code;
+    }
+    class $mol_textarea_edit extends $mol_string {
+        dom_name(): string;
+        field(): {
+            scrollTop: number;
+            disabled: boolean;
+            value: string;
+            placeholder: string;
+            spellcheck: boolean;
+            autocomplete: string;
+            selectionEnd: number;
+            selectionStart: number;
+            inputMode: string;
+        };
+    }
+}
+
+declare namespace $ {
+}
+
+declare namespace $.$$ {
+    class $mol_textarea extends $.$mol_textarea {
+        indent_inc(): void;
+        indent_dec(): void;
+        hover(event: PointerEvent): void;
+        press(event: KeyboardEvent): void;
+        row_numb(index: number): number;
+    }
+}
+
+declare namespace $ {
+    class $mol_icon_send extends $mol_icon {
+        path(): string;
+    }
+}
+
+declare namespace $ {
+    class $mol_bar extends $mol_view {
+    }
+}
+
+declare namespace $ {
+}
+
+declare namespace $ {
     class $hyoo_idea_post_card extends $mol_list {
+        avatar_node(): $hyoo_crowd_blob;
         id(): `${string}_${string}`;
         content(): string;
         created_moment(): $mol_time_moment;
@@ -3806,9 +3880,25 @@ declare namespace $ {
         Like(): $mol_check_icon;
         Comments_icon(): $mol_icon_comment_text_multiple;
         Comments_count(): $$.$mol_paragraph;
-        Comments(): $$.$mol_link;
+        Comments_link(): $$.$mol_link;
         Share(): $$.$mol_button_share;
         Foot(): $mol_row;
+        comment_author(id: any): $hyoo_idea_person;
+        comment_text(id: any): string;
+        Comment_text(id: any): $$.$mol_paragraph;
+        comment_created_moment(id: any): $mol_time_moment;
+        Comment_ago(id: any): $$.$hyoo_idea_ago;
+        Name_sub_list(id: any): $$.$mol_list;
+        Comment(id: any): $hyoo_idea_person_card;
+        comment_rows(): readonly any[];
+        Comments(): $$.$mol_list;
+        Avatar(): $$.$hyoo_idea_person_avatar;
+        comment(next?: any): string;
+        Text(): $$.$mol_textarea;
+        comment_add(next?: any): any;
+        Submit_icon(): $mol_icon_send;
+        Submit(): $mol_button_minor;
+        Comment_add(): $mol_bar;
     }
 }
 
@@ -3822,6 +3912,11 @@ declare namespace $.$$ {
         person_id(): `${string}_${string}`;
         like_sub(): ($mol_paragraph | $mol_icon_lightbulb_on)[];
         likes(): string;
+        comment_add(): void;
+        comment_rows(): $hyoo_idea_person_card[];
+        comment_author(obj: $hyoo_idea_post): $hyoo_idea_person;
+        comment_text(obj: $hyoo_idea_post): string;
+        comment_created_moment(obj: $hyoo_idea_post): $mol_time_moment;
     }
 }
 
@@ -3914,62 +4009,6 @@ declare namespace $.$$ {
     class $mol_button_open_native extends $.$mol_button_open_native {
         dom_node(): HTMLInputElement;
         picked(): void;
-    }
-}
-
-declare namespace $ {
-    class $mol_textarea extends $mol_stack {
-        attr(): {
-            mol_textarea_clickable: boolean;
-            mol_textarea_sidebar_showed: boolean;
-        };
-        event(): {
-            keydown: (event?: any) => any;
-            pointermove: (event?: any) => any;
-        };
-        sub(): readonly any[];
-        clickable(val?: any): boolean;
-        sidebar_showed(): boolean;
-        press(event?: any): any;
-        hover(event?: any): any;
-        value(val?: any): string;
-        hint(): string;
-        enabled(): boolean;
-        spellcheck(): boolean;
-        length_max(): number;
-        selection(val?: any): readonly number[];
-        bring(): void;
-        Edit(): $mol_textarea_edit;
-        row_numb(id: any): number;
-        highlight(): string;
-        View(): $$.$mol_text_code;
-    }
-    class $mol_textarea_edit extends $mol_string {
-        dom_name(): string;
-        field(): {
-            scrollTop: number;
-            disabled: boolean;
-            value: string;
-            placeholder: string;
-            spellcheck: boolean;
-            autocomplete: string;
-            selectionEnd: number;
-            selectionStart: number;
-            inputMode: string;
-        };
-    }
-}
-
-declare namespace $ {
-}
-
-declare namespace $.$$ {
-    class $mol_textarea extends $.$mol_textarea {
-        indent_inc(): void;
-        indent_dec(): void;
-        hover(event: PointerEvent): void;
-        press(event: KeyboardEvent): void;
-        row_numb(index: number): number;
     }
 }
 
@@ -4874,20 +4913,6 @@ declare namespace $.$$ {
 
 declare namespace $.$$ {
     class $hyoo_idea_profile_block extends $.$hyoo_idea_profile_block {
-    }
-}
-
-declare namespace $ {
-    class $mol_bar extends $mol_view {
-    }
-}
-
-declare namespace $ {
-}
-
-declare namespace $ {
-    class $mol_icon_send extends $mol_icon {
-        path(): string;
     }
 }
 

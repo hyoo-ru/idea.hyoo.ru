@@ -161,7 +161,6 @@
     "$mol_type_equals",
     "$mol_type_intersect",
     "$mol_unicode",
-    "$hyoo_idea_invite",
     "$hyoo_sync_online",
     "$mol_link",
     "$mol_icon",
@@ -295,6 +294,8 @@
     "$hyoo_idea_project_logo",
     "$mol_number",
     "$mol_icon_minus",
+    "$mol_icon_check",
+    "$mol_icon_cancel",
     "$mol_icon_pencil",
     "$hyoo_idea_project_list",
     "$hyoo_idea_project_card",
@@ -304,7 +305,9 @@
     "$hyoo_idea_profile_block",
     "$hyoo_idea_post_add",
     "$mol_bar",
-    "$mol_icon_send"
+    "$mol_icon_send",
+    "$hyoo_idea_invite_page",
+    "$hyoo_idea_invite"
   ],
   "dependencies": {
     "jsdom": "*",

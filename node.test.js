@@ -5328,7 +5328,7 @@ var $;
             return this.person(this.yard().peer().id);
         }
         persons() {
-            const land = 'prc5a5_vem6li';
+            const land = 'n1ctq4_docviq';
             return $hyoo_idea_persons.make({ id: $mol_const(land), domain: $mol_const(this) });
         }
         person(id) {
@@ -5347,13 +5347,6 @@ var $;
         project_add() {
             const land = this.yard().land_grab();
             return this.project(land.id());
-        }
-        invite(id) {
-            return $hyoo_idea_invite.make({ id: $mol_const(id), domain: $mol_const(this) });
-        }
-        invite_add() {
-            const land = this.yard().land_grab();
-            return this.invite(land.id());
         }
     }
     __decorate([
@@ -5377,12 +5370,6 @@ var $;
     __decorate([
         $mol_action
     ], $hyoo_idea_domain.prototype, "project_add", null);
-    __decorate([
-        $mol_mem_key
-    ], $hyoo_idea_domain.prototype, "invite", null);
-    __decorate([
-        $mol_action
-    ], $hyoo_idea_domain.prototype, "invite_add", null);
     __decorate([
         $mol_mem
     ], $hyoo_idea_domain, "yard", null);
@@ -8754,52 +8741,13 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    class $hyoo_idea_invite extends $hyoo_idea_entity {
-        project(next) {
-            const id = $mol_int62_string_ensure(this.state().sub('project', $hyoo_crowd_reg).str(next && next.id()));
-            return id ? this.domain().project(id) : null;
-        }
-        candidate(next) {
-            const id = $mol_int62_string_ensure(this.state().sub('candidate', $hyoo_crowd_reg).str(next && next.id()));
-            return id ? this.domain().person(id) : null;
-        }
-        person(next) {
-            const id = $mol_int62_string_ensure(this.state().sub('person', $hyoo_crowd_reg).str(next && next.id()));
-            return id ? this.domain().person(id) : null;
-        }
-        comment(next) {
-            return this.state().sub('comment', $hyoo_crowd_reg).str(next);
-        }
-        status(next) {
-            return this.state().sub('status', $hyoo_crowd_reg).str(next) || 'pending';
-        }
-    }
-    __decorate([
-        $mol_mem
-    ], $hyoo_idea_invite.prototype, "project", null);
-    __decorate([
-        $mol_mem
-    ], $hyoo_idea_invite.prototype, "candidate", null);
-    __decorate([
-        $mol_mem
-    ], $hyoo_idea_invite.prototype, "person", null);
-    __decorate([
-        $mol_mem
-    ], $hyoo_idea_invite.prototype, "comment", null);
-    __decorate([
-        $mol_mem
-    ], $hyoo_idea_invite.prototype, "status", null);
-    $.$hyoo_idea_invite = $hyoo_idea_invite;
-})($ || ($ = {}));
-//hyoo/idea/invite/invite.ts
-;
-"use strict";
-var $;
-(function ($) {
     class $hyoo_idea_project extends $hyoo_idea_entity {
         person(next) {
             const id = this.state().sub('person', $hyoo_crowd_reg).str(next && next.id());
             return this.domain().person($mol_int62_string_ensure(id));
+        }
+        owner(next) {
+            return this.person(next);
         }
         logo_node() {
             return this.state().yoke('logo', $hyoo_crowd_blob);
@@ -8835,9 +8783,16 @@ var $;
             const ids = this.team_node().list(next);
             return ids.map(id => this.domain().person($mol_int62_string_ensure(id)));
         }
-        team_invites(next) {
-            const ids = this.state().sub('team_invites', $hyoo_crowd_list).list(next && next.map(obj => obj.id()));
-            return ids.map(id => this.domain().invite($mol_int62_string_ensure(id)));
+        team_members() {
+            return [...this.team(), this.owner()].filter(obj => obj.projects_node().has(this.id()));
+        }
+        team_requests() {
+            return this.domain().persons().list().filter(obj => obj.projects_node().has(this.id())
+                && !this.team_node().has(obj.id())
+                && obj.id() !== this.owner().id());
+        }
+        team_invites() {
+            return this.team().filter(obj => !obj.projects_node().has(this.id()));
         }
     }
     __decorate([
@@ -8876,6 +8831,12 @@ var $;
     __decorate([
         $mol_mem
     ], $hyoo_idea_project.prototype, "team", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_idea_project.prototype, "team_members", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_idea_project.prototype, "team_requests", null);
     __decorate([
         $mol_mem
     ], $hyoo_idea_project.prototype, "team_invites", null);
@@ -9014,10 +8975,6 @@ var $;
                 .filter(id => $mol_int62_string_ensure(id))
                 .map(id => this.domain().person($mol_int62_string_ensure(id)));
         }
-        project_invites(next) {
-            const ids = this.state().sub('project_invites', $hyoo_crowd_list).list(next && next.map(obj => obj.id()));
-            return ids.map(id => this.domain().invite($mol_int62_string_ensure(id)));
-        }
     }
     __decorate([
         $mol_mem
@@ -9115,9 +9072,6 @@ var $;
     __decorate([
         $mol_mem
     ], $hyoo_idea_person.prototype, "subs", null);
-    __decorate([
-        $mol_mem
-    ], $hyoo_idea_person.prototype, "project_invites", null);
     $.$hyoo_idea_person = $hyoo_idea_person;
 })($ || ($ = {}));
 //hyoo/idea/person/person.ts
@@ -10583,19 +10537,29 @@ var $;
             ];
             return obj;
         }
-        Actions_icon() {
+        More_icon() {
             const obj = new this.$.$mol_icon_dots_horizontal();
             return obj;
         }
-        Actions() {
+        More() {
             const obj = new this.$.$mol_pick();
-            obj.hint = () => this.$.$mol_locale.text('$hyoo_idea_person_card_Actions_hint');
+            obj.hint = () => this.$.$mol_locale.text('$hyoo_idea_person_card_More_hint');
             obj.trigger_content = () => [
-                this.Actions_icon()
+                this.More_icon()
             ];
             obj.bubble_content = () => [
                 "comming soon"
             ];
+            return obj;
+        }
+        actions() {
+            return [
+                this.More()
+            ];
+        }
+        Actions() {
+            const obj = new this.$.$mol_view();
+            obj.sub = () => this.actions();
             return obj;
         }
     }
@@ -10616,7 +10580,10 @@ var $;
     ], $hyoo_idea_person_card.prototype, "Name", null);
     __decorate([
         $mol_mem
-    ], $hyoo_idea_person_card.prototype, "Actions_icon", null);
+    ], $hyoo_idea_person_card.prototype, "More_icon", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_idea_person_card.prototype, "More", null);
     __decorate([
         $mol_mem
     ], $hyoo_idea_person_card.prototype, "Actions", null);
@@ -10629,8 +10596,9 @@ var $;
 (function ($) {
     var $$;
     (function ($$) {
+        const { rem } = $mol_style_unit;
         $mol_style_define($.$hyoo_idea_person_card, {
-            alignItems: 'flex-start',
+            alignItems: 'center',
             Actions: {
                 margin: {
                     left: 'auto',
@@ -10639,6 +10607,10 @@ var $;
             Name_link: {
                 display: 'inline-flex',
                 padding: 0,
+            },
+            Avatar: {
+                width: rem(3),
+                height: rem(3),
             },
         });
     })($$ = $.$$ || ($.$$ = {}));
@@ -17401,6 +17373,30 @@ var $;
 "use strict";
 var $;
 (function ($) {
+    class $mol_icon_check extends $mol_icon {
+        path() {
+            return "M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z";
+        }
+    }
+    $.$mol_icon_check = $mol_icon_check;
+})($ || ($ = {}));
+//mol/icon/check/-view.tree/check.view.tree.ts
+;
+"use strict";
+var $;
+(function ($) {
+    class $mol_icon_cancel extends $mol_icon {
+        path() {
+            return "M12,2C17.52,2 22,6.48 22,12C22,17.52 17.52,22 12,22C6.48,22 2,17.52 2,12C2,6.48 6.48,2 12,2M12,4C7.58,4 4,7.58 4,12C4,13.85 4.63,15.55 5.68,16.91L16.91,5.68C15.55,4.63 13.85,4 12,4M12,20C16.42,20 20,16.42 20,12C20,10.15 19.37,8.45 18.32,7.09L7.09,18.32C8.45,19.37 10.15,20 12,20Z";
+        }
+    }
+    $.$mol_icon_cancel = $mol_icon_cancel;
+})($ || ($ = {}));
+//mol/icon/cancel/-view.tree/cancel.view.tree.ts
+;
+"use strict";
+var $;
+(function ($) {
     class $hyoo_idea_project_form extends $mol_form {
         name(next) {
             return this.project().name(next);
@@ -17690,10 +17686,150 @@ var $;
             ];
             return obj;
         }
+        member(id) {
+            const obj = new this.$.$hyoo_idea_person();
+            return obj;
+        }
+        Team_kick_icon(id) {
+            const obj = new this.$.$mol_icon_cross();
+            return obj;
+        }
+        team_kick(id, next) {
+            if (next !== undefined)
+                return next;
+            return null;
+        }
+        Team_kick(id) {
+            const obj = new this.$.$mol_button_minor();
+            obj.hint = () => this.$.$mol_locale.text('$hyoo_idea_project_form_Team_kick_hint');
+            obj.sub = () => [
+                this.Team_kick_icon(id)
+            ];
+            obj.click = (next) => this.team_kick(id, next);
+            return obj;
+        }
+        team_actions(id) {
+            return [
+                this.Team_kick(id)
+            ];
+        }
+        Team_member(id) {
+            const obj = new this.$.$hyoo_idea_person_card();
+            obj.person = () => this.member(id);
+            obj.actions = () => this.team_actions(id);
+            return obj;
+        }
+        team_rows() {
+            return [
+                this.Team_member("0_0")
+            ];
+        }
+        Team_content() {
+            const obj = new this.$.$mol_list();
+            obj.rows = () => this.team_rows();
+            return obj;
+        }
+        Team_field() {
+            const obj = new this.$.$mol_form_field();
+            obj.name = () => this.$.$mol_locale.text('$hyoo_idea_project_form_Team_field_name');
+            obj.Content = () => this.Team_content();
+            return obj;
+        }
+        Request_accept_icon(id) {
+            const obj = new this.$.$mol_icon_check();
+            return obj;
+        }
+        request_accept(id, next) {
+            if (next !== undefined)
+                return next;
+            return null;
+        }
+        Request_accept(id) {
+            const obj = new this.$.$mol_button_minor();
+            obj.hint = () => this.$.$mol_locale.text('$hyoo_idea_project_form_Request_accept_hint');
+            obj.sub = () => [
+                this.Request_accept_icon(id)
+            ];
+            obj.click = (next) => this.request_accept(id, next);
+            return obj;
+        }
+        Request_member(id) {
+            const obj = new this.$.$hyoo_idea_person_card();
+            obj.person = () => this.member(id);
+            obj.actions = () => [
+                this.Request_accept(id)
+            ];
+            return obj;
+        }
+        requests_rows() {
+            return [
+                this.Request_member("0_0")
+            ];
+        }
+        Requests_content() {
+            const obj = new this.$.$mol_list();
+            obj.rows = () => this.requests_rows();
+            return obj;
+        }
+        Requests_field() {
+            const obj = new this.$.$mol_form_field();
+            obj.name = () => this.$.$mol_locale.text('$hyoo_idea_project_form_Requests_field_name');
+            obj.Content = () => this.Requests_content();
+            return obj;
+        }
+        Invite_cancel_icon(id) {
+            const obj = new this.$.$mol_icon_cancel();
+            return obj;
+        }
+        invite_cancel(id, next) {
+            if (next !== undefined)
+                return next;
+            return null;
+        }
+        Invite_cancel(id) {
+            const obj = new this.$.$mol_button_minor();
+            obj.hint = () => this.$.$mol_locale.text('$hyoo_idea_project_form_Invite_cancel_hint');
+            obj.sub = () => [
+                this.Invite_cancel_icon(id)
+            ];
+            obj.click = (next) => this.invite_cancel(id, next);
+            return obj;
+        }
+        Invite_member(id) {
+            const obj = new this.$.$hyoo_idea_person_card();
+            obj.person = () => this.member(id);
+            obj.actions = () => [
+                this.Invite_cancel(id)
+            ];
+            return obj;
+        }
+        invites_rows() {
+            return [
+                this.Invite_member("0_0")
+            ];
+        }
+        Invites_content() {
+            const obj = new this.$.$mol_list();
+            obj.rows = () => this.invites_rows();
+            return obj;
+        }
+        Invites_field() {
+            const obj = new this.$.$mol_form_field();
+            obj.name = () => this.$.$mol_locale.text('$hyoo_idea_project_form_Invites_field_name');
+            obj.Content = () => this.Invites_content();
+            return obj;
+        }
+        team_fields() {
+            return [
+                this.Team_field(),
+                this.Requests_field(),
+                this.Invites_field()
+            ];
+        }
         Team() {
             const obj = new this.$.$mol_form();
             obj.title = () => this.$.$mol_locale.text('$hyoo_idea_project_form_Team_title');
-            obj.form_fields = () => [];
+            obj.form_fields = () => this.team_fields();
             return obj;
         }
         Deck() {
@@ -17831,6 +17967,63 @@ var $;
         $mol_mem
     ], $hyoo_idea_project_form.prototype, "Roles", null);
     __decorate([
+        $mol_mem_key
+    ], $hyoo_idea_project_form.prototype, "member", null);
+    __decorate([
+        $mol_mem_key
+    ], $hyoo_idea_project_form.prototype, "Team_kick_icon", null);
+    __decorate([
+        $mol_mem_key
+    ], $hyoo_idea_project_form.prototype, "team_kick", null);
+    __decorate([
+        $mol_mem_key
+    ], $hyoo_idea_project_form.prototype, "Team_kick", null);
+    __decorate([
+        $mol_mem_key
+    ], $hyoo_idea_project_form.prototype, "Team_member", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_idea_project_form.prototype, "Team_content", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_idea_project_form.prototype, "Team_field", null);
+    __decorate([
+        $mol_mem_key
+    ], $hyoo_idea_project_form.prototype, "Request_accept_icon", null);
+    __decorate([
+        $mol_mem_key
+    ], $hyoo_idea_project_form.prototype, "request_accept", null);
+    __decorate([
+        $mol_mem_key
+    ], $hyoo_idea_project_form.prototype, "Request_accept", null);
+    __decorate([
+        $mol_mem_key
+    ], $hyoo_idea_project_form.prototype, "Request_member", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_idea_project_form.prototype, "Requests_content", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_idea_project_form.prototype, "Requests_field", null);
+    __decorate([
+        $mol_mem_key
+    ], $hyoo_idea_project_form.prototype, "Invite_cancel_icon", null);
+    __decorate([
+        $mol_mem_key
+    ], $hyoo_idea_project_form.prototype, "invite_cancel", null);
+    __decorate([
+        $mol_mem_key
+    ], $hyoo_idea_project_form.prototype, "Invite_cancel", null);
+    __decorate([
+        $mol_mem_key
+    ], $hyoo_idea_project_form.prototype, "Invite_member", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_idea_project_form.prototype, "Invites_content", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_idea_project_form.prototype, "Invites_field", null);
+    __decorate([
         $mol_mem
     ], $hyoo_idea_project_form.prototype, "Team", null);
     __decorate([
@@ -17895,6 +18088,37 @@ var $;
             role_functions(id, next) {
                 return this.role_change({ id, key: 'functions' }, next);
             }
+            team_fields() {
+                return [
+                    ...this.project().team_members().length > 0 ? [this.Team_field()] : [],
+                    ...this.project().team_requests().length > 0 ? [this.Requests_field()] : [],
+                    ...this.project().team_invites().length > 0 ? [this.Invites_field()] : [],
+                ];
+            }
+            team_rows() {
+                return this.project().team_members().map(obj => this.Team_member(obj));
+            }
+            requests_rows() {
+                return this.project().team_requests().map(obj => this.Request_member(obj));
+            }
+            invites_rows() {
+                return this.project().team_invites().map(obj => this.Invite_member(obj));
+            }
+            member(obj) {
+                return obj;
+            }
+            team_kick(obj) {
+                this.project().team_node().drop(obj.id());
+            }
+            request_accept(obj) {
+                this.project().team_node().add(obj.id());
+            }
+            invite_cancel(obj) {
+                this.project().team_node().drop(obj.id());
+            }
+            team_actions(obj) {
+                return this.project().owner().id() === obj.id() ? [] : [this.Team_kick(obj)];
+            }
         }
         __decorate([
             $mol_mem
@@ -17905,6 +18129,27 @@ var $;
         __decorate([
             $mol_mem_key
         ], $hyoo_idea_project_form.prototype, "role_change", null);
+        __decorate([
+            $mol_mem
+        ], $hyoo_idea_project_form.prototype, "team_rows", null);
+        __decorate([
+            $mol_mem
+        ], $hyoo_idea_project_form.prototype, "requests_rows", null);
+        __decorate([
+            $mol_mem
+        ], $hyoo_idea_project_form.prototype, "invites_rows", null);
+        __decorate([
+            $mol_action
+        ], $hyoo_idea_project_form.prototype, "team_kick", null);
+        __decorate([
+            $mol_action
+        ], $hyoo_idea_project_form.prototype, "request_accept", null);
+        __decorate([
+            $mol_action
+        ], $hyoo_idea_project_form.prototype, "invite_cancel", null);
+        __decorate([
+            $mol_mem_key
+        ], $hyoo_idea_project_form.prototype, "team_actions", null);
         $$.$hyoo_idea_project_form = $hyoo_idea_project_form;
     })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));
@@ -17956,6 +18201,9 @@ var $;
                 this.message_listener()
             ];
         }
+        id() {
+            return this.project().id();
+        }
         domain() {
             return this.project().domain();
         }
@@ -17993,7 +18241,9 @@ var $;
         body() {
             return [
                 this.Blocks(),
-                this.Stage()
+                this.Stage(),
+                this.Join_request(),
+                this.Join_cancel()
             ];
         }
         message_listener() {
@@ -18072,6 +18322,28 @@ var $;
             obj.stage = () => "idea";
             return obj;
         }
+        join_request(next) {
+            if (next !== undefined)
+                return next;
+            return null;
+        }
+        Join_request() {
+            const obj = new this.$.$mol_button_minor();
+            obj.title = () => this.$.$mol_locale.text('$hyoo_idea_project_page_Join_request_title');
+            obj.click = (next) => this.join_request(next);
+            return obj;
+        }
+        join_cancel(next) {
+            if (next !== undefined)
+                return next;
+            return null;
+        }
+        Join_cancel() {
+            const obj = new this.$.$mol_button_minor();
+            obj.title = () => this.$.$mol_locale.text('$hyoo_idea_project_page_Join_cancel_title');
+            obj.click = (next) => this.join_cancel(next);
+            return obj;
+        }
     }
     __decorate([
         $mol_mem
@@ -18109,6 +18381,18 @@ var $;
     __decorate([
         $mol_mem
     ], $hyoo_idea_project_page.prototype, "Stage", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_idea_project_page.prototype, "join_request", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_idea_project_page.prototype, "Join_request", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_idea_project_page.prototype, "join_cancel", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_idea_project_page.prototype, "Join_cancel", null);
     $.$hyoo_idea_project_page = $hyoo_idea_project_page;
 })($ || ($ = {}));
 //hyoo/idea/project/page/-view.tree/page.view.tree.ts
@@ -18183,6 +18467,12 @@ var $;
                     event.source?.postMessage(['done', this.slides_content()], { targetOrigin: '*' });
                 }));
             }
+            join_request() {
+                this.domain().user().projects_node().add(this.project().id());
+            }
+            join_cancel() {
+                this.domain().user().projects_node().drop(this.project().id());
+            }
         }
         __decorate([
             $mol_mem
@@ -18193,6 +18483,12 @@ var $;
         __decorate([
             $mol_mem
         ], $hyoo_idea_project_page.prototype, "message_listener", null);
+        __decorate([
+            $mol_action
+        ], $hyoo_idea_project_page.prototype, "join_request", null);
+        __decorate([
+            $mol_action
+        ], $hyoo_idea_project_page.prototype, "join_cancel", null);
         $$.$hyoo_idea_project_page = $hyoo_idea_project_page;
     })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));
@@ -18339,7 +18635,7 @@ var $;
         }
         body() {
             return [
-                this.Projects()
+                this.Deck()
             ];
         }
         Add_icon() {
@@ -18398,7 +18694,15 @@ var $;
         }
         Projects() {
             const obj = new this.$.$mol_list();
+            obj.title = () => this.$.$mol_locale.text('$hyoo_idea_project_list_Projects_title');
             obj.rows = () => this.project_rows();
+            return obj;
+        }
+        Deck() {
+            const obj = new this.$.$mol_deck();
+            obj.items = () => [
+                this.Projects()
+            ];
             return obj;
         }
     }
@@ -18429,6 +18733,9 @@ var $;
     __decorate([
         $mol_mem
     ], $hyoo_idea_project_list.prototype, "Projects", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_idea_project_list.prototype, "Deck", null);
     $.$hyoo_idea_project_list = $hyoo_idea_project_list;
 })($ || ($ = {}));
 //hyoo/idea/project/list/-view.tree/list.view.tree.ts
@@ -18454,6 +18761,13 @@ var $;
                     left: $mol_gap.space,
                 },
                 display: 'inline-flex',
+            },
+            Deck: {
+                Switch: {
+                    margin: {
+                        bottom: $mol_gap.block,
+                    },
+                },
             },
         });
     })($$ = $.$$ || ($.$$ = {}));
@@ -18827,6 +19141,9 @@ var $;
 var $;
 (function ($) {
     class $hyoo_idea_person_page extends $mol_page {
+        id() {
+            return this.person().id();
+        }
         domain() {
             return this.person().domain();
         }
@@ -18856,6 +19173,11 @@ var $;
             return obj;
         }
         self() {
+            return false;
+        }
+        show_confirm(next) {
+            if (next !== undefined)
+                return next;
             return false;
         }
         title() {
@@ -18979,6 +19301,39 @@ var $;
             obj.rows = () => this.summary_rows();
             return obj;
         }
+        More_icon() {
+            const obj = new this.$.$mol_icon_dots_vertical();
+            return obj;
+        }
+        Invite_button() {
+            const obj = new this.$.$mol_link();
+            obj.arg = () => ({
+                invite_person: this.id()
+            });
+            obj.title = () => this.$.$mol_locale.text('$hyoo_idea_person_page_Invite_button_title');
+            return obj;
+        }
+        More_list() {
+            const obj = new this.$.$mol_list();
+            obj.rows = () => [
+                this.Invite_button()
+            ];
+            return obj;
+        }
+        more_content() {
+            return [
+                this.More_list()
+            ];
+        }
+        More() {
+            const obj = new this.$.$mol_pick();
+            obj.hint = () => this.$.$mol_locale.text('$hyoo_idea_person_page_More_hint');
+            obj.trigger_content = () => [
+                this.More_icon()
+            ];
+            obj.bubble_content = () => this.more_content();
+            return obj;
+        }
         Subscribe() {
             const obj = new this.$.$mol_button_minor();
             obj.title = () => this.$.$mol_locale.text('$hyoo_idea_person_page_Subscribe_title');
@@ -18989,12 +19344,16 @@ var $;
             obj.title = () => this.$.$mol_locale.text('$hyoo_idea_person_page_Message_title');
             return obj;
         }
-        Actions() {
-            const obj = new this.$.$mol_view();
-            obj.sub = () => [
+        actions() {
+            return [
+                this.More(),
                 this.Subscribe(),
                 this.Message()
             ];
+        }
+        Actions() {
+            const obj = new this.$.$mol_view();
+            obj.sub = () => this.actions();
             return obj;
         }
         neck() {
@@ -19291,6 +19650,9 @@ var $;
     ], $hyoo_idea_person_page.prototype, "person", null);
     __decorate([
         $mol_mem
+    ], $hyoo_idea_person_page.prototype, "show_confirm", null);
+    __decorate([
+        $mol_mem
     ], $hyoo_idea_person_page.prototype, "Edit_form", null);
     __decorate([
         $mol_mem
@@ -19334,6 +19696,18 @@ var $;
     __decorate([
         $mol_mem
     ], $hyoo_idea_person_page.prototype, "Summary", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_idea_person_page.prototype, "More_icon", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_idea_person_page.prototype, "Invite_button", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_idea_person_page.prototype, "More_list", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_idea_person_page.prototype, "More", null);
     __decorate([
         $mol_mem
     ], $hyoo_idea_person_page.prototype, "Subscribe", null);
@@ -19541,6 +19915,7 @@ var $;
             },
             Neck: {
                 alignItems: 'center',
+                zIndex: 1,
             },
             Stats: {
                 Content: {
@@ -19773,6 +20148,346 @@ var $;
 "use strict";
 var $;
 (function ($) {
+    class $hyoo_idea_invite_page extends $mol_page {
+        domain() {
+            const obj = new this.$.$hyoo_idea_domain();
+            return obj;
+        }
+        title() {
+            return this.$.$mol_locale.text('$hyoo_idea_invite_page_title');
+        }
+        tools() {
+            return [
+                this.Close_head()
+            ];
+        }
+        status() {
+            return {
+                sended: this.$.$mol_locale.text('$hyoo_idea_invite_page_status_sended'),
+                joined: this.$.$mol_locale.text('$hyoo_idea_invite_page_status_joined'),
+                none: this.$.$mol_locale.text('$hyoo_idea_invite_page_status_none')
+            };
+        }
+        body() {
+            return [
+                this.Form()
+            ];
+        }
+        Close_icon() {
+            const obj = new this.$.$mol_icon_cross();
+            return obj;
+        }
+        Close_head() {
+            const obj = new this.$.$mol_link();
+            obj.arg = () => ({
+                invite_project: null,
+                invite_person: null
+            });
+            obj.sub = () => [
+                this.Close_icon()
+            ];
+            return obj;
+        }
+        project_id(next) {
+            if (next !== undefined)
+                return next;
+            return "";
+        }
+        project_dict() {
+            return {};
+        }
+        Project_select_control() {
+            const obj = new this.$.$mol_select();
+            obj.value = (next) => this.project_id(next);
+            obj.dictionary = () => this.project_dict();
+            return obj;
+        }
+        Project_select_field() {
+            const obj = new this.$.$mol_form_field();
+            obj.name = () => this.$.$mol_locale.text('$hyoo_idea_invite_page_Project_select_field_name');
+            obj.control = () => this.Project_select_control();
+            return obj;
+        }
+        project() {
+            const obj = new this.$.$hyoo_idea_project();
+            return obj;
+        }
+        Project_content() {
+            const obj = new this.$.$hyoo_idea_project_card();
+            obj.project = () => this.project();
+            return obj;
+        }
+        Project_field() {
+            const obj = new this.$.$mol_form_field();
+            obj.name = () => this.$.$mol_locale.text('$hyoo_idea_invite_page_Project_field_name');
+            obj.Content = () => this.Project_content();
+            return obj;
+        }
+        person_id(next) {
+            if (next !== undefined)
+                return next;
+            return "";
+        }
+        person_dict() {
+            return {};
+        }
+        Person_select_control() {
+            const obj = new this.$.$mol_select();
+            obj.value = (next) => this.person_id(next);
+            obj.dictionary = () => this.person_dict();
+            return obj;
+        }
+        Person_select_field() {
+            const obj = new this.$.$mol_form_field();
+            obj.name = () => this.$.$mol_locale.text('$hyoo_idea_invite_page_Person_select_field_name');
+            obj.control = () => this.Person_select_control();
+            return obj;
+        }
+        person() {
+            const obj = new this.$.$hyoo_idea_person();
+            return obj;
+        }
+        Person_content() {
+            const obj = new this.$.$hyoo_idea_person_card();
+            obj.person = () => this.person();
+            obj.Actions = () => null;
+            return obj;
+        }
+        Person_field() {
+            const obj = new this.$.$mol_form_field();
+            obj.name = () => this.$.$mol_locale.text('$hyoo_idea_invite_page_Person_field_name');
+            obj.Content = () => this.Person_content();
+            return obj;
+        }
+        status_text() {
+            return "";
+        }
+        Statuc_content() {
+            const obj = new this.$.$mol_paragraph();
+            obj.title = () => this.status_text();
+            return obj;
+        }
+        Status_field() {
+            const obj = new this.$.$mol_form_field();
+            obj.name = () => this.$.$mol_locale.text('$hyoo_idea_invite_page_Status_field_name');
+            obj.Content = () => this.Statuc_content();
+            return obj;
+        }
+        fields() {
+            return [
+                this.Project_select_field(),
+                this.Project_field(),
+                this.Person_select_field(),
+                this.Person_field(),
+                this.Status_field()
+            ];
+        }
+        submit(next) {
+            if (next !== undefined)
+                return next;
+            return null;
+        }
+        submit_enabled() {
+            return true;
+        }
+        Submit() {
+            const obj = new this.$.$mol_button_major();
+            obj.title = () => this.$.$mol_locale.text('$hyoo_idea_invite_page_Submit_title');
+            obj.click = (next) => this.submit(next);
+            obj.enabled = () => this.submit_enabled();
+            return obj;
+        }
+        Close() {
+            const obj = new this.$.$mol_link();
+            obj.arg = () => ({
+                invite_project: null,
+                invite_person: null
+            });
+            obj.title = () => this.$.$mol_locale.text('$hyoo_idea_invite_page_Close_title');
+            return obj;
+        }
+        Form() {
+            const obj = new this.$.$mol_form();
+            obj.form_fields = () => this.fields();
+            obj.buttons = () => [
+                this.Submit(),
+                this.Close()
+            ];
+            return obj;
+        }
+    }
+    __decorate([
+        $mol_mem
+    ], $hyoo_idea_invite_page.prototype, "domain", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_idea_invite_page.prototype, "Close_icon", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_idea_invite_page.prototype, "Close_head", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_idea_invite_page.prototype, "project_id", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_idea_invite_page.prototype, "Project_select_control", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_idea_invite_page.prototype, "Project_select_field", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_idea_invite_page.prototype, "project", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_idea_invite_page.prototype, "Project_content", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_idea_invite_page.prototype, "Project_field", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_idea_invite_page.prototype, "person_id", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_idea_invite_page.prototype, "Person_select_control", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_idea_invite_page.prototype, "Person_select_field", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_idea_invite_page.prototype, "person", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_idea_invite_page.prototype, "Person_content", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_idea_invite_page.prototype, "Person_field", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_idea_invite_page.prototype, "Statuc_content", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_idea_invite_page.prototype, "Status_field", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_idea_invite_page.prototype, "submit", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_idea_invite_page.prototype, "Submit", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_idea_invite_page.prototype, "Close", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_idea_invite_page.prototype, "Form", null);
+    $.$hyoo_idea_invite_page = $hyoo_idea_invite_page;
+})($ || ($ = {}));
+//hyoo/idea/invite/page/-view.tree/page.view.tree.ts
+;
+"use strict";
+var $;
+(function ($) {
+    var $$;
+    (function ($$) {
+        const { rem } = $mol_style_unit;
+        $mol_style_define($.$hyoo_idea_invite_page, {
+            flex: {
+                basis: rem(30),
+                shrink: 0,
+            },
+        });
+    })($$ = $.$$ || ($.$$ = {}));
+})($ || ($ = {}));
+//hyoo/idea/invite/page/page.view.css.ts
+;
+"use strict";
+var $;
+(function ($) {
+    var $$;
+    (function ($$) {
+        class $hyoo_idea_invite_page extends $.$hyoo_idea_invite_page {
+            user() {
+                return this.domain().user();
+            }
+            person() {
+                const id = $mol_int62_string_ensure(this.person_id() || this.$.$mol_state_arg.value('invite_person'));
+                return id ? this.domain().person(id) : null;
+            }
+            project() {
+                const id = $mol_int62_string_ensure(this.project_id() || this.$.$mol_state_arg.value('invite_project'));
+                return id ? this.domain().project(id) : null;
+            }
+            project_dict() {
+                return this.domain().user().projects()
+                    .filter(obj => obj.person().id() === this.domain().user().id())
+                    .reduce((dict, obj) => {
+                    dict[obj.id()] = obj.name();
+                    return dict;
+                }, {});
+            }
+            person_dict() {
+                return this.domain().persons().list().filter(obj => obj.registered()).reduce((dict, obj) => {
+                    dict[obj.id()] = obj.name_short();
+                    return dict;
+                }, {});
+            }
+            fields() {
+                return [
+                    ...this.project() ? [this.Project_field()] : [this.Project_select_field()],
+                    ...this.person() ? [this.Person_field()] : [this.Person_select_field()],
+                    this.Status_field(),
+                ];
+            }
+            person_is_invited() {
+                return this.project()?.team_node()?.has(this.person()?.id()) ?? false;
+            }
+            project_is_invited() {
+                return this.person()?.projects_node()?.has(this.project()?.id()) ?? false;
+            }
+            status_text() {
+                if (this.person_is_invited() && this.project_is_invited())
+                    return this.status().joined;
+                else if (this.person_is_invited() || this.project_is_invited())
+                    return this.status().sended;
+                return this.status().none;
+            }
+            submit_enabled() {
+                return !!this.person() && !!this.project() && !this.person_is_invited() && !this.project_is_invited();
+            }
+            submit() {
+                if (this.user().id() === this.project().owner().id()) {
+                    this.project().team_node().add(this.person().id());
+                }
+                else if (this.user().id() === this.person().id()) {
+                    this.user().projects_node().add(this.project().id());
+                }
+            }
+        }
+        __decorate([
+            $mol_mem
+        ], $hyoo_idea_invite_page.prototype, "project_dict", null);
+        __decorate([
+            $mol_mem
+        ], $hyoo_idea_invite_page.prototype, "person_dict", null);
+        __decorate([
+            $mol_mem
+        ], $hyoo_idea_invite_page.prototype, "person_is_invited", null);
+        __decorate([
+            $mol_mem
+        ], $hyoo_idea_invite_page.prototype, "project_is_invited", null);
+        __decorate([
+            $mol_mem
+        ], $hyoo_idea_invite_page.prototype, "status_text", null);
+        __decorate([
+            $mol_action
+        ], $hyoo_idea_invite_page.prototype, "submit", null);
+        $$.$hyoo_idea_invite_page = $hyoo_idea_invite_page;
+    })($$ = $.$$ || ($.$$ = {}));
+})($ || ($ = {}));
+//hyoo/idea/invite/page/page.view.ts
+;
+"use strict";
+var $;
+(function ($) {
     class $hyoo_idea_app extends $mol_book2 {
         yard() {
             return this.domain().yard();
@@ -19801,7 +20516,9 @@ var $;
                 this.Feed(),
                 this.Project_page(),
                 this.Project_list(),
-                this.Person_page()
+                this.Person_page(),
+                this.My_page(),
+                this.Invite_page()
             ];
         }
         Placeholder() {
@@ -19901,6 +20618,16 @@ var $;
             obj.person = () => this.person_opened();
             return obj;
         }
+        My_page() {
+            const obj = new this.$.$hyoo_idea_person_page();
+            obj.person = () => this.user();
+            return obj;
+        }
+        Invite_page() {
+            const obj = new this.$.$hyoo_idea_invite_page();
+            obj.domain = () => this.domain();
+            return obj;
+        }
     }
     __decorate([
         $mol_mem
@@ -19953,6 +20680,12 @@ var $;
     __decorate([
         $mol_mem
     ], $hyoo_idea_app.prototype, "Person_page", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_idea_app.prototype, "My_page", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_idea_app.prototype, "Invite_page", null);
     $.$hyoo_idea_app = $hyoo_idea_app;
 })($ || ($ = {}));
 //hyoo/idea/app/-view.tree/app.view.tree.ts
@@ -19985,8 +20718,8 @@ var $;
                 return this.$.$mol_state_arg.value('section', next) || 'feed';
             }
             person_opened() {
-                const id = this.$.$mol_state_arg.value('person');
-                return this.domain().person(this.$.$mol_state_arg.value('person') ?? this.user().id());
+                const id = $mol_int62_string_ensure(this.$.$mol_state_arg.value('person'));
+                return id ? this.domain().person(id) : null;
             }
             signup_opened() {
                 return this.$.$mol_state_arg.value('signup') === '';
@@ -19995,17 +20728,18 @@ var $;
                 const id = $mol_int62_string_ensure(this.$.$mol_state_arg.value('project'));
                 return id ? this.domain().project(id) : null;
             }
-            signup_open() {
-                if (this.user().registered() === false)
-                    this.$.$mol_state_arg.value('signup', '');
+            invite_opened() {
+                return ['invite_person', 'invite_project'].some(val => !!this.$.$mol_state_arg.value(val));
             }
             pages() {
                 return [
                     this.Menu(),
                     ...this.section() === 'feed' ? [this.Feed()] : [],
-                    ...this.section() === 'person' ? [this.Person_page()] : [],
+                    ...this.section() === 'person' ? [this.My_page()] : [],
                     ...this.section() === 'projects' ? [this.Project_list()] : [],
+                    ...this.person_opened() ? [this.Person_page()] : [],
                     ...this.project_opened() ? [this.Project_page()] : [],
+                    ...this.invite_opened() ? [this.Invite_page()] : [],
                 ];
             }
             sync() {
@@ -20020,8 +20754,8 @@ var $;
             }
         }
         __decorate([
-            $mol_action
-        ], $hyoo_idea_app.prototype, "signup_open", null);
+            $mol_mem
+        ], $hyoo_idea_app.prototype, "invite_opened", null);
         __decorate([
             $mol_mem
         ], $hyoo_idea_app.prototype, "pages", null);

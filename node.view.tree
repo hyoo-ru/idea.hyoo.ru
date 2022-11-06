@@ -421,10 +421,11 @@ $hyoo_idea_person_card $mol_row
 					arg * person <= id
 					title <= name_short
 				<= Name_sub $mol_view sub <= name_sub /
-		<= Actions $mol_pick
-			hint @ \Actions
-			trigger_content / <= Actions_icon $mol_icon_dots_horizontal
-			bubble_content / \comming soon
+		<= Actions $mol_view sub <= actions /
+			<= More $mol_pick
+				hint @ \Actions
+				trigger_content / <= More_icon $mol_icon_dots_horizontal
+				bubble_content / \comming soon
 
 $mol_paragraph $mol_view
 	line_height 24
@@ -1274,6 +1275,10 @@ $mol_number $mol_view
 			enabled <= inc_enabled <= enabled true
 			sub / <= inc_icon $mol_icon_plus
 
+$mol_icon_check $mol_icon path \M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z
+
+$mol_icon_cancel $mol_icon path \M12,2C17.52,2 22,6.48 22,12C22,17.52 17.52,22 12,22C6.48,22 2,17.52 2,12C2,6.48 6.48,2 12,2M12,4C7.58,4 4,7.58 4,12C4,13.85 4.63,15.55 5.68,16.91L16.91,5.68C15.55,4.63 13.85,4 12,4M12,20C16.42,20 20,16.42 20,12C20,10.15 19.37,8.45 18.32,7.09L7.09,18.32C8.45,19.37 10.15,20 12,20Z
+
 $hyoo_idea_project_form $mol_form
 	project $hyoo_idea_project
 		name? => name?
@@ -1352,8 +1357,37 @@ $hyoo_idea_project_form $mol_form
 											click? <=> role_drop*? null
 			<= Team $mol_form
 				title @ \Team
-				form_fields /
-					
+				form_fields <= team_fields /
+					<= Team_field $mol_form_field
+						name @ \Team
+						Content <= Team_content $mol_list rows <= team_rows /
+							<= Team_member*0_0 $hyoo_idea_person_card
+								person <= member* $hyoo_idea_person
+								actions <= team_actions* /
+									<= Team_kick* $mol_button_minor
+										hint @ \Remove from team
+										sub / <= Team_kick_icon* $mol_icon_cross
+										click? <=> team_kick*? null
+					<= Requests_field $mol_form_field
+						name @ \Requests
+						Content <= Requests_content $mol_list rows <= requests_rows /
+							<= Request_member*0_0 $hyoo_idea_person_card
+								person <= member*
+								actions /
+									<= Request_accept* $mol_button_minor
+										hint @ \Accept invite
+										sub / <= Request_accept_icon* $mol_icon_check
+										click? <=> request_accept*? null
+					<= Invites_field $mol_form_field
+						name @ \Invites
+						Content <= Invites_content $mol_list rows <= invites_rows /
+							<= Invite_member*0_0 $hyoo_idea_person_card
+								person <= member*
+								actions /
+									<= Invite_cancel* $mol_button_minor
+										hint @ \Cancel invite
+										sub / <= Invite_cancel_icon* $mol_icon_cancel
+										click? <=> invite_cancel*? null
 
 $mol_icon_pencil $mol_icon path \M20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18,2.9 17.35,2.9 16.96,3.29L15.12,5.12L18.87,8.87M3,17.25V21H6.75L17.81,9.93L14.06,6.18L3,17.25Z
 
@@ -1361,6 +1395,7 @@ $hyoo_idea_project_page $mol_page
 	auto /
 		<= message_listener null
 	project $hyoo_idea_project
+		id => id
 		domain => domain
 		logo => logo
 		name => name
@@ -1393,6 +1428,12 @@ $hyoo_idea_project_page $mol_page
 					<= Project_logo $mol_image2 links / <= logo
 					<= Name $mol_paragraph title <= name
 		<= Stage $hyoo_idea_project_stage stage \idea
+		<= Join_request $mol_button_minor
+			title @ \Request to join
+			click? <=> join_request? null
+		<= Join_cancel $mol_button_minor
+			title @ \Cancel request
+			click? <=> join_cancel? null
 
 $hyoo_idea_project_card $mol_row
 	project $hyoo_idea_project
@@ -1419,15 +1460,24 @@ $hyoo_idea_project_list $mol_page
 			sub / <= Add_icon $mol_icon_plus
 			click? <=> add? null
 	body /
-		<= Projects $mol_list rows <= project_rows /
-			<= Empty $mol_view sub <= empty /
-				<= empty_title @ \There's nothing here yet.
-				<= Empty_add $mol_button_minor
-					minimal_height 24
-					title @ \Create project.
-					click? <=> add?
-			<= Card*0_0 $hyoo_idea_project_card
-				project <= project* $hyoo_idea_project
+		<= Deck $mol_deck items /
+			<= Projects $mol_list
+				title @ \Projects
+				rows <= project_rows /
+					<= Empty $mol_view sub <= empty /
+						<= empty_title @ \There's nothing here yet.
+						<= Empty_add $mol_button_minor
+							minimal_height 24
+							title @ \Create project.
+							click? <=> add?
+					<= Card*0_0 $hyoo_idea_project_card
+						project <= project* $hyoo_idea_project
+			- <= Invites $mol_list
+				title @ \Invites
+				rows <= invite_rows /
+					<= Invites_emtpy $mol_view sub / <= empty_title
+					<= Invite_card*0_0 $hyoo_ieda_invite_card
+						invite <= invite* $hyoo_idea_invite
 
 $hyoo_idea_profile_stats $mol_view
 
@@ -1461,6 +1511,7 @@ $hyoo_idea_post_add $mol_bar
 
 $hyoo_idea_person_page $mol_page
 	person $hyoo_idea_person
+		id => id
 		domain => domain
 		avatar_node => avatar_node
 		name_short => name_short
@@ -1470,6 +1521,7 @@ $hyoo_idea_person_page $mol_page
 		email => email
 		projects => projects
 	self false
+	show_confirm? false
 	title @ \User page
 	msg *
 		job_present @ \Up to present
@@ -1496,7 +1548,15 @@ $hyoo_idea_person_page $mol_page
 				<= Age $hyoo_idea_ago 
 					title @ \{count} {unit}
 					moment <= date_birth $mol_time_moment
-			<= Actions $mol_view sub /
+			<= Actions $mol_view sub <= actions /
+				<= More $mol_pick
+					hint @ \More...
+					trigger_content / <= More_icon $mol_icon_dots_vertical
+					bubble_content <= more_content /
+						<= More_list $mol_list rows /
+							<= Invite_button $mol_link
+								arg * invite_person <= id
+								title @ \Invite to project
 				<= Subscribe $mol_button_minor
 					title @ \Subscribe
 				<= Message $mol_button_major
@@ -1561,6 +1621,55 @@ $hyoo_idea_person_page $mol_page
 						<= Post*0_0 $hyoo_idea_post_card
 							post <= post* $hyoo_idea_post
 
+$hyoo_idea_invite_page $mol_page
+	domain $hyoo_idea_domain
+	title @ \Invite
+	tools /
+		<= Close_head $mol_link
+			arg *
+				invite_project null
+				invite_person null
+			sub / <= Close_icon $mol_icon_cross
+	status *
+		sended @ \Invitation sent
+		joined @ \The user is already on the project team
+		none @ \None
+	body /
+		<= Form $mol_form
+			form_fields <= fields /
+				<= Project_select_field $mol_form_field
+					name @ \Select project
+					control <= Project_select_control $mol_select
+						value? <=> project_id? \
+						dictionary <= project_dict *
+				<= Project_field $mol_form_field
+					name @ \Project
+					Content <= Project_content $hyoo_idea_project_card
+						project <= project $hyoo_idea_project
+				<= Person_select_field $mol_form_field
+					name @ \Select person
+					control <= Person_select_control $mol_select
+						value? <=> person_id? \
+						dictionary <= person_dict *
+				<= Person_field $mol_form_field
+					name @ \Person
+					Content <= Person_content $hyoo_idea_person_card
+						person <= person $hyoo_idea_person
+						Actions null
+				<= Status_field $mol_form_field
+					name @ \Status
+					Content <= Statuc_content $mol_paragraph title <= status_text \
+			buttons /
+				<= Submit $mol_button_major
+					title @ \Invite
+					click? <=> submit? null
+					enabled <= submit_enabled true
+				<= Close $mol_link
+					arg *
+						invite_project null
+						invite_person null
+					title @ \Close
+
 $hyoo_idea_app $mol_book2
 	domain $hyoo_idea_domain
 		yard => yard
@@ -1599,4 +1708,8 @@ $hyoo_idea_app $mol_book2
 			domain <= domain
 		<= Person_page $hyoo_idea_person_page
 			person <= person_opened $hyoo_idea_person
+		<= My_page $hyoo_idea_person_page
+			person <= user
+		<= Invite_page $hyoo_idea_invite_page
+			domain <= domain
 	Placeholder null

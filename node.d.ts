@@ -1474,8 +1474,6 @@ declare namespace $ {
         post_add(): $hyoo_idea_post;
         project(id: $mol_int62_string): $hyoo_idea_project;
         project_add(): $hyoo_idea_project;
-        invite(id: $mol_int62_string): $hyoo_idea_invite;
-        invite_add(): $hyoo_idea_invite;
     }
 }
 
@@ -2382,19 +2380,10 @@ declare namespace $ {
 }
 
 declare namespace $ {
-    class $hyoo_idea_invite extends $hyoo_idea_entity {
-        project(next?: $hyoo_idea_project): $hyoo_idea_project | null;
-        candidate(next?: $hyoo_idea_person): $hyoo_idea_person | null;
-        person(next?: $hyoo_idea_person): $hyoo_idea_person | null;
-        comment(next?: string): string;
-        status(next?: 'pending' | 'accepted' | 'rejected' | 'canceled'): "pending" | "accepted" | "rejected" | "canceled";
-    }
-}
-
-declare namespace $ {
     type $hyoo_idea_project_stages = 'idea' | 'teambuilding' | 'prototyping' | 'pilot' | 'monetization';
     class $hyoo_idea_project extends $hyoo_idea_entity {
         person(next?: $hyoo_idea_person): $hyoo_idea_person;
+        owner(next?: $hyoo_idea_person): $hyoo_idea_person;
         logo_node(): $hyoo_crowd_blob;
         logo(): string;
         brief(next?: string): string;
@@ -2414,7 +2403,9 @@ declare namespace $ {
             count: number;
         }[];
         team(next?: $hyoo_idea_person[]): $hyoo_idea_person[];
-        team_invites(next?: $hyoo_idea_invite[]): $hyoo_idea_invite[];
+        team_members(): $hyoo_idea_person[];
+        team_requests(): $hyoo_idea_person[];
+        team_invites(): $hyoo_idea_person[];
     }
 }
 
@@ -2486,7 +2477,6 @@ declare namespace $ {
         project_drop(obj: $hyoo_idea_project): void;
         pubs(next?: $hyoo_idea_person[]): $hyoo_idea_person[];
         subs(next?: $hyoo_idea_person[]): $hyoo_idea_person[];
-        project_invites(next?: $hyoo_idea_invite[]): $hyoo_idea_invite[];
     }
 }
 
@@ -3023,8 +3013,10 @@ declare namespace $ {
         name_sub(): readonly any[];
         Name_sub(): $mol_view;
         Name(): $$.$mol_list;
-        Actions_icon(): $mol_icon_dots_horizontal;
-        Actions(): $$.$mol_pick;
+        More_icon(): $mol_icon_dots_horizontal;
+        More(): $$.$mol_pick;
+        actions(): readonly any[];
+        Actions(): $mol_view;
     }
 }
 
@@ -4730,6 +4722,18 @@ declare namespace $.$$ {
 }
 
 declare namespace $ {
+    class $mol_icon_check extends $mol_icon {
+        path(): string;
+    }
+}
+
+declare namespace $ {
+    class $mol_icon_cancel extends $mol_icon {
+        path(): string;
+    }
+}
+
+declare namespace $ {
     class $hyoo_idea_project_form extends $mol_form {
         name(next?: any): string;
         brief(next?: any): string;
@@ -4783,6 +4787,30 @@ declare namespace $ {
         Roles_content(): $$.$mol_list;
         Roles_field(): $$.$mol_form_field;
         Roles(): $$.$mol_form;
+        member(id: any): $hyoo_idea_person;
+        Team_kick_icon(id: any): $mol_icon_cross;
+        team_kick(id: any, next?: any): any;
+        Team_kick(id: any): $mol_button_minor;
+        team_actions(id: any): readonly any[];
+        Team_member(id: any): $hyoo_idea_person_card;
+        team_rows(): readonly any[];
+        Team_content(): $$.$mol_list;
+        Team_field(): $$.$mol_form_field;
+        Request_accept_icon(id: any): $mol_icon_check;
+        request_accept(id: any, next?: any): any;
+        Request_accept(id: any): $mol_button_minor;
+        Request_member(id: any): $hyoo_idea_person_card;
+        requests_rows(): readonly any[];
+        Requests_content(): $$.$mol_list;
+        Requests_field(): $$.$mol_form_field;
+        Invite_cancel_icon(id: any): $mol_icon_cancel;
+        invite_cancel(id: any, next?: any): any;
+        Invite_cancel(id: any): $mol_button_minor;
+        Invite_member(id: any): $hyoo_idea_person_card;
+        invites_rows(): readonly any[];
+        Invites_content(): $$.$mol_list;
+        Invites_field(): $$.$mol_form_field;
+        team_fields(): readonly any[];
         Team(): $$.$mol_form;
         Deck(): $$.$mol_deck;
     }
@@ -4813,6 +4841,15 @@ declare namespace $.$$ {
         role_name(id: number, next?: string): string;
         role_count(id: number, next?: string): number;
         role_functions(id: number, next?: string): string;
+        team_fields(): $mol_form_field[];
+        team_rows(): $hyoo_idea_person_card[];
+        requests_rows(): $hyoo_idea_person_card[];
+        invites_rows(): $hyoo_idea_person_card[];
+        member(obj: $hyoo_idea_person): $hyoo_idea_person;
+        team_kick(obj: $hyoo_idea_person): void;
+        request_accept(obj: $hyoo_idea_person): void;
+        invite_cancel(obj: $hyoo_idea_person): void;
+        team_actions(obj: $hyoo_idea_person): $mol_button_minor[];
     }
     export {};
 }
@@ -4829,6 +4866,7 @@ declare namespace $ {
 declare namespace $ {
     class $hyoo_idea_project_page extends $mol_page {
         auto(): readonly any[];
+        id(): `${string}_${string}`;
         domain(): $hyoo_idea_domain;
         logo(): string;
         name(): string;
@@ -4852,6 +4890,10 @@ declare namespace $ {
         blocks(): readonly any[];
         Blocks(): $$.$mol_list;
         Stage(): $$.$hyoo_idea_project_stage;
+        join_request(next?: any): any;
+        Join_request(): $mol_button_minor;
+        join_cancel(next?: any): any;
+        Join_cancel(): $mol_button_minor;
     }
 }
 
@@ -4865,6 +4907,8 @@ declare namespace $.$$ {
         slides(): string;
         slides_content(): string;
         message_listener(): $mol_dom_listener;
+        join_request(): void;
+        join_cancel(): void;
     }
 }
 
@@ -4912,6 +4956,7 @@ declare namespace $ {
         Card(id: any): $$.$hyoo_idea_project_card;
         project_rows(): readonly any[];
         Projects(): $$.$mol_list;
+        Deck(): $$.$mol_deck;
     }
 }
 
@@ -5006,6 +5051,7 @@ declare namespace $.$$ {
 
 declare namespace $ {
     class $hyoo_idea_person_page extends $mol_page {
+        id(): `${string}_${string}`;
         domain(): $hyoo_idea_domain;
         avatar_node(): $hyoo_crowd_blob;
         name_short(): string;
@@ -5016,6 +5062,7 @@ declare namespace $ {
         projects(): $hyoo_idea_project[];
         person(): $hyoo_idea_person;
         self(): boolean;
+        show_confirm(next?: any): boolean;
         title(): string;
         msg(): {
             job_present: string;
@@ -5041,8 +5088,14 @@ declare namespace $ {
         Age(): $$.$hyoo_idea_ago;
         summary_rows(): readonly any[];
         Summary(): $$.$mol_list;
+        More_icon(): $mol_icon_dots_vertical;
+        Invite_button(): $$.$mol_link;
+        More_list(): $$.$mol_list;
+        more_content(): readonly any[];
+        More(): $$.$mol_pick;
         Subscribe(): $mol_button_minor;
         Message(): $mol_button_major;
+        actions(): readonly any[];
         Actions(): $mol_view;
         neck(): readonly any[];
         Neck(): $mol_row;
@@ -5143,6 +5196,64 @@ declare namespace $.$$ {
 }
 
 declare namespace $ {
+    class $hyoo_idea_invite_page extends $mol_page {
+        domain(): $hyoo_idea_domain;
+        title(): string;
+        tools(): readonly any[];
+        status(): {
+            sended: string;
+            joined: string;
+            none: string;
+        };
+        body(): readonly any[];
+        Close_icon(): $mol_icon_cross;
+        Close_head(): $$.$mol_link;
+        project_id(next?: any): string;
+        project_dict(): {};
+        Project_select_control(): $$.$mol_select;
+        Project_select_field(): $$.$mol_form_field;
+        project(): $hyoo_idea_project;
+        Project_content(): $$.$hyoo_idea_project_card;
+        Project_field(): $$.$mol_form_field;
+        person_id(next?: any): string;
+        person_dict(): {};
+        Person_select_control(): $$.$mol_select;
+        Person_select_field(): $$.$mol_form_field;
+        person(): $hyoo_idea_person;
+        Person_content(): $hyoo_idea_person_card;
+        Person_field(): $$.$mol_form_field;
+        status_text(): string;
+        Statuc_content(): $$.$mol_paragraph;
+        Status_field(): $$.$mol_form_field;
+        fields(): readonly any[];
+        submit(next?: any): any;
+        submit_enabled(): boolean;
+        Submit(): $mol_button_major;
+        Close(): $$.$mol_link;
+        Form(): $$.$mol_form;
+    }
+}
+
+declare namespace $.$$ {
+}
+
+declare namespace $.$$ {
+    class $hyoo_idea_invite_page extends $.$hyoo_idea_invite_page {
+        user(): $hyoo_idea_person;
+        person(): $hyoo_idea_person;
+        project(): $hyoo_idea_project;
+        project_dict(): {};
+        person_dict(): {};
+        fields(): $mol_form_field[];
+        person_is_invited(): boolean;
+        project_is_invited(): boolean;
+        status_text(): string;
+        submit_enabled(): boolean;
+        submit(): void;
+    }
+}
+
+declare namespace $ {
     class $hyoo_idea_app extends $mol_book2 {
         yard(): $hyoo_sync_client;
         user(): $hyoo_idea_person;
@@ -5166,6 +5277,8 @@ declare namespace $ {
         Project_list(): $$.$hyoo_idea_project_list;
         person_opened(): $hyoo_idea_person;
         Person_page(): $$.$hyoo_idea_person_page;
+        My_page(): $$.$hyoo_idea_person_page;
+        Invite_page(): $$.$hyoo_idea_invite_page;
     }
 }
 
@@ -5179,8 +5292,8 @@ declare namespace $.$$ {
         person_opened(): $hyoo_idea_person;
         signup_opened(): boolean;
         project_opened(): $hyoo_idea_project;
-        signup_open(): void;
-        pages(): ($mol_page | $hyoo_idea_feed_page | $hyoo_idea_project_page | $hyoo_idea_project_list | $hyoo_idea_person_page)[];
+        invite_opened(): boolean;
+        pages(): ($mol_page | $hyoo_idea_feed_page | $hyoo_idea_project_page | $hyoo_idea_project_list | $hyoo_idea_person_page | $hyoo_idea_invite_page)[];
         sync(): void;
         person_register(): void;
         auto(): void;

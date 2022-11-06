@@ -10,7 +10,6 @@ $hyoo_idea_person_page $mol_page
 		email => email
 		projects => projects
 	self false
-	show_confirm? false
 	title @ \User page
 	msg *
 		job_present @ \Up to present

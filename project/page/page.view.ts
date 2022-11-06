@@ -2,8 +2,20 @@ namespace $.$$ {
 
 	export class $hyoo_idea_project_page extends $.$hyoo_idea_project_page {
 
+		self() {
+			return this.project().owner().id() === this.domain().user().id()
+		}
+
 		editing() {
 			return this.project().person().id() === this.domain().user().id() && this.$.$mol_state_arg.value('project_edit') === ''
+		}
+
+		tools() {
+			return [
+				this.Slides(),
+				... this.self() ? [this.Edit()] : [],
+				this.Close(),
+			]
 		}
 
 		body() {

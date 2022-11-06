@@ -9,29 +9,54 @@ namespace $.$$ {
 			shrink: 0,
 		},
 
-		Project_logo: {
-			width: rem(8),
+		Face: {
+			flex: {
+				wrap: 'nowrap',
+			},
+		},
+
+		Face_list: {
+			flex: {
+				shrink: 1,
+			},
+		},
+
+		Logo: {
+			width: rem(6),
+			height: rem(6),
 			margin: $mol_gap.block,
 		},
 
-		Face: {
-			alignItems: 'center',
-		},
-
 		Name: {
-			padding: $mol_gap.text,
 			font: {
 				size: rem(1.5),
 			},
-			line: {
-				height: per(150),
-			} as any,
-			text: {
-				align: 'center',
-			} as any,
+			margin: {
+				bottom: rem(0.5),
+			},
 			letter: {
 				spacing: px(1),
 			} as any,
+		},
+
+		Brief: {
+			opacity: 0.8,
+		},
+
+		Neck: {
+			zIndex: 1,
+		},
+
+		Stats_block: {
+			Content: {
+				padding: 0
+			},
+		},
+
+		Actions: {
+			margin: {
+				left: 'auto',
+			},
 		},
 
 	} )

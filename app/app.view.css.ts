@@ -16,6 +16,10 @@ namespace $.$$ {
 				shrink: 0,
 			},
 		},
+		
+		Links: {
+			padding: $mol_gap.block,
+		},
 
 	 } )
 

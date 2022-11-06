@@ -294,6 +294,8 @@
     "$hyoo_idea_profile",
     "$hyoo_idea_profile_stats",
     "$hyoo_idea_profile_block",
+    "$mol_expander",
+    "$mol_card",
     "$hyoo_idea_post_add",
     "$mol_bar",
     "$mol_icon_send",

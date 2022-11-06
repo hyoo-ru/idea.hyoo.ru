@@ -1367,13 +1367,34 @@ $hyoo_idea_profile_stat $mol_button_minor
 			<= Count $mol_paragraph title <= count \
 		<= Label $mol_paragraph title <= label \
 
-$hyoo_idea_profile_block $mol_list
+$mol_expander $mol_list
 	rows /
-		<= Label $mol_row sub /
-			<= Title $mol_paragraph title <= title \
-			<= Expander $mol_check_expand
-				checked? <=> expanded? false
-		<= Content $mol_view sub <= content /
+		<= Label $mol_view
+			sub /
+				<= Trigger $mol_check_expand
+					checked?val <=> expanded?val false
+					label <= label /
+						<= title
+				<= Tools null
+		<= Content $mol_list
+			rows <= content /
+
+$mol_card $mol_list
+	attr *
+		^
+		mol_card_status_type <= status \
+	rows /$mol_view
+		<= Content $mol_view
+			sub <= content /$mol_view_content
+				<= title
+		<= Status $mol_view
+			minimal_height 30
+			sub /
+				<= status_text <= status \
+
+$hyoo_idea_profile_block $mol_expander
+	Content $mol_card
+		sub <= content /
 
 $mol_bar $mol_view
 
@@ -1413,45 +1434,46 @@ $hyoo_idea_project_page $mol_page
 	self false
 	team_member_no_role @ \No role
 	tools /
-		<= Slides $mol_link_iconed
-			uri <= slides \https://slides.hyoo.ru/#!slides={source}
-			title \
-		<= Edit $mol_link
-			arg * project_edit \
-			sub / <= Edit_icon $mol_icon_pencil
-		<= Close $mol_link
-			arg *
-				project null
-				project_edit null
-			sub / <= Close_icon $mol_icon_cross
+		<= Main_tools $mol_view sub /
+			<= Slides $mol_link_iconed
+				uri <= slides \https://slides.hyoo.ru/#!slides={source}
+				title \
+			<= Edit $mol_link
+				arg * project_edit \
+				sub / <= Edit_icon $mol_icon_pencil
+			<= Close $mol_link
+				arg *
+					project null
+					project_edit null
+				sub / <= Close_icon $mol_icon_cross
+		<= Actions $mol_view sub <= actions /
+			<= More $mol_pick
+				hint @ \More...
+				trigger_content / <= More_icon $mol_icon_dots_vertical
+				bubble_content <= more_content /
+					<= More_list $mol_list rows /
+						<= Request_button $mol_link
+							arg *
+								invite_project <= id
+								invite_person <= user_id
+							title @ \Request to join team
+			<= Subscribe $mol_button_minor
+				title @ \Subscribe
+			<= Message $mol_button_major
+				title @ \Message
 	editing false
 	Form $hyoo_idea_project_form
 		project <= project
+	Title $mol_row sub /
+		<= Logo $hyoo_idea_project_logo blob <= logo_node
+		<= Face_list $mol_list rows /
+			<= Name $mol_paragraph title <= name
+			<= Brief $mol_paragraph title <= brief
 	body /
-		<= Face $mol_row sub /
-			<= Logo $hyoo_idea_project_logo blob <= logo_node
-			<= Face_list $mol_list rows /
-				<= Name $mol_paragraph title <= name
-				<= Brief $mol_paragraph title <= brief
 		<= Neck $mol_row sub <= neck /
-			<= Actions $mol_view sub <= actions /
-				<= More $mol_pick
-					hint @ \More...
-					trigger_content / <= More_icon $mol_icon_dots_vertical
-					bubble_content <= more_content /
-						<= More_list $mol_list rows /
-							<= Request_button $mol_link
-								arg *
-									invite_project <= id
-									invite_person <= user_id
-								title @ \Request to join team
-				<= Subscribe $mol_button_minor
-					title @ \Subscribe
-				<= Message $mol_button_major
-					title @ \Message
 		<= Stats_block $hyoo_idea_profile_block
-			Label null
-			expanded true
+			title @ \Stats
+			expanded? <=> stats_expanded? true
 			content / <= Stats_content $hyoo_idea_profile_stats sub /
 				<= Stage_stat $hyoo_idea_profile_stat
 					label @ \Stage
@@ -1465,25 +1487,22 @@ $hyoo_idea_project_page $mol_page
 				<= Sub_count $hyoo_idea_profile_stat
 					label @ \Subscribers
 					count <= sub_count \4
-		<= Description $hyoo_idea_profile_block
-			title @ \Description
-			expanded true
-			Expander null
-			content / <= Description_text $mol_text
-				text <= description
 		<= Team $hyoo_idea_profile_block
 			title @ \Team
-			expanded true
-			Expander null
+			expanded? <=> team_expanded? true
 			content / <= Team_list $mol_list rows <= team_member_list /
 				<= Team_member*0_0 $hyoo_idea_person_card
 					person <= team_member* $hyoo_idea_person
 					actions /
 						<= Team_member_role* $mol_paragraph title <= team_member_role* \
+		<= Description $hyoo_idea_profile_block
+			title @ \Description
+			expanded? <=> description_expanded? true
+			content / <= Description_text $mol_text
+				text <= description
 		<= Posts $hyoo_idea_profile_block
 			title @ \Posts
-			Expander null
-			expanded true
+			expanded? <=> posts_expanded? true
 			content <= posts_content /
 				<= Post_add $hyoo_idea_post_add
 					submit? <=> post_add? null
@@ -1589,8 +1608,8 @@ $hyoo_idea_person_page $mol_page
 				<= Message $mol_button_major
 					title @ \Message
 		<= Stats $hyoo_idea_profile_block
-			Label null
-			expanded true
+			title @ \Stats
+			expanded? <=> stats_expanded? true
 			content / <= Stats_person $hyoo_idea_profile_stats sub /
 				<= Project_count $hyoo_idea_profile_stat
 					label @ \Projects
@@ -1638,8 +1657,7 @@ $hyoo_idea_person_page $mol_page
 			content / <= Projects
 		<= Posts $hyoo_idea_profile_block
 			title @ \Posts
-			Expander null
-			expanded true
+			expanded? <=> posts_expanded? true
 			content <= posts_content /
 				<= Post_add $hyoo_idea_post_add
 					submit? <=> post_add? null

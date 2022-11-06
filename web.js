@@ -13515,7 +13515,7 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    $mol_style_attach("hyoo/idea/post/card/card.view.css", "[hyoo_idea_post_card_avatar] {\n\talign-self: center;\n\tmargin-left: 0.375rem;\n\tmargin-right: 0.375rem;\n}\n");
+    $mol_style_attach("hyoo/idea/post/card/card.view.css", "[hyoo_idea_post_card_avatar] {\n\talign-self: center;\n\tmargin-right: 0.375rem;\n}\n\n[hyoo_idea_post_card_comment_avatar] {\n\twidth: 2rem;\n\theight: 2rem;\n\talign-self: flex-start;\n}\n");
 })($ || ($ = {}));
 //hyoo/idea/post/card/-css/card.view.css.ts
 ;
@@ -13572,15 +13572,6 @@ var $;
                 height: rem(2),
             },
             Comment: {
-                Avatar: {
-                    margin: {
-                        top: 0,
-                        left: rem(0.375),
-                        rigth: rem(0.375),
-                        bottom: 0,
-                    },
-                    alignSelf: 'flex-start',
-                },
                 Actions: {
                     alignSelf: 'flex-start',
                 },
@@ -18034,8 +18025,11 @@ var $;
         const { rem, per, px } = $mol_style_unit;
         $mol_style_define($.$hyoo_idea_profile_stats, {
             width: per(100),
-            justifyContent: 'space-between',
+            justifyContent: 'space-around',
             color: $mol_theme.text,
+            flex: {
+                shrink: 0,
+            },
         });
         $mol_style_define($.$hyoo_idea_profile_stat, {
             flex: {
@@ -18253,6 +18247,11 @@ var $;
             Trigger: {
                 textShadow: '0 0',
             },
+            Content_card: {
+                flex: {
+                    shrink: 0,
+                },
+            },
         });
     })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));
@@ -18442,7 +18441,6 @@ var $;
         }
         body() {
             return [
-                this.Neck(),
                 this.Stats_block(),
                 this.Team(),
                 this.Description(),
@@ -18499,10 +18497,6 @@ var $;
             ];
             return obj;
         }
-        More_icon() {
-            const obj = new this.$.$mol_icon_dots_vertical();
-            return obj;
-        }
         Request_button() {
             const obj = new this.$.$mol_link();
             obj.arg = () => ({
@@ -18512,42 +18506,9 @@ var $;
             obj.title = () => this.$.$mol_locale.text('$hyoo_idea_project_page_Request_button_title');
             return obj;
         }
-        More_list() {
-            const obj = new this.$.$mol_list();
-            obj.rows = () => [
-                this.Request_button()
-            ];
-            return obj;
-        }
-        more_content() {
-            return [
-                this.More_list()
-            ];
-        }
-        More() {
-            const obj = new this.$.$mol_pick();
-            obj.hint = () => this.$.$mol_locale.text('$hyoo_idea_project_page_More_hint');
-            obj.trigger_content = () => [
-                this.More_icon()
-            ];
-            obj.bubble_content = () => this.more_content();
-            return obj;
-        }
-        Subscribe() {
-            const obj = new this.$.$mol_button_minor();
-            obj.title = () => this.$.$mol_locale.text('$hyoo_idea_project_page_Subscribe_title');
-            return obj;
-        }
-        Message() {
-            const obj = new this.$.$mol_button_major();
-            obj.title = () => this.$.$mol_locale.text('$hyoo_idea_project_page_Message_title');
-            return obj;
-        }
         actions() {
             return [
-                this.More(),
-                this.Subscribe(),
-                this.Message()
+                this.Request_button()
             ];
         }
         Actions() {
@@ -18576,14 +18537,6 @@ var $;
                 this.Name(),
                 this.Brief()
             ];
-            return obj;
-        }
-        neck() {
-            return [];
-        }
-        Neck() {
-            const obj = new this.$.$mol_row();
-            obj.sub = () => this.neck();
             return obj;
         }
         Stage() {
@@ -18617,22 +18570,12 @@ var $;
             obj.count = () => this.post_count();
             return obj;
         }
-        sub_count() {
-            return "4";
-        }
-        Sub_count() {
-            const obj = new this.$.$hyoo_idea_profile_stat();
-            obj.label = () => this.$.$mol_locale.text('$hyoo_idea_project_page_Sub_count_label');
-            obj.count = () => this.sub_count();
-            return obj;
-        }
         Stats_content() {
             const obj = new this.$.$hyoo_idea_profile_stats();
             obj.sub = () => [
                 this.Stage_stat(),
                 this.Team_stat(),
-                this.Post_count(),
-                this.Sub_count()
+                this.Post_count()
             ];
             return obj;
         }
@@ -18783,22 +18726,7 @@ var $;
     ], $hyoo_idea_project_page.prototype, "Main_tools", null);
     __decorate([
         $mol_mem
-    ], $hyoo_idea_project_page.prototype, "More_icon", null);
-    __decorate([
-        $mol_mem
     ], $hyoo_idea_project_page.prototype, "Request_button", null);
-    __decorate([
-        $mol_mem
-    ], $hyoo_idea_project_page.prototype, "More_list", null);
-    __decorate([
-        $mol_mem
-    ], $hyoo_idea_project_page.prototype, "More", null);
-    __decorate([
-        $mol_mem
-    ], $hyoo_idea_project_page.prototype, "Subscribe", null);
-    __decorate([
-        $mol_mem
-    ], $hyoo_idea_project_page.prototype, "Message", null);
     __decorate([
         $mol_mem
     ], $hyoo_idea_project_page.prototype, "Actions", null);
@@ -18816,9 +18744,6 @@ var $;
     ], $hyoo_idea_project_page.prototype, "Face_list", null);
     __decorate([
         $mol_mem
-    ], $hyoo_idea_project_page.prototype, "Neck", null);
-    __decorate([
-        $mol_mem
     ], $hyoo_idea_project_page.prototype, "Stage", null);
     __decorate([
         $mol_mem
@@ -18829,9 +18754,6 @@ var $;
     __decorate([
         $mol_mem
     ], $hyoo_idea_project_page.prototype, "Post_count", null);
-    __decorate([
-        $mol_mem
-    ], $hyoo_idea_project_page.prototype, "Sub_count", null);
     __decorate([
         $mol_mem
     ], $hyoo_idea_project_page.prototype, "Stats_content", null);
@@ -18937,12 +18859,12 @@ var $;
             Brief: {
                 opacity: 0.8,
             },
-            Neck: {
-                zIndex: 1,
-            },
             Stats_block: {
                 Content: {
                     padding: 0
+                },
+                flex: {
+                    shrink: 0,
                 },
             },
             Team_list: {
@@ -19433,7 +19355,8 @@ var $;
         }
         tools() {
             return [
-                this.Edit_button()
+                this.Main_tools(),
+                this.Actions()
             ];
         }
         Edit_form() {
@@ -19449,9 +19372,16 @@ var $;
             obj.projects = () => this.projects();
             return obj;
         }
+        Title() {
+            const obj = new this.$.$mol_row();
+            obj.sub = () => [
+                this.Avatar(),
+                this.Face_list()
+            ];
+            return obj;
+        }
         body() {
             return [
-                this.Face(),
                 this.Neck(),
                 this.Stats(),
                 this.Personal(),
@@ -19475,6 +19405,47 @@ var $;
             obj.checked = (next) => this.editing(next);
             return obj;
         }
+        Close_icon() {
+            const obj = new this.$.$mol_icon_cross();
+            return obj;
+        }
+        Close() {
+            const obj = new this.$.$mol_link();
+            obj.arg = () => ({
+                person: null,
+                person_edit: null
+            });
+            obj.sub = () => [
+                this.Close_icon()
+            ];
+            return obj;
+        }
+        Main_tools() {
+            const obj = new this.$.$mol_view();
+            obj.sub = () => [
+                this.Edit_button(),
+                this.Close()
+            ];
+            return obj;
+        }
+        Invite_button() {
+            const obj = new this.$.$mol_link();
+            obj.arg = () => ({
+                invite_person: this.id()
+            });
+            obj.title = () => this.$.$mol_locale.text('$hyoo_idea_person_page_Invite_button_title');
+            return obj;
+        }
+        actions() {
+            return [
+                this.Invite_button()
+            ];
+        }
+        Actions() {
+            const obj = new this.$.$mol_view();
+            obj.sub = () => this.actions();
+            return obj;
+        }
         Avatar() {
             const obj = new this.$.$hyoo_idea_person_avatar();
             obj.blob = () => this.avatar_node();
@@ -19495,14 +19466,6 @@ var $;
             obj.rows = () => [
                 this.Name(),
                 this.Status()
-            ];
-            return obj;
-        }
-        Face() {
-            const obj = new this.$.$mol_row();
-            obj.sub = () => [
-                this.Avatar(),
-                this.Face_list()
             ];
             return obj;
         }
@@ -19544,65 +19507,9 @@ var $;
             obj.rows = () => this.summary_rows();
             return obj;
         }
-        More_icon() {
-            const obj = new this.$.$mol_icon_dots_vertical();
-            return obj;
-        }
-        Invite_button() {
-            const obj = new this.$.$mol_link();
-            obj.arg = () => ({
-                invite_person: this.id()
-            });
-            obj.title = () => this.$.$mol_locale.text('$hyoo_idea_person_page_Invite_button_title');
-            return obj;
-        }
-        More_list() {
-            const obj = new this.$.$mol_list();
-            obj.rows = () => [
-                this.Invite_button()
-            ];
-            return obj;
-        }
-        more_content() {
-            return [
-                this.More_list()
-            ];
-        }
-        More() {
-            const obj = new this.$.$mol_pick();
-            obj.hint = () => this.$.$mol_locale.text('$hyoo_idea_person_page_More_hint');
-            obj.trigger_content = () => [
-                this.More_icon()
-            ];
-            obj.bubble_content = () => this.more_content();
-            return obj;
-        }
-        Subscribe() {
-            const obj = new this.$.$mol_button_minor();
-            obj.title = () => this.$.$mol_locale.text('$hyoo_idea_person_page_Subscribe_title');
-            return obj;
-        }
-        Message() {
-            const obj = new this.$.$mol_button_major();
-            obj.title = () => this.$.$mol_locale.text('$hyoo_idea_person_page_Message_title');
-            return obj;
-        }
-        actions() {
-            return [
-                this.More(),
-                this.Subscribe(),
-                this.Message()
-            ];
-        }
-        Actions() {
-            const obj = new this.$.$mol_view();
-            obj.sub = () => this.actions();
-            return obj;
-        }
         neck() {
             return [
-                this.Summary(),
-                this.Actions()
+                this.Summary()
             ];
         }
         Neck() {
@@ -19901,6 +19808,9 @@ var $;
     ], $hyoo_idea_person_page.prototype, "Projet_list", null);
     __decorate([
         $mol_mem
+    ], $hyoo_idea_person_page.prototype, "Title", null);
+    __decorate([
+        $mol_mem
     ], $hyoo_idea_person_page.prototype, "Edit_icon", null);
     __decorate([
         $mol_mem
@@ -19908,6 +19818,21 @@ var $;
     __decorate([
         $mol_mem
     ], $hyoo_idea_person_page.prototype, "Edit_button", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_idea_person_page.prototype, "Close_icon", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_idea_person_page.prototype, "Close", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_idea_person_page.prototype, "Main_tools", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_idea_person_page.prototype, "Invite_button", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_idea_person_page.prototype, "Actions", null);
     __decorate([
         $mol_mem
     ], $hyoo_idea_person_page.prototype, "Avatar", null);
@@ -19920,9 +19845,6 @@ var $;
     __decorate([
         $mol_mem
     ], $hyoo_idea_person_page.prototype, "Face_list", null);
-    __decorate([
-        $mol_mem
-    ], $hyoo_idea_person_page.prototype, "Face", null);
     __decorate([
         $mol_mem
     ], $hyoo_idea_person_page.prototype, "Position", null);
@@ -19938,27 +19860,6 @@ var $;
     __decorate([
         $mol_mem
     ], $hyoo_idea_person_page.prototype, "Summary", null);
-    __decorate([
-        $mol_mem
-    ], $hyoo_idea_person_page.prototype, "More_icon", null);
-    __decorate([
-        $mol_mem
-    ], $hyoo_idea_person_page.prototype, "Invite_button", null);
-    __decorate([
-        $mol_mem
-    ], $hyoo_idea_person_page.prototype, "More_list", null);
-    __decorate([
-        $mol_mem
-    ], $hyoo_idea_person_page.prototype, "More", null);
-    __decorate([
-        $mol_mem
-    ], $hyoo_idea_person_page.prototype, "Subscribe", null);
-    __decorate([
-        $mol_mem
-    ], $hyoo_idea_person_page.prototype, "Message", null);
-    __decorate([
-        $mol_mem
-    ], $hyoo_idea_person_page.prototype, "Actions", null);
     __decorate([
         $mol_mem
     ], $hyoo_idea_person_page.prototype, "Neck", null);
@@ -20122,11 +20023,6 @@ var $;
                 basis: rem(40),
                 shrink: 0,
             },
-            Face: {
-                flex: {
-                    wrap: 'nowrap',
-                },
-            },
             Face_list: {
                 flex: {
                     shrink: 1,
@@ -20150,6 +20046,13 @@ var $;
             Status: {
                 opacity: 0.8,
             },
+            Tools: {
+                flex: {
+                    basis: rem(12),
+                    direction: 'row-reverse',
+                },
+                justifyContent: 'flex-start',
+            },
             Summary: {
                 padding: {
                     left: $mol_gap.text,
@@ -20162,6 +20065,9 @@ var $;
             Stats: {
                 Content: {
                     padding: 0
+                },
+                flex: {
+                    shrink: 0,
                 },
             },
             Actions: {

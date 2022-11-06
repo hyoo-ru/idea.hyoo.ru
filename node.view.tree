@@ -1473,7 +1473,7 @@ $hyoo_idea_project_page $mol_page
 					project_edit null
 				sub / <= Close_icon $mol_icon_cross
 		<= Actions $mol_view sub <= actions /
-			<= More $mol_pick
+			- <= More $mol_pick
 				hint @ \More...
 				trigger_content / <= More_icon $mol_icon_dots_vertical
 				bubble_content <= more_content /
@@ -1483,9 +1483,14 @@ $hyoo_idea_project_page $mol_page
 								invite_project <= id
 								invite_person <= user_id
 							title @ \Request to join team
-			<= Subscribe $mol_button_minor
+			<= Request_button $mol_link
+				arg *
+					invite_project <= id
+					invite_person <= user_id
+				title @ \Want to join team
+			- <= Subscribe $mol_button_minor
 				title @ \Subscribe
-			<= Message $mol_button_major
+			- <= Message $mol_button_major
 				title @ \Message
 	editing false
 	Form $hyoo_idea_project_form
@@ -1496,7 +1501,6 @@ $hyoo_idea_project_page $mol_page
 			<= Name $mol_paragraph title <= name
 			<= Brief $mol_paragraph title <= brief
 	body /
-		<= Neck $mol_row sub <= neck /
 		<= Stats_block $mol_card
 			sub / <= Stats_content $hyoo_idea_profile_stats sub /
 				<= Stage_stat $hyoo_idea_profile_stat
@@ -1508,7 +1512,7 @@ $hyoo_idea_project_page $mol_page
 				<= Post_count $hyoo_idea_profile_stat
 					label @ \Posts
 					count <= post_count \2
-				<= Sub_count $hyoo_idea_profile_stat
+				- <= Sub_count $hyoo_idea_profile_stat
 					label @ \Subscribers
 					count <= sub_count \4
 		<= Team $hyoo_idea_profile_block
@@ -1588,21 +1592,43 @@ $hyoo_idea_person_page $mol_page
 	msg *
 		job_present @ \Up to present
 	tools /
-		<= Edit_button $mol_check_icon
-			hint @ \Edit profile
-			Icon <= Edit_icon $mol_icon_pencil
-			checked? <=> editing? false
+		<= Main_tools $mol_view sub /
+			<= Edit_button $mol_check_icon
+				hint @ \Edit profile
+				Icon <= Edit_icon $mol_icon_pencil
+				checked? <=> editing? false
+			<= Close $mol_link
+				arg *
+					person null
+					person_edit null
+				sub / <= Close_icon $mol_icon_cross
+		<= Actions $mol_view sub <= actions /
+			<= Invite_button $mol_link
+				arg * invite_person <= id
+				title @ \Invite to project
+			- <= More $mol_pick
+				hint @ \More...
+				trigger_content / <= More_icon $mol_icon_dots_vertical
+				bubble_content <= more_content /
+					<= More_list $mol_list rows /
+						<= Invite_button $mol_link
+							arg * invite_person <= id
+							title @ \Invite to project
+			- <= Subscribe $mol_button_minor
+				title @ \Subscribe
+			- <= Message $mol_button_major
+				title @ \Message
 	Edit_form $hyoo_idea_person_form
 		person <= person
 	Projet_list $hyoo_idea_project_list
 		projects <= projects
 		Projects => Projects
+	Title $mol_row sub /
+		<= Avatar $hyoo_idea_person_avatar blob <= avatar_node
+		<= Face_list $mol_list rows /
+			<= Name $mol_paragraph title <= name_short
+			<= Status $mol_paragraph title <= status
 	body /
-		<= Face $mol_row sub /
-			<= Avatar $hyoo_idea_person_avatar blob <= avatar_node
-			<= Face_list $mol_list rows /
-				<= Name $mol_paragraph title <= name_short
-				<= Status $mol_paragraph title <= status
 		<= Neck $mol_row sub <= neck /
 			<= Summary $mol_list rows <= summary_rows /
 				<= Position $mol_paragraph title <= position @ \{position} at {company}
@@ -1610,19 +1636,6 @@ $hyoo_idea_person_page $mol_page
 				<= Age $hyoo_idea_ago 
 					title @ \{count} {unit}
 					moment <= date_birth $mol_time_moment
-			<= Actions $mol_view sub <= actions /
-				<= More $mol_pick
-					hint @ \More...
-					trigger_content / <= More_icon $mol_icon_dots_vertical
-					bubble_content <= more_content /
-						<= More_list $mol_list rows /
-							<= Invite_button $mol_link
-								arg * invite_person <= id
-								title @ \Invite to project
-				<= Subscribe $mol_button_minor
-					title @ \Subscribe
-				<= Message $mol_button_major
-					title @ \Message
 		<= Stats $mol_card
 			sub / <= Stats_person $hyoo_idea_profile_stats sub /
 				<= Project_count $hyoo_idea_profile_stat

@@ -10,6 +10,8 @@ $hyoo_idea_app $mol_book2
 		<= Menu $mol_page
 			title @ \$hyoo_idea
 			tools /
+				<= Source $mol_link_source
+					uri \https://github.com/hyoo-ru/idea.hyoo.ru
 				<= Lights $mol_lights_toggle
 			body /
 				<= Links $mol_list

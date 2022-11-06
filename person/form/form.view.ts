@@ -77,7 +77,7 @@ namespace $.$$ {
 		}
 
 		functions( id: number, next?: string ) {
-			return this.job({ id, key: 'functions' }, next)
+			return this.job({ id, key: 'functions' }, next) ?? ''
 		}
 
 		present( id: number, next?: boolean ) {

@@ -150,7 +150,7 @@ namespace $.$$ {
 		Education_details: list_item_muted,
 
 		Posts: {
-			Content: {
+			Content_card: {
 				flex: {
 					direction: 'column',
 				},

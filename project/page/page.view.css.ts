@@ -69,7 +69,7 @@ namespace $.$$ {
 		},
 
 		Posts: {
-			Content: {
+			Content_card: {
 				flex: {
 					direction: 'column',
 				},

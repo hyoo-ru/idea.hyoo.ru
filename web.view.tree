@@ -88,6 +88,55 @@ $mol_link_source $mol_link
 	sub /
 		<= Icon $mol_icon_github_circle
 
+$mol_image $mol_view
+	dom_name \img
+	field *
+		^
+		src <= uri \
+		alt <= title
+		loading <= loading \eager
+	minimal_width 16
+	minimal_height 16
+
+$mol_speck $mol_view
+	attr *
+		^
+		mol_theme \$mol_theme_accent
+	style *
+		^
+		minHeight \1em
+	sub /
+		<= value null
+
+$mol_button $mol_view
+	enabled true
+	click?event null
+	event_click?event null
+	event *
+		^
+		click?event <=> event_activate?event null
+		dblclick?event <=> clicks?event null
+		keydown?event <=> event_key_press?event null 
+	attr *
+		^
+		disabled <= disabled false
+		role \button
+		tabindex <= tab_index 0
+		title <= hint_safe <= hint \
+	sub /$mol_view_content
+		<= title
+	Speck $mol_speck
+		value <= error \
+
+$mol_button_typed $mol_button
+	minimal_height 40
+	minimal_width 40
+
+$mol_button_major $mol_button_typed
+	attr *
+		^
+		mol_theme \$mol_theme_accent
+
 $mol_list $mol_view
 	render_visible_only true
 	render_over 0
@@ -122,16 +171,6 @@ $mol_page $mol_view
 		<= Foot $mol_view
 			dom_name \footer
 			sub <= foot /$mol_view
-
-$mol_image $mol_view
-	dom_name \img
-	field *
-		^
-		src <= uri \
-		alt <= title
-		loading <= loading \eager
-	minimal_width 16
-	minimal_height 16
 
 $mol_hotkey $mol_plugin
 	event *
@@ -208,45 +247,6 @@ $mol_form $mol_list
 
 $mol_form_group $mol_view
 
-$mol_speck $mol_view
-	attr *
-		^
-		mol_theme \$mol_theme_accent
-	style *
-		^
-		minHeight \1em
-	sub /
-		<= value null
-
-$mol_button $mol_view
-	enabled true
-	click?event null
-	event_click?event null
-	event *
-		^
-		click?event <=> event_activate?event null
-		dblclick?event <=> clicks?event null
-		keydown?event <=> event_key_press?event null 
-	attr *
-		^
-		disabled <= disabled false
-		role \button
-		tabindex <= tab_index 0
-		title <= hint_safe <= hint \
-	sub /$mol_view_content
-		<= title
-	Speck $mol_speck
-		value <= error \
-
-$mol_button_typed $mol_button
-	minimal_height 40
-	minimal_width 40
-
-$mol_button_major $mol_button_typed
-	attr *
-		^
-		mol_theme \$mol_theme_accent
-
 $hyoo_idea_sign_up_page $mol_page
 	person $hyoo_idea_person
 		name? => name?
@@ -259,7 +259,7 @@ $hyoo_idea_sign_up_page $mol_page
 		need_less_letters @ \{count} or less letters
 	body /
 		<= Logo $mol_image
-			uri \http://placehold.jp/328x328.png?text=$hyoo_idea
+			uri \/hyoo/idea/logo/logo_hor.png
 		<= Form $mol_form
 			body /
 				<= Names $mol_form_group sub /
@@ -1777,9 +1777,11 @@ $hyoo_idea_app $mol_book2
 			tools /
 				<= Source $mol_link_source
 					uri \https://github.com/hyoo-ru/idea.hyoo.ru
+			Title <= Menu_title $mol_view sub /
+				<= Title_image $mol_image uri \/hyoo/idea/logo/logo_hor.png
 			body /
 				<= Links $mol_list
-					rows /
+					rows <= links /
 						<= Feed_link $mol_link
 							arg * section \feed
 							title @ \Feed
@@ -1792,6 +1794,9 @@ $hyoo_idea_app $mol_book2
 						<= Search_link $mol_link
 							arg * section \search
 							title @ \Search
+						<= Sign_up_button $mol_button_major
+							title @ \Вход
+							click? <=> sign_up? null
 		<= Sign_up $hyoo_idea_sign_up_page
 			person <= user
 		<= Feed $hyoo_idea_feed_page

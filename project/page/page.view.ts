@@ -11,7 +11,7 @@ namespace $.$$ {
 		}
 
 		Edit() {
-			return this.self() ? super.Edit() : null
+			return this.self() ? super.Edit() : null as unknown as $mol_link
 		}
 
 		body() {

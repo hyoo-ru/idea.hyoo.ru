@@ -9,7 +9,6 @@ $hyoo_idea_project_list $mol_page
 			sub / <= Add_icon $mol_icon_plus
 			click? <=> add? null
 	body /
-		- <= Deck $mol_deck items /
 		<= Projects $mol_list
 			title @ \Projects
 			rows <= project_rows /
@@ -21,10 +20,3 @@ $hyoo_idea_project_list $mol_page
 						click? <=> add?
 				<= Card*0_0 $hyoo_idea_project_card
 					project <= project* $hyoo_idea_project
-		- \Для этого отельный пункт меню бы
-		- <= Invites $mol_list
-			title @ \Invites
-			rows <= invite_rows /
-				<= Invites_emtpy $mol_view sub / <= empty_title
-				<= Invite_card*0_0 $hyoo_ieda_invite_card
-					invite <= invite* $hyoo_idea_invite

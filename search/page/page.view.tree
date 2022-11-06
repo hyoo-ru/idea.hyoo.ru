@@ -3,7 +3,7 @@ $hyoo_idea_search_page $mol_page
 	title @ \Search
 	tools /
 		<= Close $mol_link
-			arg * search null
+			arg * section null
 			sub / <= Close_icon $mol_icon_cross
 	persons /$hyoo_idea_person
 	projects /$hyoo_idea_project

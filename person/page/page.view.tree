@@ -15,7 +15,7 @@ $hyoo_idea_person_page $mol_page
 		job_present @ \Up to present
 	tools /
 		<= Main_tools $mol_view sub /
-			<= Edit_button $mol_check_icon
+			<= Edit $mol_check_icon
 				hint @ \Edit profile
 				Icon <= Edit_icon $mol_icon_pencil
 				checked? <=> editing? false

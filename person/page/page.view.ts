@@ -6,11 +6,8 @@ namespace $.$$ {
 			return this.person().id() === this.domain().user().id()
 		}
 
-		@ $mol_mem
-		tools() {
-			return [
-				... this.self() ? [this.Edit_button()] : [],
-			]
+		Edit() {
+			return this.self() ? super.Edit() : null as unknown as any
 		}
 
 		@ $mol_mem
@@ -66,13 +63,13 @@ namespace $.$$ {
 			]
 		}
 
-		@ $mol_mem
-		neck() {
-			return [
-				this.Summary(),
-				... this.self() === false ? [this.Actions()] : [],
-			]
-		}
+		// @ $mol_mem
+		// neck() {
+		// 	return [
+		// 		this.Summary(),
+		// 		... this.self() === false ? [this.Actions()] : [],
+		// 	]
+		// }
 
 		@ $mol_mem
 		personal() {

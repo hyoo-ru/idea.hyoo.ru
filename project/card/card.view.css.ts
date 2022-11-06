@@ -3,10 +3,8 @@ namespace $.$$ {
 	const { rem } = $mol_style_unit
 
 	$mol_style_define( $.$hyoo_idea_project_card, {
-
-		flex: {
-			wrap: 'nowrap',
-		},
+		
+		gap: $mol_gap.block,
 
 		List: {
 			flex: {

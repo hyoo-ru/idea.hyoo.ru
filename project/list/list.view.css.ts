@@ -5,8 +5,12 @@ namespace $.$$ {
 	$mol_style_define( $.$hyoo_idea_project_list, {
 
 		flex: {
-			basis: rem(40),
+			basis: rem(20),
 			shrink: 0,
+		},
+		
+		Projects: {
+			padding: $mol_gap.block,
 		},
 
 		Empty: {

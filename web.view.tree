@@ -1372,7 +1372,8 @@ $hyoo_idea_profile_stats $mol_view
 
 $hyoo_idea_profile_stat $mol_button_minor
 	sub /
-		<= Count $mol_paragraph title <= count \
+		<= Content $mol_view sub /
+			<= Count $mol_paragraph title <= count \
 		<= Label $mol_paragraph title <= label \
 
 $hyoo_idea_profile_block $mol_list
@@ -1382,6 +1383,21 @@ $hyoo_idea_profile_block $mol_list
 			<= Expander $mol_check_expand
 				checked? <=> expanded? false
 		<= Content $mol_view sub <= content /
+
+$mol_bar $mol_view
+
+$mol_icon_send $mol_icon path \M2,21L23,12L2,3V10L17,12L2,14V21Z
+
+$hyoo_idea_post_add $mol_bar
+	submit? null
+	sub /
+		<= Text $mol_textarea
+			hint @ \Write something
+			value? <=> text? \
+		<= Submit $mol_button_minor
+			hint @ \Post
+			click? <=> event_submit? null
+			sub / <= Submit_icon $mol_icon_send
 
 $hyoo_idea_project_page $mol_page
 	auto /
@@ -1395,6 +1411,7 @@ $hyoo_idea_project_page $mol_page
 		name => name
 		brief => brief
 		stage => stage
+		description => description
 	title @ \Project
 	slides_content \
 		\# {name}
@@ -1403,6 +1420,7 @@ $hyoo_idea_project_page $mol_page
 		\
 		\{description}
 	self false
+	team_member_no_role @ \No role
 	tools /
 		<= Slides $mol_link_iconed
 			uri <= slides \https://slides.hyoo.ru/#!slides={source}
@@ -1446,7 +1464,7 @@ $hyoo_idea_project_page $mol_page
 			content / <= Stats_content $hyoo_idea_profile_stats sub /
 				<= Stage_stat $hyoo_idea_profile_stat
 					label @ \Stage
-					count <= Stage $hyoo_idea_project_stage stage <= stage
+					Count <= Stage $hyoo_idea_project_stage stage <= stage
 				<= Team_stat $hyoo_idea_profile_stat
 					label @ \Team
 					count <= team_stat \3/5
@@ -1456,6 +1474,32 @@ $hyoo_idea_project_page $mol_page
 				<= Sub_count $hyoo_idea_profile_stat
 					label @ \Subscribers
 					count <= sub_count \4
+		<= Description $hyoo_idea_profile_block
+			title @ \Description
+			expanded true
+			Expander null
+			content / <= Description_text $mol_text
+				text <= description
+		<= Team $hyoo_idea_profile_block
+			title @ \Team
+			expanded true
+			Expander null
+			content / <= Team_list $mol_list rows <= team_member_list /
+				<= Team_member*0_0 $hyoo_idea_person_card
+					person <= team_member* $hyoo_idea_person
+					actions /
+						<= Team_member_role* $mol_paragraph title <= team_member_role* \
+		<= Posts $hyoo_idea_profile_block
+			title @ \Posts
+			Expander null
+			expanded true
+			content <= posts_content /
+				<= Post_add $hyoo_idea_post_add
+					submit? <=> post_add? null
+				<= Post_list $mol_list
+					rows <= post_list /
+						<= Post*0_0 $hyoo_idea_post_card
+							post <= post* $hyoo_idea_post
 
 $hyoo_idea_project_card $mol_row
 	project $hyoo_idea_project
@@ -1500,21 +1544,6 @@ $hyoo_idea_project_list $mol_page
 					<= Invites_emtpy $mol_view sub / <= empty_title
 					<= Invite_card*0_0 $hyoo_ieda_invite_card
 						invite <= invite* $hyoo_idea_invite
-
-$mol_bar $mol_view
-
-$mol_icon_send $mol_icon path \M2,21L23,12L2,3V10L17,12L2,14V21Z
-
-$hyoo_idea_post_add $mol_bar
-	submit? null
-	sub /
-		<= Text $mol_textarea
-			hint @ \Write something
-			value? <=> text? \
-		<= Submit $mol_button_minor
-			hint @ \Post
-			click? <=> event_submit? null
-			sub / <= Submit_icon $mol_icon_send
 
 $hyoo_idea_person_page $mol_page
 	person $hyoo_idea_person

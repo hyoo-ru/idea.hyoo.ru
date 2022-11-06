@@ -5,6 +5,8 @@ $hyoo_idea_post_card $mol_list
 		created_moment => created_moment
 		person => person
 		person().avatar => avatar
+		likes_total => likes_total
+		liked? => liked?
 	rows /
 		<= Head $hyoo_idea_person_card
 			person <= person
@@ -16,10 +18,10 @@ $hyoo_idea_post_card $mol_list
 			text <= content
 		<= Foot $mol_row sub /
 			<= Like $mol_check_icon
-				checked? <=> liked? false
+				checked? <=> liked?
 				sub <= like_sub /
 					<= Like_icon $mol_icon_lightbulb_on
-					<= Like_count $mol_paragraph title <= likes_total \7
+					<= Like_count $mol_paragraph title <= likes \
 			<= Comments $mol_link
 				arg * comments <= id
 				sub /

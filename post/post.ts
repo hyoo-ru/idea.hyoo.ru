@@ -30,6 +30,17 @@ namespace $ {
 			return this.state().sub( 'likes', $hyoo_crowd_counter )
 		}
 
+		@ $mol_mem
+		likes_total() {
+			this.liked()
+			return this.likes_node().total()
+		}
+
+		@ $mol_mem
+		liked( next?: boolean ) {
+			return this.likes_node().counted( next ) ?? false
+		}
+
 	}
 
 }

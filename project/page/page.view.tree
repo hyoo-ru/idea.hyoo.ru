@@ -58,10 +58,8 @@ $hyoo_idea_project_page $mol_page
 			<= Brief $mol_paragraph title <= brief
 	body /
 		<= Neck $mol_row sub <= neck /
-		<= Stats_block $hyoo_idea_profile_block
-			title @ \Stats
-			expanded? <=> stats_expanded? true
-			content / <= Stats_content $hyoo_idea_profile_stats sub /
+		<= Stats_block $mol_card
+			sub / <= Stats_content $hyoo_idea_profile_stats sub /
 				<= Stage_stat $hyoo_idea_profile_stat
 					label @ \Stage
 					content / <= Stage $hyoo_idea_project_stage stage <= stage

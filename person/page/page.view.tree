@@ -49,10 +49,8 @@ $hyoo_idea_person_page $mol_page
 					title @ \Subscribe
 				<= Message $mol_button_major
 					title @ \Message
-		<= Stats $hyoo_idea_profile_block
-			title @ \Stats
-			expanded? <=> stats_expanded? true
-			content / <= Stats_person $hyoo_idea_profile_stats sub /
+		<= Stats $mol_card
+			sub / <= Stats_person $hyoo_idea_profile_stats sub /
 				<= Project_count $hyoo_idea_profile_stat
 					label @ \Projects
 					count <= project_count \1

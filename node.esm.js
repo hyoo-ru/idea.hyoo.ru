@@ -18103,23 +18103,230 @@ var $;
 "use strict";
 var $;
 (function ($) {
+    class $hyoo_idea_profile_stats extends $mol_view {
+    }
+    $.$hyoo_idea_profile_stats = $hyoo_idea_profile_stats;
+    class $hyoo_idea_profile_stat extends $mol_button_minor {
+        sub() {
+            return [
+                this.Count(),
+                this.Label()
+            ];
+        }
+        count() {
+            return "";
+        }
+        Count() {
+            const obj = new this.$.$mol_paragraph();
+            obj.title = () => this.count();
+            return obj;
+        }
+        label() {
+            return "";
+        }
+        Label() {
+            const obj = new this.$.$mol_paragraph();
+            obj.title = () => this.label();
+            return obj;
+        }
+    }
+    __decorate([
+        $mol_mem
+    ], $hyoo_idea_profile_stat.prototype, "Count", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_idea_profile_stat.prototype, "Label", null);
+    $.$hyoo_idea_profile_stat = $hyoo_idea_profile_stat;
+})($ || ($ = {}));
+//hyoo/idea/profile/stats/-view.tree/stats.view.tree.ts
+;
+"use strict";
+var $;
+(function ($) {
+    var $$;
+    (function ($$) {
+        const { rem, per, px } = $mol_style_unit;
+        $mol_style_define($.$hyoo_idea_profile_stats, {
+            width: per(100),
+            justifyContent: 'space-between',
+            color: $mol_theme.text,
+        });
+        $mol_style_define($.$hyoo_idea_profile_stat, {
+            flex: {
+                direction: 'column',
+            },
+            letter: {
+                spacing: px(1),
+            },
+        });
+    })($$ = $.$$ || ($.$$ = {}));
+})($ || ($ = {}));
+//hyoo/idea/profile/stats/stats.view.css.ts
+;
+"use strict";
+var $;
+(function ($) {
+    class $hyoo_idea_profile_block extends $mol_list {
+        rows() {
+            return [
+                this.Label(),
+                this.Content()
+            ];
+        }
+        title() {
+            return "";
+        }
+        Title() {
+            const obj = new this.$.$mol_paragraph();
+            obj.title = () => this.title();
+            return obj;
+        }
+        expanded(next) {
+            if (next !== undefined)
+                return next;
+            return false;
+        }
+        Expander() {
+            const obj = new this.$.$mol_check_expand();
+            obj.checked = (next) => this.expanded(next);
+            return obj;
+        }
+        Label() {
+            const obj = new this.$.$mol_row();
+            obj.sub = () => [
+                this.Title(),
+                this.Expander()
+            ];
+            return obj;
+        }
+        content() {
+            return [];
+        }
+        Content() {
+            const obj = new this.$.$mol_view();
+            obj.sub = () => this.content();
+            return obj;
+        }
+    }
+    __decorate([
+        $mol_mem
+    ], $hyoo_idea_profile_block.prototype, "Title", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_idea_profile_block.prototype, "expanded", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_idea_profile_block.prototype, "Expander", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_idea_profile_block.prototype, "Label", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_idea_profile_block.prototype, "Content", null);
+    $.$hyoo_idea_profile_block = $hyoo_idea_profile_block;
+})($ || ($ = {}));
+//hyoo/idea/profile/block/-view.tree/block.view.tree.ts
+;
+"use strict";
+var $;
+(function ($) {
+    var $$;
+    (function ($$) {
+        const { per, rem, px } = $mol_style_unit;
+        $mol_style_define($.$hyoo_idea_profile_block, {
+            Label: {
+                alignItems: 'flex-end',
+                padding: {
+                    bottom: 0,
+                },
+                font: {
+                    weight: 'bold',
+                },
+                letter: {
+                    spacing: px(1),
+                },
+            },
+            Title: {
+                margin: {
+                    left: rem(0.5),
+                },
+            },
+            Expander: {
+                justifyContent: 'center',
+                margin: {
+                    bottom: 0,
+                },
+            },
+            Content: {
+                margin: {
+                    top: 0,
+                    left: $mol_gap.block,
+                    right: $mol_gap.block,
+                },
+                padding: $mol_gap.block,
+                border: {
+                    radius: $mol_gap.round,
+                },
+                background: {
+                    color: $mol_theme.card,
+                },
+            },
+        });
+    })($$ = $.$$ || ($.$$ = {}));
+})($ || ($ = {}));
+//hyoo/idea/profile/block/block.view.css.ts
+;
+"use strict";
+var $;
+(function ($) {
+    var $$;
+    (function ($$) {
+        class $hyoo_idea_profile_block extends $.$hyoo_idea_profile_block {
+            rows() {
+                const rows = this.expanded() ? [this.Label(), this.Content()] : [this.Label()];
+                return rows.filter(Boolean);
+            }
+            expanded(next) {
+                return this.$.$mol_state_local.value(`${this}.expanded()`, next) ?? super.expanded();
+            }
+        }
+        $$.$hyoo_idea_profile_block = $hyoo_idea_profile_block;
+    })($$ = $.$$ || ($.$$ = {}));
+})($ || ($ = {}));
+//hyoo/idea/profile/block/block.view.ts
+;
+"use strict";
+var $;
+(function ($) {
     class $hyoo_idea_project_page extends $mol_page {
         auto() {
             return [
                 this.message_listener()
             ];
         }
+        domain() {
+            return this.project().domain();
+        }
+        user_id() {
+            return this.project().domain().user().id();
+        }
         id() {
             return this.project().id();
         }
-        domain() {
-            return this.project().domain();
+        logo_node() {
+            return this.project().logo_node();
         }
         logo() {
             return this.project().logo();
         }
         name() {
             return this.project().name();
+        }
+        brief() {
+            return this.project().brief();
+        }
+        stage() {
+            return this.project().stage();
         }
         project() {
             const obj = new this.$.$hyoo_idea_project();
@@ -18130,6 +18337,9 @@ var $;
         }
         slides_content() {
             return "# {name}\n\n> {brief}\n\n{description}";
+        }
+        self() {
+            return false;
         }
         tools() {
             return [
@@ -18148,10 +18358,9 @@ var $;
         }
         body() {
             return [
-                this.Blocks(),
-                this.Stage(),
-                this.Join_request(),
-                this.Join_cancel()
+                this.Face(),
+                this.Neck(),
+                this.Stats_block()
             ];
         }
         message_listener() {
@@ -18195,11 +18404,9 @@ var $;
             ];
             return obj;
         }
-        Project_logo() {
-            const obj = new this.$.$mol_image2();
-            obj.links = () => [
-                this.logo()
-            ];
+        Logo() {
+            const obj = new this.$.$hyoo_idea_project_logo();
+            obj.blob = () => this.logo_node();
             return obj;
         }
         Name() {
@@ -18207,49 +18414,148 @@ var $;
             obj.title = () => this.name();
             return obj;
         }
-        Face() {
+        Brief() {
+            const obj = new this.$.$mol_paragraph();
+            obj.title = () => this.brief();
+            return obj;
+        }
+        Face_list() {
             const obj = new this.$.$mol_list();
             obj.rows = () => [
-                this.Project_logo(),
-                this.Name()
+                this.Name(),
+                this.Brief()
             ];
             return obj;
         }
-        blocks() {
+        Face() {
+            const obj = new this.$.$mol_row();
+            obj.sub = () => [
+                this.Logo(),
+                this.Face_list()
+            ];
+            return obj;
+        }
+        More_icon() {
+            const obj = new this.$.$mol_icon_dots_vertical();
+            return obj;
+        }
+        Request_button() {
+            const obj = new this.$.$mol_link();
+            obj.arg = () => ({
+                invite_project: this.id(),
+                invite_person: this.user_id()
+            });
+            obj.title = () => this.$.$mol_locale.text('$hyoo_idea_project_page_Request_button_title');
+            return obj;
+        }
+        More_list() {
+            const obj = new this.$.$mol_list();
+            obj.rows = () => [
+                this.Request_button()
+            ];
+            return obj;
+        }
+        more_content() {
             return [
-                this.Face()
+                this.More_list()
             ];
         }
-        Blocks() {
-            const obj = new this.$.$mol_list();
-            obj.rows = () => this.blocks();
+        More() {
+            const obj = new this.$.$mol_pick();
+            obj.hint = () => this.$.$mol_locale.text('$hyoo_idea_project_page_More_hint');
+            obj.trigger_content = () => [
+                this.More_icon()
+            ];
+            obj.bubble_content = () => this.more_content();
+            return obj;
+        }
+        Subscribe() {
+            const obj = new this.$.$mol_button_minor();
+            obj.title = () => this.$.$mol_locale.text('$hyoo_idea_project_page_Subscribe_title');
+            return obj;
+        }
+        Message() {
+            const obj = new this.$.$mol_button_major();
+            obj.title = () => this.$.$mol_locale.text('$hyoo_idea_project_page_Message_title');
+            return obj;
+        }
+        actions() {
+            return [
+                this.More(),
+                this.Subscribe(),
+                this.Message()
+            ];
+        }
+        Actions() {
+            const obj = new this.$.$mol_view();
+            obj.sub = () => this.actions();
+            return obj;
+        }
+        neck() {
+            return [
+                this.Actions()
+            ];
+        }
+        Neck() {
+            const obj = new this.$.$mol_row();
+            obj.sub = () => this.neck();
             return obj;
         }
         Stage() {
             const obj = new this.$.$hyoo_idea_project_stage();
-            obj.stage = () => "idea";
+            obj.stage = () => this.stage();
             return obj;
         }
-        join_request(next) {
-            if (next !== undefined)
-                return next;
-            return null;
-        }
-        Join_request() {
-            const obj = new this.$.$mol_button_minor();
-            obj.title = () => this.$.$mol_locale.text('$hyoo_idea_project_page_Join_request_title');
-            obj.click = (next) => this.join_request(next);
+        Stage_stat() {
+            const obj = new this.$.$hyoo_idea_profile_stat();
+            obj.label = () => this.$.$mol_locale.text('$hyoo_idea_project_page_Stage_stat_label');
+            obj.count = () => this.Stage();
             return obj;
         }
-        join_cancel(next) {
-            if (next !== undefined)
-                return next;
-            return null;
+        team_stat() {
+            return "3/5";
         }
-        Join_cancel() {
-            const obj = new this.$.$mol_button_minor();
-            obj.title = () => this.$.$mol_locale.text('$hyoo_idea_project_page_Join_cancel_title');
-            obj.click = (next) => this.join_cancel(next);
+        Team_stat() {
+            const obj = new this.$.$hyoo_idea_profile_stat();
+            obj.label = () => this.$.$mol_locale.text('$hyoo_idea_project_page_Team_stat_label');
+            obj.count = () => this.team_stat();
+            return obj;
+        }
+        post_count() {
+            return "2";
+        }
+        Post_count() {
+            const obj = new this.$.$hyoo_idea_profile_stat();
+            obj.label = () => this.$.$mol_locale.text('$hyoo_idea_project_page_Post_count_label');
+            obj.count = () => this.post_count();
+            return obj;
+        }
+        sub_count() {
+            return "4";
+        }
+        Sub_count() {
+            const obj = new this.$.$hyoo_idea_profile_stat();
+            obj.label = () => this.$.$mol_locale.text('$hyoo_idea_project_page_Sub_count_label');
+            obj.count = () => this.sub_count();
+            return obj;
+        }
+        Stats_content() {
+            const obj = new this.$.$hyoo_idea_profile_stats();
+            obj.sub = () => [
+                this.Stage_stat(),
+                this.Team_stat(),
+                this.Post_count(),
+                this.Sub_count()
+            ];
+            return obj;
+        }
+        Stats_block() {
+            const obj = new this.$.$hyoo_idea_profile_block();
+            obj.Label = () => null;
+            obj.expanded = () => true;
+            obj.content = () => [
+                this.Stats_content()
+            ];
             return obj;
         }
     }
@@ -18276,31 +18582,64 @@ var $;
     ], $hyoo_idea_project_page.prototype, "Close", null);
     __decorate([
         $mol_mem
-    ], $hyoo_idea_project_page.prototype, "Project_logo", null);
+    ], $hyoo_idea_project_page.prototype, "Logo", null);
     __decorate([
         $mol_mem
     ], $hyoo_idea_project_page.prototype, "Name", null);
     __decorate([
         $mol_mem
+    ], $hyoo_idea_project_page.prototype, "Brief", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_idea_project_page.prototype, "Face_list", null);
+    __decorate([
+        $mol_mem
     ], $hyoo_idea_project_page.prototype, "Face", null);
     __decorate([
         $mol_mem
-    ], $hyoo_idea_project_page.prototype, "Blocks", null);
+    ], $hyoo_idea_project_page.prototype, "More_icon", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_idea_project_page.prototype, "Request_button", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_idea_project_page.prototype, "More_list", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_idea_project_page.prototype, "More", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_idea_project_page.prototype, "Subscribe", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_idea_project_page.prototype, "Message", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_idea_project_page.prototype, "Actions", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_idea_project_page.prototype, "Neck", null);
     __decorate([
         $mol_mem
     ], $hyoo_idea_project_page.prototype, "Stage", null);
     __decorate([
         $mol_mem
-    ], $hyoo_idea_project_page.prototype, "join_request", null);
+    ], $hyoo_idea_project_page.prototype, "Stage_stat", null);
     __decorate([
         $mol_mem
-    ], $hyoo_idea_project_page.prototype, "Join_request", null);
+    ], $hyoo_idea_project_page.prototype, "Team_stat", null);
     __decorate([
         $mol_mem
-    ], $hyoo_idea_project_page.prototype, "join_cancel", null);
+    ], $hyoo_idea_project_page.prototype, "Post_count", null);
     __decorate([
         $mol_mem
-    ], $hyoo_idea_project_page.prototype, "Join_cancel", null);
+    ], $hyoo_idea_project_page.prototype, "Sub_count", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_idea_project_page.prototype, "Stats_content", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_idea_project_page.prototype, "Stats_block", null);
     $.$hyoo_idea_project_page = $hyoo_idea_project_page;
 })($ || ($ = {}));
 //hyoo/idea/project/page/-view.tree/page.view.tree.ts
@@ -18316,26 +18655,46 @@ var $;
                 basis: rem(40),
                 shrink: 0,
             },
-            Project_logo: {
-                width: rem(8),
+            Face: {
+                flex: {
+                    wrap: 'nowrap',
+                },
+            },
+            Face_list: {
+                flex: {
+                    shrink: 1,
+                },
+            },
+            Logo: {
+                width: rem(6),
+                height: rem(6),
                 margin: $mol_gap.block,
             },
-            Face: {
-                alignItems: 'center',
-            },
             Name: {
-                padding: $mol_gap.text,
                 font: {
                     size: rem(1.5),
                 },
-                line: {
-                    height: per(150),
-                },
-                text: {
-                    align: 'center',
+                margin: {
+                    bottom: rem(0.5),
                 },
                 letter: {
                     spacing: px(1),
+                },
+            },
+            Brief: {
+                opacity: 0.8,
+            },
+            Neck: {
+                zIndex: 1,
+            },
+            Stats_block: {
+                Content: {
+                    padding: 0
+                },
+            },
+            Actions: {
+                margin: {
+                    left: 'auto',
                 },
             },
         });
@@ -18349,8 +18708,18 @@ var $;
     var $$;
     (function ($$) {
         class $hyoo_idea_project_page extends $.$hyoo_idea_project_page {
+            self() {
+                return this.project().owner().id() === this.domain().user().id();
+            }
             editing() {
                 return this.project().person().id() === this.domain().user().id() && this.$.$mol_state_arg.value('project_edit') === '';
+            }
+            tools() {
+                return [
+                    this.Slides(),
+                    ...this.self() ? [this.Edit()] : [],
+                    this.Close(),
+                ];
             }
             body() {
                 return this.editing() ? [this.Form()] : super.body();
@@ -18499,6 +18868,10 @@ var $;
             Brief: {
                 color: $mol_theme.shade,
             },
+            Logo: {
+                width: rem(3),
+                height: rem(3),
+            }
         });
     })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));
@@ -18730,200 +19103,6 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    class $hyoo_idea_profile_stats extends $mol_view {
-    }
-    $.$hyoo_idea_profile_stats = $hyoo_idea_profile_stats;
-    class $hyoo_idea_profile_stat extends $mol_button_minor {
-        sub() {
-            return [
-                this.Count(),
-                this.Label()
-            ];
-        }
-        count() {
-            return "";
-        }
-        Count() {
-            const obj = new this.$.$mol_paragraph();
-            obj.title = () => this.count();
-            return obj;
-        }
-        label() {
-            return "";
-        }
-        Label() {
-            const obj = new this.$.$mol_paragraph();
-            obj.title = () => this.label();
-            return obj;
-        }
-    }
-    __decorate([
-        $mol_mem
-    ], $hyoo_idea_profile_stat.prototype, "Count", null);
-    __decorate([
-        $mol_mem
-    ], $hyoo_idea_profile_stat.prototype, "Label", null);
-    $.$hyoo_idea_profile_stat = $hyoo_idea_profile_stat;
-})($ || ($ = {}));
-//hyoo/idea/profile/stats/-view.tree/stats.view.tree.ts
-;
-"use strict";
-var $;
-(function ($) {
-    var $$;
-    (function ($$) {
-        const { rem, per, px } = $mol_style_unit;
-        $mol_style_define($.$hyoo_idea_profile_stats, {
-            width: per(100),
-            justifyContent: 'space-between',
-        });
-        $mol_style_define($.$hyoo_idea_profile_stat, {
-            flex: {
-                direction: 'column',
-            },
-            letter: {
-                spacing: px(1),
-            },
-        });
-    })($$ = $.$$ || ($.$$ = {}));
-})($ || ($ = {}));
-//hyoo/idea/profile/stats/stats.view.css.ts
-;
-"use strict";
-var $;
-(function ($) {
-    class $hyoo_idea_profile_block extends $mol_list {
-        rows() {
-            return [
-                this.Label(),
-                this.Content()
-            ];
-        }
-        title() {
-            return "";
-        }
-        Title() {
-            const obj = new this.$.$mol_paragraph();
-            obj.title = () => this.title();
-            return obj;
-        }
-        expanded(next) {
-            if (next !== undefined)
-                return next;
-            return false;
-        }
-        Expander() {
-            const obj = new this.$.$mol_check_expand();
-            obj.checked = (next) => this.expanded(next);
-            return obj;
-        }
-        Label() {
-            const obj = new this.$.$mol_row();
-            obj.sub = () => [
-                this.Title(),
-                this.Expander()
-            ];
-            return obj;
-        }
-        content() {
-            return [];
-        }
-        Content() {
-            const obj = new this.$.$mol_view();
-            obj.sub = () => this.content();
-            return obj;
-        }
-    }
-    __decorate([
-        $mol_mem
-    ], $hyoo_idea_profile_block.prototype, "Title", null);
-    __decorate([
-        $mol_mem
-    ], $hyoo_idea_profile_block.prototype, "expanded", null);
-    __decorate([
-        $mol_mem
-    ], $hyoo_idea_profile_block.prototype, "Expander", null);
-    __decorate([
-        $mol_mem
-    ], $hyoo_idea_profile_block.prototype, "Label", null);
-    __decorate([
-        $mol_mem
-    ], $hyoo_idea_profile_block.prototype, "Content", null);
-    $.$hyoo_idea_profile_block = $hyoo_idea_profile_block;
-})($ || ($ = {}));
-//hyoo/idea/profile/block/-view.tree/block.view.tree.ts
-;
-"use strict";
-var $;
-(function ($) {
-    var $$;
-    (function ($$) {
-        const { per, rem, px } = $mol_style_unit;
-        $mol_style_define($.$hyoo_idea_profile_block, {
-            Label: {
-                alignItems: 'flex-end',
-                padding: {
-                    bottom: 0,
-                },
-                font: {
-                    weight: 'bold',
-                },
-                letter: {
-                    spacing: px(1),
-                },
-            },
-            Title: {
-                margin: {
-                    left: rem(0.5),
-                },
-            },
-            Expander: {
-                justifyContent: 'center',
-                margin: {
-                    bottom: 0,
-                },
-            },
-            Content: {
-                margin: {
-                    top: 0,
-                    left: $mol_gap.block,
-                    right: $mol_gap.block,
-                },
-                padding: $mol_gap.block,
-                border: {
-                    radius: $mol_gap.round,
-                },
-                background: {
-                    color: $mol_theme.card,
-                },
-            },
-        });
-    })($$ = $.$$ || ($.$$ = {}));
-})($ || ($ = {}));
-//hyoo/idea/profile/block/block.view.css.ts
-;
-"use strict";
-var $;
-(function ($) {
-    var $$;
-    (function ($$) {
-        class $hyoo_idea_profile_block extends $.$hyoo_idea_profile_block {
-            rows() {
-                const rows = this.expanded() ? [this.Label(), this.Content()] : [this.Label()];
-                return rows.filter(Boolean);
-            }
-            expanded(next) {
-                return this.$.$mol_state_local.value(`${this}.expanded()`, next) ?? super.expanded();
-            }
-        }
-        $$.$hyoo_idea_profile_block = $hyoo_idea_profile_block;
-    })($$ = $.$$ || ($.$$ = {}));
-})($ || ($ = {}));
-//hyoo/idea/profile/block/block.view.ts
-;
-"use strict";
-var $;
-(function ($) {
     class $mol_bar extends $mol_view {
     }
     $.$mol_bar = $mol_bar;
@@ -19081,11 +19260,6 @@ var $;
             return obj;
         }
         self() {
-            return false;
-        }
-        show_confirm(next) {
-            if (next !== undefined)
-                return next;
             return false;
         }
         title() {
@@ -19558,9 +19732,6 @@ var $;
     ], $hyoo_idea_person_page.prototype, "person", null);
     __decorate([
         $mol_mem
-    ], $hyoo_idea_person_page.prototype, "show_confirm", null);
-    __decorate([
-        $mol_mem
     ], $hyoo_idea_person_page.prototype, "Edit_form", null);
     __decorate([
         $mol_mem
@@ -19784,9 +19955,6 @@ var $;
             flex: {
                 basis: rem(40),
                 shrink: 0,
-            },
-            padding: {
-                bottom: $mol_gap.block,
             },
             Face: {
                 flex: {
@@ -20123,6 +20291,7 @@ var $;
         Project_content() {
             const obj = new this.$.$hyoo_idea_project_card();
             obj.project = () => this.project();
+            obj.brief = () => "";
             return obj;
         }
         Project_field() {

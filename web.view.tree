@@ -1378,14 +1378,33 @@ $hyoo_idea_project_form $mol_form
 
 $mol_icon_pencil $mol_icon path \M20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18,2.9 17.35,2.9 16.96,3.29L15.12,5.12L18.87,8.87M3,17.25V21H6.75L17.81,9.93L14.06,6.18L3,17.25Z
 
+$hyoo_idea_profile_stats $mol_view
+
+$hyoo_idea_profile_stat $mol_button_minor
+	sub /
+		<= Count $mol_paragraph title <= count \
+		<= Label $mol_paragraph title <= label \
+
+$hyoo_idea_profile_block $mol_list
+	rows /
+		<= Label $mol_row sub /
+			<= Title $mol_paragraph title <= title \
+			<= Expander $mol_check_expand
+				checked? <=> expanded? false
+		<= Content $mol_view sub <= content /
+
 $hyoo_idea_project_page $mol_page
 	auto /
 		<= message_listener null
 	project $hyoo_idea_project
-		id => id
 		domain => domain
+		domain().user().id => user_id
+		id => id
+		logo_node => logo_node
 		logo => logo
 		name => name
+		brief => brief
+		stage => stage
 	title @ \Project
 	slides_content \
 		\# {name}
@@ -1393,6 +1412,7 @@ $hyoo_idea_project_page $mol_page
 		\> {brief}
 		\
 		\{description}
+	self false
 	tools /
 		<= Slides $mol_link_iconed
 			uri <= slides \https://slides.hyoo.ru/#!slides={source}
@@ -1409,18 +1429,43 @@ $hyoo_idea_project_page $mol_page
 	Form $hyoo_idea_project_form
 		project <= project
 	body /
-		<= Blocks $mol_list
-			rows <= blocks /
-				<= Face $mol_list rows /
-					<= Project_logo $mol_image2 links / <= logo
-					<= Name $mol_paragraph title <= name
-		<= Stage $hyoo_idea_project_stage stage \idea
-		<= Join_request $mol_button_minor
-			title @ \Request to join
-			click? <=> join_request? null
-		<= Join_cancel $mol_button_minor
-			title @ \Cancel request
-			click? <=> join_cancel? null
+		<= Face $mol_row sub /
+			<= Logo $hyoo_idea_project_logo blob <= logo_node
+			<= Face_list $mol_list rows /
+				<= Name $mol_paragraph title <= name
+				<= Brief $mol_paragraph title <= brief
+		<= Neck $mol_row sub <= neck /
+			<= Actions $mol_view sub <= actions /
+				<= More $mol_pick
+					hint @ \More...
+					trigger_content / <= More_icon $mol_icon_dots_vertical
+					bubble_content <= more_content /
+						<= More_list $mol_list rows /
+							<= Request_button $mol_link
+								arg *
+									invite_project <= id
+									invite_person <= user_id
+								title @ \Request to join team
+				<= Subscribe $mol_button_minor
+					title @ \Subscribe
+				<= Message $mol_button_major
+					title @ \Message
+		<= Stats_block $hyoo_idea_profile_block
+			Label null
+			expanded true
+			content / <= Stats_content $hyoo_idea_profile_stats sub /
+				<= Stage_stat $hyoo_idea_profile_stat
+					label @ \Stage
+					count <= Stage $hyoo_idea_project_stage stage <= stage
+				<= Team_stat $hyoo_idea_profile_stat
+					label @ \Team
+					count <= team_stat \3/5
+				<= Post_count $hyoo_idea_profile_stat
+					label @ \Posts
+					count <= post_count \2
+				<= Sub_count $hyoo_idea_profile_stat
+					label @ \Subscribers
+					count <= sub_count \4
 
 $hyoo_idea_project_card $mol_row
 	project $hyoo_idea_project
@@ -1466,21 +1511,6 @@ $hyoo_idea_project_list $mol_page
 					<= Invite_card*0_0 $hyoo_ieda_invite_card
 						invite <= invite* $hyoo_idea_invite
 
-$hyoo_idea_profile_stats $mol_view
-
-$hyoo_idea_profile_stat $mol_button_minor
-	sub /
-		<= Count $mol_paragraph title <= count \
-		<= Label $mol_paragraph title <= label \
-
-$hyoo_idea_profile_block $mol_list
-	rows /
-		<= Label $mol_row sub /
-			<= Title $mol_paragraph title <= title \
-			<= Expander $mol_check_expand
-				checked? <=> expanded? false
-		<= Content $mol_view sub <= content /
-
 $mol_bar $mol_view
 
 $mol_icon_send $mol_icon path \M2,21L23,12L2,3V10L17,12L2,14V21Z
@@ -1508,7 +1538,6 @@ $hyoo_idea_person_page $mol_page
 		email => email
 		projects => projects
 	self false
-	show_confirm? false
 	title @ \User page
 	msg *
 		job_present @ \Up to present
@@ -1633,6 +1662,7 @@ $hyoo_idea_invite_page $mol_page
 					name @ \Project
 					Content <= Project_content $hyoo_idea_project_card
 						project <= project $hyoo_idea_project
+						brief \
 				<= Person_select_field $mol_form_field
 					name @ \Select person
 					control <= Person_select_control $mol_select

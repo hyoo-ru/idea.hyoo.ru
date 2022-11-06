@@ -4816,15 +4816,58 @@ declare namespace $ {
 }
 
 declare namespace $ {
+    class $hyoo_idea_profile_stats extends $mol_view {
+    }
+    class $hyoo_idea_profile_stat extends $mol_button_minor {
+        sub(): readonly any[];
+        count(): string;
+        Count(): $$.$mol_paragraph;
+        label(): string;
+        Label(): $$.$mol_paragraph;
+    }
+}
+
+declare namespace $.$$ {
+}
+
+declare namespace $ {
+    class $hyoo_idea_profile_block extends $mol_list {
+        rows(): readonly any[];
+        title(): string;
+        Title(): $$.$mol_paragraph;
+        expanded(next?: any): boolean;
+        Expander(): $$.$mol_check_expand;
+        Label(): $mol_row;
+        content(): readonly any[];
+        Content(): $mol_view;
+    }
+}
+
+declare namespace $.$$ {
+}
+
+declare namespace $.$$ {
+    class $hyoo_idea_profile_block extends $.$hyoo_idea_profile_block {
+        rows(): $mol_view[];
+        expanded(next?: boolean): boolean;
+    }
+}
+
+declare namespace $ {
     class $hyoo_idea_project_page extends $mol_page {
         auto(): readonly any[];
-        id(): `${string}_${string}`;
         domain(): $hyoo_idea_domain;
+        user_id(): `${string}_${string}`;
+        id(): `${string}_${string}`;
+        logo_node(): $hyoo_crowd_blob;
         logo(): string;
         name(): string;
+        brief(): string;
+        stage(): $hyoo_idea_project_stages;
         project(): $hyoo_idea_project;
         title(): string;
         slides_content(): string;
+        self(): boolean;
         tools(): readonly any[];
         editing(): boolean;
         Form(): $$.$hyoo_idea_project_form;
@@ -4836,16 +4879,32 @@ declare namespace $ {
         Edit(): $$.$mol_link;
         Close_icon(): $mol_icon_cross;
         Close(): $$.$mol_link;
-        Project_logo(): $$.$mol_image2;
+        Logo(): $hyoo_idea_project_logo;
         Name(): $$.$mol_paragraph;
-        Face(): $$.$mol_list;
-        blocks(): readonly any[];
-        Blocks(): $$.$mol_list;
+        Brief(): $$.$mol_paragraph;
+        Face_list(): $$.$mol_list;
+        Face(): $mol_row;
+        More_icon(): $mol_icon_dots_vertical;
+        Request_button(): $$.$mol_link;
+        More_list(): $$.$mol_list;
+        more_content(): readonly any[];
+        More(): $$.$mol_pick;
+        Subscribe(): $mol_button_minor;
+        Message(): $mol_button_major;
+        actions(): readonly any[];
+        Actions(): $mol_view;
+        neck(): readonly any[];
+        Neck(): $mol_row;
         Stage(): $$.$hyoo_idea_project_stage;
-        join_request(next?: any): any;
-        Join_request(): $mol_button_minor;
-        join_cancel(next?: any): any;
-        Join_cancel(): $mol_button_minor;
+        Stage_stat(): $hyoo_idea_profile_stat;
+        team_stat(): string;
+        Team_stat(): $hyoo_idea_profile_stat;
+        post_count(): string;
+        Post_count(): $hyoo_idea_profile_stat;
+        sub_count(): string;
+        Sub_count(): $hyoo_idea_profile_stat;
+        Stats_content(): $hyoo_idea_profile_stats;
+        Stats_block(): $$.$hyoo_idea_profile_block;
     }
 }
 
@@ -4854,7 +4913,9 @@ declare namespace $.$$ {
 
 declare namespace $.$$ {
     class $hyoo_idea_project_page extends $.$hyoo_idea_project_page {
+        self(): boolean;
         editing(): boolean;
+        tools(): ($mol_link | $mol_link_iconed)[];
         body(): readonly any[];
         slides(): string;
         slides_content(): string;
@@ -4929,44 +4990,6 @@ declare namespace $.$$ {
 }
 
 declare namespace $ {
-    class $hyoo_idea_profile_stats extends $mol_view {
-    }
-    class $hyoo_idea_profile_stat extends $mol_button_minor {
-        sub(): readonly any[];
-        count(): string;
-        Count(): $$.$mol_paragraph;
-        label(): string;
-        Label(): $$.$mol_paragraph;
-    }
-}
-
-declare namespace $.$$ {
-}
-
-declare namespace $ {
-    class $hyoo_idea_profile_block extends $mol_list {
-        rows(): readonly any[];
-        title(): string;
-        Title(): $$.$mol_paragraph;
-        expanded(next?: any): boolean;
-        Expander(): $$.$mol_check_expand;
-        Label(): $mol_row;
-        content(): readonly any[];
-        Content(): $mol_view;
-    }
-}
-
-declare namespace $.$$ {
-}
-
-declare namespace $.$$ {
-    class $hyoo_idea_profile_block extends $.$hyoo_idea_profile_block {
-        rows(): $mol_view[];
-        expanded(next?: boolean): boolean;
-    }
-}
-
-declare namespace $ {
     class $mol_bar extends $mol_view {
     }
 }
@@ -5014,7 +5037,6 @@ declare namespace $ {
         projects(): $hyoo_idea_project[];
         person(): $hyoo_idea_person;
         self(): boolean;
-        show_confirm(next?: any): boolean;
         title(): string;
         msg(): {
             job_present: string;

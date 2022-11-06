@@ -13823,7 +13823,7 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    $mol_style_attach("hyoo/idea/post/card/card.view.css", "[hyoo_idea_post_card_avatar] {\n\talign-self: flex-start;\n\tmargin-left: 0.375rem;\n\tmargin-right: 0.375rem;\n}\n");
+    $mol_style_attach("hyoo/idea/post/card/card.view.css", "[hyoo_idea_post_card_avatar] {\n\talign-self: center;\n\tmargin-left: 0.375rem;\n\tmargin-right: 0.375rem;\n}\n");
 })($ || ($ = {}));
 //hyoo/idea/post/card/-css/card.view.css.ts
 ;

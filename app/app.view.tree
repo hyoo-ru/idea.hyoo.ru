@@ -2,7 +2,7 @@ $hyoo_idea_app $mol_book2
 	domain $hyoo_idea_domain
 		yard => yard
 		user => user
-	plugins /
+	- plugins /
 		<= Theme $mol_theme_auto
 	Online $hyoo_sync_online
 		yard <= yard
@@ -12,7 +12,7 @@ $hyoo_idea_app $mol_book2
 			tools /
 				<= Source $mol_link_source
 					uri \https://github.com/hyoo-ru/idea.hyoo.ru
-				<= Lights $mol_lights_toggle
+				- <= Lights $mol_lights_toggle
 			body /
 				<= Links $mol_list
 					rows /

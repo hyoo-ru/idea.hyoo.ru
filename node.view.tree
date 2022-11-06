@@ -1712,12 +1712,32 @@ $hyoo_idea_invite_page $mol_page
 						invite_person null
 					title @ \Close
 
+$hyoo_idea_search_page $mol_page
+	domain $hyoo_idea_domain
+	title @ \Search
+	tools /
+		<= Close $mol_link
+			arg * search null
+			sub / <= Close_icon $mol_icon_cross
+	persons /$hyoo_idea_person
+	projects /$hyoo_idea_project
+	body /
+		<= Search_list $mol_list rows /
+			<= Type $mol_switch
+				value? <=> type? \team
+				options *
+					team @ \Looking for a team
+					project @ \Looking for a project
+			<= Results $mol_list rows <= results <= team_rows <= project_rows /
+	Person_row*0_0 $hyoo_idea_person_card
+		person <= person* $hyoo_idea_person
+	Project_row*0_0 $hyoo_idea_project_card
+		project <= project* $hyoo_idea_project
+
 $hyoo_idea_app $mol_book2
 	domain $hyoo_idea_domain
 		yard => yard
 		user => user
-	- plugins /
-		<= Theme $mol_theme_auto
 	Online $hyoo_sync_online
 		yard <= yard
 	pages /
@@ -1726,7 +1746,6 @@ $hyoo_idea_app $mol_book2
 			tools /
 				<= Source $mol_link_source
 					uri \https://github.com/hyoo-ru/idea.hyoo.ru
-				- <= Lights $mol_lights_toggle
 			body /
 				<= Links $mol_list
 					rows /
@@ -1739,9 +1758,9 @@ $hyoo_idea_app $mol_book2
 						<= Projects_link $mol_link
 							arg * section \projects
 							title @ \Projects
-						<= Settings_link $mol_link
-							arg * section \settings
-							title @ \Settings
+						<= Search_link $mol_link
+							arg * section \search
+							title @ \Search
 		<= Sign_up $hyoo_idea_sign_up_page
 			person <= user
 		<= Feed $hyoo_idea_feed_page
@@ -1755,5 +1774,7 @@ $hyoo_idea_app $mol_book2
 		<= My_page $hyoo_idea_person_page
 			person <= user
 		<= Invite_page $hyoo_idea_invite_page
+			domain <= domain
+		<= Search_page $hyoo_idea_search_page
 			domain <= domain
 	Placeholder null

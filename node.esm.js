@@ -13537,6 +13537,9 @@ var $;
                 basis: rem(40),
                 shrink: 0,
             },
+            Body: {
+                padding: $mol_gap.block,
+            },
         });
     })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));
@@ -20710,6 +20713,192 @@ var $;
 "use strict";
 var $;
 (function ($) {
+    class $hyoo_idea_search_page extends $mol_page {
+        domain() {
+            const obj = new this.$.$hyoo_idea_domain();
+            return obj;
+        }
+        title() {
+            return this.$.$mol_locale.text('$hyoo_idea_search_page_title');
+        }
+        tools() {
+            return [
+                this.Close()
+            ];
+        }
+        persons() {
+            return [];
+        }
+        projects() {
+            return [];
+        }
+        body() {
+            return [
+                this.Search_list()
+            ];
+        }
+        Person_row(id) {
+            const obj = new this.$.$hyoo_idea_person_card();
+            obj.person = () => this.person(id);
+            return obj;
+        }
+        Project_row(id) {
+            const obj = new this.$.$hyoo_idea_project_card();
+            obj.project = () => this.project(id);
+            return obj;
+        }
+        Close_icon() {
+            const obj = new this.$.$mol_icon_cross();
+            return obj;
+        }
+        Close() {
+            const obj = new this.$.$mol_link();
+            obj.arg = () => ({
+                search: null
+            });
+            obj.sub = () => [
+                this.Close_icon()
+            ];
+            return obj;
+        }
+        type(next) {
+            if (next !== undefined)
+                return next;
+            return "team";
+        }
+        Type() {
+            const obj = new this.$.$mol_switch();
+            obj.value = (next) => this.type(next);
+            obj.options = () => ({
+                team: this.$.$mol_locale.text('$hyoo_idea_search_page_Type_options_team'),
+                project: this.$.$mol_locale.text('$hyoo_idea_search_page_Type_options_project')
+            });
+            return obj;
+        }
+        project_rows() {
+            return [];
+        }
+        team_rows() {
+            return this.project_rows();
+        }
+        results() {
+            return this.team_rows();
+        }
+        Results() {
+            const obj = new this.$.$mol_list();
+            obj.rows = () => this.results();
+            return obj;
+        }
+        Search_list() {
+            const obj = new this.$.$mol_list();
+            obj.rows = () => [
+                this.Type(),
+                this.Results()
+            ];
+            return obj;
+        }
+        person(id) {
+            const obj = new this.$.$hyoo_idea_person();
+            return obj;
+        }
+        project(id) {
+            const obj = new this.$.$hyoo_idea_project();
+            return obj;
+        }
+    }
+    __decorate([
+        $mol_mem
+    ], $hyoo_idea_search_page.prototype, "domain", null);
+    __decorate([
+        $mol_mem_key
+    ], $hyoo_idea_search_page.prototype, "Person_row", null);
+    __decorate([
+        $mol_mem_key
+    ], $hyoo_idea_search_page.prototype, "Project_row", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_idea_search_page.prototype, "Close_icon", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_idea_search_page.prototype, "Close", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_idea_search_page.prototype, "type", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_idea_search_page.prototype, "Type", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_idea_search_page.prototype, "Results", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_idea_search_page.prototype, "Search_list", null);
+    __decorate([
+        $mol_mem_key
+    ], $hyoo_idea_search_page.prototype, "person", null);
+    __decorate([
+        $mol_mem_key
+    ], $hyoo_idea_search_page.prototype, "project", null);
+    $.$hyoo_idea_search_page = $hyoo_idea_search_page;
+})($ || ($ = {}));
+//hyoo/idea/search/page/-view.tree/page.view.tree.ts
+;
+"use strict";
+var $;
+(function ($) {
+    var $$;
+    (function ($$) {
+        const { rem } = $mol_style_unit;
+        $mol_style_define($.$hyoo_idea_search_page, {
+            flex: {
+                basis: rem(40),
+                shrink: 0,
+            }
+        });
+    })($$ = $.$$ || ($.$$ = {}));
+})($ || ($ = {}));
+//hyoo/idea/search/page/page.view.css.ts
+;
+"use strict";
+var $;
+(function ($) {
+    var $$;
+    (function ($$) {
+        class $hyoo_idea_search_page extends $.$hyoo_idea_search_page {
+            persons() {
+                return this.domain().persons().list()
+                    .filter(obj => {
+                    return obj.registered();
+                });
+            }
+            person(obj) {
+                return obj;
+            }
+            team_rows() {
+                return this.persons().map(obj => this.Person_row(obj));
+            }
+            projects() {
+                return this.domain().persons().list()
+                    .map(obj => obj.projects()).flat();
+            }
+            project(obj) {
+                return obj;
+            }
+            project_rows() {
+                return this.projects().map(obj => this.Project_row(obj));
+            }
+            results() {
+                return this.type() === 'team' ? this.team_rows() : this.project_rows();
+            }
+        }
+        $$.$hyoo_idea_search_page = $hyoo_idea_search_page;
+    })($$ = $.$$ || ($.$$ = {}));
+})($ || ($ = {}));
+//hyoo/idea/search/page/page.view.ts
+;
+"use strict";
+var $;
+(function ($) {
     class $hyoo_idea_app extends $mol_book2 {
         yard() {
             return this.domain().yard();
@@ -20735,7 +20924,8 @@ var $;
                 this.Project_list(),
                 this.Person_page(),
                 this.My_page(),
-                this.Invite_page()
+                this.Invite_page(),
+                this.Search_page()
             ];
         }
         Placeholder() {
@@ -20770,12 +20960,12 @@ var $;
             obj.title = () => this.$.$mol_locale.text('$hyoo_idea_app_Projects_link_title');
             return obj;
         }
-        Settings_link() {
+        Search_link() {
             const obj = new this.$.$mol_link();
             obj.arg = () => ({
-                section: "settings"
+                section: "search"
             });
-            obj.title = () => this.$.$mol_locale.text('$hyoo_idea_app_Settings_link_title');
+            obj.title = () => this.$.$mol_locale.text('$hyoo_idea_app_Search_link_title');
             return obj;
         }
         Links() {
@@ -20784,7 +20974,7 @@ var $;
                 this.Feed_link(),
                 this.Person_link(),
                 this.Projects_link(),
-                this.Settings_link()
+                this.Search_link()
             ];
             return obj;
         }
@@ -20842,6 +21032,11 @@ var $;
             obj.domain = () => this.domain();
             return obj;
         }
+        Search_page() {
+            const obj = new this.$.$hyoo_idea_search_page();
+            obj.domain = () => this.domain();
+            return obj;
+        }
     }
     __decorate([
         $mol_mem
@@ -20863,7 +21058,7 @@ var $;
     ], $hyoo_idea_app.prototype, "Projects_link", null);
     __decorate([
         $mol_mem
-    ], $hyoo_idea_app.prototype, "Settings_link", null);
+    ], $hyoo_idea_app.prototype, "Search_link", null);
     __decorate([
         $mol_mem
     ], $hyoo_idea_app.prototype, "Links", null);
@@ -20897,6 +21092,9 @@ var $;
     __decorate([
         $mol_mem
     ], $hyoo_idea_app.prototype, "Invite_page", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_idea_app.prototype, "Search_page", null);
     $.$hyoo_idea_app = $hyoo_idea_app;
 })($ || ($ = {}));
 //hyoo/idea/app/-view.tree/app.view.tree.ts
@@ -20956,6 +21154,7 @@ var $;
                     ...this.section() === 'feed' ? [this.Feed()] : [],
                     ...this.section() === 'person' ? [this.My_page()] : [],
                     ...this.section() === 'projects' ? [this.Project_list()] : [],
+                    ...this.section() === 'search' ? [this.Search_page()] : [],
                     ...this.person_opened() ? [this.Person_page()] : [],
                     ...this.project_opened() ? [this.Project_page()] : [],
                     ...this.invite_opened() ? [this.Invite_page()] : [],

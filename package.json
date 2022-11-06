@@ -303,7 +303,9 @@
     "$hyoo_idea_project_card",
     "$hyoo_idea_person_page",
     "$hyoo_idea_invite_page",
-    "$hyoo_idea_invite"
+    "$hyoo_idea_invite",
+    "$hyoo_idea_search_page",
+    "$hyoo_idea_search"
   ],
   "dependencies": {
     "jsdom": "*",

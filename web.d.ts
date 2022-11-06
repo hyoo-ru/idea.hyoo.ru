@@ -5241,6 +5241,45 @@ declare namespace $.$$ {
 }
 
 declare namespace $ {
+    class $hyoo_idea_search_page extends $mol_page {
+        domain(): $hyoo_idea_domain;
+        title(): string;
+        tools(): readonly any[];
+        persons(): readonly $hyoo_idea_person[];
+        projects(): readonly $hyoo_idea_project[];
+        body(): readonly any[];
+        Person_row(id: any): $hyoo_idea_person_card;
+        Project_row(id: any): $$.$hyoo_idea_project_card;
+        Close_icon(): $mol_icon_cross;
+        Close(): $$.$mol_link;
+        type(next?: any): string;
+        Type(): $$.$mol_switch;
+        project_rows(): readonly any[];
+        team_rows(): readonly any[];
+        results(): readonly any[];
+        Results(): $$.$mol_list;
+        Search_list(): $$.$mol_list;
+        person(id: any): $hyoo_idea_person;
+        project(id: any): $hyoo_idea_project;
+    }
+}
+
+declare namespace $.$$ {
+}
+
+declare namespace $.$$ {
+    class $hyoo_idea_search_page extends $.$hyoo_idea_search_page {
+        persons(): $hyoo_idea_person[];
+        person(obj: $hyoo_idea_person): $hyoo_idea_person;
+        team_rows(): $hyoo_idea_person_card[];
+        projects(): $hyoo_idea_project[];
+        project(obj: $hyoo_idea_project): $hyoo_idea_project;
+        project_rows(): $hyoo_idea_project_card[];
+        results(): $hyoo_idea_person_card[] | $hyoo_idea_project_card[];
+    }
+}
+
+declare namespace $ {
     class $hyoo_idea_app extends $mol_book2 {
         yard(): $hyoo_sync_client;
         user(): $hyoo_idea_person;
@@ -5252,7 +5291,7 @@ declare namespace $ {
         Feed_link(): $$.$mol_link;
         Person_link(): $$.$mol_link;
         Projects_link(): $$.$mol_link;
-        Settings_link(): $$.$mol_link;
+        Search_link(): $$.$mol_link;
         Links(): $$.$mol_list;
         Menu(): $mol_page;
         Sign_up(): $$.$hyoo_idea_sign_up_page;
@@ -5264,6 +5303,7 @@ declare namespace $ {
         Person_page(): $$.$hyoo_idea_person_page;
         My_page(): $$.$hyoo_idea_person_page;
         Invite_page(): $$.$hyoo_idea_invite_page;
+        Search_page(): $$.$hyoo_idea_search_page;
     }
 }
 
@@ -5271,14 +5311,14 @@ declare namespace $.$$ {
 }
 
 declare namespace $.$$ {
-    type Sections = 'feed' | 'person' | 'projects' | 'settings';
+    type Sections = 'feed' | 'person' | 'projects' | 'search';
     export class $hyoo_idea_app extends $.$hyoo_idea_app {
         section(next?: Sections): string;
         person_opened(): $hyoo_idea_person;
         signup_opened(): boolean;
         project_opened(): $hyoo_idea_project;
         invite_opened(): boolean;
-        pages(): ($mol_page | $hyoo_idea_feed_page | $hyoo_idea_project_page | $hyoo_idea_project_list | $hyoo_idea_person_page | $hyoo_idea_invite_page)[];
+        pages(): ($mol_page | $hyoo_idea_feed_page | $hyoo_idea_project_page | $hyoo_idea_project_list | $hyoo_idea_person_page | $hyoo_idea_invite_page | $hyoo_idea_search_page)[];
         sync(): void;
         person_register(): void;
         auto(): void;

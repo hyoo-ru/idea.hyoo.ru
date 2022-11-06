@@ -29,6 +29,9 @@ namespace $.$$ {
 
 		@ $mol_mem
 		pages() {
+
+			if (this.signup_opened()) return [this.Sign_up()]
+
 			return [
 				this.Menu(),
 				... this.section() === 'feed' ? [this.Feed()] : [],
@@ -54,6 +57,23 @@ namespace $.$$ {
 		auto() {
 			this.sync()
 			this.person_register()
+		}
+
+		links() {
+			return this.user().registered() ? [
+				this.Feed_link(),
+				this.Person_link(),
+				this.Projects_link(),
+				this.Search_link(),
+			] : [
+				this.Feed_link(),
+				this.Search_link(),
+				this.Sign_up_button(),
+			]
+		}
+
+		sign_up() {
+			this.$.$mol_state_arg.value( 'signup', '' )
 		}
 	}
 

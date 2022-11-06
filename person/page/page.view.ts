@@ -71,6 +71,10 @@ namespace $.$$ {
 		// 	]
 		// }
 
+		actions() {
+			return this.self() ? [] : [this.Invite_button()]
+		}
+
 		@ $mol_mem
 		personal() {
 			return [

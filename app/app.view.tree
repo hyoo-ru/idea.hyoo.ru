@@ -10,9 +10,11 @@ $hyoo_idea_app $mol_book2
 			tools /
 				<= Source $mol_link_source
 					uri \https://github.com/hyoo-ru/idea.hyoo.ru
+			Title <= Menu_title $mol_view sub /
+				<= Title_image $mol_image uri \/hyoo/idea/logo/logo_hor.png
 			body /
 				<= Links $mol_list
-					rows /
+					rows <= links /
 						<= Feed_link $mol_link
 							arg * section \feed
 							title @ \Feed
@@ -25,6 +27,9 @@ $hyoo_idea_app $mol_book2
 						<= Search_link $mol_link
 							arg * section \search
 							title @ \Search
+						<= Sign_up_button $mol_button_major
+							title @ \Вход
+							click? <=> sign_up? null
 		<= Sign_up $hyoo_idea_sign_up_page
 			person <= user
 		<= Feed $hyoo_idea_feed_page

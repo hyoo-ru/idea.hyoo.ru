@@ -335,21 +335,12 @@ $hyoo_idea_ago $mol_view
 			few @ \
 			many @ \
 
-$mol_image2 $mol_view
-	links /
-	aspect 1
-	sub /
-		<= Content $mol_view
-			style *
-				paddingTop <= height \100%
-				backgroundImage <= background \
-
 $hyoo_idea_person_avatar $mol_view
 	blob null
 	placeholder \https://robohash.org/${id}.png
 	sub /
-		<= Image $mol_image2
-			links / <= link <= uri \
+		<= Image $mol_image
+			uri <= link <= uri \
 
 $mol_icon_dots_horizontal $mol_icon path \M16,12C16,10.9 16.9,10 18,10C19.1,10 20,10.9 20,12C20,13.1 19.1,14 18,14C16.9,14 16,13.1 16,12M10,12C10,10.9 10.9,10 12,10C13.1,10 14,10.9 14,12C14,13.1 13.1,14 12,14C10.9,14 10,13.1 10,12M4,12C4,10.9 4.9,10 6,10C7.1,10 8,10.9 8,12C8,13.1 7.1,14 6,14C4.9,14 4,13.1 4,12Z
 
@@ -1501,7 +1492,8 @@ $hyoo_idea_project_page $mol_page
 						<= Post*0_0 $hyoo_idea_post_card
 							post <= post* $hyoo_idea_post
 
-$hyoo_idea_project_card $mol_row
+$hyoo_idea_project_card $mol_link
+	arg * project <= id
 	project $hyoo_idea_project
 		id => id
 		logo_node => logo_node
@@ -1510,8 +1502,7 @@ $hyoo_idea_project_card $mol_row
 	sub /
 		<= Logo $hyoo_idea_project_logo blob <= logo_node
 		<= List $mol_list rows /
-			<= Name $mol_link
-				arg * project <= id
+			<= Name $mol_paragraph
 				title <= project_name \
 			<= Brief $mol_paragraph title <= brief
 
@@ -1526,24 +1517,25 @@ $hyoo_idea_project_list $mol_page
 			sub / <= Add_icon $mol_icon_plus
 			click? <=> add? null
 	body /
-		<= Deck $mol_deck items /
-			<= Projects $mol_list
-				title @ \Projects
-				rows <= project_rows /
-					<= Empty $mol_view sub <= empty /
-						<= empty_title @ \There's nothing here yet.
-						<= Empty_add $mol_button_minor
-							minimal_height 24
-							title @ \Create project.
-							click? <=> add?
-					<= Card*0_0 $hyoo_idea_project_card
-						project <= project* $hyoo_idea_project
-			- <= Invites $mol_list
-				title @ \Invites
-				rows <= invite_rows /
-					<= Invites_emtpy $mol_view sub / <= empty_title
-					<= Invite_card*0_0 $hyoo_ieda_invite_card
-						invite <= invite* $hyoo_idea_invite
+		- <= Deck $mol_deck items /
+		<= Projects $mol_list
+			title @ \Projects
+			rows <= project_rows /
+				<= Empty $mol_view sub <= empty /
+					<= empty_title @ \There's nothing here yet.
+					<= Empty_add $mol_button_minor
+						minimal_height 24
+						title @ \Create project.
+						click? <=> add?
+				<= Card*0_0 $hyoo_idea_project_card
+					project <= project* $hyoo_idea_project
+		- \Для этого отельный пункт меню бы
+		- <= Invites $mol_list
+			title @ \Invites
+			rows <= invite_rows /
+				<= Invites_emtpy $mol_view sub / <= empty_title
+				<= Invite_card*0_0 $hyoo_ieda_invite_card
+					invite <= invite* $hyoo_idea_invite
 
 $hyoo_idea_person_page $mol_page
 	person $hyoo_idea_person

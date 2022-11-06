@@ -2814,34 +2814,13 @@ declare namespace $.$$ {
 }
 
 declare namespace $ {
-    class $mol_image2 extends $mol_view {
-        links(): readonly any[];
-        aspect(): number;
-        sub(): readonly any[];
-        height(): string;
-        background(): string;
-        Content(): $mol_view;
-    }
-}
-
-declare namespace $ {
-}
-
-declare namespace $.$$ {
-    class $mol_image2 extends $.$mol_image2 {
-        background(): string;
-        height(): string;
-    }
-}
-
-declare namespace $ {
     class $hyoo_idea_person_avatar extends $mol_view {
         blob(): any;
         placeholder(): string;
         sub(): readonly any[];
         uri(): string;
         link(): string;
-        Image(): $$.$mol_image2;
+        Image(): $mol_image;
     }
 }
 
@@ -4951,7 +4930,10 @@ declare namespace $.$$ {
 }
 
 declare namespace $ {
-    class $hyoo_idea_project_card extends $mol_row {
+    class $hyoo_idea_project_card extends $mol_link {
+        arg(): {
+            project: `${string}_${string}`;
+        };
         id(): `${string}_${string}`;
         logo_node(): $hyoo_crowd_blob;
         brief(): string;
@@ -4960,7 +4942,7 @@ declare namespace $ {
         sub(): readonly any[];
         Logo(): $hyoo_idea_project_logo;
         project_name(): string;
-        Name(): $$.$mol_link;
+        Name(): $$.$mol_paragraph;
         Brief(): $$.$mol_paragraph;
         List(): $$.$mol_list;
     }
@@ -4994,7 +4976,6 @@ declare namespace $ {
         Card(id: any): $$.$hyoo_idea_project_card;
         project_rows(): readonly any[];
         Projects(): $$.$mol_list;
-        Deck(): $$.$mol_deck;
     }
 }
 

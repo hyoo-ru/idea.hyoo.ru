@@ -9695,74 +9695,6 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    class $mol_image2 extends $mol_view {
-        links() {
-            return [];
-        }
-        aspect() {
-            return 1;
-        }
-        sub() {
-            return [
-                this.Content()
-            ];
-        }
-        height() {
-            return "100%";
-        }
-        background() {
-            return "";
-        }
-        Content() {
-            const obj = new this.$.$mol_view();
-            obj.style = () => ({
-                paddingTop: this.height(),
-                backgroundImage: this.background()
-            });
-            return obj;
-        }
-    }
-    __decorate([
-        $mol_mem
-    ], $mol_image2.prototype, "Content", null);
-    $.$mol_image2 = $mol_image2;
-})($ || ($ = {}));
-//mol/image2/-view.tree/image2.view.tree.ts
-;
-"use strict";
-var $;
-(function ($) {
-    $mol_style_attach("mol/image2/image2.view.css", "[mol_image2] {\n\tflex: 0 1 auto;\n\tmax-width: 100%;\n\tbox-shadow: 0 0 0 1px var(--mol_theme_line);\n\tborder-radius: var(--mol_gap_round);\n\toverflow: hidden;\n}\n\n[mol_image2_content] {\n\tdisplay: block;\n\tbackground-size: cover;\n\tbackground-position: top center;\n\tflex: auto;\n}\n");
-})($ || ($ = {}));
-//mol/image2/-css/image2.view.css.ts
-;
-"use strict";
-var $;
-(function ($) {
-    var $$;
-    (function ($$) {
-        class $mol_image2 extends $.$mol_image2 {
-            background() {
-                return this.links().map(link => `url("${link}")`).join(' , ');
-            }
-            height() {
-                return `${100 / this.aspect()}%`;
-            }
-        }
-        __decorate([
-            $mol_mem
-        ], $mol_image2.prototype, "background", null);
-        __decorate([
-            $mol_mem
-        ], $mol_image2.prototype, "height", null);
-        $$.$mol_image2 = $mol_image2;
-    })($$ = $.$$ || ($.$$ = {}));
-})($ || ($ = {}));
-//mol/image2/image2.view.ts
-;
-"use strict";
-var $;
-(function ($) {
     class $hyoo_idea_person_avatar extends $mol_view {
         blob() {
             return null;
@@ -9782,10 +9714,8 @@ var $;
             return this.uri();
         }
         Image() {
-            const obj = new this.$.$mol_image2();
-            obj.links = () => [
-                this.link()
-            ];
+            const obj = new this.$.$mol_image();
+            obj.uri = () => this.link();
             return obj;
         }
     }
@@ -18707,7 +18637,12 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    class $hyoo_idea_project_card extends $mol_row {
+    class $hyoo_idea_project_card extends $mol_link {
+        arg() {
+            return {
+                project: this.id()
+            };
+        }
         id() {
             return this.project().id();
         }
@@ -18739,10 +18674,7 @@ var $;
             return "";
         }
         Name() {
-            const obj = new this.$.$mol_link();
-            obj.arg = () => ({
-                project: this.id()
-            });
+            const obj = new this.$.$mol_paragraph();
             obj.title = () => this.project_name();
             return obj;
         }
@@ -18786,9 +18718,7 @@ var $;
     (function ($$) {
         const { rem } = $mol_style_unit;
         $mol_style_define($.$hyoo_idea_project_card, {
-            flex: {
-                wrap: 'nowrap',
-            },
+            gap: $mol_gap.block,
             List: {
                 flex: {
                     shrink: 1,
@@ -18849,7 +18779,7 @@ var $;
         }
         body() {
             return [
-                this.Deck()
+                this.Projects()
             ];
         }
         Add_icon() {
@@ -18912,13 +18842,6 @@ var $;
             obj.rows = () => this.project_rows();
             return obj;
         }
-        Deck() {
-            const obj = new this.$.$mol_deck();
-            obj.items = () => [
-                this.Projects()
-            ];
-            return obj;
-        }
     }
     __decorate([
         $mol_mem
@@ -18947,9 +18870,6 @@ var $;
     __decorate([
         $mol_mem
     ], $hyoo_idea_project_list.prototype, "Projects", null);
-    __decorate([
-        $mol_mem
-    ], $hyoo_idea_project_list.prototype, "Deck", null);
     $.$hyoo_idea_project_list = $hyoo_idea_project_list;
 })($ || ($ = {}));
 //hyoo/idea/project/list/-view.tree/list.view.tree.ts
@@ -18962,8 +18882,11 @@ var $;
         const { rem } = $mol_style_unit;
         $mol_style_define($.$hyoo_idea_project_list, {
             flex: {
-                basis: rem(40),
+                basis: rem(20),
                 shrink: 0,
+            },
+            Projects: {
+                padding: $mol_gap.block,
             },
             Empty: {
                 padding: rem(2),

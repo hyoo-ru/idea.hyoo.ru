@@ -4799,28 +4799,6 @@ declare namespace $.$$ {
 }
 
 declare namespace $ {
-    class $mol_expander extends $mol_list {
-        rows(): readonly any[];
-        expanded(val?: any): boolean;
-        label(): readonly any[];
-        Trigger(): $$.$mol_check_expand;
-        Tools(): any;
-        Label(): $mol_view;
-        content(): readonly any[];
-        Content(): $$.$mol_list;
-    }
-}
-
-declare namespace $ {
-}
-
-declare namespace $.$$ {
-    class $mol_expander extends $.$mol_expander {
-        rows(): $mol_view[];
-    }
-}
-
-declare namespace $ {
     class $mol_card extends $mol_list {
         attr(): {
             mol_card_status_type: string;
@@ -4839,6 +4817,28 @@ declare namespace $ {
 
 declare namespace $.$$ {
     class $mol_card extends $.$mol_card {
+        rows(): $mol_view[];
+    }
+}
+
+declare namespace $ {
+    class $mol_expander extends $mol_list {
+        rows(): readonly any[];
+        expanded(val?: any): boolean;
+        label(): readonly any[];
+        Trigger(): $$.$mol_check_expand;
+        Tools(): any;
+        Label(): $mol_view;
+        content(): readonly any[];
+        Content(): $$.$mol_list;
+    }
+}
+
+declare namespace $ {
+}
+
+declare namespace $.$$ {
+    class $mol_expander extends $.$mol_expander {
         rows(): $mol_view[];
     }
 }
@@ -4938,7 +4938,6 @@ declare namespace $ {
         Face_list(): $$.$mol_list;
         neck(): readonly any[];
         Neck(): $mol_row;
-        stats_expanded(next?: any): boolean;
         Stage(): $$.$hyoo_idea_project_stage;
         Stage_stat(): $hyoo_idea_profile_stat;
         team_stat(): string;
@@ -4948,7 +4947,7 @@ declare namespace $ {
         sub_count(): string;
         Sub_count(): $hyoo_idea_profile_stat;
         Stats_content(): $hyoo_idea_profile_stats;
-        Stats_block(): $$.$hyoo_idea_profile_block;
+        Stats_block(): $$.$mol_card;
         team_expanded(next?: any): boolean;
         team_member(id: any): $hyoo_idea_person;
         team_member_role(id: any): string;
@@ -5114,7 +5113,6 @@ declare namespace $ {
         Actions(): $mol_view;
         neck(): readonly any[];
         Neck(): $mol_row;
-        stats_expanded(next?: any): boolean;
         project_count(): string;
         Project_count(): $hyoo_idea_profile_stat;
         post_count(): string;
@@ -5124,7 +5122,7 @@ declare namespace $ {
         sub_count(): string;
         Sub_count(): $hyoo_idea_profile_stat;
         Stats_person(): $hyoo_idea_profile_stats;
-        Stats(): $$.$hyoo_idea_profile_block;
+        Stats(): $$.$mol_card;
         About(): $$.$hyoo_idea_profile_block;
         Phone_label(): $$.$mol_paragraph;
         Phone(): $$.$mol_paragraph;

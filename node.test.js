@@ -17998,6 +17998,82 @@ var $;
 "use strict";
 var $;
 (function ($) {
+    class $mol_card extends $mol_list {
+        attr() {
+            return {
+                ...super.attr(),
+                mol_card_status_type: this.status()
+            };
+        }
+        rows() {
+            return [
+                this.Content(),
+                this.Status()
+            ];
+        }
+        status() {
+            return "";
+        }
+        content() {
+            return [
+                this.title()
+            ];
+        }
+        Content() {
+            const obj = new this.$.$mol_view();
+            obj.sub = () => this.content();
+            return obj;
+        }
+        status_text() {
+            return this.status();
+        }
+        Status() {
+            const obj = new this.$.$mol_view();
+            obj.minimal_height = () => 30;
+            obj.sub = () => [
+                this.status_text()
+            ];
+            return obj;
+        }
+    }
+    __decorate([
+        $mol_mem
+    ], $mol_card.prototype, "Content", null);
+    __decorate([
+        $mol_mem
+    ], $mol_card.prototype, "Status", null);
+    $.$mol_card = $mol_card;
+})($ || ($ = {}));
+//mol/card/-view.tree/card.view.tree.ts
+;
+"use strict";
+var $;
+(function ($) {
+    $mol_style_attach("mol/card/card.view.css", "[mol_card] {\n\tbackground: var(--mol_theme_card);\n\tcolor: var(--mol_theme_text);\n\tborder-radius: var(--mol_gap_round);\n\tdisplay: flex;\n\tflex: 0 1 auto;\n\tflex-direction: column;\n\tposition: relative;\n\toverflow: hidden;\n}\n\n[mol_card_content] {\n\tflex: 1 1 auto;\n\tborder-radius: var(--mol_gap_round);\n\tmargin: 0;\n\tpadding: var(--mol_gap_block);\n}\n\n[mol_card_status] {\n\tbackground: var(--mol_theme_line);\n\ttext-transform: capitalize;\n\tpadding: var(--mol_gap_text);\n\tmargin: 0;\n}\n\n[mol_card_status] {\n\tbackground: var(--mol_theme_line);\n}\n");
+})($ || ($ = {}));
+//mol/card/-css/card.view.css.ts
+;
+"use strict";
+var $;
+(function ($) {
+    var $$;
+    (function ($$) {
+        class $mol_card extends $.$mol_card {
+            rows() {
+                return [
+                    this.Content(),
+                    ...this.status_text() ? [this.Status()] : [],
+                ];
+            }
+        }
+        $$.$mol_card = $mol_card;
+    })($$ = $.$$ || ($.$$ = {}));
+})($ || ($ = {}));
+//mol/card/card.view.ts
+;
+"use strict";
+var $;
+(function ($) {
     class $mol_expander extends $mol_list {
         rows() {
             return [
@@ -18081,82 +18157,6 @@ var $;
     })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));
 //mol/expander/expander.view.ts
-;
-"use strict";
-var $;
-(function ($) {
-    class $mol_card extends $mol_list {
-        attr() {
-            return {
-                ...super.attr(),
-                mol_card_status_type: this.status()
-            };
-        }
-        rows() {
-            return [
-                this.Content(),
-                this.Status()
-            ];
-        }
-        status() {
-            return "";
-        }
-        content() {
-            return [
-                this.title()
-            ];
-        }
-        Content() {
-            const obj = new this.$.$mol_view();
-            obj.sub = () => this.content();
-            return obj;
-        }
-        status_text() {
-            return this.status();
-        }
-        Status() {
-            const obj = new this.$.$mol_view();
-            obj.minimal_height = () => 30;
-            obj.sub = () => [
-                this.status_text()
-            ];
-            return obj;
-        }
-    }
-    __decorate([
-        $mol_mem
-    ], $mol_card.prototype, "Content", null);
-    __decorate([
-        $mol_mem
-    ], $mol_card.prototype, "Status", null);
-    $.$mol_card = $mol_card;
-})($ || ($ = {}));
-//mol/card/-view.tree/card.view.tree.ts
-;
-"use strict";
-var $;
-(function ($) {
-    $mol_style_attach("mol/card/card.view.css", "[mol_card] {\n\tbackground: var(--mol_theme_card);\n\tcolor: var(--mol_theme_text);\n\tborder-radius: var(--mol_gap_round);\n\tdisplay: flex;\n\tflex: 0 1 auto;\n\tflex-direction: column;\n\tposition: relative;\n\toverflow: hidden;\n}\n\n[mol_card_content] {\n\tflex: 1 1 auto;\n\tborder-radius: var(--mol_gap_round);\n\tmargin: 0;\n\tpadding: var(--mol_gap_block);\n}\n\n[mol_card_status] {\n\tbackground: var(--mol_theme_line);\n\ttext-transform: capitalize;\n\tpadding: var(--mol_gap_text);\n\tmargin: 0;\n}\n\n[mol_card_status] {\n\tbackground: var(--mol_theme_line);\n}\n");
-})($ || ($ = {}));
-//mol/card/-css/card.view.css.ts
-;
-"use strict";
-var $;
-(function ($) {
-    var $$;
-    (function ($$) {
-        class $mol_card extends $.$mol_card {
-            rows() {
-                return [
-                    this.Content(),
-                    ...this.status_text() ? [this.Status()] : [],
-                ];
-            }
-        }
-        $$.$mol_card = $mol_card;
-    })($$ = $.$$ || ($.$$ = {}));
-})($ || ($ = {}));
-//mol/card/card.view.ts
 ;
 "use strict";
 var $;
@@ -18550,11 +18550,6 @@ var $;
             obj.sub = () => this.neck();
             return obj;
         }
-        stats_expanded(next) {
-            if (next !== undefined)
-                return next;
-            return true;
-        }
         Stage() {
             const obj = new this.$.$hyoo_idea_project_stage();
             obj.stage = () => this.stage();
@@ -18606,10 +18601,8 @@ var $;
             return obj;
         }
         Stats_block() {
-            const obj = new this.$.$hyoo_idea_profile_block();
-            obj.title = () => this.$.$mol_locale.text('$hyoo_idea_project_page_Stats_block_title');
-            obj.expanded = (next) => this.stats_expanded(next);
-            obj.content = () => [
+            const obj = new this.$.$mol_card();
+            obj.sub = () => [
                 this.Stats_content()
             ];
             return obj;
@@ -18788,9 +18781,6 @@ var $;
     __decorate([
         $mol_mem
     ], $hyoo_idea_project_page.prototype, "Neck", null);
-    __decorate([
-        $mol_mem
-    ], $hyoo_idea_project_page.prototype, "stats_expanded", null);
     __decorate([
         $mol_mem
     ], $hyoo_idea_project_page.prototype, "Stage", null);
@@ -19591,11 +19581,6 @@ var $;
             obj.sub = () => this.neck();
             return obj;
         }
-        stats_expanded(next) {
-            if (next !== undefined)
-                return next;
-            return true;
-        }
         project_count() {
             return "1";
         }
@@ -19643,10 +19628,8 @@ var $;
             return obj;
         }
         Stats() {
-            const obj = new this.$.$hyoo_idea_profile_block();
-            obj.title = () => this.$.$mol_locale.text('$hyoo_idea_person_page_Stats_title');
-            obj.expanded = (next) => this.stats_expanded(next);
-            obj.content = () => [
+            const obj = new this.$.$mol_card();
+            obj.sub = () => [
                 this.Stats_person()
             ];
             return obj;
@@ -19950,9 +19933,6 @@ var $;
     __decorate([
         $mol_mem
     ], $hyoo_idea_person_page.prototype, "Neck", null);
-    __decorate([
-        $mol_mem
-    ], $hyoo_idea_person_page.prototype, "stats_expanded", null);
     __decorate([
         $mol_mem
     ], $hyoo_idea_person_page.prototype, "Project_count", null);

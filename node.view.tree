@@ -1367,18 +1367,6 @@ $hyoo_idea_profile_stat $mol_button_minor
 			<= Count $mol_paragraph title <= count \
 		<= Label $mol_paragraph title <= label \
 
-$mol_expander $mol_list
-	rows /
-		<= Label $mol_view
-			sub /
-				<= Trigger $mol_check_expand
-					checked?val <=> expanded?val false
-					label <= label /
-						<= title
-				<= Tools null
-		<= Content $mol_list
-			rows <= content /
-
 $mol_card $mol_list
 	attr *
 		^
@@ -1391,6 +1379,18 @@ $mol_card $mol_list
 			minimal_height 30
 			sub /
 				<= status_text <= status \
+
+$mol_expander $mol_list
+	rows /
+		<= Label $mol_view
+			sub /
+				<= Trigger $mol_check_expand
+					checked?val <=> expanded?val false
+					label <= label /
+						<= title
+				<= Tools null
+		<= Content $mol_list
+			rows <= content /
 
 $hyoo_idea_profile_block $mol_expander
 	Content $mol_card
@@ -1471,10 +1471,8 @@ $hyoo_idea_project_page $mol_page
 			<= Brief $mol_paragraph title <= brief
 	body /
 		<= Neck $mol_row sub <= neck /
-		<= Stats_block $hyoo_idea_profile_block
-			title @ \Stats
-			expanded? <=> stats_expanded? true
-			content / <= Stats_content $hyoo_idea_profile_stats sub /
+		<= Stats_block $mol_card
+			sub / <= Stats_content $hyoo_idea_profile_stats sub /
 				<= Stage_stat $hyoo_idea_profile_stat
 					label @ \Stage
 					content / <= Stage $hyoo_idea_project_stage stage <= stage
@@ -1607,10 +1605,8 @@ $hyoo_idea_person_page $mol_page
 					title @ \Subscribe
 				<= Message $mol_button_major
 					title @ \Message
-		<= Stats $hyoo_idea_profile_block
-			title @ \Stats
-			expanded? <=> stats_expanded? true
-			content / <= Stats_person $hyoo_idea_profile_stats sub /
+		<= Stats $mol_card
+			sub / <= Stats_person $hyoo_idea_profile_stats sub /
 				<= Project_count $hyoo_idea_profile_stat
 					label @ \Projects
 					count <= project_count \1

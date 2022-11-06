@@ -9,9 +9,10 @@ namespace $.$$ {
 			shrink: 0,
 		},
 
-		Face: {
+		Title: {
 			flex: {
 				wrap: 'nowrap',
+				grow: 1,
 			},
 		},
 
@@ -22,9 +23,17 @@ namespace $.$$ {
 		},
 
 		Logo: {
-			width: rem(6),
-			height: rem(6),
-			margin: $mol_gap.block,
+			width: rem(3),
+			height: rem(3),
+			// margin: $mol_gap.block,
+		},
+		
+		Tools: {
+			flex: {
+				basis: rem(12),
+				direction: 'row-reverse',
+			},
+			justifyContent: 'flex-start',
 		},
 
 		Name: {
@@ -50,12 +59,6 @@ namespace $.$$ {
 		Stats_block: {
 			Content: {
 				padding: 0
-			},
-		},
-
-		Actions: {
-			margin: {
-				left: 'auto',
 			},
 		},
 

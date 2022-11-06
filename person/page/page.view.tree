@@ -50,8 +50,8 @@ $hyoo_idea_person_page $mol_page
 				<= Message $mol_button_major
 					title @ \Message
 		<= Stats $hyoo_idea_profile_block
-			Label null
-			expanded true
+			title @ \Stats
+			expanded? <=> stats_expanded? true
 			content / <= Stats_person $hyoo_idea_profile_stats sub /
 				<= Project_count $hyoo_idea_profile_stat
 					label @ \Projects
@@ -99,8 +99,7 @@ $hyoo_idea_person_page $mol_page
 			content / <= Projects
 		<= Posts $hyoo_idea_profile_block
 			title @ \Posts
-			Expander null
-			expanded true
+			expanded? <=> posts_expanded? true
 			content <= posts_content /
 				<= Post_add $hyoo_idea_post_add
 					submit? <=> post_add? null

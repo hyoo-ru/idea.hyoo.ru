@@ -53,12 +53,6 @@ namespace $.$$ {
 			shrink: 0,
 		},
 
-		Face: {
-			flex: {
-				wrap: 'nowrap',
-			},
-		},
-
 		Face_list: {
 			flex: {
 				shrink: 1,
@@ -86,6 +80,14 @@ namespace $.$$ {
 			opacity: 0.8,
 		},
 
+		Tools: {
+			flex: {
+				basis: rem(12),
+				direction: 'row-reverse',
+			},
+			justifyContent: 'flex-start',
+		},
+
 		Summary: {
 			padding: {
 				left: $mol_gap.text,
@@ -100,6 +102,9 @@ namespace $.$$ {
 		Stats: {
 			Content: {
 				padding: 0
+			},
+			flex: {
+				shrink: 0,
 			},
 		},
 

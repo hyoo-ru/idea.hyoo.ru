@@ -6,9 +6,13 @@ namespace $.$$ {
 
 		width: per(100),
 
-		justifyContent: 'space-between',
+		justifyContent: 'space-around',
 
 		color: $mol_theme.text,
+		
+		flex: {
+			shrink: 0,
+		},
 
 	} )
 

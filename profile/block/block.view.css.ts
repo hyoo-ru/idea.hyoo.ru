@@ -10,6 +10,12 @@ namespace $.$$ {
 			textShadow: '0 0',
 		},
 
+		Content_card: {
+			flex: {
+				shrink: 0,
+			},
+		},
+
 	} )
 
 }

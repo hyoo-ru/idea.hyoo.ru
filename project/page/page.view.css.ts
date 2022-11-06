@@ -52,13 +52,12 @@ namespace $.$$ {
 			opacity: 0.8,
 		},
 
-		Neck: {
-			zIndex: 1,
-		},
-
 		Stats_block: {
 			Content: {
 				padding: 0
+			},
+			flex: {
+				shrink: 0,
 			},
 		},
 

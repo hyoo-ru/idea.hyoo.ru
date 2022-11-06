@@ -61,15 +61,6 @@ namespace $.$$ {
 		},
 
 		Comment: {
-			Avatar: {
-				margin: {
-					top: 0,
-					left: rem(0.375),
-					rigth: rem(0.375),
-					bottom: 0,
-				},
-				alignSelf: 'flex-start',
-			},
 			Actions: {
 				alignSelf: 'flex-start',
 			},

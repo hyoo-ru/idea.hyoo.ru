@@ -2,6 +2,6 @@ $hyoo_idea_profile_stats $mol_view
 
 $hyoo_idea_profile_stat $mol_button_minor
 	sub /
-		<= Content $mol_view sub /
+		<= Content $mol_view sub <= content /
 			<= Count $mol_paragraph title <= count \
 		<= Label $mol_paragraph title <= label \

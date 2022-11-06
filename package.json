@@ -161,6 +161,7 @@
     "$mol_type_equals",
     "$mol_type_intersect",
     "$mol_unicode",
+    "$hyoo_crowd_counter",
     "$hyoo_sync_online",
     "$mol_link",
     "$mol_icon",

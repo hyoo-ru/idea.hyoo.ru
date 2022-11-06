@@ -8108,6 +8108,30 @@ var $;
 "use strict";
 var $;
 (function ($) {
+    class $hyoo_crowd_counter extends $hyoo_crowd_reg {
+        total() {
+            return this.yoke([])?.residents().length ?? this.numb();
+        }
+        counted(next) {
+            const yoke = this.yoke([]);
+            switch (next) {
+                case true:
+                    yoke?.join();
+                    return Boolean(yoke);
+                case false:
+                    yoke?.leave();
+                    return false;
+                case undefined: return yoke?.residents().includes(this.land.peer_id());
+            }
+        }
+    }
+    $.$hyoo_crowd_counter = $hyoo_crowd_counter;
+})($ || ($ = {}));
+//hyoo/crowd/counter/counter.ts
+;
+"use strict";
+var $;
+(function ($) {
     class $hyoo_idea_post extends $hyoo_idea_entity {
         project(next) {
             const id = this.state().sub('project', $hyoo_crowd_reg).str(next && next.id());
@@ -8124,6 +8148,9 @@ var $;
             const ms = this.state().land.first_stamp() ?? 0;
             return new $mol_time_moment(ms);
         }
+        likes_node() {
+            return this.state().sub('likes', $hyoo_crowd_counter);
+        }
     }
     __decorate([
         $mol_mem
@@ -8137,6 +8164,9 @@ var $;
     __decorate([
         $mol_mem
     ], $hyoo_idea_post.prototype, "created_moment", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_idea_post.prototype, "likes_node", null);
     $.$hyoo_idea_post = $hyoo_idea_post;
 })($ || ($ = {}));
 //hyoo/idea/post/post.ts
@@ -12994,28 +13024,33 @@ var $;
             obj.text = () => this.content();
             return obj;
         }
+        liked(next) {
+            if (next !== undefined)
+                return next;
+            return false;
+        }
         Like_icon() {
             const obj = new this.$.$mol_icon_lightbulb_on();
             return obj;
         }
+        likes_total() {
+            return "7";
+        }
         Like_count() {
             const obj = new this.$.$mol_paragraph();
-            obj.title = () => "7";
+            obj.title = () => this.likes_total();
             return obj;
         }
-        Like() {
-            const obj = new this.$.$mol_check_icon();
-            obj.sub = () => [
+        like_sub() {
+            return [
                 this.Like_icon(),
                 this.Like_count()
             ];
-            return obj;
         }
-        Reaction() {
-            const obj = new this.$.$mol_view();
-            obj.sub = () => [
-                this.Like()
-            ];
+        Like() {
+            const obj = new this.$.$mol_check_icon();
+            obj.checked = (next) => this.liked(next);
+            obj.sub = () => this.like_sub();
             return obj;
         }
         Comments_icon() {
@@ -13045,7 +13080,7 @@ var $;
         Foot() {
             const obj = new this.$.$mol_row();
             obj.sub = () => [
-                this.Reaction(),
+                this.Like(),
                 this.Comments(),
                 this.Share()
             ];
@@ -13066,6 +13101,9 @@ var $;
     ], $hyoo_idea_post_card.prototype, "Content", null);
     __decorate([
         $mol_mem
+    ], $hyoo_idea_post_card.prototype, "liked", null);
+    __decorate([
+        $mol_mem
     ], $hyoo_idea_post_card.prototype, "Like_icon", null);
     __decorate([
         $mol_mem
@@ -13073,9 +13111,6 @@ var $;
     __decorate([
         $mol_mem
     ], $hyoo_idea_post_card.prototype, "Like", null);
-    __decorate([
-        $mol_mem
-    ], $hyoo_idea_post_card.prototype, "Reaction", null);
     __decorate([
         $mol_mem
     ], $hyoo_idea_post_card.prototype, "Comments_icon", null);
@@ -13152,7 +13187,28 @@ var $;
             person_id() {
                 return this.author().id();
             }
+            likes_total() {
+                return this.post().likes_node().total().toString();
+            }
+            liked(next) {
+                return this.post().likes_node().counted(next) ?? false;
+            }
+            like_sub() {
+                return [
+                    this.Like_icon(),
+                    ...this.post().likes_node().total() > 0 ? [this.Like_count()] : [],
+                ];
+            }
         }
+        __decorate([
+            $mol_mem
+        ], $hyoo_idea_post_card.prototype, "likes_total", null);
+        __decorate([
+            $mol_mem
+        ], $hyoo_idea_post_card.prototype, "liked", null);
+        __decorate([
+            $mol_mem
+        ], $hyoo_idea_post_card.prototype, "like_sub", null);
         $$.$hyoo_idea_post_card = $hyoo_idea_post_card;
     })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));

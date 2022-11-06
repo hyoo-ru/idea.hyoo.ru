@@ -742,11 +742,11 @@ $hyoo_idea_post_card $mol_list
 		<= Content $mol_text
 			text <= content
 		<= Foot $mol_row sub /
-			<= Reaction $mol_view sub /
-				<= Like $mol_check_icon
-					sub /
-						<= Like_icon $mol_icon_lightbulb_on
-						<= Like_count $mol_paragraph title \7
+			<= Like $mol_check_icon
+				checked? <=> liked? false
+				sub <= like_sub /
+					<= Like_icon $mol_icon_lightbulb_on
+					<= Like_count $mol_paragraph title <= likes_total \7
 			<= Comments $mol_link
 				arg * comments <= id
 				sub /

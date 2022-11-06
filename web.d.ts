@@ -2165,11 +2165,19 @@ declare namespace $ {
 }
 
 declare namespace $ {
+    class $hyoo_crowd_counter extends $hyoo_crowd_reg {
+        total(): number;
+        counted(next?: boolean): boolean | undefined;
+    }
+}
+
+declare namespace $ {
     class $hyoo_idea_post extends $hyoo_idea_entity {
         project(next?: $hyoo_idea_project): $hyoo_idea_project;
         person(next?: $hyoo_idea_person): $hyoo_idea_person;
         content(next?: string): string;
         created_moment(next?: $mol_time_moment): $mol_time_moment;
+        likes_node(): $hyoo_crowd_counter;
     }
 }
 
@@ -3753,10 +3761,12 @@ declare namespace $ {
         Ago(): $$.$hyoo_idea_ago;
         Head(): $hyoo_idea_person_card;
         Content(): $$.$mol_text;
+        liked(next?: any): boolean;
         Like_icon(): $mol_icon_lightbulb_on;
+        likes_total(): string;
         Like_count(): $$.$mol_paragraph;
+        like_sub(): readonly any[];
         Like(): $mol_check_icon;
-        Reaction(): $mol_view;
         Comments_icon(): $mol_icon_comment_text_multiple;
         Comments_count(): $$.$mol_paragraph;
         Comments(): $$.$mol_link;
@@ -3773,6 +3783,9 @@ declare namespace $.$$ {
         author(): $hyoo_idea_person;
         author_name(): string;
         person_id(): `${string}_${string}`;
+        likes_total(): string;
+        liked(next?: boolean): boolean;
+        like_sub(): ($mol_paragraph | $mol_icon_lightbulb_on)[];
     }
 }
 

@@ -1,5 +1,6 @@
 $hyoo_idea_post_card $mol_list
 	post $hyoo_idea_post
+		domain().user().avatar_node => avatar_node
 		id => id
 		content => content
 		created_moment => created_moment
@@ -22,9 +23,28 @@ $hyoo_idea_post_card $mol_list
 				sub <= like_sub /
 					<= Like_icon $mol_icon_lightbulb_on
 					<= Like_count $mol_paragraph title <= likes \
-			<= Comments $mol_link
+			<= Comments_link $mol_link
 				arg * comments <= id
 				sub /
 					<= Comments_icon $mol_icon_comment_text_multiple
 					<= Comments_count $mol_paragraph title \13
 			<= Share $mol_button_share
+		<= Comments $mol_list rows <= comment_rows /
+			<= Comment*0_0 $hyoo_idea_person_card
+				person <= comment_author* $hyoo_idea_person
+				name_sub /
+					<= Name_sub_list* $mol_list rows /
+						<= Comment_text* $mol_paragraph title <= comment_text* \
+						<= Comment_ago* $hyoo_idea_ago
+							title @ \{count} {unit} назад
+							moment <= comment_created_moment* $mol_time_moment
+		<= Comment_add $mol_bar sub /
+			<= Avatar $hyoo_idea_person_avatar
+				blob <= avatar_node
+			<= Text $mol_textarea
+				hint @ \Add comment
+				value? <=> comment? \
+			<= Submit $mol_button_minor
+				hint @ \Send comment
+				click? <=> comment_add? null
+				sub / <= Submit_icon $mol_icon_send

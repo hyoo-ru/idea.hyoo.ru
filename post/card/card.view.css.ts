@@ -6,6 +6,10 @@ namespace $.$$ {
 
 		width: per(100),
 
+		padding: {
+			bottom: $mol_gap.block,
+		},
+
 		background: {
 			color: $mol_theme.card,
 		},
@@ -39,6 +43,39 @@ namespace $.$$ {
 		Share: {
 			margin: {
 				left: 'auto',
+			},
+		},
+
+		Comment_add: {
+			alignItems: 'center',
+		},
+
+		Avatar: {
+			width: rem(2),
+			height: rem(2),
+		},
+
+		Comment: {
+			Avatar: {
+				margin: 0,
+				alignSelf: 'flex-start',
+			},
+			Actions: {
+				alignSelf: 'flex-start',
+			},
+		},
+
+		Comment_ago: {
+			opacity: 0.8,
+			font: {
+				size: rem(0.75),
+			},
+		},
+
+		Comment_text: {
+			padding: {
+				top: $mol_gap.space,
+				bottom: $mol_gap.space,
 			},
 		},
 

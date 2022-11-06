@@ -41,6 +41,25 @@ namespace $ {
 			return this.likes_node().counted( next ) ?? false
 		}
 
+		@ $mol_mem
+		comments_node() {
+			return this.state().yoke( 'comments', $hyoo_crowd_list, [], [], ['0_0'] )
+		}
+
+		@ $mol_action
+		comment_add( text: string, person: $hyoo_idea_person ) {
+			const comment = this.domain().post_add()
+			comment.content( text )
+			comment.person( person )
+			this.comments_node()?.add( comment.id() )
+		}
+
+		@ $mol_mem
+		comments( next?: $hyoo_idea_post[] ) {
+			const ids = this.comments_node()?.list( next && next.map( obj => obj.id() ) ) || []
+			return ids.map( id => this.domain().post( id as $mol_int62_string ) )
+		}
+
 	}
 
 }

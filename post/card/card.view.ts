@@ -26,6 +26,29 @@ namespace $.$$ {
 			return this.likes_total().toString()
 		}
 
+		@ $mol_action
+		comment_add() {
+			const text = this.comment(); this.comment('')
+			this.post().comment_add( text, this.post().domain().user() )
+		}
+
+		@ $mol_mem
+		comment_rows() {
+			return this.post().comments().map( obj => this.Comment(obj) )
+		}
+
+		comment_author( obj: $hyoo_idea_post ) {
+			return obj.person()
+		}
+
+		comment_text( obj: $hyoo_idea_post ) {
+			return obj.content()
+		}
+
+		comment_created_moment( obj: $hyoo_idea_post ) {
+			return obj.created_moment()
+		}
+
 	}
 
 }

@@ -8151,6 +8151,13 @@ var $;
         likes_node() {
             return this.state().sub('likes', $hyoo_crowd_counter);
         }
+        likes_total() {
+            this.liked();
+            return this.likes_node().total();
+        }
+        liked(next) {
+            return this.likes_node().counted(next) ?? false;
+        }
     }
     __decorate([
         $mol_mem
@@ -8167,6 +8174,12 @@ var $;
     __decorate([
         $mol_mem
     ], $hyoo_idea_post.prototype, "likes_node", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_idea_post.prototype, "likes_total", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_idea_post.prototype, "liked", null);
     $.$hyoo_idea_post = $hyoo_idea_post;
 })($ || ($ = {}));
 //hyoo/idea/post/post.ts
@@ -13006,6 +13019,12 @@ var $;
         avatar() {
             return this.post().person().avatar();
         }
+        likes_total() {
+            return this.post().likes_total();
+        }
+        liked(next) {
+            return this.post().liked(next);
+        }
         post() {
             const obj = new this.$.$hyoo_idea_post();
             return obj;
@@ -13036,21 +13055,16 @@ var $;
             obj.text = () => this.content();
             return obj;
         }
-        liked(next) {
-            if (next !== undefined)
-                return next;
-            return false;
-        }
         Like_icon() {
             const obj = new this.$.$mol_icon_lightbulb_on();
             return obj;
         }
-        likes_total() {
-            return "7";
+        likes() {
+            return "";
         }
         Like_count() {
             const obj = new this.$.$mol_paragraph();
-            obj.title = () => this.likes_total();
+            obj.title = () => this.likes();
             return obj;
         }
         like_sub() {
@@ -13111,9 +13125,6 @@ var $;
     __decorate([
         $mol_mem
     ], $hyoo_idea_post_card.prototype, "Content", null);
-    __decorate([
-        $mol_mem
-    ], $hyoo_idea_post_card.prototype, "liked", null);
     __decorate([
         $mol_mem
     ], $hyoo_idea_post_card.prototype, "Like_icon", null);
@@ -13199,25 +13210,16 @@ var $;
             person_id() {
                 return this.author().id();
             }
-            likes_total() {
-                return this.post().likes_node().total().toString();
-            }
-            liked(next) {
-                return this.post().likes_node().counted(next) ?? false;
-            }
             like_sub() {
                 return [
                     this.Like_icon(),
-                    ...this.post().likes_node().total() > 0 ? [this.Like_count()] : [],
+                    ...this.likes_total() > 0 ? [this.Like_count()] : [],
                 ];
             }
+            likes() {
+                return this.likes_total().toString();
+            }
         }
-        __decorate([
-            $mol_mem
-        ], $hyoo_idea_post_card.prototype, "likes_total", null);
-        __decorate([
-            $mol_mem
-        ], $hyoo_idea_post_card.prototype, "liked", null);
         __decorate([
             $mol_mem
         ], $hyoo_idea_post_card.prototype, "like_sub", null);

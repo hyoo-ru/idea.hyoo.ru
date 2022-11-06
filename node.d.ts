@@ -2161,6 +2161,8 @@ declare namespace $ {
         content(next?: string): string;
         created_moment(next?: $mol_time_moment): $mol_time_moment;
         likes_node(): $hyoo_crowd_counter;
+        likes_total(): number;
+        liked(next?: boolean): boolean;
     }
 }
 
@@ -3790,14 +3792,15 @@ declare namespace $ {
         created_moment(): $mol_time_moment;
         person(): $hyoo_idea_person;
         avatar(): string;
+        likes_total(): number;
+        liked(next?: any): boolean;
         post(): $hyoo_idea_post;
         rows(): readonly any[];
         Ago(): $$.$hyoo_idea_ago;
         Head(): $hyoo_idea_person_card;
         Content(): $$.$mol_text;
-        liked(next?: any): boolean;
         Like_icon(): $mol_icon_lightbulb_on;
-        likes_total(): string;
+        likes(): string;
         Like_count(): $$.$mol_paragraph;
         like_sub(): readonly any[];
         Like(): $mol_check_icon;
@@ -3817,9 +3820,8 @@ declare namespace $.$$ {
         author(): $hyoo_idea_person;
         author_name(): string;
         person_id(): `${string}_${string}`;
-        likes_total(): string;
-        liked(next?: boolean): boolean;
         like_sub(): ($mol_paragraph | $mol_icon_lightbulb_on)[];
+        likes(): string;
     }
 }
 

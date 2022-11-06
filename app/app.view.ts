@@ -1,6 +1,6 @@
 namespace $.$$ {
 
-	type Sections = 'feed' | 'person' | 'projects' | 'settings'
+	type Sections = 'feed' | 'person' | 'projects' | 'search'
 
 	export class $hyoo_idea_app extends $.$hyoo_idea_app {
 
@@ -34,6 +34,7 @@ namespace $.$$ {
 				... this.section() === 'feed' ? [this.Feed()] : [],
 				... this.section() === 'person' ? [this.My_page()] : [],
 				... this.section() === 'projects' ? [this.Project_list()] : [],
+				... this.section() === 'search' ? [this.Search_page()] : [],
 				... this.person_opened() ? [this.Person_page()] : [],
 				... this.project_opened() ? [this.Project_page()] : [],
 				... this.invite_opened() ? [this.Invite_page()] : [],

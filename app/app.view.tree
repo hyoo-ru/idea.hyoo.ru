@@ -2,8 +2,6 @@ $hyoo_idea_app $mol_book2
 	domain $hyoo_idea_domain
 		yard => yard
 		user => user
-	- plugins /
-		<= Theme $mol_theme_auto
 	Online $hyoo_sync_online
 		yard <= yard
 	pages /
@@ -12,7 +10,6 @@ $hyoo_idea_app $mol_book2
 			tools /
 				<= Source $mol_link_source
 					uri \https://github.com/hyoo-ru/idea.hyoo.ru
-				- <= Lights $mol_lights_toggle
 			body /
 				<= Links $mol_list
 					rows /
@@ -25,9 +22,9 @@ $hyoo_idea_app $mol_book2
 						<= Projects_link $mol_link
 							arg * section \projects
 							title @ \Projects
-						<= Settings_link $mol_link
-							arg * section \settings
-							title @ \Settings
+						<= Search_link $mol_link
+							arg * section \search
+							title @ \Search
 		<= Sign_up $hyoo_idea_sign_up_page
 			person <= user
 		<= Feed $hyoo_idea_feed_page
@@ -41,5 +38,7 @@ $hyoo_idea_app $mol_book2
 		<= My_page $hyoo_idea_person_page
 			person <= user
 		<= Invite_page $hyoo_idea_invite_page
+			domain <= domain
+		<= Search_page $hyoo_idea_search_page
 			domain <= domain
 	Placeholder null

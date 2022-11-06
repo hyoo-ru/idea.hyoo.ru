@@ -19702,9 +19702,9 @@ var $;
                 return next;
             return false;
         }
-        Edit_button() {
+        Edit() {
             const obj = new this.$.$mol_check_icon();
-            obj.hint = () => this.$.$mol_locale.text('$hyoo_idea_person_page_Edit_button_hint');
+            obj.hint = () => this.$.$mol_locale.text('$hyoo_idea_person_page_Edit_hint');
             obj.Icon = () => this.Edit_icon();
             obj.checked = (next) => this.editing(next);
             return obj;
@@ -19727,7 +19727,7 @@ var $;
         Main_tools() {
             const obj = new this.$.$mol_view();
             obj.sub = () => [
-                this.Edit_button(),
+                this.Edit(),
                 this.Close()
             ];
             return obj;
@@ -20121,7 +20121,7 @@ var $;
     ], $hyoo_idea_person_page.prototype, "editing", null);
     __decorate([
         $mol_mem
-    ], $hyoo_idea_person_page.prototype, "Edit_button", null);
+    ], $hyoo_idea_person_page.prototype, "Edit", null);
     __decorate([
         $mol_mem
     ], $hyoo_idea_person_page.prototype, "Close_icon", null);
@@ -20323,6 +20323,12 @@ var $;
             opacity: 0.8,
         };
         $mol_style_define($.$hyoo_idea_person_page, {
+            Title: {
+                flex: {
+                    wrap: 'nowrap',
+                    grow: 1,
+                },
+            },
             flex: {
                 basis: rem(40),
                 shrink: 0,
@@ -20436,10 +20442,8 @@ var $;
             self() {
                 return this.person().id() === this.domain().user().id();
             }
-            tools() {
-                return [
-                    ...this.self() ? [this.Edit_button()] : [],
-                ];
+            Edit() {
+                return this.self() ? super.Edit() : null;
             }
             body() {
                 return this.self() && this.editing() ? [this.Edit_form()] : super.body();
@@ -20477,12 +20481,6 @@ var $;
                     ...this.job_current() !== null ? [this.Position()] : [],
                     ...!!this.person().city() ? [this.Location()] : [],
                     ...this.person().date_birth() !== null ? [this.Age()] : [],
-                ];
-            }
-            neck() {
-                return [
-                    this.Summary(),
-                    ...this.self() === false ? [this.Actions()] : [],
                 ];
             }
             personal() {
@@ -20561,9 +20559,6 @@ var $;
         }
         __decorate([
             $mol_mem
-        ], $hyoo_idea_person_page.prototype, "tools", null);
-        __decorate([
-            $mol_mem
         ], $hyoo_idea_person_page.prototype, "body", null);
         __decorate([
             $mol_mem
@@ -20577,9 +20572,6 @@ var $;
         __decorate([
             $mol_mem
         ], $hyoo_idea_person_page.prototype, "summary_rows", null);
-        __decorate([
-            $mol_mem
-        ], $hyoo_idea_person_page.prototype, "neck", null);
         __decorate([
             $mol_mem
         ], $hyoo_idea_person_page.prototype, "personal", null);

@@ -5126,7 +5126,7 @@ declare namespace $ {
         body(): readonly any[];
         Edit_icon(): $mol_icon_pencil;
         editing(next?: any): boolean;
-        Edit_button(): $mol_check_icon;
+        Edit(): $mol_check_icon;
         Close_icon(): $mol_icon_cross;
         Close(): $$.$mol_link;
         Main_tools(): $mol_view;
@@ -5207,7 +5207,7 @@ declare namespace $.$$ {
 declare namespace $.$$ {
     class $hyoo_idea_person_page extends $.$hyoo_idea_person_page {
         self(): boolean;
-        tools(): $mol_check_icon[];
+        Edit(): any;
         body(): readonly any[];
         project_count(): string;
         post_count(): string;
@@ -5226,7 +5226,6 @@ declare namespace $.$$ {
         location(): string;
         date_birth(next?: $mol_time_moment): $mol_time_moment;
         summary_rows(): ($hyoo_idea_ago | $mol_paragraph)[];
-        neck(): $mol_view[];
         personal(): $hyoo_idea_profile_block[];
         contacts_content(): $mol_view[];
         jobs(): $mol_list[];

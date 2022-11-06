@@ -18944,7 +18944,7 @@ var $;
                 },
             },
             Posts: {
-                Content: {
+                Content_card: {
                     flex: {
                         direction: 'column',
                     },
@@ -20195,7 +20195,7 @@ var $;
             Education_head: list_item_header,
             Education_details: list_item_muted,
             Posts: {
-                Content: {
+                Content_card: {
                     flex: {
                         direction: 'column',
                     },

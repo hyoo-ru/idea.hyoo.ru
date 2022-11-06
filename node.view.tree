@@ -1372,7 +1372,7 @@ $hyoo_idea_profile_stats $mol_view
 
 $hyoo_idea_profile_stat $mol_button_minor
 	sub /
-		<= Content $mol_view sub /
+		<= Content $mol_view sub <= content /
 			<= Count $mol_paragraph title <= count \
 		<= Label $mol_paragraph title <= label \
 
@@ -1464,7 +1464,7 @@ $hyoo_idea_project_page $mol_page
 			content / <= Stats_content $hyoo_idea_profile_stats sub /
 				<= Stage_stat $hyoo_idea_profile_stat
 					label @ \Stage
-					Count <= Stage $hyoo_idea_project_stage stage <= stage
+					content / <= Stage $hyoo_idea_project_stage stage <= stage
 				<= Team_stat $hyoo_idea_profile_stat
 					label @ \Team
 					count <= team_stat \3/5

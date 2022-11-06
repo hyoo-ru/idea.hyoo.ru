@@ -4809,6 +4809,7 @@ declare namespace $ {
         sub(): readonly any[];
         count(): string;
         Count(): $$.$mol_paragraph;
+        content(): readonly any[];
         Content(): $mol_view;
         label(): string;
         Label(): $$.$mol_paragraph;

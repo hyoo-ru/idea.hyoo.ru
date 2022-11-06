@@ -18014,11 +18014,14 @@ var $;
             obj.title = () => this.count();
             return obj;
         }
-        Content() {
-            const obj = new this.$.$mol_view();
-            obj.sub = () => [
+        content() {
+            return [
                 this.Count()
             ];
+        }
+        Content() {
+            const obj = new this.$.$mol_view();
+            obj.sub = () => this.content();
             return obj;
         }
         label() {
@@ -18545,7 +18548,9 @@ var $;
         Stage_stat() {
             const obj = new this.$.$hyoo_idea_profile_stat();
             obj.label = () => this.$.$mol_locale.text('$hyoo_idea_project_page_Stage_stat_label');
-            obj.Count = () => this.Stage();
+            obj.content = () => [
+                this.Stage()
+            ];
             return obj;
         }
         team_stat() {

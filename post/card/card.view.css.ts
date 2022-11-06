@@ -16,6 +16,7 @@ namespace $.$$ {
 		
 		margin: {
 			top: $mol_gap.block,
+			bottom: $mol_gap.block,
 		},
 
 		border: {
@@ -48,6 +49,10 @@ namespace $.$$ {
 
 		Comment_add: {
 			alignItems: 'center',
+			padding: {
+				left: $mol_gap.block,
+				right: $mol_gap.block,
+			}
 		},
 
 		Avatar: {
@@ -57,7 +62,12 @@ namespace $.$$ {
 
 		Comment: {
 			Avatar: {
-				margin: 0,
+				margin: {
+					top: 0,
+					left: rem(0.375),
+					right: rem(0.375),
+					bottom: 0,
+				},
 				alignSelf: 'flex-start',
 			},
 			Actions: {

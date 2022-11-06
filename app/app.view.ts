@@ -9,8 +9,8 @@ namespace $.$$ {
 		}
 
 		person_opened() {
-			const id = this.$.$mol_state_arg.value('person')
-			return this.domain().person( this.$.$mol_state_arg.value('person') as $mol_int62_string ?? this.user().id() )
+			const id = $mol_int62_string_ensure( this.$.$mol_state_arg.value('person') )
+			return id ? this.domain().person( id ) : null as unknown as $hyoo_idea_person
 		}
 
 		signup_opened() {
@@ -22,22 +22,21 @@ namespace $.$$ {
 			return id ? this.domain().project( id ) : null as unknown as  $hyoo_idea_project
 		}
 
-		@ $mol_action
-		signup_open() {
-			if (this.user().registered() === false) this.$.$mol_state_arg.value('signup', '')
+		@ $mol_mem
+		invite_opened() {
+			return ['invite_person', 'invite_project'].some( val => !!this.$.$mol_state_arg.value( val ) )
 		}
 
 		@ $mol_mem
 		pages() {
-			// this.signup_open()
-			// if (this.signup_opened()) return [this.Sign_up()]
-
 			return [
 				this.Menu(),
 				... this.section() === 'feed' ? [this.Feed()] : [],
-				... this.section() === 'person' ? [this.Person_page()] : [],
+				... this.section() === 'person' ? [this.My_page()] : [],
 				... this.section() === 'projects' ? [this.Project_list()] : [],
+				... this.person_opened() ? [this.Person_page()] : [],
 				... this.project_opened() ? [this.Project_page()] : [],
+				... this.invite_opened() ? [this.Invite_page()] : [],
 			]
 		}
 

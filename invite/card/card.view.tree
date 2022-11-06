@@ -1,0 +1,7 @@
+$hyoo_idea_invite_card $mol_view
+	invite $hyoo_idea_invite
+	sub /
+		<= Project_card $hyoo_idea_project_card
+			project <= project $hyoo_idea_project
+
+

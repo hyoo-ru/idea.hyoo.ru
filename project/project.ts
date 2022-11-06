@@ -10,6 +10,10 @@ namespace $ {
 			return this.domain().person( $mol_int62_string_ensure(id)! )
 		}
 
+		owner( next?: $hyoo_idea_person ) {
+			return this.person( next )
+		}
+
 		@ $mol_mem
 		logo_node() {
 			return this.state().yoke( 'logo', $hyoo_crowd_blob )!
@@ -73,10 +77,24 @@ namespace $ {
 		}
 
 		@ $mol_mem
-		team_invites( next?: $hyoo_idea_invite[] ) {
-			const ids = this.state().sub( 'team_invites', $hyoo_crowd_list ).list( next && next.map( obj => obj.id() ) )
-			return ids.map( id => this.domain().invite( $mol_int62_string_ensure(id)! ) )
+		team_members() {
+			return [...this.team(), this.owner()].filter( obj => obj.projects_node().has( this.id() ) )
 		}
+
+		@ $mol_mem
+		team_requests() {
+			return this.domain().persons().list().filter( obj =>
+				obj.projects_node().has( this.id() )
+				&& !this.team_node().has( obj.id() )
+				&& obj.id() !== this.owner().id()
+			)
+		}
+
+		@ $mol_mem
+		team_invites() {
+			return this.team().filter( obj => !obj.projects_node().has( this.id() ) )
+		}
+
 	}
 
 }

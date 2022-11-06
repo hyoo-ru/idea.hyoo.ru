@@ -2,6 +2,7 @@ $hyoo_idea_project_page $mol_page
 	auto /
 		<= message_listener null
 	project $hyoo_idea_project
+		id => id
 		domain => domain
 		logo => logo
 		name => name
@@ -34,3 +35,9 @@ $hyoo_idea_project_page $mol_page
 					<= Project_logo $mol_image2 links / <= logo
 					<= Name $mol_paragraph title <= name
 		<= Stage $hyoo_idea_project_stage stage \idea
+		<= Join_request $mol_button_minor
+			title @ \Request to join
+			click? <=> join_request? null
+		<= Join_cancel $mol_button_minor
+			title @ \Cancel request
+			click? <=> join_cancel? null

@@ -1,8 +1,10 @@
 namespace $.$$ {
 
+	const { rem } = $mol_style_unit
+
 	$mol_style_define( $.$hyoo_idea_person_card, {
 
-		alignItems: 'flex-start',
+		alignItems: 'center',
 
 		Actions: {
 			margin: {
@@ -15,6 +17,11 @@ namespace $.$$ {
 			padding: 0,
 		},
 
+		Avatar: {
+			width: rem(3),
+			height: rem(3),
+		},
+		
 	} )
 
 }

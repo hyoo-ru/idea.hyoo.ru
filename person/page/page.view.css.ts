@@ -98,6 +98,7 @@ namespace $.$$ {
 
 		Neck: {
 			alignItems: 'center',
+			zIndex: 1,
 		},
 
 		Stats: {

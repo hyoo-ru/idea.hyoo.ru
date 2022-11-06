@@ -9,12 +9,21 @@ $hyoo_idea_project_list $mol_page
 			sub / <= Add_icon $mol_icon_plus
 			click? <=> add? null
 	body /
-		<= Projects $mol_list rows <= project_rows /
-			<= Empty $mol_view sub <= empty /
-				<= empty_title @ \There's nothing here yet.
-				<= Empty_add $mol_button_minor
-					minimal_height 24
-					title @ \Create project.
-					click? <=> add?
-			<= Card*0_0 $hyoo_idea_project_card
-				project <= project* $hyoo_idea_project
+		<= Deck $mol_deck items /
+			<= Projects $mol_list
+				title @ \Projects
+				rows <= project_rows /
+					<= Empty $mol_view sub <= empty /
+						<= empty_title @ \There's nothing here yet.
+						<= Empty_add $mol_button_minor
+							minimal_height 24
+							title @ \Create project.
+							click? <=> add?
+					<= Card*0_0 $hyoo_idea_project_card
+						project <= project* $hyoo_idea_project
+			- <= Invites $mol_list
+				title @ \Invites
+				rows <= invite_rows /
+					<= Invites_emtpy $mol_view sub / <= empty_title
+					<= Invite_card*0_0 $hyoo_ieda_invite_card
+						invite <= invite* $hyoo_idea_invite

@@ -13,6 +13,12 @@ namespace $.$$ {
 			padding: $mol_gap.block,
 		},
 
+		Post: {
+			margin: {
+				top: 0,
+			},
+		},
+
 	} )
 
 }

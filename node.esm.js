@@ -18174,17 +18174,27 @@ var $;
 (function ($) {
     class $hyoo_idea_profile_block extends $mol_expander {
         Content() {
-            const obj = new this.$.$mol_card();
-            obj.sub = () => this.content();
+            const obj = new this.$.$mol_list();
+            obj.rows = () => [
+                this.Content_card()
+            ];
             return obj;
         }
         content() {
             return [];
         }
+        Content_card() {
+            const obj = new this.$.$mol_card();
+            obj.sub = () => this.content();
+            return obj;
+        }
     }
     __decorate([
         $mol_mem
     ], $hyoo_idea_profile_block.prototype, "Content", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_idea_profile_block.prototype, "Content_card", null);
     $.$hyoo_idea_profile_block = $hyoo_idea_profile_block;
 })($ || ($ = {}));
 //hyoo/idea/profile/block/-view.tree/block.view.tree.ts
@@ -19309,13 +19319,6 @@ var $;
                     left: $mol_gap.space,
                 },
                 display: 'inline-flex',
-            },
-            Deck: {
-                Switch: {
-                    margin: {
-                        bottom: $mol_gap.block,
-                    },
-                },
             },
         });
     })($$ = $.$$ || ($.$$ = {}));
@@ -20754,7 +20757,7 @@ var $;
         Close() {
             const obj = new this.$.$mol_link();
             obj.arg = () => ({
-                search: null
+                section: null
             });
             obj.sub = () => [
                 this.Close_icon()

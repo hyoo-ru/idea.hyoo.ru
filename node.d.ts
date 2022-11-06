@@ -4845,8 +4845,9 @@ declare namespace $.$$ {
 
 declare namespace $ {
     class $hyoo_idea_profile_block extends $mol_expander {
-        Content(): $$.$mol_card;
+        Content(): $$.$mol_list;
         content(): readonly any[];
+        Content_card(): $$.$mol_card;
     }
 }
 
@@ -4978,7 +4979,7 @@ declare namespace $.$$ {
     class $hyoo_idea_project_page extends $.$hyoo_idea_project_page {
         self(): boolean;
         editing(): boolean;
-        Edit(): $mol_link | null;
+        Edit(): $mol_link;
         body(): readonly any[];
         slides(): string;
         slides_content(): string;

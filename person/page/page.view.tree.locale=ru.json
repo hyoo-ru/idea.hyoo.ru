@@ -1,0 +1,21 @@
+{
+	"$hyoo_idea_person_page_title": "Страница пользователя",
+	"$hyoo_idea_person_page_msg_job_present": "По текущее время",
+	"$hyoo_idea_person_page_Edit_hint": "Редактировать",
+	"$hyoo_idea_person_page_Invite_button_title": "Пригласить в команду",
+	"$hyoo_idea_person_page_position": "{position} в {company}",
+	"$hyoo_idea_person_page_location": "{city}",
+	"$hyoo_idea_person_page_Age_title": "{count} {unit}",
+	"$hyoo_idea_person_page_Project_count_label": "Проекты",
+	"$hyoo_idea_person_page_Post_count_label": "Записи",
+	"$hyoo_idea_person_page_Pub_count_label": "Подписки",
+	"$hyoo_idea_person_page_Sub_count_label": "Подписчики",
+	"$hyoo_idea_person_page_About_title": "Обо мне",
+	"$hyoo_idea_person_page_Phone_label_title": "Телефон",
+	"$hyoo_idea_person_page_Email_label_title": "Почта",
+	"$hyoo_idea_person_page_Contacts_title": "Контакты",
+	"$hyoo_idea_person_page_Jobs_title": "Опыт работы",
+	"$hyoo_idea_person_page_Education_title": "Образование",
+	"$hyoo_idea_person_page_Projects_block_title": "Проекты",
+	"$hyoo_idea_person_page_Posts_title": "Записи"
+}

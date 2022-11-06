@@ -1,0 +1,13 @@
+{
+	"$hyoo_idea_invite_page_title": "Отправить приглашение",
+	"$hyoo_idea_invite_page_status_sended": "Уже отправлено",
+	"$hyoo_idea_invite_page_status_joined": "Пользователь уже в команде",
+	"$hyoo_idea_invite_page_status_none": "Отсутствует",
+	"$hyoo_idea_invite_page_Project_select_field_name": "Выберите проект",
+	"$hyoo_idea_invite_page_Project_field_name": "Проект",
+	"$hyoo_idea_invite_page_Person_select_field_name": "Выберите пользователя",
+	"$hyoo_idea_invite_page_Person_field_name": "Пользователь",
+	"$hyoo_idea_invite_page_Status_field_name": "Статус",
+	"$hyoo_idea_invite_page_Submit_title": "Отправить",
+	"$hyoo_idea_invite_page_Close_title": "Закрыть"
+}

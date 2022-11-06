@@ -5328,7 +5328,7 @@ var $;
             return this.person(this.yard().peer().id);
         }
         persons() {
-            const land = 'prc5a5_vem6li';
+            const land = 'gb7rkc_ax8uev';
             return $hyoo_idea_persons.make({ id: $mol_const(land), domain: $mol_const(this) });
         }
         person(id) {

@@ -9512,6 +9512,18 @@ var $;
 "use strict";
 var $;
 (function ($) {
+    class $mol_icon_cross extends $mol_icon {
+        path() {
+            return "M19 6.41L17.59 5L12 10.59L6.41 5L5 6.41L10.59 12L5 17.59L6.41 19L12 13.41L17.59 19L19 17.59L13.41 12L19 6.41Z";
+        }
+    }
+    $.$mol_icon_cross = $mol_icon_cross;
+})($ || ($ = {}));
+//mol/icon/cross/-view.tree/cross.view.tree.ts
+;
+"use strict";
+var $;
+(function ($) {
     class $hyoo_idea_plural extends $mol_object2 {
         other() {
             return this.$.$mol_locale.text('$hyoo_idea_plural_other');
@@ -13225,10 +13237,29 @@ var $;
         title() {
             return this.$.$mol_locale.text('$hyoo_idea_feed_page_title');
         }
+        tools() {
+            return [
+                this.Close()
+            ];
+        }
         body() {
             return [
                 this.Posts()
             ];
+        }
+        Close_icon() {
+            const obj = new this.$.$mol_icon_cross();
+            return obj;
+        }
+        Close() {
+            const obj = new this.$.$mol_link();
+            obj.arg = () => ({
+                section: null
+            });
+            obj.sub = () => [
+                this.Close_icon()
+            ];
+            return obj;
         }
         post(id) {
             const obj = new this.$.$hyoo_idea_post();
@@ -13253,6 +13284,12 @@ var $;
     __decorate([
         $mol_mem
     ], $hyoo_idea_feed_page.prototype, "person", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_idea_feed_page.prototype, "Close_icon", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_idea_feed_page.prototype, "Close", null);
     __decorate([
         $mol_mem_key
     ], $hyoo_idea_feed_page.prototype, "post", null);
@@ -13490,18 +13527,6 @@ var $;
     })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));
 //mol/button/open/open.view.ts
-;
-"use strict";
-var $;
-(function ($) {
-    class $mol_icon_cross extends $mol_icon {
-        path() {
-            return "M19 6.41L17.59 5L12 10.59L6.41 5L5 6.41L10.59 12L5 17.59L6.41 19L12 13.41L17.59 19L19 17.59L13.41 12L19 6.41Z";
-        }
-    }
-    $.$mol_icon_cross = $mol_icon_cross;
-})($ || ($ = {}));
-//mol/icon/cross/-view.tree/cross.view.tree.ts
 ;
 "use strict";
 var $;

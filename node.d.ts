@@ -2749,6 +2749,12 @@ declare namespace $.$$ {
 }
 
 declare namespace $ {
+    class $mol_icon_cross extends $mol_icon {
+        path(): string;
+    }
+}
+
+declare namespace $ {
     class $hyoo_idea_plural extends $mol_object2 {
         other(): string;
         one(): string;
@@ -3821,7 +3827,10 @@ declare namespace $ {
     class $hyoo_idea_feed_page extends $mol_page {
         person(): $hyoo_idea_person;
         title(): string;
+        tools(): readonly any[];
         body(): readonly any[];
+        Close_icon(): $mol_icon_cross;
+        Close(): $$.$mol_link;
         post(id: any): $hyoo_idea_post;
         Post(id: any): $$.$hyoo_idea_post_card;
         posts(): readonly any[];
@@ -3903,12 +3912,6 @@ declare namespace $.$$ {
     class $mol_button_open_native extends $.$mol_button_open_native {
         dom_node(): HTMLInputElement;
         picked(): void;
-    }
-}
-
-declare namespace $ {
-    class $mol_icon_cross extends $mol_icon {
-        path(): string;
     }
 }
 

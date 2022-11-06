@@ -283,6 +283,8 @@ $hyoo_idea_sign_up_page $mol_page
 					click? <=> signup? null
 					enabled <= signup_allowed
 
+$mol_icon_cross $mol_icon path \M19 6.41L17.59 5L12 10.59L6.41 5L5 6.41L10.59 12L5 17.59L6.41 19L12 13.41L17.59 19L19 17.59L13.41 12L19 6.41Z
+
 $hyoo_idea_plural $mol_object2
 	other @ \
 	one @ \
@@ -757,6 +759,10 @@ $hyoo_idea_post_card $mol_list
 $hyoo_idea_feed_page $mol_page
 	person $hyoo_idea_person
 	title @ \Feed
+	tools /
+		<= Close $mol_link
+			arg * section null
+			sub / <= Close_icon $mol_icon_cross
 	body /
 		<= Posts $mol_list
 			rows <= posts /
@@ -792,8 +798,6 @@ $mol_button_open_native $mol_view
 		multiple <= multiple true
 	event *
 		change?next <=> picked?next null
-
-$mol_icon_cross $mol_icon path \M19 6.41L17.59 5L12 10.59L6.41 5L5 6.41L10.59 12L5 17.59L6.41 19L12 13.41L17.59 19L19 17.59L13.41 12L19 6.41Z
 
 $mol_textarea $mol_stack
 	attr *

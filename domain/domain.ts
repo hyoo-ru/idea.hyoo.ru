@@ -18,7 +18,7 @@ namespace $ {
 
 		@ $mol_mem
 		persons() {
-			const land = 'gb7rkc_ax8uev' as $mol_int62_string
+			const land = '9ap4sd_hgpblf' as $mol_int62_string
 			return $hyoo_idea_persons.make({ id: $mol_const(land), domain: $mol_const(this) })
 		}
 		

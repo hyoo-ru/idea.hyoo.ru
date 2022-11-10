@@ -3145,7 +3145,7 @@ var $;
 //mol/book2/book2.view.ts
 ;
 "use strict";
-let $hyoo_sync_revision = "1560a1c";
+let $hyoo_sync_revision = "2cb9575";
 //hyoo/sync/-meta.tree/revision.meta.tree.ts
 ;
 "use strict";
@@ -5342,7 +5342,7 @@ var $;
             return this.person(this.yard().peer().id);
         }
         persons() {
-            const land = 'gb7rkc_ax8uev';
+            const land = '9ap4sd_hgpblf';
             return $hyoo_idea_persons.make({ id: $mol_const(land), domain: $mol_const(this) });
         }
         person(id) {

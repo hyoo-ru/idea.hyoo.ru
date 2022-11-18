@@ -12,9 +12,18 @@ namespace $.$$ {
 
 		Menu: {
 			flex: {
-				basis: rem(15),
+				basis: rem(20),
 				shrink: 0,
 			},
+		},
+		
+		Logo: {
+			width: rem(3),
+			height: rem(3),
+		},
+		
+		Descr: {
+			color: $mol_theme.shade,
 		},
 		
 		Links: {

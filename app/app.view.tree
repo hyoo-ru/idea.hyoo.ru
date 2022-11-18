@@ -2,16 +2,24 @@ $hyoo_idea_app $mol_book2
 	domain $hyoo_idea_domain
 		yard => yard
 		user => user
-	Online $hyoo_sync_online
-		yard <= yard
+	plugins /
+		<= Theme $mol_theme_auto
 	pages /
 		<= Menu $mol_page
-			title @ \$hyoo_idea
-			tools /
+			title_content /
+				<= Logo $mol_image
+					uri \/hyoo/idea/logo/logo.svg
+				<= Label $mol_list rows /
+					<= Title $mol_paragraph
+						title <= menu_title \$hyoo_idea
+					<= Descr $mol_paragraph
+						title <= descr @ \Fresh Ideas Network
+			foot /
+				<= Online $hyoo_sync_online
+					yard <= yard
+				<= Lights $mol_lights_toggle
 				<= Source $mol_link_source
 					uri \https://github.com/hyoo-ru/idea.hyoo.ru
-			Title <= Menu_title $mol_view sub /
-				<= Title_image $mol_image uri \/hyoo/idea/logo/logo_hor.png
 			body /
 				<= Links $mol_list
 					rows <= links /

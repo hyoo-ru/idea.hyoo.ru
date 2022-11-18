@@ -41,11 +41,11 @@ namespace $.$$ {
 			}
 		},
 
-		Comment: {
-			Actions: {
-				alignSelf: 'flex-start',
-			},
-		},
+		// Comment: {
+		// 	Actions: {
+		// 		alignSelf: 'flex-start',
+		// 	},
+		// },
 
 		Comment_ago: {
 			opacity: 0.8,

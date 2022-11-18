@@ -76,15 +76,6 @@ namespace $.$$ {
 		}
 
 		@ $mol_mem
-		personal() {
-			return [
-				... !!this.about() ? [this.About()] : [],
-				... this.jobs().length > 0 ? [this.Jobs()] : [],
-				... this.education().length > 0 ? [this.Education()] : [],
-			]
-		}
-
-		@ $mol_mem
 		contacts_content() {
 			return [
 				... !!this.phone() ? [this.Contacts_phone()] : [],

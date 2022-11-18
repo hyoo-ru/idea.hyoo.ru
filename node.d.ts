@@ -2838,13 +2838,9 @@ declare namespace $.$$ {
 }
 
 declare namespace $ {
-    class $hyoo_idea_person_avatar extends $mol_view {
+    class $hyoo_idea_person_avatar extends $mol_image {
         blob(): any;
         placeholder(): string;
-        sub(): readonly any[];
-        uri(): string;
-        link(): string;
-        Image(): $mol_image;
     }
 }
 
@@ -4974,7 +4970,7 @@ declare namespace $ {
         tools(): readonly any[];
         editing(): boolean;
         Form(): $$.$hyoo_idea_project_form;
-        Title(): $mol_row;
+        Title(): $mol_view;
         body(): readonly any[];
         message_listener(): any;
         slides(): string;
@@ -5136,7 +5132,7 @@ declare namespace $ {
         Edit_form(): $$.$hyoo_idea_person_form;
         Projects(): $$.$mol_list;
         Projet_list(): $$.$hyoo_idea_project_list;
-        Title(): $mol_row;
+        Title(): $mol_view;
         body(): readonly any[];
         Edit_icon(): $mol_icon_pencil;
         editing(next?: any): boolean;

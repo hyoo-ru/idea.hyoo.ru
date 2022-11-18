@@ -9994,33 +9994,14 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    class $hyoo_idea_person_avatar extends $mol_view {
+    class $hyoo_idea_person_avatar extends $mol_image {
         blob() {
             return null;
         }
         placeholder() {
             return "https://robohash.org/${id}.png";
         }
-        sub() {
-            return [
-                this.Image()
-            ];
-        }
-        uri() {
-            return "";
-        }
-        link() {
-            return this.uri();
-        }
-        Image() {
-            const obj = new this.$.$mol_image();
-            obj.uri = () => this.link();
-            return obj;
-        }
     }
-    __decorate([
-        $mol_mem
-    ], $hyoo_idea_person_avatar.prototype, "Image", null);
     $.$hyoo_idea_person_avatar = $hyoo_idea_person_avatar;
 })($ || ($ = {}));
 //hyoo/idea/person/avatar/-view.tree/avatar.view.tree.ts
@@ -10032,16 +10013,8 @@ var $;
     (function ($$) {
         const { per, rem } = $mol_style_unit;
         $mol_style_define($hyoo_idea_person_avatar, {
-            width: rem(5),
-            height: rem(5),
-            justifyContent: 'center',
-            Image: {
-                border: {
-                    radius: per(50),
-                },
-                width: per(100),
-                height: per(100),
-            },
+            width: rem(3),
+            height: rem(3),
         });
     })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));
@@ -13877,20 +13850,8 @@ var $;
             border: {
                 radius: $mol_gap.round,
             },
-            Head: {
-                margin: {
-                    bottom: $mol_gap.block,
-                },
-            },
             Ago: {
-                font: {
-                    size: rem(0.75),
-                },
-            },
-            Foot: {
-                margin: {
-                    top: $mol_gap.block,
-                },
+                color: $mol_theme.shade,
             },
             Share: {
                 margin: {
@@ -17419,13 +17380,7 @@ var $;
 (function ($) {
     var $$;
     (function ($$) {
-        $mol_style_define($.$hyoo_idea_project_logo, {
-            Image: {
-                border: {
-                    radius: 0,
-                },
-            },
-        });
+        $mol_style_define($.$hyoo_idea_project_logo, {});
     })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));
 //hyoo/idea/project/logo/logo.view.css.ts
@@ -18762,7 +18717,7 @@ var $;
             return obj;
         }
         Title() {
-            const obj = new this.$.$mol_row();
+            const obj = new this.$.$mol_view();
             obj.sub = () => [
                 this.Logo(),
                 this.Face_list()
@@ -19153,20 +19108,10 @@ var $;
                 basis: rem(40),
                 shrink: 0,
             },
-            Title: {
-                flex: {
-                    wrap: 'nowrap',
-                    grow: 1,
-                },
-            },
             Face_list: {
                 flex: {
                     shrink: 1,
                 },
-            },
-            Logo: {
-                width: rem(3),
-                height: rem(3),
             },
             Tools: {
                 flex: {
@@ -19175,19 +19120,8 @@ var $;
                 },
                 justifyContent: 'flex-start',
             },
-            Name: {
-                font: {
-                    size: rem(1.5),
-                },
-                margin: {
-                    bottom: rem(0.5),
-                },
-                letter: {
-                    spacing: px(1),
-                },
-            },
             Brief: {
-                opacity: 0.8,
+                color: $mol_theme.shade,
             },
             Stats_block: {
                 Content: {
@@ -19703,7 +19637,7 @@ var $;
             return obj;
         }
         Title() {
-            const obj = new this.$.$mol_row();
+            const obj = new this.$.$mol_view();
             obj.sub = () => [
                 this.Avatar(),
                 this.Face_list()
@@ -20364,23 +20298,8 @@ var $;
                     shrink: 1,
                 },
             },
-            Avatar: {
-                width: rem(7),
-                height: rem(7),
-            },
-            Name: {
-                font: {
-                    size: rem(1.5),
-                },
-                margin: {
-                    bottom: rem(0.5),
-                },
-                letter: {
-                    spacing: px(1),
-                },
-            },
             Status: {
-                opacity: 0.8,
+                color: $mol_theme.shade,
             },
             Tools: {
                 flex: {

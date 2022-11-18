@@ -2,7 +2,7 @@ namespace $.$$ {
 
 	const { rem } = $mol_style_unit
 
-	$mol_style_define( $.$hyoo_idea_project_list, {
+	$mol_style_define( $.$hyoo_idea_projects, {
 
 		flex: {
 			basis: rem(20),
@@ -22,8 +22,8 @@ namespace $.$$ {
 			display: 'inline-flex',
 		},
 		
-		Projects: {
-			padding: $mol_gap.text,
+		Rows: {
+			padding: $mol_gap.block,
 		},
 
 	} )

@@ -42,9 +42,9 @@ $hyoo_idea_person_page $mol_page
 				title @ \Message
 	Edit_form $hyoo_idea_person_form
 		person <= person
-	Projet_list $hyoo_idea_project_list
+	Project_list $hyoo_idea_projects
 		projects <= projects
-		Projects => Projects
+		Rows => Projects
 	Title $mol_view sub /
 		<= Avatar $hyoo_idea_person_avatar blob <= avatar_node
 		<= Face_list $mol_list rows /

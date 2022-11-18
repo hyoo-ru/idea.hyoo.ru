@@ -1,4 +1,4 @@
-$hyoo_idea_project_list $mol_page
+$hyoo_idea_projects $mol_page
 	domain $hyoo_idea_domain
 	projects /$hyoo_idea_project
 	self false
@@ -9,7 +9,7 @@ $hyoo_idea_project_list $mol_page
 			sub / <= Add_icon $mol_icon_plus
 			click? <=> add? null
 	body /
-		<= Projects $mol_list
+		<= Rows $mol_list
 			title @ \Projects
 			rows <= project_rows /
 				<= Empty $mol_view sub <= empty /

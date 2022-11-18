@@ -1,6 +1,6 @@
 namespace $.$$ {
 
-	export class $hyoo_idea_project_list extends $.$hyoo_idea_project_list {
+	export class $hyoo_idea_projects extends $.$hyoo_idea_projects {
 
 		person() {
 			const id = $mol_int62_string_ensure( this.$.$mol_state_arg.value('projects_person') )

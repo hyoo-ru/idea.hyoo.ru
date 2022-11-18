@@ -125,6 +125,12 @@ namespace $.$$ {
 		Education_row: list_item as any,
 		Education_head: list_item_header as any,
 		Education_details: list_item_muted,
+		
+		Project_list: {
+			Rows: {
+				padding: 0,
+			},
+		},
 
 		Posts: {
 			padding: $mol_gap.block,

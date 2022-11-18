@@ -44,7 +44,7 @@ $hyoo_idea_app $mol_book2
 			person <= user
 		<= Project_page $hyoo_idea_project_page
 			project <= project_opened $hyoo_idea_project
-		<= Project_list $hyoo_idea_project_list
+		<= Project_list $hyoo_idea_projects
 			domain <= domain
 		<= Person_page $hyoo_idea_person_page
 			person <= person_opened $hyoo_idea_person

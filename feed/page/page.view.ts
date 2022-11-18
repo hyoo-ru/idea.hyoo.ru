@@ -8,7 +8,7 @@ namespace $.$$ {
 
 		@ $mol_mem
 		posts_all() {
-			return this.domain().persons().list().map( obj => obj.posts() ).flat()
+			return [ ... new Set( this.domain().persons().list().map( obj => obj.posts() ).flat() ) ]
 		}
 
 		@ $mol_mem

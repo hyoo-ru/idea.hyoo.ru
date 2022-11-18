@@ -4739,14 +4739,9 @@ declare namespace $ {
         Name_field(): $$.$mol_form_field;
         Brief_control(): $$.$mol_textarea;
         Brief_field(): $$.$mol_form_field;
-        description_selection(next?: any): readonly number[];
-        Description_control(): $$.$mol_textarea;
-        Description_field(): $$.$mol_form_field;
-        Project(): $$.$mol_form;
         stage_options(): {};
         Stage_control(): $$.$mol_switch;
         Stage_field(): $$.$mol_form_field;
-        Stage(): $$.$mol_form;
         roles_field_name(): string;
         Role_add_icon(): $mol_icon_plus;
         role_add(next?: any): any;
@@ -4770,7 +4765,6 @@ declare namespace $ {
         role_rows(): readonly any[];
         Roles_content(): $$.$mol_list;
         Roles_field(): $$.$mol_form_field;
-        Roles(): $$.$mol_form;
         member(id: any): $hyoo_idea_person;
         member_role(id: any): string;
         Member_role(id: any): $$.$mol_paragraph;
@@ -4796,9 +4790,9 @@ declare namespace $ {
         invites_rows(): readonly any[];
         Invites_content(): $$.$mol_list;
         Invites_field(): $$.$mol_form_field;
-        team_fields(): readonly any[];
-        Team(): $$.$mol_form;
-        Deck(): $$.$mol_deck;
+        description_selection(next?: any): readonly number[];
+        Description_control(): $$.$mol_textarea;
+        Description_field(): $$.$mol_form_field;
     }
 }
 

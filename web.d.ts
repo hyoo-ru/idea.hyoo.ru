@@ -2999,6 +2999,8 @@ declare namespace $ {
         name_sub(): readonly any[];
         Name_sub(): $mol_view;
         Name(): $$.$mol_list;
+        actions(): readonly any[];
+        Actions(): $mol_view;
     }
 }
 
@@ -5253,7 +5255,6 @@ declare namespace $.$$ {
         date_birth(next?: $mol_time_moment): $mol_time_moment;
         summary_rows(): $mol_paragraph[];
         actions(): $mol_link[];
-        personal(): ($mol_text | $hyoo_idea_profile_block)[];
         contacts_content(): $mol_view[];
         phone_uri(): string;
         email_uri(): string;

@@ -10224,7 +10224,8 @@ var $;
         sub() {
             return [
                 this.Avatar(),
-                this.Name()
+                this.Name(),
+                this.Actions()
             ];
         }
         Avatar() {
@@ -10256,6 +10257,14 @@ var $;
             ];
             return obj;
         }
+        actions() {
+            return [];
+        }
+        Actions() {
+            const obj = new this.$.$mol_view();
+            obj.sub = () => this.actions();
+            return obj;
+        }
     }
     __decorate([
         $mol_mem
@@ -10272,6 +10281,9 @@ var $;
     __decorate([
         $mol_mem
     ], $hyoo_idea_person_card.prototype, "Name", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_idea_person_card.prototype, "Actions", null);
     $.$hyoo_idea_person_card = $hyoo_idea_person_card;
 })($ || ($ = {}));
 //hyoo/idea/person/card/-view.tree/card.view.tree.ts
@@ -13383,11 +13395,6 @@ var $;
                     left: $mol_gap.block,
                     right: $mol_gap.block,
                 }
-            },
-            Comment: {
-                Actions: {
-                    alignSelf: 'flex-start',
-                },
             },
             Comment_ago: {
                 opacity: 0.8,
@@ -19448,7 +19455,9 @@ var $;
         body() {
             return [
                 this.Neck(),
-                ...this.personal(),
+                this.About(),
+                this.Jobs(),
+                this.Education(),
                 this.Projects_block(),
                 this.Posts()
             ];
@@ -20096,13 +20105,6 @@ var $;
             actions() {
                 return this.self() ? [] : [this.Invite_button()];
             }
-            personal() {
-                return [
-                    ...!!this.about() ? [this.About()] : [],
-                    ...this.jobs().length > 0 ? [this.Jobs()] : [],
-                    ...this.education().length > 0 ? [this.Education()] : [],
-                ];
-            }
             contacts_content() {
                 return [
                     ...!!this.phone() ? [this.Contacts_phone()] : [],
@@ -20190,9 +20192,6 @@ var $;
         __decorate([
             $mol_mem
         ], $hyoo_idea_person_page.prototype, "summary_rows", null);
-        __decorate([
-            $mol_mem
-        ], $hyoo_idea_person_page.prototype, "personal", null);
         __decorate([
             $mol_mem
         ], $hyoo_idea_person_page.prototype, "contacts_content", null);

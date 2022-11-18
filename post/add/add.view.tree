@@ -2,9 +2,9 @@ $hyoo_idea_post_add $mol_bar
 	submit? null
 	sub /
 		<= Text $mol_textarea
-			hint @ \Write something
+			hint @ \New post..
 			value? <=> text? \
 		<= Submit $mol_button_minor
 			hint @ \Post
 			click? <=> event_submit? null
-			sub / <= Submit_icon $mol_icon_send
+			sub / <= Submit_icon $mol_icon_arrow_down_bold

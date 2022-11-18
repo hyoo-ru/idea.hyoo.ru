@@ -89,44 +89,26 @@ namespace $.$$ {
 			zIndex: 1,
 		},
 
-		Stats: {
-			Content: {
-				padding: 0
-			},
-			flex: {
-				shrink: 0,
-			},
-		},
-
 		Actions: {
 			margin: {
 				left: 'auto',
 			},
 		},
-
-		Personal: {
-			flex: {
-				direction: 'column',
-			},
+		
+		Position: {
+			padding: $mol_gap.text,
 		},
 
-		Contacts: {
-			Content: {
-				flex: {
-					direction: 'column',
-				},
-			},
+		Location: {
+			padding: $mol_gap.text,
+		},
+		
+		About: {
+			padding: $mol_gap.block,
 		},
 
-		Contacts_phone: {
-			justifyContent: 'space-between',
-			margin: {
-				bottom: $mol_gap.block,
-			},
-		},
-
-		Contacts_email: {
-			justifyContent: 'space-between',
+		Projects_block: {
+			padding: $mol_gap.block,
 		},
 
 		Job_functions: {
@@ -145,15 +127,7 @@ namespace $.$$ {
 		Education_details: list_item_muted,
 
 		Posts: {
-			Content_card: {
-				flex: {
-					direction: 'column',
-				},
-				padding: 0,
-				background: {
-					color: 'unset',
-				},
-			},
+			padding: $mol_gap.block,
 		},
 
 	} )

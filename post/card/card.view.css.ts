@@ -41,11 +41,6 @@ namespace $.$$ {
 			}
 		},
 
-		Avatar: {
-			width: rem(2),
-			height: rem(2),
-		},
-
 		Comment: {
 			Actions: {
 				alignSelf: 'flex-start',

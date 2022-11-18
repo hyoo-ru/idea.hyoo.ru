@@ -9,10 +9,6 @@ namespace $.$$ {
 			shrink: 0,
 		},
 		
-		Projects: {
-			padding: $mol_gap.block,
-		},
-
 		Empty: {
 			padding: rem(2),
 			margin: ['auto', 'auto'],

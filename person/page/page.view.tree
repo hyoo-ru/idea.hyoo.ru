@@ -52,39 +52,25 @@ $hyoo_idea_person_page $mol_page
 			<= Status $mol_paragraph title <= status
 	body /
 		<= Neck $mol_row sub <= neck /
-			<= Summary $mol_list rows <= summary_rows /
-				<= Position $mol_paragraph title <= position @ \{position} at {company}
-				<= Location $mol_paragraph title <= location @ \{city}
-				<= Age $hyoo_idea_ago 
-					title @ \{count} {unit}
-					moment <= date_birth $mol_time_moment
-		<= Stats $mol_card
-			sub / <= Stats_person $hyoo_idea_profile_stats sub /
-				<= Project_count $hyoo_idea_profile_stat
-					label @ \Projects
-					count <= project_count \1
-				<= Post_count $hyoo_idea_profile_stat
-					label @ \Posts
-					count <= post_count \2
-				<= Pub_count $hyoo_idea_profile_stat
-					label @ \Subscriptions
-					count <= pub_count \3
-				<= Sub_count $hyoo_idea_profile_stat
-					label @ \Subscribers
-					count <= sub_count \4
-		<= Personal $mol_view sub <= personal /
-			<= About $hyoo_idea_profile_block
-				title @ \About me
-				content / <= about
-			<= Contacts $hyoo_idea_profile_block
-				title @ \Contacts
-				content <= contacts_content /
+			<= Summary $mol_list
+				rows <= summary_rows /
+					<= Position $mol_paragraph
+						title <= position @ \{position} at {company}
+					<= Location $mol_paragraph
+						title <= location @ \{city}
+			<= Contacts $mol_list
+				rows <= contacts_content /
 					<= Contacts_phone $mol_view sub /
-						<= Phone_label $mol_paragraph title @ \Phone
-						<= Phone $mol_paragraph title <= phone
+						<= Phone $mol_link
+							uri <= phone_uri \
+							title <= phone
 					<= Contacts_email $mol_view sub /
-						<= Email_label $mol_paragraph title @ \Email
-						<= Email $mol_paragraph title <= email
+						<= Email $mol_link
+							uri <= email_uri \
+							title <= email
+		^ personal /
+			<= About $mol_text
+				text <= about
 			<= Jobs $hyoo_idea_profile_block
 				title @ \Experience
 				content /
@@ -101,12 +87,11 @@ $hyoo_idea_person_page $mol_page
 						<= Education_row*0 $mol_list rows /
 							<= Education_head* $mol_paragraph title <= education_head* \
 							<= Education_details* $mol_paragraph title <= education_details* \
-		<= Projects_block $hyoo_idea_profile_block
-			title @ \Projects
+		<= Projects_block $mol_section
+			title <= Projects_block_title @ \Projects: {count}
 			content / <= Projects
-		<= Posts $hyoo_idea_profile_block
-			title @ \Posts
-			expanded? <=> posts_expanded? true
+		<= Posts $mol_section
+			title <= Posts_title @ \Posts: {count}
 			content <= posts_content /
 				<= Post_add $hyoo_idea_post_add
 					submit? <=> post_add? null

@@ -11,7 +11,7 @@ $hyoo_idea_person_card $mol_row
 					arg * person <= id
 					title <= name_short
 				<= Name_sub $mol_view sub <= name_sub /
-		<= Actions $mol_view sub <= actions /
+		- <= Actions $mol_view sub <= actions /
 			<= More $mol_pick
 				hint @ \Actions
 				trigger_content / <= More_icon $mol_icon_dots_horizontal

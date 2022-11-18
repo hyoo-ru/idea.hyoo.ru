@@ -39,10 +39,10 @@ $hyoo_idea_post_card $mol_list
 							title @ \{count} {unit} назад
 							moment <= comment_created_moment* $mol_time_moment
 		<= Comment_add $mol_bar sub /
-			<= Avatar $hyoo_idea_person_avatar
+			- <= Avatar $hyoo_idea_person_avatar
 				blob <= avatar_node
 			<= Text $mol_textarea
-				hint @ \Add comment
+				hint @ \New comment..
 				value? <=> comment? \
 			<= Submit $mol_button_minor
 				hint @ \Send comment

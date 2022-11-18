@@ -16,19 +16,27 @@ namespace $.$$ {
 		}
 
 		project_count() {
-			return this.person().projects().length.toString()
+			return this.person().projects().length
+		}
+		
+		Projects_block_title() {
+			return super.Projects_block_title().replace( '{count}', this.project_count().toString() )
 		}
 
 		post_count() {
-			return this.person().posts().length.toString()
+			return this.person().posts().length
+		}
+
+		Posts_title() {
+			return super.Posts_title().replace( '{count}', this.post_count().toString() )
 		}
 
 		sub_count() {
-			return this.person().subs().length.toString()
+			return this.person().subs().length
 		}
 
 		pub_count() {
-			return this.person().pubs().length.toString()
+			return this.person().pubs().length
 		}
 
 		@ $mol_mem
@@ -59,17 +67,9 @@ namespace $.$$ {
 			return [
 				... this.job_current() !== null ? [this.Position()] : [],
 				... !!this.person().city() ? [this.Location()] : [],
-				... this.person().date_birth() !== null ? [this.Age()] : [],
+				// ... this.person().date_birth() !== null ? [this.Age()] : [],
 			]
 		}
-
-		// @ $mol_mem
-		// neck() {
-		// 	return [
-		// 		this.Summary(),
-		// 		... this.self() === false ? [this.Actions()] : [],
-		// 	]
-		// }
 
 		actions() {
 			return this.self() ? [] : [this.Invite_button()]
@@ -79,7 +79,6 @@ namespace $.$$ {
 		personal() {
 			return [
 				... !!this.about() ? [this.About()] : [],
-				... !!this.phone() || !!this.email() ? [this.Contacts()] : [],
 				... this.jobs().length > 0 ? [this.Jobs()] : [],
 				... this.education().length > 0 ? [this.Education()] : [],
 			]
@@ -91,6 +90,14 @@ namespace $.$$ {
 				... !!this.phone() ? [this.Contacts_phone()] : [],
 				... !!this.email() ? [this.Contacts_email()] : [], 
 			]
+		}
+		
+		phone_uri() {
+			return `tel:${ this.phone() }`
+		}
+
+		email_uri() {
+			return `mailto:${ this.email() }`
 		}
 
 		@ $mol_mem

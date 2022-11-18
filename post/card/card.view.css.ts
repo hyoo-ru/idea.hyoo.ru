@@ -23,22 +23,8 @@ namespace $.$$ {
 			radius: $mol_gap.round,
 		},
 
-		Head: {
-			margin: {
-				bottom: $mol_gap.block,
-			},
-		},
-
 		Ago: {
-			font: {
-				size: rem(0.75),
-			},
-		},
-
-		Foot: {
-			margin: {
-				top: $mol_gap.block,
-			},
+			color: $mol_theme.shade,
 		},
 
 		Share: {

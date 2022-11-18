@@ -9,25 +9,12 @@ namespace $.$$ {
 			shrink: 0,
 		},
 
-		Title: {
-			flex: {
-				wrap: 'nowrap',
-				grow: 1,
-			},
-		},
-
 		Face_list: {
 			flex: {
 				shrink: 1,
 			},
 		},
 
-		Logo: {
-			width: rem(3),
-			height: rem(3),
-			// margin: $mol_gap.block,
-		},
-		
 		Tools: {
 			flex: {
 				basis: rem(12),
@@ -36,20 +23,8 @@ namespace $.$$ {
 			justifyContent: 'flex-start',
 		},
 
-		Name: {
-			font: {
-				size: rem(1.5),
-			},
-			margin: {
-				bottom: rem(0.5),
-			},
-			letter: {
-				spacing: px(1),
-			} as any,
-		},
-
 		Brief: {
-			opacity: 0.8,
+			color: $mol_theme.shade,
 		},
 
 		Stats_block: {

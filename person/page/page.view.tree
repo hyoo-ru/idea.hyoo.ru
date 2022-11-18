@@ -45,7 +45,7 @@ $hyoo_idea_person_page $mol_page
 	Projet_list $hyoo_idea_project_list
 		projects <= projects
 		Projects => Projects
-	Title $mol_row sub /
+	Title $mol_view sub /
 		<= Avatar $hyoo_idea_person_avatar blob <= avatar_node
 		<= Face_list $mol_list rows /
 			<= Name $mol_paragraph title <= name_short

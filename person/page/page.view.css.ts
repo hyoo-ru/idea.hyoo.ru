@@ -66,25 +66,8 @@ namespace $.$$ {
 			},
 		},
 
-		Avatar: {
-			width: rem(7),
-			height: rem(7),
-		},
-
-		Name: {
-			font: {
-				size: rem(1.5),
-			},
-			margin: {
-				bottom: rem(0.5),
-			},
-			letter: {
-				spacing: px(1),
-			} as any,
-		},
-
 		Status: {
-			opacity: 0.8,
+			color: $mol_theme.shade,
 		},
 
 		Tools: {

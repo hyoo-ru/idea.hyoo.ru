@@ -56,7 +56,7 @@ $hyoo_idea_project_page $mol_page
 	editing false
 	Form $hyoo_idea_project_form
 		project <= project
-	Title $mol_row sub /
+	Title $mol_view sub /
 		<= Logo $hyoo_idea_project_logo blob <= logo_node
 		<= Face_list $mol_list rows /
 			<= Name $mol_paragraph title <= name

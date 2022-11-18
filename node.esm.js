@@ -19412,6 +19412,9 @@ var $;
             Logo: {
                 width: rem(3),
                 height: rem(3),
+                flex: {
+                    shrink: 0,
+                },
             }
         });
     })($$ = $.$$ || ($.$$ = {}));
@@ -19573,6 +19576,9 @@ var $;
                     left: $mol_gap.space,
                 },
                 display: 'inline-flex',
+            },
+            Projects: {
+                padding: $mol_gap.text,
             },
         });
     })($$ = $.$$ || ($.$$ = {}));

@@ -9,104 +9,91 @@ $hyoo_idea_project_form $mol_form
 		team? => team?
 	role_not_label @ \No role
 	form_fields /
-		<= Deck $mol_deck items /
-			<= Project $mol_form
-				title @ \Project
-				form_fields /
-					<= Logo_field $mol_form_field
-						name @ \Logo
-						control <= Logo_control $mol_row sub /
-							<= Logo $hyoo_idea_project_logo blob <= logo_node
-							<= Logo_upload $mol_button_open
-								files? <=> logo_add? /
-								multiple false
-								accept \image/*
-							<= Logo_drop $mol_button_minor
-								hint @ \Remove logo
-								click? <=> logo_drop? null
-								sub / <= Logo_drop_icon $mol_icon_cross
-					<= Name_field $mol_form_field
-						name @ \Name
-						control <= Name_control $mol_textarea
-							value? <=> name?
-					<= Brief_field $mol_form_field
-						name @ \Brief
-						control <= Brief_control $mol_textarea
-							value? <=> brief?
-					<= Description_field $mol_form_field
-						name @ \Description 
-						control <= Description_control $mol_textarea
-							value? <=> description?
-							selection? <=> description_selection? /number
-			<= Stage $mol_form
-				title @ \Stage
-				form_fields /
-					<= Stage_field $mol_form_field
-						name @ \Stage
-						control <= Stage_control $mol_switch
-							value? <=> stage?
-							options <= stage_options *
-			<= Roles $mol_form
-				title @ \Roles
-				form_fields /
-					<= Roles_field $mol_form_field
-						label /
-							<= roles_field_name @ \Roles
-							<= Role_add $mol_button_minor
-								sub / <= Role_add_icon $mol_icon_plus
-								click? <=> role_add? null
-						Content <= Roles_content $mol_list
-							rows <= role_rows /
-								<= Role_form*0 $mol_list rows /
-									<= Role_head_group* $mol_form_group sub /
-									<= Role_name_field* $mol_form_field
-										name @ \Role name
-										control <= Role_name_control* $mol_string
-											value? <=> role_name*? \
-									<= Role_functions_field* $mol_form_field
-										name @ \Functions
-										control <= Role_functions_control* $mol_textarea
-											value? <=> role_functions*? \
-									<= Role_team_member_field* $mol_form_field
-										name @ \Team member
-										control <= Role_team_member_control* $mol_select
-											value? <=> role_team_member*? \
-											dictionary <= team_member_dict *
-									<= Role_drop_row* $mol_row sub /
-										<= Role_drop* $mol_button_minor
-											sub / <= Role_drop_icon* $mol_icon_delete
-											click? <=> role_drop*? null
-			<= Team $mol_form
-				title @ \Team
-				form_fields <= team_fields /
-					<= Team_field $mol_form_field
-						name @ \Team
-						Content <= Team_content $mol_list rows <= team_rows /
-							<= Team_member*0_0 $hyoo_idea_person_card
-								person <= member* $hyoo_idea_person
-								actions <= team_actions* /
-									<= Member_role* $mol_paragraph title <= member_role* \
-									<= Team_kick* $mol_button_minor
-										hint @ \Remove from team
-										sub / <= Team_kick_icon* $mol_icon_cross
-										click? <=> team_kick*? null
-					<= Requests_field $mol_form_field
-						name @ \Requests
-						Content <= Requests_content $mol_list rows <= requests_rows /
-							<= Request_member*0_0 $hyoo_idea_person_card
-								person <= member*
-								actions /
-									<= Request_accept* $mol_button_minor
-										hint @ \Accept invite
-										sub / <= Request_accept_icon* $mol_icon_check
-										click? <=> request_accept*? null
-					<= Invites_field $mol_form_field
-						name @ \Invites
-						Content <= Invites_content $mol_list rows <= invites_rows /
-							<= Invite_member*0_0 $hyoo_idea_person_card
-								person <= member*
-								actions /
-									<= Invite_cancel* $mol_button_minor
-										hint @ \Cancel invite
-										sub / <= Invite_cancel_icon* $mol_icon_cancel
-										click? <=> invite_cancel*? null
+		<= Logo_field $mol_form_field
+			name @ \Logo
+			control <= Logo_control $mol_row sub /
+				<= Logo $hyoo_idea_project_logo blob <= logo_node
+				<= Logo_upload $mol_button_open
+					files? <=> logo_add? /
+					multiple false
+					accept \image/*
+				<= Logo_drop $mol_button_minor
+					hint @ \Remove logo
+					click? <=> logo_drop? null
+					sub / <= Logo_drop_icon $mol_icon_cross
+		<= Name_field $mol_form_field
+			name @ \Name
+			control <= Name_control $mol_textarea
+				value? <=> name?
+		<= Brief_field $mol_form_field
+			name @ \Brief
+			control <= Brief_control $mol_textarea
+				value? <=> brief?
+		<= Stage_field $mol_form_field
+			name @ \Stage
+			control <= Stage_control $mol_switch
+				value? <=> stage?
+				options <= stage_options *
+		<= Roles_field $mol_form_field
+			label /
+				<= roles_field_name @ \Roles
+				<= Role_add $mol_button_minor
+					sub / <= Role_add_icon $mol_icon_plus
+					click? <=> role_add? null
+			Content <= Roles_content $mol_list
+				rows <= role_rows /
+					<= Role_form*0 $mol_list rows /
+						<= Role_head_group* $mol_form_group sub /
+						<= Role_name_field* $mol_form_field
+							name @ \Role name
+							control <= Role_name_control* $mol_string
+								value? <=> role_name*? \
+						<= Role_functions_field* $mol_form_field
+							name @ \Functions
+							control <= Role_functions_control* $mol_textarea
+								value? <=> role_functions*? \
+						<= Role_team_member_field* $mol_form_field
+							name @ \Team member
+							control <= Role_team_member_control* $mol_select
+								value? <=> role_team_member*? \
+								dictionary <= team_member_dict *
+						<= Role_drop_row* $mol_row sub /
+							<= Role_drop* $mol_button_minor
+								sub / <= Role_drop_icon* $mol_icon_delete
+								click? <=> role_drop*? null
+		<= Team_field $mol_form_field
+			name @ \Team
+			Content <= Team_content $mol_list rows <= team_rows /
+				<= Team_member*0_0 $hyoo_idea_person_card
+					person <= member* $hyoo_idea_person
+					actions <= team_actions* /
+						<= Member_role* $mol_paragraph title <= member_role* \
+						<= Team_kick* $mol_button_minor
+							hint @ \Remove from team
+							sub / <= Team_kick_icon* $mol_icon_cross
+							click? <=> team_kick*? null
+		<= Requests_field $mol_form_field
+			name @ \Requests
+			Content <= Requests_content $mol_list rows <= requests_rows /
+				<= Request_member*0_0 $hyoo_idea_person_card
+					person <= member*
+					actions /
+						<= Request_accept* $mol_button_minor
+							hint @ \Accept invite
+							sub / <= Request_accept_icon* $mol_icon_check
+							click? <=> request_accept*? null
+		<= Invites_field $mol_form_field
+			name @ \Invites
+			Content <= Invites_content $mol_list rows <= invites_rows /
+				<= Invite_member*0_0 $hyoo_idea_person_card
+					person <= member*
+					actions /
+						<= Invite_cancel* $mol_button_minor
+							hint @ \Cancel invite
+							sub / <= Invite_cancel_icon* $mol_icon_cancel
+							click? <=> invite_cancel*? null
+		<= Description_field $mol_form_field
+			name @ \Description 
+			control <= Description_control $mol_textarea
+				value? <=> description?
+				selection? <=> description_selection? /number

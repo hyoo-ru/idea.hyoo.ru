@@ -14101,7 +14101,7 @@ var $;
                 return this.person().domain();
             }
             posts_all() {
-                return this.domain().persons().list().map(obj => obj.posts()).flat();
+                return [...new Set(this.domain().persons().list().map(obj => obj.posts()).flat())];
             }
             posts_sorted() {
                 return this.posts_all().sort((a, b) => b.created_moment().valueOf() - a.created_moment().valueOf());

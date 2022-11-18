@@ -19135,7 +19135,7 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    class $hyoo_idea_project_list extends $mol_page {
+    class $hyoo_idea_projects extends $mol_page {
         domain() {
             const obj = new this.$.$hyoo_idea_domain();
             return obj;
@@ -19147,7 +19147,7 @@ var $;
             return false;
         }
         title() {
-            return this.$.$mol_locale.text('$hyoo_idea_project_list_title');
+            return this.$.$mol_locale.text('$hyoo_idea_projects_title');
         }
         tools() {
             return [
@@ -19156,7 +19156,7 @@ var $;
         }
         body() {
             return [
-                this.Projects()
+                this.Rows()
             ];
         }
         Add_icon() {
@@ -19170,7 +19170,7 @@ var $;
         }
         Add() {
             const obj = new this.$.$mol_button_minor();
-            obj.hint = () => this.$.$mol_locale.text('$hyoo_idea_project_list_Add_hint');
+            obj.hint = () => this.$.$mol_locale.text('$hyoo_idea_projects_Add_hint');
             obj.sub = () => [
                 this.Add_icon()
             ];
@@ -19178,12 +19178,12 @@ var $;
             return obj;
         }
         empty_title() {
-            return this.$.$mol_locale.text('$hyoo_idea_project_list_empty_title');
+            return this.$.$mol_locale.text('$hyoo_idea_projects_empty_title');
         }
         Empty_add() {
             const obj = new this.$.$mol_button_minor();
             obj.minimal_height = () => 24;
-            obj.title = () => this.$.$mol_locale.text('$hyoo_idea_project_list_Empty_add_title');
+            obj.title = () => this.$.$mol_locale.text('$hyoo_idea_projects_Empty_add_title');
             obj.click = (next) => this.add(next);
             return obj;
         }
@@ -19213,43 +19213,43 @@ var $;
                 this.Card("0_0")
             ];
         }
-        Projects() {
+        Rows() {
             const obj = new this.$.$mol_list();
-            obj.title = () => this.$.$mol_locale.text('$hyoo_idea_project_list_Projects_title');
+            obj.title = () => this.$.$mol_locale.text('$hyoo_idea_projects_Rows_title');
             obj.rows = () => this.project_rows();
             return obj;
         }
     }
     __decorate([
         $mol_mem
-    ], $hyoo_idea_project_list.prototype, "domain", null);
+    ], $hyoo_idea_projects.prototype, "domain", null);
     __decorate([
         $mol_mem
-    ], $hyoo_idea_project_list.prototype, "Add_icon", null);
+    ], $hyoo_idea_projects.prototype, "Add_icon", null);
     __decorate([
         $mol_mem
-    ], $hyoo_idea_project_list.prototype, "add", null);
+    ], $hyoo_idea_projects.prototype, "add", null);
     __decorate([
         $mol_mem
-    ], $hyoo_idea_project_list.prototype, "Add", null);
+    ], $hyoo_idea_projects.prototype, "Add", null);
     __decorate([
         $mol_mem
-    ], $hyoo_idea_project_list.prototype, "Empty_add", null);
+    ], $hyoo_idea_projects.prototype, "Empty_add", null);
     __decorate([
         $mol_mem
-    ], $hyoo_idea_project_list.prototype, "Empty", null);
+    ], $hyoo_idea_projects.prototype, "Empty", null);
     __decorate([
         $mol_mem_key
-    ], $hyoo_idea_project_list.prototype, "project", null);
+    ], $hyoo_idea_projects.prototype, "project", null);
     __decorate([
         $mol_mem_key
-    ], $hyoo_idea_project_list.prototype, "Card", null);
+    ], $hyoo_idea_projects.prototype, "Card", null);
     __decorate([
         $mol_mem
-    ], $hyoo_idea_project_list.prototype, "Projects", null);
-    $.$hyoo_idea_project_list = $hyoo_idea_project_list;
+    ], $hyoo_idea_projects.prototype, "Rows", null);
+    $.$hyoo_idea_projects = $hyoo_idea_projects;
 })($ || ($ = {}));
-//hyoo/idea/project/list/-view.tree/list.view.tree.ts
+//hyoo/idea/projects/-view.tree/list.view.tree.ts
 ;
 "use strict";
 var $;
@@ -19257,7 +19257,7 @@ var $;
     var $$;
     (function ($$) {
         const { rem } = $mol_style_unit;
-        $mol_style_define($.$hyoo_idea_project_list, {
+        $mol_style_define($.$hyoo_idea_projects, {
             flex: {
                 basis: rem(20),
                 shrink: 0,
@@ -19273,20 +19273,20 @@ var $;
                 },
                 display: 'inline-flex',
             },
-            Projects: {
-                padding: $mol_gap.text,
+            Rows: {
+                padding: $mol_gap.block,
             },
         });
     })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));
-//hyoo/idea/project/list/list.view.css.ts
+//hyoo/idea/projects/list.view.css.ts
 ;
 "use strict";
 var $;
 (function ($) {
     var $$;
     (function ($$) {
-        class $hyoo_idea_project_list extends $.$hyoo_idea_project_list {
+        class $hyoo_idea_projects extends $.$hyoo_idea_projects {
             person() {
                 const id = $mol_int62_string_ensure(this.$.$mol_state_arg.value('projects_person'));
                 return id ? this.domain().person(id) : this.domain().user();
@@ -19321,10 +19321,10 @@ var $;
                 this.domain().user().project_add(obj);
             }
         }
-        $$.$hyoo_idea_project_list = $hyoo_idea_project_list;
+        $$.$hyoo_idea_projects = $hyoo_idea_projects;
     })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));
-//hyoo/idea/project/list/list.view.ts
+//hyoo/idea/projects/list.view.ts
 ;
 "use strict";
 var $;
@@ -19430,10 +19430,10 @@ var $;
             return obj;
         }
         Projects() {
-            return this.Projet_list().Projects();
+            return this.Project_list().Rows();
         }
-        Projet_list() {
-            const obj = new this.$.$hyoo_idea_project_list();
+        Project_list() {
+            const obj = new this.$.$hyoo_idea_projects();
             obj.projects = () => this.projects();
             return obj;
         }
@@ -19785,7 +19785,7 @@ var $;
     ], $hyoo_idea_person_page.prototype, "Edit_form", null);
     __decorate([
         $mol_mem
-    ], $hyoo_idea_person_page.prototype, "Projet_list", null);
+    ], $hyoo_idea_person_page.prototype, "Project_list", null);
     __decorate([
         $mol_mem
     ], $hyoo_idea_person_page.prototype, "Title", null);
@@ -20025,6 +20025,11 @@ var $;
             Education_row: list_item,
             Education_head: list_item_header,
             Education_details: list_item_muted,
+            Project_list: {
+                Rows: {
+                    padding: 0,
+                },
+            },
             Posts: {
                 padding: $mol_gap.block,
             },
@@ -20904,7 +20909,7 @@ var $;
             return obj;
         }
         Project_list() {
-            const obj = new this.$.$hyoo_idea_project_list();
+            const obj = new this.$.$hyoo_idea_projects();
             obj.domain = () => this.domain();
             return obj;
         }

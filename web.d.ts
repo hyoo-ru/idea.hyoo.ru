@@ -5088,7 +5088,7 @@ declare namespace $.$$ {
 }
 
 declare namespace $ {
-    class $hyoo_idea_project_list extends $mol_page {
+    class $hyoo_idea_projects extends $mol_page {
         domain(): $hyoo_idea_domain;
         projects(): readonly $hyoo_idea_project[];
         self(): boolean;
@@ -5105,7 +5105,7 @@ declare namespace $ {
         project(id: any): $hyoo_idea_project;
         Card(id: any): $$.$hyoo_idea_project_card;
         project_rows(): readonly any[];
-        Projects(): $$.$mol_list;
+        Rows(): $$.$mol_list;
     }
 }
 
@@ -5113,7 +5113,7 @@ declare namespace $.$$ {
 }
 
 declare namespace $.$$ {
-    class $hyoo_idea_project_list extends $.$hyoo_idea_project_list {
+    class $hyoo_idea_projects extends $.$hyoo_idea_projects {
         person(): $hyoo_idea_person;
         self(): boolean;
         tools(): $mol_button_minor[];
@@ -5158,7 +5158,7 @@ declare namespace $ {
         tools(): readonly any[];
         Edit_form(): $$.$hyoo_idea_person_form;
         Projects(): $$.$mol_list;
-        Projet_list(): $$.$hyoo_idea_project_list;
+        Project_list(): $$.$hyoo_idea_projects;
         Title(): $mol_view;
         body(): readonly any[];
         Edit_icon(): $mol_icon_pencil;
@@ -5400,7 +5400,7 @@ declare namespace $ {
         Feed(): $$.$hyoo_idea_feed_page;
         project_opened(): $hyoo_idea_project;
         Project_page(): $$.$hyoo_idea_project_page;
-        Project_list(): $$.$hyoo_idea_project_list;
+        Project_list(): $$.$hyoo_idea_projects;
         person_opened(): $hyoo_idea_person;
         Person_page(): $$.$hyoo_idea_person_page;
         My_page(): $$.$hyoo_idea_person_page;
@@ -5420,7 +5420,7 @@ declare namespace $.$$ {
         signup_opened(): boolean;
         project_opened(): $hyoo_idea_project;
         invite_opened(): boolean;
-        pages(): $hyoo_idea_sign_up_page[] | ($mol_page | $hyoo_idea_feed_page | $hyoo_idea_project_page | $hyoo_idea_project_list | $hyoo_idea_person_page | $hyoo_idea_invite_page | $hyoo_idea_search_page)[];
+        pages(): $hyoo_idea_sign_up_page[] | ($mol_page | $hyoo_idea_feed_page | $hyoo_idea_project_page | $hyoo_idea_projects | $hyoo_idea_person_page | $hyoo_idea_invite_page | $hyoo_idea_search_page)[];
         sync(): void;
         person_register(): void;
         auto(): void;

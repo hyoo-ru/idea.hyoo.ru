@@ -1551,7 +1551,7 @@ $hyoo_idea_project_card $mol_link
 				title <= project_name \
 			<= Brief $mol_paragraph title <= brief
 
-$hyoo_idea_project_list $mol_page
+$hyoo_idea_projects $mol_page
 	domain $hyoo_idea_domain
 	projects /$hyoo_idea_project
 	self false
@@ -1562,7 +1562,7 @@ $hyoo_idea_project_list $mol_page
 			sub / <= Add_icon $mol_icon_plus
 			click? <=> add? null
 	body /
-		<= Projects $mol_list
+		<= Rows $mol_list
 			title @ \Projects
 			rows <= project_rows /
 				<= Empty $mol_view sub <= empty /
@@ -1625,9 +1625,9 @@ $hyoo_idea_person_page $mol_page
 				title @ \Message
 	Edit_form $hyoo_idea_person_form
 		person <= person
-	Projet_list $hyoo_idea_project_list
+	Project_list $hyoo_idea_projects
 		projects <= projects
-		Projects => Projects
+		Rows => Projects
 	Title $mol_view sub /
 		<= Avatar $hyoo_idea_person_avatar blob <= avatar_node
 		<= Face_list $mol_list rows /
@@ -1801,7 +1801,7 @@ $hyoo_idea_app $mol_book2
 			person <= user
 		<= Project_page $hyoo_idea_project_page
 			project <= project_opened $hyoo_idea_project
-		<= Project_list $hyoo_idea_project_list
+		<= Project_list $hyoo_idea_projects
 			domain <= domain
 		<= Person_page $hyoo_idea_person_page
 			person <= person_opened $hyoo_idea_person

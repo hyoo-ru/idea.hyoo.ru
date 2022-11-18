@@ -21,6 +21,10 @@ namespace $.$$ {
 			},
 			display: 'inline-flex',
 		},
+		
+		Projects: {
+			padding: $mol_gap.text,
+		},
 
 	} )
 

@@ -24,6 +24,9 @@ namespace $.$$ {
 		Logo: {
 			width: rem(3),
 			height: rem(3),
+			flex: {
+				shrink: 0,
+			},
 		}
 
 	} )

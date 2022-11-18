@@ -20690,7 +20690,10 @@ var $;
             flex: {
                 basis: rem(40),
                 shrink: 0,
-            }
+            },
+            Search_list: {
+                padding: $mol_gap.block,
+            },
         });
     })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));
@@ -20715,8 +20718,10 @@ var $;
                 return this.persons().map(obj => this.Person_row(obj));
             }
             projects() {
-                return this.domain().persons().list()
-                    .map(obj => obj.projects()).flat();
+                const projects = this.domain().persons().list()
+                    .map(person => person.projects().filter(project => project.name()))
+                    .flat();
+                return [...new Set(projects)];
             }
             project(obj) {
                 return obj;

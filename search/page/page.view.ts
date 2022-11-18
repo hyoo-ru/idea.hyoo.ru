@@ -18,8 +18,12 @@ namespace $.$$ {
 		}
 
 		projects() {
-			return this.domain().persons().list()
-				.map( obj => obj.projects() ).flat()
+			const projects = this.domain().persons().list()
+				.map(
+					person => person.projects().filter( project => project.name() )
+				)
+				.flat()
+			return [ ... new Set( projects ) ]
 		}
 
 		project( obj: $hyoo_idea_project ) {

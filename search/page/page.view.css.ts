@@ -7,7 +7,7 @@ namespace $.$$ {
 		flex: {
 			basis: rem(40),
 			shrink: 0,
-		}
+		},
 		
 		Search_list: {
 			padding: $mol_gap.block,

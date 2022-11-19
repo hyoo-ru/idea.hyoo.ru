@@ -79,7 +79,7 @@ namespace $.$$ {
 		}
 		
 		Posts_title() {
-			return super.Posts_title().replace( '{count}', this.post_count() )
+			return super.Posts_title().replace( '{count}', this.post_count().toString() )
 		}
 
 		posts_content() {

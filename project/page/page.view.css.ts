@@ -15,14 +15,6 @@ namespace $.$$ {
 			},
 		},
 
-		Tools: {
-			flex: {
-				basis: rem(12),
-				direction: 'row-reverse',
-			},
-			justifyContent: 'flex-start',
-		},
-		
 		Stage: {
 			padding: $mol_gap.block,
 			flex: {
@@ -34,15 +26,6 @@ namespace $.$$ {
 			color: $mol_theme.shade,
 		},
 		
-		Stats_block: {
-			Content: {
-				padding: 0
-			},
-			flex: {
-				shrink: 0,
-			},
-		},
-
 		Description: {
 			padding: $mol_gap.block,
 		},

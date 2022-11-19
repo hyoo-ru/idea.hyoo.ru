@@ -4867,6 +4867,9 @@ declare namespace $ {
 declare namespace $ {
     class $mol_section extends $mol_list {
         rows(): readonly any[];
+        Title(): $$.$mol_paragraph;
+        tools(): readonly any[];
+        Tools(): $mol_view;
         head(): readonly any[];
         Head(): $mol_view;
         content(): readonly any[];
@@ -4939,16 +4942,13 @@ declare namespace $ {
         Edit(): $$.$mol_link;
         Close_icon(): $mol_icon_cross;
         Close(): $$.$mol_link;
-        Main_tools(): $mol_view;
-        Request_button(): $$.$mol_link;
-        actions(): readonly any[];
-        Actions(): $mol_view;
         Logo(): $hyoo_idea_project_logo;
         Name(): $$.$mol_paragraph;
         Brief(): $$.$mol_paragraph;
         Face_list(): $$.$mol_list;
         Stage(): $$.$hyoo_idea_project_stage;
         Description(): $$.$mol_text;
+        Request_button(): $$.$mol_link;
         team_member(id: any): $hyoo_idea_person;
         team_member_role(id: any): string;
         Team_member(id: any): $$.$hyoo_idea_person_card;

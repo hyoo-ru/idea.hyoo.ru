@@ -1389,7 +1389,8 @@ $mol_icon_pencil $mol_icon path \M20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3
 $mol_section $mol_list rows /
 	<= Head $mol_view
 		sub <= head /
-			<= title
+			<= Title $mol_paragraph title <= title
+			<= Tools $mol_view sub <= tools /
 	<= Content $mol_list
 		rows <= content /
 
@@ -1431,38 +1432,17 @@ $hyoo_idea_project_page $mol_page
 	self false
 	team_member_no_role @ \No role
 	tools /
-		<= Main_tools $mol_view sub /
-			<= Slides $mol_link_iconed
-				uri <= slides \https://slides.hyoo.ru/#!slides={source}
-				title \
-			<= Edit $mol_link
-				arg * project_edit \
-				sub / <= Edit_icon $mol_icon_pencil
-			<= Close $mol_link
-				arg *
-					project null
-					project_edit null
-				sub / <= Close_icon $mol_icon_cross
-		<= Actions $mol_view sub <= actions /
-			- <= More $mol_pick
-				hint @ \More...
-				trigger_content / <= More_icon $mol_icon_dots_vertical
-				bubble_content <= more_content /
-					<= More_list $mol_list rows /
-						<= Request_button $mol_link
-							arg *
-								invite_project <= id
-								invite_person <= user_id
-							title @ \Request to join team
-			<= Request_button $mol_link
-				arg *
-					invite_project <= id
-					invite_person <= user_id
-				title @ \Want to join team
-			- <= Subscribe $mol_button_minor
-				title @ \Subscribe
-			- <= Message $mol_button_major
-				title @ \Message
+		<= Slides $mol_link_iconed
+			uri <= slides \https://slides.hyoo.ru/#!slides={source}
+			title \
+		<= Edit $mol_link
+			arg * project_edit \
+			sub / <= Edit_icon $mol_icon_pencil
+		<= Close $mol_link
+			arg *
+				project null
+				project_edit null
+			sub / <= Close_icon $mol_icon_cross
 	editing false
 	Form $hyoo_idea_project_form
 		project <= project
@@ -1475,24 +1455,16 @@ $hyoo_idea_project_page $mol_page
 		<= Stage $hyoo_idea_project_stage
 			enabled false
 			stage <= stage
-		- <= Stats_block $mol_card
-			sub / <= Stats_content $hyoo_idea_profile_stats sub /
-				<= Stage_stat $hyoo_idea_profile_stat
-					label @ \Stage
-					content /
-				- <= Team_stat $hyoo_idea_profile_stat
-					label @ \Team
-					count <= team_stat \3/5
-				- <= Post_count $hyoo_idea_profile_stat
-					label @ \Posts
-					count <= post_count \2
-				- <= Sub_count $hyoo_idea_profile_stat
-					label @ \Subscribers
-					count <= sub_count \4
 		<= Description $mol_text
 			text <= description
 		<= Team $mol_section
 			title @ \Team
+			tools /
+				<= Request_button $mol_link
+					arg *
+						invite_project <= id
+						invite_person <= user_id
+					title @ \Want to join team
 			content / <= Team_list $mol_list rows <= team_member_list /
 				<= Team_member*0_0 $hyoo_idea_person_card
 					person <= team_member* $hyoo_idea_person

@@ -77,11 +77,14 @@ namespace $.$$ {
 			obj.content( text )
 			this.project().post_add( obj , this.domain().user() )
 		}
+		
+		Posts_title() {
+			return super.Posts_title().replace( '{count}', this.post_count() )
+		}
 
 		posts_content() {
 			return [
 				... this.self() ? [this.Post_add()] : [],
-				this.Post_list(),
 			]
 		}
 
@@ -95,7 +98,7 @@ namespace $.$$ {
 		}
 
 		post_count() {
-			return this.project().posts().length.toString()
+			return this.project().posts().length
 		}
 
 		team_member_list() {

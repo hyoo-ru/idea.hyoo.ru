@@ -15,36 +15,36 @@ $hyoo_idea_post_card $mol_list
 				<= Ago $hyoo_idea_ago
 					title @ \{count} {unit} назад
 					moment <= created_moment
+			actions /
 		<= Content $mol_text
 			text <= content
-		<= Foot $mol_row sub /
+		<= Foot $mol_view sub /
+			<= Comments_toggle $mol_check_icon
+				Icon <= Comments_icon $mol_icon_comment_text_multiple
+				label / <= comments_count 0
+				checked? <=> comments_showed? false
 			<= Like $mol_check_icon
+				Icon <= Like_icon $mol_icon_lightbulb_on
+				label / <= likes_count 0
 				checked? <=> liked?
-				sub <= like_sub /
-					<= Like_icon $mol_icon_lightbulb_on
-					<= Like_count $mol_paragraph title <= likes \
-			<= Comments_link $mol_link
-				arg * comments <= id
-				sub /
-					<= Comments_icon $mol_icon_comment_text_multiple
-					<= Comments_count $mol_paragraph title \13
 			<= Share $mol_button_share
-		<= Comments $mol_list rows <= comment_rows /
-			<= Comment*0_0 $hyoo_idea_person_card
-				person <= comment_author* $hyoo_idea_person
-				name_sub /
+				capture <= dom_node
+		<= Comments $mol_list
+			rows <= comment_rows /
+				<= Comment*0_0 $mol_list rows /
+					<= Comment_author* $hyoo_idea_person_card
+						person <= comment_author* $hyoo_idea_person
+						actions /
+							<= Comment_ago* $hyoo_idea_ago
+								title @ \{count} {unit} назад
+								moment <= comment_created_moment* $mol_time_moment
 					<= Name_sub_list* $mol_list rows /
-						<= Comment_text* $mol_paragraph title <= comment_text* \
-						<= Comment_ago* $hyoo_idea_ago
-							title @ \{count} {unit} назад
-							moment <= comment_created_moment* $mol_time_moment
-		<= Comment_add $mol_bar sub /
-			- <= Avatar $hyoo_idea_person_avatar
-				blob <= avatar_node
-			<= Text $mol_textarea
-				hint @ \New comment..
-				value? <=> comment? \
-			<= Submit $mol_button_minor
-				hint @ \Send comment
-				click? <=> comment_add? null
-				sub / <= Submit_icon $mol_icon_send
+						<= Comment_text* $mol_text text <= comment_text* \
+				<= Comment_add $mol_bar sub /
+					<= Text $mol_textarea
+						hint @ \New comment..
+						value? <=> comment? \
+					<= Submit $mol_button_minor
+						hint @ \Send comment
+						click? <=> comment_add? null
+						sub / <= Submit_icon $mol_icon_send

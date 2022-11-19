@@ -22,11 +22,18 @@ namespace $.$$ {
 			},
 			justifyContent: 'flex-start',
 		},
+		
+		Stage: {
+			padding: $mol_gap.block,
+			flex: {
+				grow: 0,
+			},
+		},
 
 		Brief: {
 			color: $mol_theme.shade,
 		},
-
+		
 		Stats_block: {
 			Content: {
 				padding: 0
@@ -36,22 +43,16 @@ namespace $.$$ {
 			},
 		},
 
-		Team_list: {
-			flex: {
-				grow: 1,
-			},
+		Description: {
+			padding: $mol_gap.block,
 		},
 
+		Team: {
+			padding: $mol_gap.block,
+		},
+		
 		Posts: {
-			Content_card: {
-				flex: {
-					direction: 'column',
-				},
-				padding: 0,
-				background: {
-					color: 'unset',
-				},
-			},
+			padding: $mol_gap.block,
 		},
 
 	} )

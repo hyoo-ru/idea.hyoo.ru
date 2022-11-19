@@ -14,16 +14,8 @@ namespace $.$$ {
 			return this.author().id()
 		}
 
-		@ $mol_mem
-		like_sub() {
-			return [
-				this.Like_icon(),
-				... this.likes_total() > 0 ? [this.Like_count()] : [],
-			]
-		}
-
-		likes() {
-			return this.likes_total().toString()
+		likes_count() {
+			return this.likes_total()
 		}
 
 		@ $mol_action
@@ -31,10 +23,19 @@ namespace $.$$ {
 			const text = this.comment(); this.comment('')
 			this.post().comment_add( text, this.post().domain().user() )
 		}
+		
+		@ $mol_mem
+		comments_count() {
+			return this.post().comments().length
+		}
 
 		@ $mol_mem
 		comment_rows() {
-			return this.post().comments().map( obj => this.Comment(obj) )
+			if( !this.comments_showed() ) return []
+			return [
+				... this.post().comments().map( obj => this.Comment(obj) ),
+				this.Comment_add(),
+			]
 		}
 
 		comment_author( obj: $hyoo_idea_post ) {

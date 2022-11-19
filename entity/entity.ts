@@ -23,6 +23,10 @@ namespace $ {
 		state() {
 			return this.land().node( this.head(), $hyoo_crowd_struct )
 		}
+		
+		toJSON() {
+			return this.id()
+		}
 
 	}
 

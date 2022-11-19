@@ -1,11 +1,11 @@
 {
 	"$hyoo_idea_project_page_title": "Проекта",
-	"$hyoo_idea_project_page_team_member_no_role": "Бкз роли",
+	"$hyoo_idea_project_page_team_member_no_role": "Без роли",
 	"$hyoo_idea_project_page_Request_button_title": "Хочу в команду",
 	"$hyoo_idea_project_page_Stage_stat_label": "Стадия",
 	"$hyoo_idea_project_page_Team_stat_label": "Команда",
 	"$hyoo_idea_project_page_Post_count_label": "Записи",
 	"$hyoo_idea_project_page_Team_title": "Команда",
 	"$hyoo_idea_project_page_Description_title": "Описание",
-	"$hyoo_idea_project_page_Posts_title": "Записи"
+	"$hyoo_idea_project_page_Posts_title": "Объявления: {count}"
 }

@@ -1,36 +1,15 @@
 namespace $.$$ {
 
-	const { rem, per } = $mol_style_unit
+	const { rem, per, px } = $mol_style_unit
 
 	$mol_style_define( $.$hyoo_idea_post_card, {
 
 		width: per(100),
 
-		padding: {
-			bottom: $mol_gap.block,
-		},
-
-		background: {
-			color: $mol_theme.card,
-		},
+		padding: $mol_gap.block,
 		
-		margin: {
-			top: $mol_gap.block,
-			bottom: $mol_gap.block,
-		},
-
-		border: {
-			radius: $mol_gap.round,
-		},
-
-		Ago: {
-			color: $mol_theme.shade,
-		},
-
-		Share: {
-			margin: {
-				left: 'auto',
-			},
+		Comment: {
+			margin: $mol_gap.block,
 		},
 
 		Comment_add: {
@@ -40,24 +19,16 @@ namespace $.$$ {
 				right: $mol_gap.block,
 			}
 		},
-
-		// Comment: {
-		// 	Actions: {
-		// 		alignSelf: 'flex-start',
-		// 	},
-		// },
-
+		
 		Comment_ago: {
-			opacity: 0.8,
-			font: {
-				size: rem(0.75),
-			},
+			color: $mol_theme.shade,
+			padding: $mol_gap.block,
 		},
-
-		Comment_text: {
-			padding: {
-				top: $mol_gap.space,
-				bottom: $mol_gap.space,
+		
+		Comment_author: {
+			Avatar: {
+				width: rem(1.5),
+				height: rem(1.5),
 			},
 		},
 

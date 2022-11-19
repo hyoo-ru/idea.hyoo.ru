@@ -9,6 +9,11 @@ $hyoo_idea_project_form $mol_form
 		team? => team?
 	role_not_label @ \No role
 	form_fields /
+		<= Stage_field $mol_form_field
+			name @ \Stage
+			control <= Stage_control $mol_switch
+				value? <=> stage?
+				options <= stage_options *
 		<= Logo_field $mol_form_field
 			name @ \Logo
 			control <= Logo_control $mol_row sub /
@@ -29,11 +34,6 @@ $hyoo_idea_project_form $mol_form
 			name @ \Brief
 			control <= Brief_control $mol_textarea
 				value? <=> brief?
-		<= Stage_field $mol_form_field
-			name @ \Stage
-			control <= Stage_control $mol_switch
-				value? <=> stage?
-				options <= stage_options *
 		<= Roles_field $mol_form_field
 			label /
 				<= roles_field_name @ \Roles

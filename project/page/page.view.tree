@@ -62,40 +62,37 @@ $hyoo_idea_project_page $mol_page
 			<= Name $mol_paragraph title <= name
 			<= Brief $mol_paragraph title <= brief
 	body /
-		<= Stats_block $mol_card
+		<= Stage $hyoo_idea_project_stage
+			enabled false
+			stage <= stage
+		- <= Stats_block $mol_card
 			sub / <= Stats_content $hyoo_idea_profile_stats sub /
 				<= Stage_stat $hyoo_idea_profile_stat
 					label @ \Stage
-					content / <= Stage $hyoo_idea_project_stage stage <= stage
-				<= Team_stat $hyoo_idea_profile_stat
+					content /
+				- <= Team_stat $hyoo_idea_profile_stat
 					label @ \Team
 					count <= team_stat \3/5
-				<= Post_count $hyoo_idea_profile_stat
+				- <= Post_count $hyoo_idea_profile_stat
 					label @ \Posts
 					count <= post_count \2
 				- <= Sub_count $hyoo_idea_profile_stat
 					label @ \Subscribers
 					count <= sub_count \4
-		<= Team $hyoo_idea_profile_block
+		<= Description $mol_text
+			text <= description
+		<= Team $mol_section
 			title @ \Team
-			expanded? <=> team_expanded? true
 			content / <= Team_list $mol_list rows <= team_member_list /
 				<= Team_member*0_0 $hyoo_idea_person_card
 					person <= team_member* $hyoo_idea_person
-					actions /
-						<= Team_member_role* $mol_paragraph title <= team_member_role* \
-		<= Description $hyoo_idea_profile_block
-			title @ \Description
-			expanded? <=> description_expanded? true
-			content / <= Description_text $mol_text
-				text <= description
-		<= Posts $hyoo_idea_profile_block
-			title @ \Posts
-			expanded? <=> posts_expanded? true
+					name_sub / <= team_member_role* \
+		<= Posts $mol_section
+			title <= Posts_title @ \Posts: {count}
 			content <= posts_content /
 				<= Post_add $hyoo_idea_post_add
 					submit? <=> post_add? null
-				<= Post_list $mol_list
-					rows <= post_list /
-						<= Post*0_0 $hyoo_idea_post_card
-							post <= post* $hyoo_idea_post
+		<= Post_list $mol_list
+			rows <= post_list /
+				<= Post*0_0 $hyoo_idea_post_card
+					post <= post* $hyoo_idea_post

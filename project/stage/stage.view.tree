@@ -1,9 +1,8 @@
-$hyoo_idea_project_stage $mol_view
-	stages *
-		idea @ \Idea
-		teambuilding @ \Teambuilding
-		prototyping @ \Prototyping
-		pilot @ \Pilot
-		monetization @ \Monetization
-	stage \idea
-	sub / <= label \
+$hyoo_idea_project_stage $mol_switch
+	options <= stages *
+		idea @ \Idea..
+		proto @ \Prototype..
+		pilot @ \Pilot..
+		product @ \Product!
+	value? <=> stage? \idea
+	- sub / <= label \

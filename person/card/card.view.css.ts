@@ -1,28 +1,27 @@
 namespace $.$$ {
 
-	const { rem } = $mol_style_unit
-
 	$mol_style_define( $.$hyoo_idea_person_card, {
-
-		alignItems: 'center',
-
-		Actions: {
-			margin: {
-				left: 'auto',
-			},
-			alignItems: 'center',
-		},
-
-		Name_link: {
-			display: 'inline-flex',
-			padding: 0,
-		},
-
-		Avatar: {
-			width: rem(3),
-			height: rem(3),
+		
+		flex: {
+			wrap: 'wrap',
 		},
 		
+		Link: {
+			gap: $mol_gap.block,
+			padding: $mol_gap.block,
+			flex: {
+				grow: 1,
+			},
+		},
+
+		Actions: {
+			alignItems: 'flex-start',
+		},
+		
+		Name_sub: {
+			color: $mol_theme.shade,
+		},
+
 	} )
 
 }

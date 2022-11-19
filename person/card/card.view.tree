@@ -1,16 +1,20 @@
-$hyoo_idea_person_card $mol_row
+$hyoo_idea_person_card $mol_view
 	person $hyoo_idea_person
 		id => id
 		name_short => name_short
 		avatar_node => avatar_node
 	sub /
-		<= Avatar $hyoo_idea_person_avatar blob <= avatar_node
-		<= Name $mol_list
-			rows /
-				<= Name_link $mol_link
-					arg * person <= id
-					title <= name_short
-				<= Name_sub $mol_view sub <= name_sub /
+		<= Link $mol_link
+			arg * person <= id
+			sub /
+				<= Avatar $hyoo_idea_person_avatar
+					blob <= avatar_node
+				<= Info $mol_list
+					rows <= info /
+						<= Name $mol_paragraph
+							title <= name_short
+						<= Name_sub $mol_paragraph
+							sub <= name_sub /
 		<= Actions $mol_view sub <= actions /
 			- <= More $mol_pick
 				hint @ \Actions

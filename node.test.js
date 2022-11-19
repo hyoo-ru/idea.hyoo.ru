@@ -8953,6 +8953,9 @@ var $;
         name(next) {
             return this.state().sub('name', $hyoo_crowd_reg).str(next);
         }
+        site(next) {
+            return this.state().sub('site', $hyoo_crowd_reg).str(next);
+        }
         description_node() {
             return this.state().sub('description', $hyoo_crowd_text);
         }
@@ -9023,6 +9026,9 @@ var $;
     __decorate([
         $mol_mem
     ], $hyoo_idea_project.prototype, "name", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_idea_project.prototype, "site", null);
     __decorate([
         $mol_mem
     ], $hyoo_idea_project.prototype, "description_node", null);
@@ -17527,6 +17533,9 @@ var $;
         brief(next) {
             return this.project().brief(next);
         }
+        site(next) {
+            return this.project().site(next);
+        }
         logo_node() {
             return this.project().logo_node();
         }
@@ -17555,6 +17564,7 @@ var $;
                 this.Logo_field(),
                 this.Name_field(),
                 this.Brief_field(),
+                this.Site_field(),
                 this.Roles_field(),
                 this.Team_field(),
                 this.Requests_field(),
@@ -17628,7 +17638,7 @@ var $;
             return obj;
         }
         Name_control() {
-            const obj = new this.$.$mol_textarea();
+            const obj = new this.$.$mol_string();
             obj.value = (next) => this.name(next);
             return obj;
         }
@@ -17639,7 +17649,7 @@ var $;
             return obj;
         }
         Brief_control() {
-            const obj = new this.$.$mol_textarea();
+            const obj = new this.$.$mol_string();
             obj.value = (next) => this.brief(next);
             return obj;
         }
@@ -17647,6 +17657,17 @@ var $;
             const obj = new this.$.$mol_form_field();
             obj.name = () => this.$.$mol_locale.text('$hyoo_idea_project_form_Brief_field_name');
             obj.control = () => this.Brief_control();
+            return obj;
+        }
+        Site_control() {
+            const obj = new this.$.$mol_string();
+            obj.value = (next) => this.site(next);
+            return obj;
+        }
+        Site_field() {
+            const obj = new this.$.$mol_form_field();
+            obj.name = () => this.$.$mol_locale.text('$hyoo_idea_project_form_Site_field_name');
+            obj.control = () => this.Site_control();
             return obj;
         }
         roles_field_name() {
@@ -17985,6 +18006,12 @@ var $;
     __decorate([
         $mol_mem
     ], $hyoo_idea_project_form.prototype, "Brief_field", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_idea_project_form.prototype, "Site_control", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_idea_project_form.prototype, "Site_field", null);
     __decorate([
         $mol_mem
     ], $hyoo_idea_project_form.prototype, "Role_add_icon", null);
@@ -18513,6 +18540,9 @@ var $;
         brief() {
             return this.project().brief();
         }
+        site() {
+            return this.project().site();
+        }
         stage() {
             return this.project().stage();
         }
@@ -18560,8 +18590,7 @@ var $;
         }
         body() {
             return [
-                this.Stage(),
-                this.Description(),
+                this.Main(),
                 this.Team(),
                 this.Posts(),
                 this.Post_list()
@@ -18637,9 +18666,24 @@ var $;
             obj.stage = () => this.stage();
             return obj;
         }
+        Site() {
+            const obj = new this.$.$mol_link_iconed();
+            obj.uri = () => this.site();
+            obj.hint = () => this.$.$mol_locale.text('$hyoo_idea_project_page_Site_hint');
+            return obj;
+        }
         Description() {
             const obj = new this.$.$mol_text();
             obj.text = () => this.description();
+            return obj;
+        }
+        Main() {
+            const obj = new this.$.$mol_list();
+            obj.rows = () => [
+                this.Stage(),
+                this.Site(),
+                this.Description()
+            ];
             return obj;
         }
         Request_button() {
@@ -18772,7 +18816,13 @@ var $;
     ], $hyoo_idea_project_page.prototype, "Stage", null);
     __decorate([
         $mol_mem
+    ], $hyoo_idea_project_page.prototype, "Site", null);
+    __decorate([
+        $mol_mem
     ], $hyoo_idea_project_page.prototype, "Description", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_idea_project_page.prototype, "Main", null);
     __decorate([
         $mol_mem
     ], $hyoo_idea_project_page.prototype, "Request_button", null);
@@ -18826,16 +18876,10 @@ var $;
                     shrink: 1,
                 },
             },
-            Stage: {
-                padding: $mol_gap.block,
-                flex: {
-                    grow: 0,
-                },
-            },
             Brief: {
                 color: $mol_theme.shade,
             },
-            Description: {
+            Main: {
                 padding: $mol_gap.block,
             },
             Team: {

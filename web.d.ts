@@ -2485,6 +2485,7 @@ declare namespace $ {
         logo(): string;
         brief(next?: string): string;
         name(next?: string): string;
+        site(next?: string): string;
         description_node(): $hyoo_crowd_text;
         description(next?: string): string;
         team_node(): $hyoo_crowd_list;
@@ -4739,6 +4740,7 @@ declare namespace $ {
     class $hyoo_idea_project_form extends $mol_form {
         name(next?: any): string;
         brief(next?: any): string;
+        site(next?: any): string;
         logo_node(): $hyoo_crowd_blob;
         description_node(): $hyoo_crowd_text;
         description(next?: any): string;
@@ -4758,10 +4760,12 @@ declare namespace $ {
         Logo_drop(): $mol_button_minor;
         Logo_control(): $mol_row;
         Logo_field(): $$.$mol_form_field;
-        Name_control(): $$.$mol_textarea;
+        Name_control(): $$.$mol_string;
         Name_field(): $$.$mol_form_field;
-        Brief_control(): $$.$mol_textarea;
+        Brief_control(): $$.$mol_string;
         Brief_field(): $$.$mol_form_field;
+        Site_control(): $$.$mol_string;
+        Site_field(): $$.$mol_form_field;
         roles_field_name(): string;
         Role_add_icon(): $mol_icon_plus;
         role_add(next?: any): any;
@@ -4923,6 +4927,7 @@ declare namespace $ {
         logo(): string;
         name(): string;
         brief(): string;
+        site(): string;
         stage(): $hyoo_idea_project_stages;
         description(): string;
         project(): $hyoo_idea_project;
@@ -4947,7 +4952,9 @@ declare namespace $ {
         Brief(): $$.$mol_paragraph;
         Face_list(): $$.$mol_list;
         Stage(): $$.$hyoo_idea_project_stage;
+        Site(): $$.$mol_link_iconed;
         Description(): $$.$mol_text;
+        Main(): $$.$mol_list;
         Request_button(): $$.$mol_link;
         team_member(id: any): $hyoo_idea_person;
         team_member_role(id: any): string;

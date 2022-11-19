@@ -4940,7 +4940,7 @@ declare namespace $ {
         Form(): $$.$hyoo_idea_project_form;
         Title(): $mol_view;
         body(): readonly any[];
-        message_listener(): any;
+        slides_send(): any;
         slides(): string;
         Slides(): $$.$mol_link_iconed;
         Edit_icon(): $mol_icon_pencil;
@@ -4987,7 +4987,7 @@ declare namespace $.$$ {
         main(): ($mol_link_iconed | $mol_text | $hyoo_idea_project_stage)[];
         slides(): string;
         slides_content(): string;
-        message_listener(): $mol_dom_listener;
+        slides_send(): void;
         join_request(): void;
         join_cancel(): void;
         post(obj: $hyoo_idea_post): $hyoo_idea_post;

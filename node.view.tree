@@ -1416,7 +1416,7 @@ $hyoo_idea_post_add $mol_bar
 
 $hyoo_idea_project_page $mol_page
 	auto /
-		<= message_listener null
+		<= slides_send null
 	project $hyoo_idea_project
 		domain => domain
 		domain().user().id => user_id

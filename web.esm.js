@@ -18220,7 +18220,7 @@ var $;
     class $hyoo_idea_project_page extends $mol_page {
         auto() {
             return [
-                this.message_listener()
+                this.slides_send()
             ];
         }
         domain() {
@@ -18300,7 +18300,7 @@ var $;
                 this.Post_list()
             ];
         }
-        message_listener() {
+        slides_send() {
             return null;
         }
         slides() {
@@ -18635,15 +18635,11 @@ var $;
                     .replace('{brief}', this.project().brief() || '{brief}')
                     .replace('{description}', this.project().description() || '{description}');
             }
-            message_listener() {
-                return new $mol_dom_listener($mol_dom_context, 'message', $mol_wire_async((event) => {
-                    const data = event.data;
-                    if (!Array.isArray(data))
-                        return;
-                    if (data[0] !== 'content')
-                        return;
-                    event.source?.postMessage(['done', this.slides_content()], { targetOrigin: '*' });
-                }));
+            slides_send() {
+                const parent = this.$.$mol_dom_context.parent;
+                if (parent === this.$.$mol_dom_context.self)
+                    return;
+                parent.postMessage(['done', this.slides_content()], { targetOrigin: 'https://slides.hyoo.ru' });
             }
             join_request() {
                 this.domain().user().projects_node().add(this.project().id());
@@ -18704,7 +18700,7 @@ var $;
         ], $hyoo_idea_project_page.prototype, "slides_content", null);
         __decorate([
             $mol_mem
-        ], $hyoo_idea_project_page.prototype, "message_listener", null);
+        ], $hyoo_idea_project_page.prototype, "slides_send", null);
         __decorate([
             $mol_action
         ], $hyoo_idea_project_page.prototype, "join_request", null);

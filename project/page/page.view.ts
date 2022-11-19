@@ -42,24 +42,18 @@ namespace $.$$ {
 		}
 
 		@ $mol_mem
-		message_listener() {
-
-			return new $mol_dom_listener(
-				$mol_dom_context,
-				'message',
-				$mol_wire_async( ( event: MessageEvent< any > )=> {
-					
-					const data = event.data
-					if( !Array.isArray( data ) ) return
-					if( data[0] !== 'content' ) return
-					
-					event.source?.postMessage( [ 'done', this.slides_content() ], { targetOrigin: '*' } )
-					
-				} )
-			)
+		slides_send() {
 			
+			const parent = this.$.$mol_dom_context.parent
+			if( parent === this.$.$mol_dom_context.self ) return
+			
+			parent.postMessage(
+				[ 'done', this.slides_content() ],
+				{ targetOrigin: 'https://slides.hyoo.ru' }
+			)
+					
 		}
-
+		
 		@ $mol_action
 		join_request() {
 			this.domain().user().projects_node().add( this.project().id() )

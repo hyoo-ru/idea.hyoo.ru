@@ -35,6 +35,11 @@ namespace $ {
 		}
 
 		@ $mol_mem
+		site( next?: string ) {
+			return this.state().sub( 'site', $hyoo_crowd_reg ).str( next )
+		}
+
+		@ $mol_mem
 		description_node() {
 			return this.state().sub( 'description', $hyoo_crowd_text )
 		}

@@ -15,18 +15,11 @@ namespace $.$$ {
 			},
 		},
 
-		Stage: {
-			padding: $mol_gap.block,
-			flex: {
-				grow: 0,
-			},
-		},
-
 		Brief: {
 			color: $mol_theme.shade,
 		},
 		
-		Description: {
+		Main: {
 			padding: $mol_gap.block,
 		},
 

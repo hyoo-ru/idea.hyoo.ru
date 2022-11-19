@@ -2,6 +2,7 @@ $hyoo_idea_project_form $mol_form
 	project $hyoo_idea_project
 		name? => name?
 		brief? => brief?
+		site? => site?
 		logo_node => logo_node
 		description_node => description_node
 		description? => description?
@@ -28,12 +29,16 @@ $hyoo_idea_project_form $mol_form
 					sub / <= Logo_drop_icon $mol_icon_cross
 		<= Name_field $mol_form_field
 			name @ \Name
-			control <= Name_control $mol_textarea
+			control <= Name_control $mol_string
 				value? <=> name?
 		<= Brief_field $mol_form_field
 			name @ \Brief
-			control <= Brief_control $mol_textarea
+			control <= Brief_control $mol_string
 				value? <=> brief?
+		<= Site_field $mol_form_field
+			name @ \Site
+			control <= Site_control $mol_string
+				value? <=> site?
 		<= Roles_field $mol_form_field
 			label /
 				<= roles_field_name @ \Roles

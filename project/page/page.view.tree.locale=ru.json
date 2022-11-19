@@ -7,5 +7,6 @@
 	"$hyoo_idea_project_page_Post_count_label": "Записи",
 	"$hyoo_idea_project_page_Team_title": "Команда",
 	"$hyoo_idea_project_page_Description_title": "Описание",
+	"$hyoo_idea_project_page_Site_hint": "Сайт проекта",
 	"$hyoo_idea_project_page_Posts_title": "Объявления: {count}"
 }

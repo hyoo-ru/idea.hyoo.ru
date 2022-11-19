@@ -4954,6 +4954,7 @@ declare namespace $ {
         Stage(): $$.$hyoo_idea_project_stage;
         Site(): $$.$mol_link_iconed;
         Description(): $$.$mol_text;
+        main(): readonly any[];
         Main(): $$.$mol_list;
         Request_button(): $$.$mol_link;
         team_member(id: any): $hyoo_idea_person;
@@ -4983,6 +4984,7 @@ declare namespace $.$$ {
         editing(): boolean;
         Edit(): $mol_link;
         body(): readonly any[];
+        main(): ($mol_link_iconed | $mol_text | $hyoo_idea_project_stage)[];
         slides(): string;
         slides_content(): string;
         message_listener(): $mol_dom_listener;

@@ -18381,13 +18381,16 @@ var $;
             obj.text = () => this.description();
             return obj;
         }
-        Main() {
-            const obj = new this.$.$mol_list();
-            obj.rows = () => [
+        main() {
+            return [
                 this.Stage(),
                 this.Site(),
                 this.Description()
             ];
+        }
+        Main() {
+            const obj = new this.$.$mol_list();
+            obj.rows = () => this.main();
             return obj;
         }
         Request_button() {
@@ -18615,6 +18618,13 @@ var $;
             body() {
                 return this.editing() ? [this.Form()] : super.body();
             }
+            main() {
+                return [
+                    ...this.stage() ? [this.Stage()] : [],
+                    ...this.site() ? [this.Site()] : [],
+                    ...this.description() ? [this.Description()] : [],
+                ];
+            }
             slides() {
                 const source = this.$.$mol_state_arg.href() + '/';
                 return super.slides().replace('{source}', encodeURIComponent(source));
@@ -18683,6 +18693,9 @@ var $;
                 return role?.name || this.team_member_no_role();
             }
         }
+        __decorate([
+            $mol_mem
+        ], $hyoo_idea_project_page.prototype, "main", null);
         __decorate([
             $mol_mem
         ], $hyoo_idea_project_page.prototype, "slides", null);

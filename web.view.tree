@@ -1458,7 +1458,7 @@ $hyoo_idea_project_page $mol_page
 			<= Name $mol_paragraph title <= name
 			<= Brief $mol_paragraph title <= brief
 	body /
-		<= Main $mol_list rows /
+		<= Main $mol_list rows <= main /
 			<= Stage $hyoo_idea_project_stage
 				enabled false
 				stage <= stage

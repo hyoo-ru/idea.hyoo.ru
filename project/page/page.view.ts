@@ -19,6 +19,15 @@ namespace $.$$ {
 		}
 		
 		@ $mol_mem
+		main() {
+			return [
+				... this.stage() ? [ this.Stage() ] : [],
+				... this.site() ? [ this.Site() ] : [],
+				... this.description() ? [ this.Description() ] : [],
+			]
+		}
+		
+		@ $mol_mem
 		slides() {
 			const source = this.$.$mol_state_arg.href() + '/'
 			return super.slides().replace( '{source}', encodeURIComponent( source ) )

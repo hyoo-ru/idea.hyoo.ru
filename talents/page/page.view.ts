@@ -4,7 +4,9 @@ namespace $.$$ {
 
 		@ $mol_mem
 		persons() {
-			return [ ... new Set( this.domain().persons().list().filter( obj => obj.registered() ) ) ]
+			const persons = this.domain().persons().list()
+				.filter( obj => obj.registered() )
+			return [ ... new Set( persons.reverse() ) ]
 		}
 
 		results() {

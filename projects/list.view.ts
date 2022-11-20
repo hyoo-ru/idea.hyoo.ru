@@ -17,7 +17,7 @@ namespace $.$$ {
 				.map(
 					person => person.projects().filter( project => project.name() )
 				)
-				.flat()
+				.flat().reverse()
 			return [ ... new Set( projects ) ]
 		}
 		
@@ -42,6 +42,7 @@ namespace $.$$ {
 		add() {
 			const obj = this.domain().project_add()
 			this.domain().user().project_add( obj )
+			this.$.$mol_state_arg.value( 'project', obj.id() ) 
 		}
 
 	}

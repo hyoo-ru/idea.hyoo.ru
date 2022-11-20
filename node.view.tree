@@ -177,11 +177,6 @@ $mol_link_source $mol_link
 	sub /
 		<= Icon $mol_icon_github_circle
 
-$mol_button_major $mol_button_typed
-	attr *
-		^
-		mol_theme \$mol_theme_accent
-
 $mol_page $mol_view
 	dom_name \article
 	field *
@@ -205,117 +200,6 @@ $mol_page $mol_view
 		<= Foot $mol_view
 			dom_name \footer
 			sub <= foot /$mol_view
-
-$mol_hotkey $mol_plugin
-	event *
-		^
-		keydown?event <=> keydown?event null
-	key *
-	mod_ctrl false
-	mod_alt false
-	mod_shift false
-
-$mol_string $mol_view
-	dom_name \input
-	enabled true
-	minimal_height 40
-	autocomplete false
-	selection?val /number
-		0
-		0
-	auto /
-		<= selection_watcher null
-	field *
-		^
-		disabled <= disabled false
-		value <= value_changed?val <=> value?val \
-		placeholder <= hint_visible <= hint \
-		spellcheck <= spellcheck true
-		autocomplete <= autocomplete_native \
-		selectionEnd <= selection_end 0
-		selectionStart <= selection_start 0
-		inputMode <= keyboard \text
-	attr *
-		^
-		maxlength <= length_max +Infinity
-		type <= type?val \text
-	event *
-		^
-		input?event <=> event_change?event null
-		keydown?event <=> event_key_press?event null
-	plugins /
-		<= Submit $mol_hotkey
-			key * enter?event <=> submit?event null
-
-$mol_labeler $mol_list
-	rows /
-		<= Label $mol_view
-			minimal_height 32
-			sub <= label /$mol_view_content
-				<= title
-		<= Content $mol_view
-			minimal_height 24
-			sub <= content /
-
-$mol_form_field $mol_labeler
-	bids /string
-	label /
-		<= name \
-		<= Bid $mol_view
-			sub / <= bid \
-	Content <= control null
-
-$mol_row $mol_view
-
-$mol_form $mol_list
-	submit_blocked false
-	event *
-		^
-		keydown?event <=> keydown?event null
-	submit?event null
-	rows /
-		<= Body $mol_list
-			sub <= body <= form_fields /$mol_form_field
-		<= Foot $mol_row
-			sub <= foot <= buttons /$mol_view
-
-$mol_form_group $mol_view
-
-$hyoo_idea_sign_up_page $mol_page
-	person $hyoo_idea_person
-		name? => name?
-		name_family? => name_family?
-	title @ \Sign up
-	Head null
-	messages *
-		required @ \Required
-		no_spaces @ \No spaces!
-		need_less_letters @ \{count} or less letters
-	body /
-		<= Logo $mol_image
-			uri \/hyoo/idea/logo/logo_hor.png
-		<= Form $mol_form
-			body /
-				<= Names $mol_form_group sub /
-					<= Name_field $mol_form_field
-						name @ \First Name
-						bid <= name_bid \
-						Content <= Name_control $mol_string
-							hint @ \Tomas
-							value? <=> name?
-					<= Name_family_field $mol_form_field
-						name @ \Last Name
-						bid <= name_family_bid \
-						Content <= Name_family_control $mol_string
-							hint @ \Anderson
-							value? <=> name_family?
-			submit?val <=> signup?val null
-			submit_allowed => signup_allowed
-			buttons /
-				<= Signup $mol_button_major
-					title @ \Продолжить
-					click? <=> signup? null
-					enabled <= signup_allowed
 
 $mol_icon_cross $mol_icon path \M19 6.41L17.59 5L12 10.59L6.41 5L5 6.41L10.59 12L5 17.59L6.41 19L12 13.41L17.59 19L19 17.59L13.41 12L19 6.41Z
 
@@ -702,6 +586,47 @@ $mol_button_share $mol_button_minor
 	sub /
 		<= Icon $mol_icon_share_variant
 
+$mol_hotkey $mol_plugin
+	event *
+		^
+		keydown?event <=> keydown?event null
+	key *
+	mod_ctrl false
+	mod_alt false
+	mod_shift false
+
+$mol_string $mol_view
+	dom_name \input
+	enabled true
+	minimal_height 40
+	autocomplete false
+	selection?val /number
+		0
+		0
+	auto /
+		<= selection_watcher null
+	field *
+		^
+		disabled <= disabled false
+		value <= value_changed?val <=> value?val \
+		placeholder <= hint_visible <= hint \
+		spellcheck <= spellcheck true
+		autocomplete <= autocomplete_native \
+		selectionEnd <= selection_end 0
+		selectionStart <= selection_start 0
+		inputMode <= keyboard \text
+	attr *
+		^
+		maxlength <= length_max +Infinity
+		type <= type?val \text
+	event *
+		^
+		input?event <=> event_change?event null
+		keydown?event <=> event_key_press?event null
+	plugins /
+		<= Submit $mol_hotkey
+			key * enter?event <=> submit?event null
+
 $mol_textarea $mol_stack
 	attr *
 		^
@@ -824,6 +749,38 @@ $hyoo_idea_project_stage $mol_switch
 	value? <=> stage? \idea
 	- sub / <= label \
 
+$mol_labeler $mol_list
+	rows /
+		<= Label $mol_view
+			minimal_height 32
+			sub <= label /$mol_view_content
+				<= title
+		<= Content $mol_view
+			minimal_height 24
+			sub <= content /
+
+$mol_form_field $mol_labeler
+	bids /string
+	label /
+		<= name \
+		<= Bid $mol_view
+			sub / <= bid \
+	Content <= control null
+
+$mol_row $mol_view
+
+$mol_form $mol_list
+	submit_blocked false
+	event *
+		^
+		keydown?event <=> keydown?event null
+	submit?event null
+	rows /
+		<= Body $mol_list
+			sub <= body <= form_fields /$mol_form_field
+		<= Foot $mol_row
+			sub <= foot <= buttons /$mol_view
+
 $mol_icon_upload $mol_icon path \M9,16V10H5L12,3L19,10H15V16H9M5,20V18H19V20H5Z
 
 $mol_button_open $mol_button_minor
@@ -843,6 +800,8 @@ $mol_button_open_native $mol_view
 		multiple <= multiple true
 	event *
 		change?next <=> picked?next null
+
+$mol_form_group $mol_view
 
 $mol_format $mol_string
 	allow \0123456789
@@ -1492,35 +1451,6 @@ $hyoo_idea_projects $mol_page
 				<= Card*0_0 $hyoo_idea_project_card
 					project <= project* $hyoo_idea_project
 
-$mol_expander $mol_list
-	rows /
-		<= Label $mol_view
-			sub /
-				<= Trigger $mol_check_expand
-					checked?val <=> expanded?val false
-					label <= label /
-						<= title
-				<= Tools null
-		<= Content $mol_list
-			rows <= content /
-
-$mol_card $mol_list
-	attr *
-		^
-		mol_card_status_type <= status \
-	rows /$mol_view
-		<= Content $mol_view
-			sub <= content /$mol_view_content
-				<= title
-		<= Status $mol_view
-			minimal_height 30
-			sub /
-				<= status_text <= status \
-
-$hyoo_idea_profile_block $mol_expander
-	Content $mol_list rows /
-		<= Content_card $mol_card sub <= content /
-
 $hyoo_idea_person_page $mol_page
 	person $hyoo_idea_person
 		id => id
@@ -1593,7 +1523,7 @@ $hyoo_idea_person_page $mol_page
 							title <= email
 		<= About $mol_text
 			text <= about
-		<= Jobs $hyoo_idea_profile_block
+		<= Jobs $mol_section
 			title @ \Experience
 			content /
 				<= Jobs_list $mol_list rows <= jobs /
@@ -1602,7 +1532,7 @@ $hyoo_idea_person_page $mol_page
 						<= Job_company* $mol_paragraph title <= job_company* \
 						<= Job_dates* $mol_paragraph title <= job_dates* \
 						<= Job_functions* $mol_text text <= job_functions* \
-		<= Education $hyoo_idea_profile_block
+		<= Education $mol_section
 			title @ \Education
 			content /
 				<= Education_list $mol_list rows <= education /
@@ -1621,6 +1551,11 @@ $hyoo_idea_person_page $mol_page
 			rows <= post_list /
 				<= Post*0_0 $hyoo_idea_post_card
 					post <= post* $hyoo_idea_post
+
+$mol_button_major $mol_button_typed
+	attr *
+		^
+		mol_theme \$mol_theme_accent
 
 $hyoo_idea_invite_page $mol_page
 	domain $hyoo_idea_domain
@@ -1731,11 +1666,6 @@ $hyoo_idea_app $mol_book2
 						<= Search_link $mol_link
 							arg * section \search
 							title @ \Search
-						<= Sign_up_button $mol_button_major
-							title @ \Вход
-							click? <=> sign_up? null
-		<= Sign_up $hyoo_idea_sign_up_page
-			person <= user
 		<= Feed $hyoo_idea_feed_page
 			person <= user
 		<= Project_page $hyoo_idea_project_page

@@ -18945,7 +18945,7 @@ var $;
             projects() {
                 const projects = this.domain().persons().list()
                     .map(person => person.projects().filter(project => project.name()))
-                    .flat();
+                    .flat().reverse();
                 return [...new Set(projects)];
             }
             projects_filtered() {
@@ -18963,6 +18963,7 @@ var $;
             add() {
                 const obj = this.domain().project_add();
                 this.domain().user().project_add(obj);
+                this.$.$mol_state_arg.value('project', obj.id());
             }
         }
         __decorate([
@@ -20152,7 +20153,9 @@ var $;
     (function ($$) {
         class $hyoo_idea_talents_page extends $.$hyoo_idea_talents_page {
             persons() {
-                return [...new Set(this.domain().persons().list().filter(obj => obj.registered()))];
+                const persons = this.domain().persons().list()
+                    .filter(obj => obj.registered());
+                return [...new Set(persons.reverse())];
             }
             results() {
                 return this.persons().map(obj => this.Person_row(obj));

@@ -1542,15 +1542,6 @@ $hyoo_idea_person_page $mol_page
 		<= Projects_block $mol_section
 			title <= Projects_block_title @ \Projects: {count}
 			content / <= Projects
-		<= Posts $mol_section
-			title <= Posts_title @ \Posts: {count}
-			content <= posts_content /
-				<= Post_add $hyoo_idea_post_add
-					submit? <=> post_add? null
-		<= Post_list $mol_list
-			rows <= post_list /
-				<= Post*0_0 $hyoo_idea_post_card
-					post <= post* $hyoo_idea_post
 
 $mol_button_major $mol_button_typed
 	attr *

@@ -3719,7 +3719,7 @@ declare namespace $.$$ {
 declare namespace $.$$ {
     class $hyoo_idea_post_card extends $.$hyoo_idea_post_card {
         author(): $hyoo_idea_person;
-        author_name(): any;
+        author_name(): string;
         person_id(): `${string}_${string}`;
         likes_count(): number;
         comment_add(): void;
@@ -4607,7 +4607,6 @@ declare namespace $.$$ {
     export class $hyoo_idea_person_form extends $.$hyoo_idea_person_form {
         avatar_file(next?: Blob[]): readonly any[];
         avatar_drop(): void;
-        date_birth(next?: $mol_time_moment): any;
         job_rows(): $mol_list[];
         job_add(): void;
         job_drop(id: number): void;
@@ -4748,7 +4747,7 @@ declare namespace $.$$ {
     type Role_keys = keyof Role;
     export class $hyoo_idea_project_form extends $.$hyoo_idea_project_form {
         domain(): $hyoo_idea_domain;
-        logo_add(next?: File[]): readonly any[];
+        logo_add(next?: Blob[]): readonly any[];
         logo_drop(): void;
         description_selection(next?: number[]): number[];
         stage_options(): {
@@ -5068,15 +5067,6 @@ declare namespace $ {
         Education(): $mol_section;
         Projects_block_title(): string;
         Projects_block(): $mol_section;
-        Posts_title(): string;
-        post_add(next?: any): any;
-        Post_add(): $$.$hyoo_idea_post_add;
-        posts_content(): readonly any[];
-        Posts(): $mol_section;
-        post(id: any): $hyoo_idea_post;
-        Post(id: any): $$.$hyoo_idea_post_card;
-        post_list(): readonly any[];
-        Post_list(): $$.$mol_list;
     }
 }
 
@@ -5091,7 +5081,6 @@ declare namespace $.$$ {
         project_count(): number;
         Projects_block_title(): string;
         post_count(): number;
-        Posts_title(): string;
         sub_count(): number;
         pub_count(): number;
         job_current(): {
@@ -5105,7 +5094,6 @@ declare namespace $.$$ {
         } | null;
         position(): string;
         location(): string;
-        date_birth(next?: $mol_time_moment): any;
         summary_rows(): $mol_paragraph[];
         actions(): $mol_link[];
         contacts_content(): $mol_view[];
@@ -5119,10 +5107,6 @@ declare namespace $.$$ {
         education(): $mol_list[];
         education_head(id: number): string;
         education_details(id: number): string;
-        post(obj: $hyoo_idea_post): $hyoo_idea_post;
-        post_list(): $hyoo_idea_post_card[];
-        post_add(text: string): void;
-        posts_content(): $hyoo_idea_post_add[];
         name(): string;
     }
 }

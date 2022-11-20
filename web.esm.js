@@ -12957,7 +12957,7 @@ var $;
                 return this.post().person();
             }
             author_name() {
-                return this.author().name_short();
+                return this.author().name();
             }
             person_id() {
                 return this.author().id();
@@ -13093,14 +13093,6 @@ var $;
                 basis: rem(40),
                 shrink: 0,
             },
-            Body: {
-                padding: $mol_gap.block,
-            },
-            Post: {
-                margin: {
-                    top: 0,
-                },
-            },
         });
     })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));
@@ -13116,7 +13108,10 @@ var $;
                 return this.person().domain();
             }
             posts_all() {
-                return [...new Set(this.domain().persons().list().map(obj => obj.posts()).flat())];
+                const persons = [...new Set(this.domain().persons().list())];
+                const projects = [...new Set(persons.map(person => person.projects()).flat())];
+                const posts = [...new Set(projects.map(project => project.posts()).flat())];
+                return posts;
             }
             posts_sorted() {
                 return this.posts_all().sort((a, b) => b.created_moment().valueOf() - a.created_moment().valueOf());
@@ -16693,9 +16688,6 @@ var $;
             avatar_drop() {
                 this.person().avatar_node().list([]);
             }
-            date_birth(next) {
-                return this.person().date_birth(next);
-            }
             job_rows() {
                 return this.person().jobs().map((_, id) => this.Job_form(id)).reverse();
             }
@@ -17528,7 +17520,7 @@ var $;
             }
             team_member_dict() {
                 return this.project().team_members().reduce((dict, obj) => {
-                    dict[obj.id()] = obj.name_short();
+                    dict[obj.id()] = obj.name();
                     return dict;
                 }, {});
             }
@@ -18731,9 +18723,7 @@ var $;
                 this.About(),
                 this.Jobs(),
                 this.Education(),
-                this.Projects_block(),
-                this.Posts(),
-                this.Post_list()
+                this.Projects_block()
             ];
         }
         Edit_icon() {
@@ -19015,49 +19005,6 @@ var $;
             ];
             return obj;
         }
-        Posts_title() {
-            return this.$.$mol_locale.text('$hyoo_idea_person_page_Posts_title');
-        }
-        post_add(next) {
-            if (next !== undefined)
-                return next;
-            return null;
-        }
-        Post_add() {
-            const obj = new this.$.$hyoo_idea_post_add();
-            obj.submit = (next) => this.post_add(next);
-            return obj;
-        }
-        posts_content() {
-            return [
-                this.Post_add()
-            ];
-        }
-        Posts() {
-            const obj = new this.$.$mol_section();
-            obj.title = () => this.Posts_title();
-            obj.content = () => this.posts_content();
-            return obj;
-        }
-        post(id) {
-            const obj = new this.$.$hyoo_idea_post();
-            return obj;
-        }
-        Post(id) {
-            const obj = new this.$.$hyoo_idea_post_card();
-            obj.post = () => this.post(id);
-            return obj;
-        }
-        post_list() {
-            return [
-                this.Post("0_0")
-            ];
-        }
-        Post_list() {
-            const obj = new this.$.$mol_list();
-            obj.rows = () => this.post_list();
-            return obj;
-        }
     }
     __decorate([
         $mol_mem
@@ -19176,24 +19123,6 @@ var $;
     __decorate([
         $mol_mem
     ], $hyoo_idea_person_page.prototype, "Projects_block", null);
-    __decorate([
-        $mol_mem
-    ], $hyoo_idea_person_page.prototype, "post_add", null);
-    __decorate([
-        $mol_mem
-    ], $hyoo_idea_person_page.prototype, "Post_add", null);
-    __decorate([
-        $mol_mem
-    ], $hyoo_idea_person_page.prototype, "Posts", null);
-    __decorate([
-        $mol_mem_key
-    ], $hyoo_idea_person_page.prototype, "post", null);
-    __decorate([
-        $mol_mem_key
-    ], $hyoo_idea_person_page.prototype, "Post", null);
-    __decorate([
-        $mol_mem
-    ], $hyoo_idea_person_page.prototype, "Post_list", null);
     $.$hyoo_idea_person_page = $hyoo_idea_person_page;
 })($ || ($ = {}));
 //hyoo/idea/person/page/-view.tree/page.view.tree.ts
@@ -19284,9 +19213,6 @@ var $;
                     padding: 0,
                 },
             },
-            Posts: {
-                padding: $mol_gap.block,
-            },
         });
     })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));
@@ -19316,9 +19242,6 @@ var $;
             post_count() {
                 return this.person().posts().length;
             }
-            Posts_title() {
-                return super.Posts_title().replace('{count}', this.post_count().toString());
-            }
             sub_count() {
                 return this.person().subs().length;
             }
@@ -19337,9 +19260,6 @@ var $;
             location() {
                 return super.location()
                     .replace('{city}', this.person().city());
-            }
-            date_birth(next) {
-                return this.person().date_birth(next);
             }
             summary_rows() {
                 return [
@@ -19400,25 +19320,6 @@ var $;
                     obj.institution,
                     new $mol_time_moment(obj.date_finish).toString('YYYY'),
                 ].join(', ');
-            }
-            post(obj) {
-                return obj;
-            }
-            post_list() {
-                return this.person().posts()
-                    .sort((a, b) => b.created_moment().valueOf() - a.created_moment().valueOf())
-                    .map(obj => this.Post(obj));
-            }
-            post_add(text) {
-                const obj = this.domain().post_add();
-                obj.content(text);
-                obj.person(this.person());
-                this.person().post_add(obj);
-            }
-            posts_content() {
-                return [
-                    ...this.self() ? [this.Post_add()] : [],
-                ];
             }
             name() {
                 return super.name() || '???';
@@ -19757,7 +19658,7 @@ var $;
             }
             person_dict() {
                 return this.domain().persons().list().filter(obj => obj.registered()).reduce((dict, obj) => {
-                    dict[obj.id()] = obj.name_short();
+                    dict[obj.id()] = obj.name();
                     return dict;
                 }, {});
             }

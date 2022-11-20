@@ -160,7 +160,6 @@ namespace $.$$ {
 		posts_content() {
 			return [
 				... this.self() ? [this.Post_add()] : [],
-				this.Post_list(),
 			]
 		}
 

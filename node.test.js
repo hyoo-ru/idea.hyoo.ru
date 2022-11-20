@@ -19472,10 +19472,6 @@ var $;
                     left: $mol_gap.text,
                 },
             },
-            Neck: {
-                alignItems: 'center',
-                zIndex: 1,
-            },
             Actions: {
                 margin: {
                     left: 'auto',
@@ -20028,13 +20024,13 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    class $hyoo_idea_search_page extends $mol_page {
+    class $hyoo_idea_talents_page extends $mol_page {
         domain() {
             const obj = new this.$.$hyoo_idea_domain();
             return obj;
         }
         title() {
-            return this.$.$mol_locale.text('$hyoo_idea_search_page_title');
+            return this.$.$mol_locale.text('$hyoo_idea_talents_page_title');
         }
         tools() {
             return [
@@ -20086,25 +20082,25 @@ var $;
     }
     __decorate([
         $mol_mem
-    ], $hyoo_idea_search_page.prototype, "domain", null);
+    ], $hyoo_idea_talents_page.prototype, "domain", null);
     __decorate([
         $mol_mem_key
-    ], $hyoo_idea_search_page.prototype, "Person_row", null);
+    ], $hyoo_idea_talents_page.prototype, "Person_row", null);
     __decorate([
         $mol_mem
-    ], $hyoo_idea_search_page.prototype, "Close_icon", null);
+    ], $hyoo_idea_talents_page.prototype, "Close_icon", null);
     __decorate([
         $mol_mem
-    ], $hyoo_idea_search_page.prototype, "Close", null);
+    ], $hyoo_idea_talents_page.prototype, "Close", null);
     __decorate([
         $mol_mem
-    ], $hyoo_idea_search_page.prototype, "Results", null);
+    ], $hyoo_idea_talents_page.prototype, "Results", null);
     __decorate([
         $mol_mem_key
-    ], $hyoo_idea_search_page.prototype, "person", null);
-    $.$hyoo_idea_search_page = $hyoo_idea_search_page;
+    ], $hyoo_idea_talents_page.prototype, "person", null);
+    $.$hyoo_idea_talents_page = $hyoo_idea_talents_page;
 })($ || ($ = {}));
-//hyoo/idea/search/page/-view.tree/page.view.tree.ts
+//hyoo/idea/talents/page/-view.tree/page.view.tree.ts
 ;
 "use strict";
 var $;
@@ -20112,7 +20108,7 @@ var $;
     var $$;
     (function ($$) {
         const { rem } = $mol_style_unit;
-        $mol_style_define($.$hyoo_idea_search_page, {
+        $mol_style_define($.$hyoo_idea_talents_page, {
             flex: {
                 basis: rem(20),
                 shrink: 0,
@@ -20123,14 +20119,14 @@ var $;
         });
     })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));
-//hyoo/idea/search/page/page.view.css.ts
+//hyoo/idea/talents/page/page.view.css.ts
 ;
 "use strict";
 var $;
 (function ($) {
     var $$;
     (function ($$) {
-        class $hyoo_idea_search_page extends $.$hyoo_idea_search_page {
+        class $hyoo_idea_talents_page extends $.$hyoo_idea_talents_page {
             persons() {
                 return [...new Set(this.domain().persons().list().filter(obj => obj.registered()))];
             }
@@ -20143,11 +20139,11 @@ var $;
         }
         __decorate([
             $mol_mem
-        ], $hyoo_idea_search_page.prototype, "persons", null);
-        $$.$hyoo_idea_search_page = $hyoo_idea_search_page;
+        ], $hyoo_idea_talents_page.prototype, "persons", null);
+        $$.$hyoo_idea_talents_page = $hyoo_idea_talents_page;
     })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));
-//hyoo/idea/search/page/page.view.ts
+//hyoo/idea/talents/page/page.view.ts
 ;
 "use strict";
 var $;
@@ -20177,7 +20173,7 @@ var $;
                 this.Person_page(),
                 this.My_page(),
                 this.Invite_page(),
-                this.Search_page()
+                this.Talents_page()
             ];
         }
         Placeholder() {
@@ -20254,12 +20250,12 @@ var $;
             obj.title = () => this.$.$mol_locale.text('$hyoo_idea_app_Projects_link_title');
             return obj;
         }
-        Search_link() {
+        Talents_link() {
             const obj = new this.$.$mol_link();
             obj.arg = () => ({
-                section: "search"
+                section: "talents"
             });
-            obj.title = () => this.$.$mol_locale.text('$hyoo_idea_app_Search_link_title');
+            obj.title = () => this.$.$mol_locale.text('$hyoo_idea_app_Talents_link_title');
             return obj;
         }
         links() {
@@ -20267,7 +20263,7 @@ var $;
                 this.Feed_link(),
                 this.Person_link(),
                 this.Projects_link(),
-                this.Search_link()
+                this.Talents_link()
             ];
         }
         Links() {
@@ -20329,8 +20325,8 @@ var $;
             obj.domain = () => this.domain();
             return obj;
         }
-        Search_page() {
-            const obj = new this.$.$hyoo_idea_search_page();
+        Talents_page() {
+            const obj = new this.$.$hyoo_idea_talents_page();
             obj.domain = () => this.domain();
             return obj;
         }
@@ -20373,7 +20369,7 @@ var $;
     ], $hyoo_idea_app.prototype, "Projects_link", null);
     __decorate([
         $mol_mem
-    ], $hyoo_idea_app.prototype, "Search_link", null);
+    ], $hyoo_idea_app.prototype, "Talents_link", null);
     __decorate([
         $mol_mem
     ], $hyoo_idea_app.prototype, "Links", null);
@@ -20406,7 +20402,7 @@ var $;
     ], $hyoo_idea_app.prototype, "Invite_page", null);
     __decorate([
         $mol_mem
-    ], $hyoo_idea_app.prototype, "Search_page", null);
+    ], $hyoo_idea_app.prototype, "Talents_page", null);
     $.$hyoo_idea_app = $hyoo_idea_app;
 })($ || ($ = {}));
 //hyoo/idea/app/-view.tree/app.view.tree.ts
@@ -20473,7 +20469,7 @@ var $;
                     ...this.section() === 'feed' ? [this.Feed()] : [],
                     ...this.section() === 'person' ? [this.My_page()] : [],
                     ...this.section() === 'projects' ? [this.Project_list()] : [],
-                    ...this.section() === 'search' ? [this.Search_page()] : [],
+                    ...this.section() === 'talents' ? [this.Talents_page()] : [],
                     ...this.person_opened() ? [this.Person_page()] : [],
                     ...this.project_opened() ? [this.Project_page()] : [],
                     ...this.invite_opened() ? [this.Invite_page()] : [],

@@ -307,8 +307,8 @@
     "$hyoo_idea_invite_page",
     "$hyoo_idea_invite",
     "$mol_button_major",
-    "$hyoo_idea_search_page",
-    "$hyoo_idea_search"
+    "$hyoo_idea_talents_page",
+    "$hyoo_idea_talents"
   ],
   "dependencies": {
     "jsdom": "*",

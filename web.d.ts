@@ -5186,7 +5186,7 @@ declare namespace $.$$ {
 }
 
 declare namespace $ {
-    class $hyoo_idea_search_page extends $mol_page {
+    class $hyoo_idea_talents_page extends $mol_page {
         domain(): $hyoo_idea_domain;
         title(): string;
         tools(): readonly any[];
@@ -5206,7 +5206,7 @@ declare namespace $.$$ {
 }
 
 declare namespace $.$$ {
-    class $hyoo_idea_search_page extends $.$hyoo_idea_search_page {
+    class $hyoo_idea_talents_page extends $.$hyoo_idea_talents_page {
         persons(): $hyoo_idea_person[];
         results(): $hyoo_idea_person_card[];
         person(obj: $hyoo_idea_person): $hyoo_idea_person;
@@ -5234,7 +5234,7 @@ declare namespace $ {
         Feed_link(): $$.$mol_link;
         Person_link(): $$.$mol_link;
         Projects_link(): $$.$mol_link;
-        Search_link(): $$.$mol_link;
+        Talents_link(): $$.$mol_link;
         links(): readonly any[];
         Links(): $$.$mol_list;
         Menu(): $mol_page;
@@ -5246,7 +5246,7 @@ declare namespace $ {
         Person_page(): $$.$hyoo_idea_person_page;
         My_page(): $$.$hyoo_idea_person_page;
         Invite_page(): $$.$hyoo_idea_invite_page;
-        Search_page(): $$.$hyoo_idea_search_page;
+        Talents_page(): $$.$hyoo_idea_talents_page;
     }
 }
 
@@ -5257,13 +5257,13 @@ declare namespace $.$$ {
 }
 
 declare namespace $.$$ {
-    type Sections = 'feed' | 'person' | 'projects' | 'search';
+    type Sections = 'feed' | 'person' | 'projects' | 'talents';
     export class $hyoo_idea_app extends $.$hyoo_idea_app {
         section(next?: Sections): string;
         person_opened(): $hyoo_idea_person;
         project_opened(): $hyoo_idea_project;
         invite_opened(): boolean;
-        pages(): ($mol_page | $hyoo_idea_feed_page | $hyoo_idea_project_page | $hyoo_idea_projects | $hyoo_idea_person_page | $hyoo_idea_invite_page | $hyoo_idea_search_page)[];
+        pages(): ($mol_page | $hyoo_idea_feed_page | $hyoo_idea_project_page | $hyoo_idea_projects | $hyoo_idea_person_page | $hyoo_idea_invite_page | $hyoo_idea_talents_page)[];
         person_register(): void;
         auto(): void;
     }

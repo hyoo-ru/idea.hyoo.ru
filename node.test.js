@@ -20271,10 +20271,7 @@ var $;
     (function ($$) {
         class $hyoo_idea_search_page extends $.$hyoo_idea_search_page {
             persons() {
-                return this.domain().persons().list()
-                    .filter(obj => {
-                    return obj.registered();
-                });
+                return [...new Set(this.domain().persons().list().filter(obj => obj.registered()))];
             }
             person(obj) {
                 return obj;
@@ -20298,6 +20295,9 @@ var $;
                 return this.type() === 'team' ? this.team_rows() : this.project_rows();
             }
         }
+        __decorate([
+            $mol_mem
+        ], $hyoo_idea_search_page.prototype, "persons", null);
         $$.$hyoo_idea_search_page = $hyoo_idea_search_page;
     })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));

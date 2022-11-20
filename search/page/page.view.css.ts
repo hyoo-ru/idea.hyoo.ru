@@ -5,7 +5,7 @@ namespace $.$$ {
 	$mol_style_define( $.$hyoo_idea_search_page, {
 
 		flex: {
-			basis: rem(40),
+			basis: rem(20),
 			shrink: 0,
 		},
 		

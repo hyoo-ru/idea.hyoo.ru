@@ -9,7 +9,7 @@ namespace $.$$ {
 			shrink: 0,
 		},
 		
-		Search_list: {
+		Results: {
 			padding: $mol_gap.block,
 		},
 

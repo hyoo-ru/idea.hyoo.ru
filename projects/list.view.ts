@@ -25,7 +25,12 @@ namespace $.$$ {
 		}
 
 		projects() {
-			return this.person().projects()
+			const projects = this.domain().persons().list()
+				.map(
+					person => person.projects().filter( project => project.name() )
+				)
+				.flat()
+			return [ ... new Set( projects ) ]
 		}
 
 		project_rows() {

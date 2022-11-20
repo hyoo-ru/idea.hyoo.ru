@@ -27,10 +27,6 @@ namespace $.$$ {
 			return this.person().posts().length
 		}
 
-		Posts_title() {
-			return super.Posts_title().replace( '{count}', this.post_count().toString() )
-		}
-
 		sub_count() {
 			return this.person().subs().length
 		}
@@ -58,16 +54,11 @@ namespace $.$$ {
 				.replace('{city}', this.person().city())
 		}
 
-		date_birth(next?: $mol_time_moment) {
-			return this.person().date_birth( next )!
-		}
-
 		@ $mol_mem
 		summary_rows() {
 			return [
 				... this.job_current() !== null ? [this.Position()] : [],
 				... !!this.person().city() ? [this.Location()] : [],
-				// ... this.person().date_birth() !== null ? [this.Age()] : [],
 			]
 		}
 
@@ -138,29 +129,6 @@ namespace $.$$ {
 				obj.institution,
 				new $mol_time_moment(obj.date_finish).toString('YYYY'),
 			].join(', ')
-		}
-
-		post(obj: $hyoo_idea_post) {
-			return obj
-		}
-
-		post_list() {
-			return this.person().posts()
-				.sort( (a, b) => b.created_moment().valueOf() - a.created_moment().valueOf() )
-				.map( obj => this.Post( obj ) )
-		}
-
-		post_add(text: string) {
-			const obj = this.domain().post_add()
-			obj.content( text )
-			obj.person( this.person() )
-			this.person().post_add( obj )
-		}
-
-		posts_content() {
-			return [
-				... this.self() ? [this.Post_add()] : [],
-			]
 		}
 
 		name() {

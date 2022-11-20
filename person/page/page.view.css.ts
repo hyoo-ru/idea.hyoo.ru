@@ -100,10 +100,6 @@ namespace $.$$ {
 			},
 		},
 
-		Posts: {
-			padding: $mol_gap.block,
-		},
-
 	} )
 
 }

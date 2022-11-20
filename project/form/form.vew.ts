@@ -9,7 +9,7 @@ namespace $.$$ {
 			return this.project().domain()
 		}
 
-		logo_add( next?: File[] ) {
+		logo_add( next?: Blob[] ) {
 			if (next && next.length) this.logo_node().blob(next[0])
 			return next as readonly any[]
 		}
@@ -75,7 +75,7 @@ namespace $.$$ {
 		@ $mol_mem
 		team_member_dict() {
 			return this.project().team_members().reduce( (dict, obj) => {
-				dict[obj.id()] = obj.name_short()
+				dict[obj.id()] = obj.name()
 				return dict
 			}, {} )
 		}

@@ -29,7 +29,7 @@ namespace $.$$ {
 		@ $mol_mem
 		person_dict() {
 			return this.domain().persons().list().filter( obj => obj.registered() ).reduce( (dict, obj) => {
-				dict[obj.id()] = obj.name_short()
+				dict[obj.id()] = obj.name()
 				return dict
 			}, {} )
 		}

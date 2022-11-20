@@ -9,16 +9,6 @@ namespace $.$$ {
 			shrink: 0,
 		},
 
-		Body: {
-			padding: $mol_gap.block,
-		},
-
-		Post: {
-			margin: {
-				top: 0,
-			},
-		},
-
 	} )
 
 }

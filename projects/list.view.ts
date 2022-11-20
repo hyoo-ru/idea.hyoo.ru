@@ -11,19 +11,7 @@ namespace $.$$ {
 			return this.person().id() === this.domain().user().id()
 		}
 
-		tools() {
-			return [
-				... this.self() ? [this.Add()] : [],
-			]
-		}
-
-		empty() {
-			return [
-				this.empty_title(),
-				... this.self() ? [this.Empty_add()] : [],
-			]
-		}
-
+		@ $mol_mem
 		projects() {
 			const projects = this.domain().persons().list()
 				.map(
@@ -32,11 +20,19 @@ namespace $.$$ {
 				.flat()
 			return [ ... new Set( projects ) ]
 		}
+		
+		@ $mol_mem
+		projects_filtered() {
+			return this.projects().filter(
+				$mol_match_text( this.filter(), project => [ project.name(), project.brief() ] )
+			)
+		}
 
 		project_rows() {
-			if (this.projects().length === 0) return [this.Empty()]
-
-			return this.projects().map( obj => this.Card(obj) )
+			return [
+				... this.projects().length > 2 ? [ this.Filter() ] : [],
+				... this.projects_filtered().map( obj => this.Card(obj) )
+			]
 		}
 		
 		project( obj: $hyoo_idea_project ) {

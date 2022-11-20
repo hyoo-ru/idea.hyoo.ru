@@ -10,13 +10,11 @@ $hyoo_idea_projects $mol_page
 			click? <=> add? null
 	body /
 		<= Rows $mol_list
-			title @ \Projects
+			Empty <= Empty $mol_view sub /
+				<= empty_title @ \Create first project ⬆
 			rows <= project_rows /
-				<= Empty $mol_view sub <= empty /
-					<= empty_title @ \There's nothing here yet.
-					<= Empty_add $mol_button_minor
-						minimal_height 24
-						title @ \Create project.
-						click? <=> add?
+				<= Filter $mol_search
+					query? <=> filter? \
 				<= Card*0_0 $hyoo_idea_project_card
 					project <= project* $hyoo_idea_project
+					highlight <= filter

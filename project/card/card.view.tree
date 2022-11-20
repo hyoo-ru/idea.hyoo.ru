@@ -8,6 +8,9 @@ $hyoo_idea_project_card $mol_link
 	sub /
 		<= Logo $hyoo_idea_project_logo blob <= logo_node
 		<= List $mol_list rows /
-			<= Name $mol_paragraph
-				title <= project_name \
-			<= Brief $mol_paragraph title <= brief
+			<= Name $mol_dimmer
+				haystack <= project_name \
+				needle <= highlight \
+			<= Brief $mol_dimmer
+				haystack <= brief
+				needle <= highlight \

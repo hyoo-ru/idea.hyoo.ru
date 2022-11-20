@@ -14,12 +14,8 @@ namespace $.$$ {
 			margin: ['auto', 'auto'],
 		},
 
-		Empty_add: {
-			padding: 0,
-			margin: {
-				left: $mol_gap.space,
-			},
-			display: 'inline-flex',
+		Filter: {
+			alignSelf: 'stretch',
 		},
 		
 		Rows: {

@@ -28,13 +28,13 @@ $hyoo_idea_app $mol_book2
 							title @ \Feed
 						<= Person_link $mol_link
 							arg * section \person
-							title @ \My page
+							title @ \Profile
 						<= Projects_link $mol_link
 							arg * section \projects
 							title @ \Projects
-						<= Search_link $mol_link
-							arg * section \search
-							title @ \Search
+						<= Talents_link $mol_link
+							arg * section \talents
+							title @ \Talents
 		<= Feed $hyoo_idea_feed_page
 			person <= user
 		<= Project_page $hyoo_idea_project_page
@@ -47,6 +47,6 @@ $hyoo_idea_app $mol_book2
 			person <= user
 		<= Invite_page $hyoo_idea_invite_page
 			domain <= domain
-		<= Search_page $hyoo_idea_search_page
+		<= Talents_page $hyoo_idea_talents_page
 			domain <= domain
 	Placeholder null

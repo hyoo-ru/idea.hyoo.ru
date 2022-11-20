@@ -1,6 +1,6 @@
 namespace $.$$ {
 
-	export class $hyoo_idea_search_page extends $.$hyoo_idea_search_page {
+	export class $hyoo_idea_talents_page extends $.$hyoo_idea_talents_page {
 
 		@ $mol_mem
 		persons() {

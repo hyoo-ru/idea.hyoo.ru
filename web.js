@@ -19336,7 +19336,8 @@ var $;
                 this.Jobs(),
                 this.Education(),
                 this.Projects_block(),
-                this.Posts()
+                this.Posts(),
+                this.Post_list()
             ];
         }
         Edit_icon() {
@@ -19631,6 +19632,17 @@ var $;
             obj.submit = (next) => this.post_add(next);
             return obj;
         }
+        posts_content() {
+            return [
+                this.Post_add()
+            ];
+        }
+        Posts() {
+            const obj = new this.$.$mol_section();
+            obj.title = () => this.Posts_title();
+            obj.content = () => this.posts_content();
+            return obj;
+        }
         post(id) {
             const obj = new this.$.$hyoo_idea_post();
             return obj;
@@ -19648,18 +19660,6 @@ var $;
         Post_list() {
             const obj = new this.$.$mol_list();
             obj.rows = () => this.post_list();
-            return obj;
-        }
-        posts_content() {
-            return [
-                this.Post_add(),
-                this.Post_list()
-            ];
-        }
-        Posts() {
-            const obj = new this.$.$mol_section();
-            obj.title = () => this.Posts_title();
-            obj.content = () => this.posts_content();
             return obj;
         }
     }
@@ -19787,6 +19787,9 @@ var $;
         $mol_mem
     ], $hyoo_idea_person_page.prototype, "Post_add", null);
     __decorate([
+        $mol_mem
+    ], $hyoo_idea_person_page.prototype, "Posts", null);
+    __decorate([
         $mol_mem_key
     ], $hyoo_idea_person_page.prototype, "post", null);
     __decorate([
@@ -19795,9 +19798,6 @@ var $;
     __decorate([
         $mol_mem
     ], $hyoo_idea_person_page.prototype, "Post_list", null);
-    __decorate([
-        $mol_mem
-    ], $hyoo_idea_person_page.prototype, "Posts", null);
     $.$hyoo_idea_person_page = $hyoo_idea_person_page;
 })($ || ($ = {}));
 //hyoo/idea/person/page/-view.tree/page.view.tree.ts
@@ -20050,7 +20050,6 @@ var $;
             posts_content() {
                 return [
                     ...this.self() ? [this.Post_add()] : [],
-                    this.Post_list(),
                 ];
             }
         }

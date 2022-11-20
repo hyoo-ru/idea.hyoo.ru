@@ -5209,12 +5209,12 @@ declare namespace $ {
         Posts_title(): string;
         post_add(next?: any): any;
         Post_add(): $$.$hyoo_idea_post_add;
+        posts_content(): readonly any[];
+        Posts(): $mol_section;
         post(id: any): $hyoo_idea_post;
         Post(id: any): $$.$hyoo_idea_post_card;
         post_list(): readonly any[];
         Post_list(): $$.$mol_list;
-        posts_content(): readonly any[];
-        Posts(): $mol_section;
     }
 }
 
@@ -5260,7 +5260,7 @@ declare namespace $.$$ {
         post(obj: $hyoo_idea_post): $hyoo_idea_post;
         post_list(): $hyoo_idea_post_card[];
         post_add(text: string): void;
-        posts_content(): ($mol_list | $hyoo_idea_post_add)[];
+        posts_content(): $hyoo_idea_post_add[];
     }
 }
 

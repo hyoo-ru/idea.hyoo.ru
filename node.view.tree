@@ -1651,10 +1651,10 @@ $hyoo_idea_person_page $mol_page
 			content <= posts_content /
 				<= Post_add $hyoo_idea_post_add
 					submit? <=> post_add? null
-				<= Post_list $mol_list
-					rows <= post_list /
-						<= Post*0_0 $hyoo_idea_post_card
-							post <= post* $hyoo_idea_post
+		<= Post_list $mol_list
+			rows <= post_list /
+				<= Post*0_0 $hyoo_idea_post_card
+					post <= post* $hyoo_idea_post
 
 $hyoo_idea_invite_page $mol_page
 	domain $hyoo_idea_domain

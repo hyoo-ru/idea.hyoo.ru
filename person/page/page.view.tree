@@ -70,7 +70,7 @@ $hyoo_idea_person_page $mol_page
 							title <= email
 		<= About $mol_text
 			text <= about
-		<= Jobs $hyoo_idea_profile_block
+		<= Jobs $mol_section
 			title @ \Experience
 			content /
 				<= Jobs_list $mol_list rows <= jobs /
@@ -79,7 +79,7 @@ $hyoo_idea_person_page $mol_page
 						<= Job_company* $mol_paragraph title <= job_company* \
 						<= Job_dates* $mol_paragraph title <= job_dates* \
 						<= Job_functions* $mol_text text <= job_functions* \
-		<= Education $hyoo_idea_profile_block
+		<= Education $mol_section
 			title @ \Education
 			content /
 				<= Education_list $mol_list rows <= education /

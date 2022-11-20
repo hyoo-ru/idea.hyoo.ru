@@ -163,6 +163,10 @@ namespace $.$$ {
 			]
 		}
 
+		name() {
+			return super.name() || '???'
+		}
+		
 	}
 
 }

@@ -2,50 +2,6 @@ namespace $.$$ {
 
 	const { rem, px } = $mol_style_unit
 
-	const list_item = {
-		border: {
-			bottom: {
-				color: $mol_theme.line,
-				style: 'solid',
-			},
-		},
-		padding: {
-			top: rem(1),
-			bottom: rem(1),
-		},
-
-		':first-child': {
-			padding: {
-				top: 0,
-			},
-		},
-		':last-child': {
-			padding: {
-				bottom: 0,
-			},
-			border: 'none',
-		},
-	}
-
-	const list_item_header = {
-		font: {
-			weight: 'bold',
-		},
-		letter: {
-			spacing: px(1),
-		} as any,
-	}
-
-	const list_item_muted = {
-		font: {
-			size: rem(0.75),
-		},
-		margin: {
-			bottom: $mol_gap.block,
-		},
-		opacity: 0.8,
-	}
-
 	$mol_style_define( $.$hyoo_idea_person_page, {
 
 		Title: {
@@ -110,21 +66,33 @@ namespace $.$$ {
 		Projects_block: {
 			padding: $mol_gap.block,
 		},
-
+		
+		Jobs: {
+			padding: $mol_gap.block,
+		},
 		Job_functions: {
 			$mol_paragraph: {
 				padding: 0,
 			},
 		},
 
-		Job: list_item as any,
+		Job: {
+			padding: $mol_gap.block,
+		},
 
-		Job_position: list_item_header as any,
-		Job_dates: list_item_muted,
+		Job_dates: {
+			color: $mol_theme.shade,
+		},
 	
-		Education_row: list_item as any,
-		Education_head: list_item_header as any,
-		Education_details: list_item_muted,
+		Education: {
+			padding: $mol_gap.block,
+		},
+		Education_row: {
+			padding: $mol_gap.block,
+		},
+		Education_details: {
+			color: $mol_theme.shade,
+		},
 		
 		Project_list: {
 			Rows: {

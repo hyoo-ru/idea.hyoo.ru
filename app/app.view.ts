@@ -13,10 +13,6 @@ namespace $.$$ {
 			return id ? this.domain().person( id ) : null as unknown as $hyoo_idea_person
 		}
 
-		signup_opened() {
-			return this.$.$mol_state_arg.value('signup') === ''
-		}
-
 		project_opened() {
 			const id = $mol_int62_string_ensure( this.$.$mol_state_arg.value('project') )
 			return id ? this.domain().project( id ) : null as unknown as  $hyoo_idea_project
@@ -29,8 +25,6 @@ namespace $.$$ {
 
 		@ $mol_mem
 		pages() {
-
-			if (this.signup_opened()) return [this.Sign_up()]
 
 			return [
 				this.Menu(),
@@ -45,36 +39,14 @@ namespace $.$$ {
 		}
 
 		@ $mol_mem
-		sync() {
-			this.Online().sub()
-		}
-
-		@ $mol_mem
 		person_register() {
 			this.domain().persons().add( this.domain().user() )
 		}
 
 		auto() {
-			this.sync()
 			this.person_register()
 		}
 
-		links() {
-			return this.user().registered() ? [
-				this.Feed_link(),
-				this.Person_link(),
-				this.Projects_link(),
-				this.Search_link(),
-			] : [
-				this.Feed_link(),
-				this.Search_link(),
-				this.Sign_up_button(),
-			]
-		}
-
-		sign_up() {
-			this.$.$mol_state_arg.value( 'signup', '' )
-		}
 	}
 
 }

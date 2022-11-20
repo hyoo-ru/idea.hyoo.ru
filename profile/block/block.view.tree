@@ -1,3 +1,0 @@
-$hyoo_idea_profile_block $mol_expander
-	Content $mol_list rows /
-		<= Content_card $mol_card sub <= content /

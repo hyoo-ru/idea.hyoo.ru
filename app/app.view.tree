@@ -35,11 +35,6 @@ $hyoo_idea_app $mol_book2
 						<= Search_link $mol_link
 							arg * section \search
 							title @ \Search
-						<= Sign_up_button $mol_button_major
-							title @ \Вход
-							click? <=> sign_up? null
-		<= Sign_up $hyoo_idea_sign_up_page
-			person <= user
 		<= Feed $hyoo_idea_feed_page
 			person <= user
 		<= Project_page $hyoo_idea_project_page

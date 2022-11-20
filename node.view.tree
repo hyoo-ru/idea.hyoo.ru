@@ -1601,7 +1601,7 @@ $hyoo_idea_invite_page $mol_page
 
 $hyoo_idea_search_page $mol_page
 	domain $hyoo_idea_domain
-	title @ \Search
+	title @ \Talent Search
 	tools /
 		<= Close $mol_link
 			arg * section null
@@ -1609,17 +1609,10 @@ $hyoo_idea_search_page $mol_page
 	persons /$hyoo_idea_person
 	projects /$hyoo_idea_project
 	body /
-		<= Search_list $mol_list rows /
-			<= Type $mol_switch
-				value? <=> type? \team
-				options *
-					team @ \Looking for a team
-					project @ \Looking for a project
-			<= Results $mol_list rows <= results <= team_rows <= project_rows /
+		<= Results $mol_list
+			rows <= results /
 	Person_row*0_0 $hyoo_idea_person_card
 		person <= person* $hyoo_idea_person
-	Project_row*0_0 $hyoo_idea_project_card
-		project <= project* $hyoo_idea_project
 
 $hyoo_idea_app $mol_book2
 	domain $hyoo_idea_domain

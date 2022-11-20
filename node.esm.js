@@ -3170,7 +3170,7 @@ var $;
 //mol/book2/book2.view.ts
 ;
 "use strict";
-let $hyoo_sync_revision = "893f6d4";
+let $hyoo_sync_revision = "64cd80d";
 //hyoo/sync/-meta.tree/revision.meta.tree.ts
 ;
 "use strict";
@@ -18932,7 +18932,10 @@ var $;
                 ];
             }
             projects() {
-                return this.person().projects();
+                const projects = this.domain().persons().list()
+                    .map(person => person.projects().filter(project => project.name()))
+                    .flat();
+                return [...new Set(projects)];
             }
             project_rows() {
                 if (this.projects().length === 0)
@@ -20049,17 +20052,12 @@ var $;
         }
         body() {
             return [
-                this.Search_list()
+                this.Results()
             ];
         }
         Person_row(id) {
             const obj = new this.$.$hyoo_idea_person_card();
             obj.person = () => this.person(id);
-            return obj;
-        }
-        Project_row(id) {
-            const obj = new this.$.$hyoo_idea_project_card();
-            obj.project = () => this.project(id);
             return obj;
         }
         Close_icon() {
@@ -20076,48 +20074,16 @@ var $;
             ];
             return obj;
         }
-        type(next) {
-            if (next !== undefined)
-                return next;
-            return "team";
-        }
-        Type() {
-            const obj = new this.$.$mol_switch();
-            obj.value = (next) => this.type(next);
-            obj.options = () => ({
-                team: this.$.$mol_locale.text('$hyoo_idea_search_page_Type_options_team'),
-                project: this.$.$mol_locale.text('$hyoo_idea_search_page_Type_options_project')
-            });
-            return obj;
-        }
-        project_rows() {
-            return [];
-        }
-        team_rows() {
-            return this.project_rows();
-        }
         results() {
-            return this.team_rows();
+            return [];
         }
         Results() {
             const obj = new this.$.$mol_list();
             obj.rows = () => this.results();
             return obj;
         }
-        Search_list() {
-            const obj = new this.$.$mol_list();
-            obj.rows = () => [
-                this.Type(),
-                this.Results()
-            ];
-            return obj;
-        }
         person(id) {
             const obj = new this.$.$hyoo_idea_person();
-            return obj;
-        }
-        project(id) {
-            const obj = new this.$.$hyoo_idea_project();
             return obj;
         }
     }
@@ -20128,9 +20094,6 @@ var $;
         $mol_mem_key
     ], $hyoo_idea_search_page.prototype, "Person_row", null);
     __decorate([
-        $mol_mem_key
-    ], $hyoo_idea_search_page.prototype, "Project_row", null);
-    __decorate([
         $mol_mem
     ], $hyoo_idea_search_page.prototype, "Close_icon", null);
     __decorate([
@@ -20138,22 +20101,10 @@ var $;
     ], $hyoo_idea_search_page.prototype, "Close", null);
     __decorate([
         $mol_mem
-    ], $hyoo_idea_search_page.prototype, "type", null);
-    __decorate([
-        $mol_mem
-    ], $hyoo_idea_search_page.prototype, "Type", null);
-    __decorate([
-        $mol_mem
     ], $hyoo_idea_search_page.prototype, "Results", null);
-    __decorate([
-        $mol_mem
-    ], $hyoo_idea_search_page.prototype, "Search_list", null);
     __decorate([
         $mol_mem_key
     ], $hyoo_idea_search_page.prototype, "person", null);
-    __decorate([
-        $mol_mem_key
-    ], $hyoo_idea_search_page.prototype, "project", null);
     $.$hyoo_idea_search_page = $hyoo_idea_search_page;
 })($ || ($ = {}));
 //hyoo/idea/search/page/-view.tree/page.view.tree.ts
@@ -20169,7 +20120,7 @@ var $;
                 basis: rem(40),
                 shrink: 0,
             },
-            Search_list: {
+            Results: {
                 padding: $mol_gap.block,
             },
         });
@@ -20186,26 +20137,11 @@ var $;
             persons() {
                 return [...new Set(this.domain().persons().list().filter(obj => obj.registered()))];
             }
-            person(obj) {
-                return obj;
-            }
-            team_rows() {
+            results() {
                 return this.persons().map(obj => this.Person_row(obj));
             }
-            projects() {
-                const projects = this.domain().persons().list()
-                    .map(person => person.projects().filter(project => project.name()))
-                    .flat();
-                return [...new Set(projects)];
-            }
-            project(obj) {
+            person(obj) {
                 return obj;
-            }
-            project_rows() {
-                return this.projects().map(obj => this.Project_row(obj));
-            }
-            results() {
-                return this.type() === 'team' ? this.team_rows() : this.project_rows();
             }
         }
         __decorate([

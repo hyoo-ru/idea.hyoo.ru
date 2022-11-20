@@ -5222,18 +5222,11 @@ declare namespace $ {
         projects(): readonly $hyoo_idea_project[];
         body(): readonly any[];
         Person_row(id: any): $$.$hyoo_idea_person_card;
-        Project_row(id: any): $$.$hyoo_idea_project_card;
         Close_icon(): $mol_icon_cross;
         Close(): $$.$mol_link;
-        type(next?: any): string;
-        Type(): $$.$mol_switch;
-        project_rows(): readonly any[];
-        team_rows(): readonly any[];
         results(): readonly any[];
         Results(): $$.$mol_list;
-        Search_list(): $$.$mol_list;
         person(id: any): $hyoo_idea_person;
-        project(id: any): $hyoo_idea_project;
     }
 }
 
@@ -5243,12 +5236,8 @@ declare namespace $.$$ {
 declare namespace $.$$ {
     class $hyoo_idea_search_page extends $.$hyoo_idea_search_page {
         persons(): $hyoo_idea_person[];
+        results(): $hyoo_idea_person_card[];
         person(obj: $hyoo_idea_person): $hyoo_idea_person;
-        team_rows(): $hyoo_idea_person_card[];
-        projects(): $hyoo_idea_project[];
-        project(obj: $hyoo_idea_project): $hyoo_idea_project;
-        project_rows(): $hyoo_idea_project_card[];
-        results(): $hyoo_idea_person_card[] | $hyoo_idea_project_card[];
     }
 }
 

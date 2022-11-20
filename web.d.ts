@@ -4638,15 +4638,6 @@ declare namespace $.$$ {
 }
 
 declare namespace $ {
-    class $hyoo_idea_project_logo extends $hyoo_idea_person_avatar {
-        placeholder(): string;
-    }
-}
-
-declare namespace $.$$ {
-}
-
-declare namespace $ {
     class $mol_icon_check extends $mol_icon {
         path(): string;
     }
@@ -4671,23 +4662,24 @@ declare namespace $ {
         project(): $hyoo_idea_project;
         role_not_label(): string;
         form_fields(): readonly any[];
-        stage_options(): {};
-        Stage_control(): $$.$mol_switch;
-        Stage_field(): $$.$mol_form_field;
-        Logo(): $hyoo_idea_project_logo;
+        Name_control(): $$.$mol_string;
+        Name_field(): $$.$mol_form_field;
         logo_add(next?: any): readonly any[];
         Logo_upload(): $mol_button_open;
         logo_drop(next?: any): any;
         Logo_drop_icon(): $mol_icon_cross;
         Logo_drop(): $mol_button_minor;
-        Logo_control(): $mol_row;
+        Logo_control(): $mol_bar;
         Logo_field(): $$.$mol_form_field;
-        Name_control(): $$.$mol_string;
-        Name_field(): $$.$mol_form_field;
+        Main_group(): $mol_form_group;
         Brief_control(): $$.$mol_string;
         Brief_field(): $$.$mol_form_field;
         Site_control(): $$.$mol_string;
         Site_field(): $$.$mol_form_field;
+        Addon_group(): $mol_form_group;
+        stage_options(): {};
+        Stage_control(): $$.$mol_switch;
+        Stage_field(): $$.$mol_form_field;
         roles_field_name(): string;
         Role_add_icon(): $mol_icon_plus;
         role_add(next?: any): any;
@@ -4788,6 +4780,15 @@ declare namespace $ {
     class $mol_icon_pencil extends $mol_icon {
         path(): string;
     }
+}
+
+declare namespace $ {
+    class $hyoo_idea_project_logo extends $hyoo_idea_person_avatar {
+        placeholder(): string;
+    }
+}
+
+declare namespace $.$$ {
 }
 
 declare namespace $ {

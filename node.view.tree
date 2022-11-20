@@ -1202,9 +1202,6 @@ $hyoo_idea_person_form $mol_form
 				sub /
 					\patents projects publications
 
-$hyoo_idea_project_logo $hyoo_idea_person_avatar
-	placeholder \/hyoo/idea/project/logo/placeholder.png
-
 $mol_icon_check $mol_icon path \M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z
 
 $mol_icon_cancel $mol_icon path \M12,2C17.52,2 22,6.48 22,12C22,17.52 17.52,22 12,22C6.48,22 2,17.52 2,12C2,6.48 6.48,2 12,2M12,4C7.58,4 4,7.58 4,12C4,13.85 4.63,15.55 5.68,16.91L16.91,5.68C15.55,4.63 13.85,4 12,4M12,20C16.42,20 20,16.42 20,12C20,10.15 19.37,8.45 18.32,7.09L7.09,18.32C8.45,19.37 10.15,20 12,20Z
@@ -1221,35 +1218,36 @@ $hyoo_idea_project_form $mol_form
 		team? => team?
 	role_not_label @ \No role
 	form_fields /
+		<= Main_group $mol_form_group sub /
+			<= Name_field $mol_form_field
+				name @ \Name
+				control <= Name_control $mol_string
+					value? <=> name?
+			<= Logo_field $mol_form_field
+				name @ \Logo
+				control <= Logo_control $mol_bar sub /
+					<= Logo_upload $mol_button_open
+						files? <=> logo_add? /
+						multiple false
+						accept \image/*
+					<= Logo_drop $mol_button_minor
+						hint @ \Remove logo
+						click? <=> logo_drop? null
+						sub / <= Logo_drop_icon $mol_icon_cross
+		<= Addon_group $mol_form_group sub /
+			<= Brief_field $mol_form_field
+				name @ \Brief
+				control <= Brief_control $mol_string
+					value? <=> brief?
+			<= Site_field $mol_form_field
+				name @ \Site
+				control <= Site_control $mol_string
+					value? <=> site?
 		<= Stage_field $mol_form_field
 			name @ \Stage
 			control <= Stage_control $mol_switch
 				value? <=> stage?
 				options <= stage_options *
-		<= Logo_field $mol_form_field
-			name @ \Logo
-			control <= Logo_control $mol_row sub /
-				<= Logo $hyoo_idea_project_logo blob <= logo_node
-				<= Logo_upload $mol_button_open
-					files? <=> logo_add? /
-					multiple false
-					accept \image/*
-				<= Logo_drop $mol_button_minor
-					hint @ \Remove logo
-					click? <=> logo_drop? null
-					sub / <= Logo_drop_icon $mol_icon_cross
-		<= Name_field $mol_form_field
-			name @ \Name
-			control <= Name_control $mol_string
-				value? <=> name?
-		<= Brief_field $mol_form_field
-			name @ \Brief
-			control <= Brief_control $mol_string
-				value? <=> brief?
-		<= Site_field $mol_form_field
-			name @ \Site
-			control <= Site_control $mol_string
-				value? <=> site?
 		<= Roles_field $mol_form_field
 			label /
 				<= roles_field_name @ \Roles
@@ -1315,6 +1313,9 @@ $hyoo_idea_project_form $mol_form
 				selection? <=> description_selection? /number
 
 $mol_icon_pencil $mol_icon path \M20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18,2.9 17.35,2.9 16.96,3.29L15.12,5.12L18.87,8.87M3,17.25V21H6.75L17.81,9.93L14.06,6.18L3,17.25Z
+
+$hyoo_idea_project_logo $hyoo_idea_person_avatar
+	placeholder \/hyoo/idea/project/logo/placeholder.png
 
 $mol_section $mol_list rows /
 	<= Head $mol_view

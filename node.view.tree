@@ -1415,6 +1415,41 @@ $hyoo_idea_project_page $mol_page
 				<= Post*0_0 $hyoo_idea_post_card
 					post <= post* $hyoo_idea_post
 
+$mol_search $mol_pop
+	query?val \
+	suggests /string
+	plugins /$mol_plugin
+		^
+		<= Hotkey $mol_hotkey
+			key * escape?val <=> clear?val null
+		<= Nav $mol_nav
+			keys_y <= nav_components /$mol_view
+			current_y?component <=> nav_focused?component null
+	showed?val <=> suggests_showed?val false
+	align_hor \right
+	Anchor $mol_view
+		sub <= anchor_content /
+			<= Query $mol_string
+				value?val <=> query?val \
+				hint <= hint @ \Search...
+				submit?event <=> submit?event null
+				enabled <= enabled true
+				bring => bring
+			<= Clear $mol_button_minor
+				hint @ \Clear
+				click?event <=> clear?event null
+				sub /
+					<= Clear_icon $mol_icon_cross
+	bubble_content /$mol_view_content
+		<= Menu $mol_list
+			rows <= menu_items /$mol_view
+	Suggest* $mol_button_minor
+		click?event <=> suggest_select*?event null
+		sub <= suggest_content* /$mol_view_content
+			<= Suggest_label* $mol_dimmer
+				haystack <= suggest_label* \
+				needle <= query?val \
+
 $hyoo_idea_project_card $mol_link
 	arg * project <= id
 	project $hyoo_idea_project
@@ -1425,9 +1460,12 @@ $hyoo_idea_project_card $mol_link
 	sub /
 		<= Logo $hyoo_idea_project_logo blob <= logo_node
 		<= List $mol_list rows /
-			<= Name $mol_paragraph
-				title <= project_name \
-			<= Brief $mol_paragraph title <= brief
+			<= Name $mol_dimmer
+				haystack <= project_name \
+				needle <= highlight \
+			<= Brief $mol_dimmer
+				haystack <= brief
+				needle <= highlight \
 
 $hyoo_idea_projects $mol_page
 	domain $hyoo_idea_domain
@@ -1441,16 +1479,14 @@ $hyoo_idea_projects $mol_page
 			click? <=> add? null
 	body /
 		<= Rows $mol_list
-			title @ \Projects
+			Empty <= Empty $mol_view sub /
+				<= empty_title @ \Create first project ⬆
 			rows <= project_rows /
-				<= Empty $mol_view sub <= empty /
-					<= empty_title @ \There's nothing here yet.
-					<= Empty_add $mol_button_minor
-						minimal_height 24
-						title @ \Create project.
-						click? <=> add?
+				<= Filter $mol_search
+					query? <=> filter? \
 				<= Card*0_0 $hyoo_idea_project_card
 					project <= project* $hyoo_idea_project
+					highlight <= filter
 
 $hyoo_idea_person_page $mol_page
 	person $hyoo_idea_person

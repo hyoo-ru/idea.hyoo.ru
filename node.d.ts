@@ -4956,6 +4956,69 @@ declare namespace $.$$ {
 }
 
 declare namespace $ {
+    class $mol_search extends $mol_pop {
+        query(val?: any): string;
+        suggests(): readonly string[];
+        plugins(): readonly $mol_plugin[];
+        showed(val?: any): boolean;
+        align_hor(): string;
+        Anchor(): $mol_view;
+        bubble_content(): readonly $mol_view_content[];
+        Suggest(id: any): $mol_button_minor;
+        clear(val?: any): any;
+        Hotkey(): $$.$mol_hotkey;
+        nav_components(): readonly $mol_view[];
+        nav_focused(component?: any): any;
+        Nav(): $$.$mol_nav;
+        suggests_showed(val?: any): boolean;
+        hint(): string;
+        submit(event?: any): any;
+        enabled(): boolean;
+        bring(): void;
+        Query(): $$.$mol_string;
+        Clear_icon(): $mol_icon_cross;
+        Clear(): $mol_button_minor;
+        anchor_content(): readonly any[];
+        menu_items(): readonly $mol_view[];
+        Menu(): $$.$mol_list;
+        suggest_select(id: any, event?: any): any;
+        suggest_label(id: any): string;
+        Suggest_label(id: any): $$.$mol_dimmer;
+        suggest_content(id: any): readonly $mol_view_content[];
+    }
+}
+
+declare namespace $ {
+    function $mol_fiber_defer<Value = void>(calculate: () => Value): $mol_wire_task<{}, [], Value>;
+    function $mol_fiber_root<Calculate extends (this: This, ...args: any[]) => Result, Result = void, This = void>(calculate: Calculate): Calculate;
+    function $mol_fiber_sync<Args extends any[], Value = void, This = void>(request: (this: This, ...args: Args) => PromiseLike<Value>): (...args: Args) => Value;
+    function $mol_fiber_warp(): Promise<void>;
+    class $mol_fiber_solid extends $mol_wrapper {
+        static func<This, Args extends any[], Result>(task: (this: This, ...args: Args) => Result): (this: This, ...args: Args) => Result;
+    }
+    class $mol_fiber {
+        static method: typeof $mol_wire_method;
+    }
+}
+
+declare namespace $ {
+}
+
+declare namespace $.$$ {
+    class $mol_search extends $.$mol_search {
+        anchor_content(): ($mol_button_minor | $mol_string)[];
+        suggests_showed(next?: boolean): boolean;
+        suggest_selected(next?: string): void;
+        nav_components(): ($mol_button_minor | $mol_string)[];
+        nav_focused(component?: $mol_view): $mol_view | $mol_string | null;
+        suggest_label(key: string): string;
+        menu_items(): $mol_button_minor[];
+        suggest_select(id: string, event?: MouseEvent): void;
+        clear(event?: Event): void;
+    }
+}
+
+declare namespace $ {
     class $hyoo_idea_project_card extends $mol_link {
         arg(): {
             project: `${string}_${string}`;
@@ -4968,8 +5031,9 @@ declare namespace $ {
         sub(): readonly any[];
         Logo(): $hyoo_idea_project_logo;
         project_name(): string;
-        Name(): $$.$mol_paragraph;
-        Brief(): $$.$mol_paragraph;
+        highlight(): string;
+        Name(): $$.$mol_dimmer;
+        Brief(): $$.$mol_dimmer;
         List(): $$.$mol_list;
     }
 }
@@ -4995,9 +5059,9 @@ declare namespace $ {
         add(next?: any): any;
         Add(): $mol_button_minor;
         empty_title(): string;
-        Empty_add(): $mol_button_minor;
-        empty(): readonly any[];
         Empty(): $mol_view;
+        filter(next?: any): string;
+        Filter(): $$.$mol_search;
         project(id: any): $hyoo_idea_project;
         Card(id: any): $$.$hyoo_idea_project_card;
         project_rows(): readonly any[];
@@ -5012,10 +5076,9 @@ declare namespace $.$$ {
     class $hyoo_idea_projects extends $.$hyoo_idea_projects {
         person(): $hyoo_idea_person;
         self(): boolean;
-        tools(): $mol_button_minor[];
-        empty(): (string | $mol_button_minor)[];
         projects(): $hyoo_idea_project[];
-        project_rows(): $mol_view[] | $hyoo_idea_project_card[];
+        projects_filtered(): $hyoo_idea_project[];
+        project_rows(): ($mol_search | $hyoo_idea_project_card)[];
         project(obj: $hyoo_idea_project): $hyoo_idea_project;
         add(): void;
     }

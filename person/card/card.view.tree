@@ -1,7 +1,7 @@
 $hyoo_idea_person_card $mol_view
 	person $hyoo_idea_person
 		id => id
-		name_short => name_short
+		name => name
 		avatar_node => avatar_node
 	sub /
 		<= Link $mol_link
@@ -12,7 +12,7 @@ $hyoo_idea_person_card $mol_view
 				<= Info $mol_list
 					rows <= info /
 						<= Name $mol_paragraph
-							title <= name_short
+							title <= name
 						<= Name_sub $mol_paragraph
 							sub <= name_sub /
 		<= Actions $mol_view sub <= actions /

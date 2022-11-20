@@ -9,7 +9,7 @@ namespace $.$$ {
 	export class $hyoo_idea_person_form extends $.$hyoo_idea_person_form {
 
 		@ $mol_mem
-		avatar_file(next?: File[]) {
+		avatar_file(next?: Blob[]) {
 			if (next && next.length) this.person().avatar_node().blob(next[0])
 			return next as readonly any[]
 		}

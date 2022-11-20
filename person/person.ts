@@ -51,36 +51,6 @@ namespace $ {
 		}
 
 		@ $mol_mem
-		name_family( next?: string ) {
-			return this.state().sub( 'name_family', $hyoo_crowd_reg ).str( next )
-		}
-
-		@ $mol_mem
-		name_father( next?: string ) {
-			return this.state().sub( 'name_father', $hyoo_crowd_reg ).str( next )
-		}
-
-		name_short() {
-			return this.name() + ' ' + this.name_family()
-		}
-
-		@ $mol_mem
-		sex( next?: 'male' | 'female' ) {
-			return this.state().sub( 'sex', $hyoo_crowd_reg ).str( next )
-		}
-
-		@ $mol_mem
-		date_birth( next?: $mol_time_moment ) {
-			const str = this.state().sub( 'date_birth', $hyoo_crowd_reg ).str( next && next.toString() )
-			return str ? new $mol_time_moment( str ) : null
-		}
-
-		@ $mol_mem
-		nationality( next?: string ) {
-			return this.state().sub( 'nationality', $hyoo_crowd_reg ).str( next )
-		}
-
-		@ $mol_mem
 		country( next?: string ) {
 			return this.state().sub( 'country', $hyoo_crowd_reg ).str( next )
 		}
@@ -150,7 +120,7 @@ namespace $ {
 
 		@ $mol_mem
 		registered() {
-			return !!this.name() && !!this.name_family()
+			return !!this.name()
 		}
 
 		@ $mol_mem

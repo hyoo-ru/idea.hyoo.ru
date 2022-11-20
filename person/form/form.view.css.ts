@@ -28,10 +28,11 @@ namespace $.$$ {
 		flex: {
 			basis: rem(50),
 		},
-
-		Avatar: {
-			width: rem(5),
-			height: rem(5),
+		
+		Deck: {
+			Switch: {
+				padding: $mol_gap.block,
+			},
 		},
 
 		Avatar_control: {

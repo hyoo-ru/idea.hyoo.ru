@@ -4,10 +4,6 @@ $hyoo_idea_person_form $mol_form
 		status? => status?
 		about? => about?
 		name? => name?
-		name_family? => name_family?
-		name_father? => name_father?
-		sex? => sex?
-		nationality? => nationality?
 		country? => country?
 		city? => city?
 		phone? => phone?
@@ -23,9 +19,7 @@ $hyoo_idea_person_form $mol_form
 				form_fields /
 					<= Avatar_field $mol_form_field
 						name @ \Avatar
-						control <= Avatar_control $mol_row sub /
-							<= Avatar $hyoo_idea_person_avatar
-								blob <= avatar_node
+						control <= Avatar_control $mol_view sub /
 							<= Avatar_upload $mol_button_open
 								files? <=> avatar_file? /
 								multiple false
@@ -34,75 +28,47 @@ $hyoo_idea_person_form $mol_form
 								hint @ \Remove avatar
 								click? <=> avatar_drop? null
 								sub / <= Avatar_drop_icon $mol_icon_cross
-					<= Status_field $mol_form_field
-						name @ \Status
-						control <= Status_control $mol_string
-							hint @ \What are you doing?
-							value? <=> status?
+					<= Name_group $mol_form_group sub /
+						<= Name_field $mol_form_field
+							name @ \Name
+							control <= Name_control $mol_string
+								hint @ \Thomas Andreson
+								value? <=> name?
+						<= Status_field $mol_form_field
+							name @ \Status
+							control <= Status_control $mol_string
+								hint @ \What are you doing?
+								value? <=> status?
 					<= About_field $mol_form_field
 						name @ \About
 						control <= About_control $mol_textarea
 							hint @ \Tell us about yourself
 							value? <=> about?
-			<= Personal $mol_form
-				title @ \Personal
-				form_fields /
-					<= Name_group $mol_form_group sub /
-						<= Name_field $mol_form_field
-							name @ \Name
-							control <= Name_control $mol_string
-								hint @ \Thomas
-								value? <=> name?
-						<= Name_family_field $mol_form_field
-							name @ \Family Name
-							control <= Name_family_control $mol_string
-								hint @ \Andreson
-								value? <=> name_family?
-						<= Name_father_field $mol_form_field
-							name @ \Father's Name
-							control <= Name_father_control $mol_string
-								value? <=> name_father?
-					<= Body_group $mol_form_group sub /
-						<= Sex_field $mol_form_field
-							name @ \Sex
-							control <= Sex_control $mol_switch
-								value? <=> sex?
-								options *
-									male @ \Male
-									female @ \Female
-						<= Date_birth_field $mol_form_field
-							name @ \Date of Birth
-							control <= Date_birth_control $mol_date
-								value_moment? <=> date_birth? $mol_time_moment
-					<= Nationality_field $mol_form_field
-						name @ \Nationality
-						control <= Nationality_control $mol_string
-							value? <=> nationality?
-			<= Location $mol_form
-				title @ \Location
-				form_fields /
-					<= Country_field $mol_form_field
-						name @ \Country
-						control <= Country_control $mol_string
-							hint @ \Russia
-							value? <=> country?
-					<= City_field $mol_form_field
-						name @ \City
-						control <= City_control $mol_string
-							hint @ \Moscow
-							value? <=> city?
-			<= Contacts $mol_form
-				title @ \Contacts
-				form_fields /
-					<= Phone_field $mol_form_field
-						name @ \Phone
-						control <= Phone_control $mol_phone
-							value? <=> phone?
-					<= Email_field $mol_form_field
-						name @ \Email
-						control <= Email_control $mol_string
-							hint @ \my_email@mail.ru
-							value? <=> email?
+					<= Location $mol_form_group
+						title @ \Location
+						sub /
+							<= Country_field $mol_form_field
+								name @ \Country
+								control <= Country_control $mol_string
+									hint @ \Russia
+									value? <=> country?
+							<= City_field $mol_form_field
+								name @ \City
+								control <= City_control $mol_string
+									hint @ \Moscow
+									value? <=> city?
+					<= Contacts $mol_form_group
+						title @ \Contacts
+						sub /
+							<= Phone_field $mol_form_field
+								name @ \Phone
+								control <= Phone_control $mol_phone
+									value? <=> phone?
+							<= Email_field $mol_form_field
+								name @ \Email
+								control <= Email_control $mol_string
+									hint @ \my_email@mail.ru
+									value? <=> email?
 			<= Work $mol_form
 				title @ \Work
 				form_fields /

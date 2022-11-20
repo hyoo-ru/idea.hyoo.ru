@@ -3,7 +3,7 @@ $hyoo_idea_person_page $mol_page
 		id => id
 		domain => domain
 		avatar_node => avatar_node
-		name_short => name_short
+		name => name
 		status => status
 		about => about
 		phone => phone
@@ -48,7 +48,7 @@ $hyoo_idea_person_page $mol_page
 	Title $mol_view sub /
 		<= Avatar $hyoo_idea_person_avatar blob <= avatar_node
 		<= Face_list $mol_list rows /
-			<= Name $mol_paragraph title <= name_short
+			<= Name $mol_paragraph title <= name
 			<= Status $mol_paragraph title <= status
 	body /
 		<= Neck $mol_row sub <= neck /

@@ -25,22 +25,31 @@ namespace $.$$ {
 
 		@ $mol_mem
 		pages() {
+			
+			const keys = Object.keys( this.$.$mol_state_arg.dict() )
+			
+			const addon = keys.map( key => {
+				switch( key ) {
+					case 'person': return this.Person_page()
+					case 'project': return this.Project_page()
+					case 'invite': return this.Invite_page()
+				}
+			} ).filter( $mol_guard_defined )
 
 			return [
-				this.Menu(),
-				... this.section() === 'feed' ? [this.Feed()] : [],
-				... this.section() === 'person' ? [this.My_page()] : [],
-				... this.section() === 'projects' ? [this.Project_list()] : [],
-				... this.section() === 'talents' ? [this.Talents_page()] : [],
-				... this.person_opened() ? [this.Person_page()] : [],
-				... this.project_opened() ? [this.Project_page()] : [],
-				... this.invite_opened() ? [this.Invite_page()] : [],
+				... super.pages(),
+				... addon,
 			]
+			
 		}
 
 		@ $mol_mem
 		person_register() {
 			this.domain().persons().add( this.domain().user() )
+		}
+		
+		user_id() {
+			return this.domain().user().id()
 		}
 
 		auto() {

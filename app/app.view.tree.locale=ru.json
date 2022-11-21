@@ -1,7 +1,4 @@
 {
-	"$hyoo_idea_app_Feed_link_title": "Лента",
-	"$hyoo_idea_app_Person_link_title": "Профиль",
-	"$hyoo_idea_app_Projects_link_title": "Проекты",
-	"$hyoo_idea_app_Talents_link_title": "Таланты",
+	"$hyoo_idea_app_Person_link_hint": "Профиль",
 	"$hyoo_idea_app_descr": "Соцсеть свежих идей"
 }

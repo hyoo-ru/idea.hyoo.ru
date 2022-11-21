@@ -1,52 +1,42 @@
-$hyoo_idea_app $mol_book2
+$hyoo_idea_app $mol_book2_catalog
 	domain $hyoo_idea_domain
 		yard => yard
 		user => user
 	plugins /
 		<= Theme $mol_theme_auto
-	pages /
-		<= Menu $mol_page
-			title_content /
-				<= Logo $mol_image
-					uri \/hyoo/idea/logo/logo.svg
-				<= Label $mol_list rows /
-					<= Title $mol_paragraph
-						title <= menu_title \$hyoo_idea
-					<= Descr $mol_paragraph
-						title <= descr @ \Fresh Ideas Network
-			foot /
-				<= Online $hyoo_sync_online
-					yard <= yard
-				<= Lights $mol_lights_toggle
-				<= Source $mol_link_source
-					uri \https://github.com/hyoo-ru/idea.hyoo.ru
-			body /
-				<= Links $mol_list
-					rows <= links /
-						<= Feed_link $mol_link
-							arg * section \feed
-							title @ \Feed
-						<= Person_link $mol_link
-							arg * section \person
-							title @ \Profile
-						<= Projects_link $mol_link
-							arg * section \projects
-							title @ \Projects
-						<= Talents_link $mol_link
-							arg * section \talents
-							title @ \Talents
-		<= Feed $hyoo_idea_feed_page
-			person <= user
-		<= Project_page $hyoo_idea_project_page
-			project <= project_opened $hyoo_idea_project
-		<= Project_list $hyoo_idea_projects
+	menu_head /
+		<= Menu_snippet $mol_view sub /
+			<= Logo $mol_image
+				uri \/hyoo/idea/logo/logo.svg
+			<= Label $mol_list rows /
+				<= Title $mol_paragraph
+					title <= menu_title \$hyoo_idea
+				<= Descr $mol_paragraph
+					title <= descr @ \Fresh Ideas Network
+		<= Person_link $mol_link
+			arg * person <= user_id \0_0
+			hint @ \Profile
+			sub /
+				<= Person_icon $mol_icon_account
+	menu_foot /
+		<= Online $hyoo_sync_online
+			yard <= yard
+		<= Lights $mol_lights_toggle
+		<= Source $mol_link_source
+			uri \https://github.com/hyoo-ru/idea.hyoo.ru
+	spreads *
+		\
+			<= Feed $hyoo_idea_feed_page
+				person <= user
+		projects <= Project_list $hyoo_idea_projects
 			domain <= domain
-		<= Person_page $hyoo_idea_person_page
-			person <= person_opened $hyoo_idea_person
-		<= My_page $hyoo_idea_person_page
-			person <= user
-		<= Invite_page $hyoo_idea_invite_page
+			Close <= Spread_close
+		talents <= Talents_page $hyoo_idea_talents_page
 			domain <= domain
-		<= Talents_page $hyoo_idea_talents_page
-			domain <= domain
-	Placeholder null
+			Close <= Spread_close
+	Project_page $hyoo_idea_project_page
+		project <= project_opened $hyoo_idea_project
+	Person_page $hyoo_idea_person_page
+		person <= person_opened $hyoo_idea_person
+	Invite_page $hyoo_idea_invite_page
+		domain <= domain

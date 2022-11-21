@@ -10,6 +10,21 @@ namespace $.$$ {
 				basis: rem(20),
 				shrink: 0,
 			},
+			justifyItems: 'flex-start',
+			Head: {
+				alignItems: 'flex-start',
+			},
+			Foot: {
+				padding: $mol_gap.block,
+			},
+		},
+		
+		Menu_snippet: {
+			flex: {
+				grow: 1,
+			},
+			gap: $mol_gap.block,
+			padding: $mol_gap.text,
 		},
 		
 		Logo: {
@@ -19,10 +34,6 @@ namespace $.$$ {
 		
 		Descr: {
 			color: $mol_theme.shade,
-		},
-		
-		Links: {
-			padding: $mol_gap.block,
 		},
 		
 	 } )

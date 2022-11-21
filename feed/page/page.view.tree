@@ -2,9 +2,7 @@ $hyoo_idea_feed_page $mol_page
 	person $hyoo_idea_person
 	title @ \Feed
 	tools /
-		<= Close $mol_link
-			arg * section null
-			sub / <= Close_icon $mol_icon_cross
+		<= Close null
 	body /
 		<= Posts $mol_list
 			rows <= posts /

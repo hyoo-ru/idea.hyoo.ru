@@ -8,6 +8,7 @@ $hyoo_idea_projects $mol_page
 			hint @ \Create project
 			sub / <= Add_icon $mol_icon_plus
 			click? <=> add? null
+		<= Close null
 	body /
 		<= Rows $mol_list
 			Empty <= Empty $mol_view sub /

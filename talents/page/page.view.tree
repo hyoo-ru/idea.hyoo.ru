@@ -2,9 +2,7 @@ $hyoo_idea_talents_page $mol_page
 	domain $hyoo_idea_domain
 	title @ \Talent Search
 	tools /
-		<= Close $mol_link
-			arg * section null
-			sub / <= Close_icon $mol_icon_cross
+		<= Close null
 	persons /$hyoo_idea_person
 	projects /$hyoo_idea_project
 	body /

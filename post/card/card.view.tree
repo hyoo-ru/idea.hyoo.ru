@@ -1,21 +1,14 @@
 $hyoo_idea_post_card $mol_list
 	post $hyoo_idea_post
-		domain().user().avatar_node => avatar_node
 		id => id
 		content => content
 		created_moment => created_moment
-		person => person
-		person().avatar => avatar
+		project => project
 		likes_total => likes_total
 		liked? => liked?
 	rows /
-		<= Head $hyoo_idea_person_card
-			person <= person
-			name_sub /
-				<= Ago $hyoo_idea_ago
-					title @ \{count} {unit} назад
-					moment <= created_moment
-			actions /
+		<= Head $hyoo_idea_project_card
+			project <= project
 		<= Content $mol_text
 			text <= content
 		<= Foot $mol_view sub /

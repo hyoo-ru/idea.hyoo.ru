@@ -19241,11 +19241,11 @@ var $;
             projects() {
                 const projects = this.domain().persons().list()
                     .map(person => person.projects().filter(project => project.name()))
-                    .flat().reverse();
+                    .flat();
                 return [...new Set(projects)];
             }
             projects_filtered() {
-                return this.projects().filter($mol_match_text(this.filter(), project => [project.name(), project.brief()]));
+                return this.projects().filter($mol_match_text(this.filter(), project => [project.name(), project.brief()])).reverse();
             }
             project_rows() {
                 return [

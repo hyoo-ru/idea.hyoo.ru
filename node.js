@@ -17309,215 +17309,131 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    class $hyoo_idea_plural extends $mol_object2 {
-        other() {
-            return this.$.$mol_locale.text('$hyoo_idea_plural_other');
+    class $hyoo_idea_project_card extends $mol_link {
+        arg() {
+            return {
+                project: this.id()
+            };
         }
-        one() {
-            return this.$.$mol_locale.text('$hyoo_idea_plural_one');
+        id() {
+            return this.project().id();
         }
-        two() {
-            return this.$.$mol_locale.text('$hyoo_idea_plural_two');
+        logo_node() {
+            return this.project().logo_node();
         }
-        few() {
-            return this.$.$mol_locale.text('$hyoo_idea_plural_few');
+        brief() {
+            return this.project().brief();
         }
-        many() {
-            return this.$.$mol_locale.text('$hyoo_idea_plural_many');
-        }
-    }
-    $.$hyoo_idea_plural = $hyoo_idea_plural;
-})($ || ($ = {}));
-//hyoo/idea/plural/-view.tree/plural.view.tree.ts
-;
-"use strict";
-var $;
-(function ($) {
-    var $$;
-    (function ($$) {
-        class $hyoo_idea_plural extends $.$hyoo_idea_plural {
-            plural_rules() {
-                const locale = this.$.$mol_locale.lang();
-                return new Intl.PluralRules(locale);
-            }
-            select(num) {
-                const plural = this.plural_rules().select(num);
-                return this[plural]();
-            }
-        }
-        __decorate([
-            $mol_mem
-        ], $hyoo_idea_plural.prototype, "plural_rules", null);
-        $$.$hyoo_idea_plural = $hyoo_idea_plural;
-    })($$ = $.$$ || ($.$$ = {}));
-})($ || ($ = {}));
-//hyoo/idea/plural/plural.view.ts
-;
-"use strict";
-var $;
-(function ($) {
-    class $hyoo_idea_ago extends $mol_view {
-        param_count() {
-            return "{count}";
-        }
-        param_unit() {
-            return "{unit}";
-        }
-        title() {
-            return this.$.$mol_locale.text('$hyoo_idea_ago_title');
-        }
-        now() {
-            return this.$.$mol_locale.text('$hyoo_idea_ago_now');
-        }
-        moment() {
-            const obj = new this.$.$mol_time_moment();
+        project() {
+            const obj = new this.$.$hyoo_idea_project();
             return obj;
+        }
+        default_name() {
+            return this.$.$mol_locale.text('$hyoo_idea_project_card_default_name');
         }
         sub() {
             return [
-                this.ago()
+                this.Logo(),
+                this.List()
             ];
         }
-        units() {
-            return {
-                second: this.second(),
-                minute: this.minute(),
-                hour: this.hour(),
-                day: this.day(),
-                month: this.month(),
-                year: this.year()
-            };
+        Logo() {
+            const obj = new this.$.$hyoo_idea_project_logo();
+            obj.blob = () => this.logo_node();
+            return obj;
         }
-        ago() {
+        project_name() {
             return "";
         }
-        second() {
-            const obj = new this.$.$hyoo_idea_plural();
-            obj.other = () => this.$.$mol_locale.text('$hyoo_idea_ago_second_other');
-            obj.one = () => this.$.$mol_locale.text('$hyoo_idea_ago_second_one');
-            obj.two = () => this.$.$mol_locale.text('$hyoo_idea_ago_second_two');
-            obj.few = () => this.$.$mol_locale.text('$hyoo_idea_ago_second_few');
-            obj.many = () => this.$.$mol_locale.text('$hyoo_idea_ago_second_many');
+        highlight() {
+            return "";
+        }
+        Name() {
+            const obj = new this.$.$mol_dimmer();
+            obj.haystack = () => this.project_name();
+            obj.needle = () => this.highlight();
             return obj;
         }
-        minute() {
-            const obj = new this.$.$hyoo_idea_plural();
-            obj.other = () => this.$.$mol_locale.text('$hyoo_idea_ago_minute_other');
-            obj.one = () => this.$.$mol_locale.text('$hyoo_idea_ago_minute_one');
-            obj.two = () => this.$.$mol_locale.text('$hyoo_idea_ago_minute_two');
-            obj.few = () => this.$.$mol_locale.text('$hyoo_idea_ago_minute_few');
-            obj.many = () => this.$.$mol_locale.text('$hyoo_idea_ago_minute_many');
+        Brief() {
+            const obj = new this.$.$mol_dimmer();
+            obj.haystack = () => this.brief();
+            obj.needle = () => this.highlight();
             return obj;
         }
-        hour() {
-            const obj = new this.$.$hyoo_idea_plural();
-            obj.other = () => this.$.$mol_locale.text('$hyoo_idea_ago_hour_other');
-            obj.one = () => this.$.$mol_locale.text('$hyoo_idea_ago_hour_one');
-            obj.two = () => this.$.$mol_locale.text('$hyoo_idea_ago_hour_two');
-            obj.few = () => this.$.$mol_locale.text('$hyoo_idea_ago_hour_few');
-            obj.many = () => this.$.$mol_locale.text('$hyoo_idea_ago_hour_many');
-            return obj;
-        }
-        day() {
-            const obj = new this.$.$hyoo_idea_plural();
-            obj.other = () => this.$.$mol_locale.text('$hyoo_idea_ago_day_other');
-            obj.one = () => this.$.$mol_locale.text('$hyoo_idea_ago_day_one');
-            obj.two = () => this.$.$mol_locale.text('$hyoo_idea_ago_day_two');
-            obj.few = () => this.$.$mol_locale.text('$hyoo_idea_ago_day_few');
-            obj.many = () => this.$.$mol_locale.text('$hyoo_idea_ago_day_many');
-            return obj;
-        }
-        month() {
-            const obj = new this.$.$hyoo_idea_plural();
-            obj.other = () => this.$.$mol_locale.text('$hyoo_idea_ago_month_other');
-            obj.one = () => this.$.$mol_locale.text('$hyoo_idea_ago_month_one');
-            obj.two = () => this.$.$mol_locale.text('$hyoo_idea_ago_month_two');
-            obj.few = () => this.$.$mol_locale.text('$hyoo_idea_ago_month_few');
-            obj.many = () => this.$.$mol_locale.text('$hyoo_idea_ago_month_many');
-            return obj;
-        }
-        year() {
-            const obj = new this.$.$hyoo_idea_plural();
-            obj.other = () => this.$.$mol_locale.text('$hyoo_idea_ago_year_other');
-            obj.one = () => this.$.$mol_locale.text('$hyoo_idea_ago_year_one');
-            obj.two = () => this.$.$mol_locale.text('$hyoo_idea_ago_year_two');
-            obj.few = () => this.$.$mol_locale.text('$hyoo_idea_ago_year_few');
-            obj.many = () => this.$.$mol_locale.text('$hyoo_idea_ago_year_many');
+        List() {
+            const obj = new this.$.$mol_list();
+            obj.rows = () => [
+                this.Name(),
+                this.Brief()
+            ];
             return obj;
         }
     }
     __decorate([
         $mol_mem
-    ], $hyoo_idea_ago.prototype, "moment", null);
+    ], $hyoo_idea_project_card.prototype, "project", null);
     __decorate([
         $mol_mem
-    ], $hyoo_idea_ago.prototype, "second", null);
+    ], $hyoo_idea_project_card.prototype, "Logo", null);
     __decorate([
         $mol_mem
-    ], $hyoo_idea_ago.prototype, "minute", null);
+    ], $hyoo_idea_project_card.prototype, "Name", null);
     __decorate([
         $mol_mem
-    ], $hyoo_idea_ago.prototype, "hour", null);
+    ], $hyoo_idea_project_card.prototype, "Brief", null);
     __decorate([
         $mol_mem
-    ], $hyoo_idea_ago.prototype, "day", null);
-    __decorate([
-        $mol_mem
-    ], $hyoo_idea_ago.prototype, "month", null);
-    __decorate([
-        $mol_mem
-    ], $hyoo_idea_ago.prototype, "year", null);
-    $.$hyoo_idea_ago = $hyoo_idea_ago;
+    ], $hyoo_idea_project_card.prototype, "List", null);
+    $.$hyoo_idea_project_card = $hyoo_idea_project_card;
 })($ || ($ = {}));
-//hyoo/idea/ago/-view.tree/ago.view.tree.ts
+//hyoo/idea/project/card/-view.tree/card.view.tree.ts
 ;
 "use strict";
 var $;
 (function ($) {
     var $$;
     (function ($$) {
-        class $hyoo_idea_ago extends $.$hyoo_idea_ago {
-            SECOND = 1000;
-            MINUTE = this.SECOND * 60;
-            HOUR = this.MINUTE * 60;
-            DAY = this.HOUR * 24;
-            MONTH = this.DAY * 30;
-            YEAR = this.DAY * 365;
-            unit(ms) {
-                if (ms < this.MINUTE)
-                    return 'second';
-                if (ms < this.HOUR)
-                    return 'minute';
-                if (ms < this.DAY)
-                    return 'hour';
-                if (ms < this.MONTH)
-                    return 'day';
-                if (ms <= this.YEAR)
-                    return 'month';
-                return 'year';
+        const { rem } = $mol_style_unit;
+        $mol_style_define($.$hyoo_idea_project_card, {
+            gap: $mol_gap.block,
+            List: {
+                flex: {
+                    shrink: 1,
+                },
+            },
+            Name: {
+                display: 'inline-flex',
+                padding: 0,
+            },
+            Brief: {
+                color: $mol_theme.shade,
+            },
+            Logo: {
+                width: rem(3),
+                height: rem(3),
+                flex: {
+                    shrink: 0,
+                },
             }
-            ago() {
-                const moment = new $mol_time_moment(this.moment());
-                const ms = $mol_state_time.now(10000) - moment.valueOf();
-                const duration = new $mol_time_duration(ms);
-                const format = { second: 'PT1S', minute: 'PT1M', hour: 'PT1H', day: 'P1DT', month: 'P1MT', year: 'P1YT' };
-                const unit = this.unit(ms);
-                const value = Math.round(duration.count(format[unit]));
-                const now = unit === 'second' && value < 10;
-                if (now)
-                    return this.now();
-                return this.title()
-                    .replace(this.param_count(), Math.abs(value).toString())
-                    .replace(this.param_unit(), this.units()[unit].select(value));
-            }
-        }
-        __decorate([
-            $mol_mem
-        ], $hyoo_idea_ago.prototype, "ago", null);
-        $$.$hyoo_idea_ago = $hyoo_idea_ago;
+        });
     })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));
-//hyoo/idea/ago/ago.view.ts
+//hyoo/idea/project/card/card.view.css.ts
+;
+"use strict";
+var $;
+(function ($) {
+    var $$;
+    (function ($$) {
+        class $hyoo_idea_project_card extends $.$hyoo_idea_project_card {
+            project_name() {
+                return this.project().name() || this.default_name();
+            }
+        }
+        $$.$hyoo_idea_project_card = $hyoo_idea_project_card;
+    })($$ = $.$$ || ($.$$ = {}));
+})($ || ($ = {}));
+//hyoo/idea/project/card/card.view.ts
 ;
 "use strict";
 var $;
@@ -17768,6 +17684,219 @@ var $;
 "use strict";
 var $;
 (function ($) {
+    class $hyoo_idea_plural extends $mol_object2 {
+        other() {
+            return this.$.$mol_locale.text('$hyoo_idea_plural_other');
+        }
+        one() {
+            return this.$.$mol_locale.text('$hyoo_idea_plural_one');
+        }
+        two() {
+            return this.$.$mol_locale.text('$hyoo_idea_plural_two');
+        }
+        few() {
+            return this.$.$mol_locale.text('$hyoo_idea_plural_few');
+        }
+        many() {
+            return this.$.$mol_locale.text('$hyoo_idea_plural_many');
+        }
+    }
+    $.$hyoo_idea_plural = $hyoo_idea_plural;
+})($ || ($ = {}));
+//hyoo/idea/plural/-view.tree/plural.view.tree.ts
+;
+"use strict";
+var $;
+(function ($) {
+    var $$;
+    (function ($$) {
+        class $hyoo_idea_plural extends $.$hyoo_idea_plural {
+            plural_rules() {
+                const locale = this.$.$mol_locale.lang();
+                return new Intl.PluralRules(locale);
+            }
+            select(num) {
+                const plural = this.plural_rules().select(num);
+                return this[plural]();
+            }
+        }
+        __decorate([
+            $mol_mem
+        ], $hyoo_idea_plural.prototype, "plural_rules", null);
+        $$.$hyoo_idea_plural = $hyoo_idea_plural;
+    })($$ = $.$$ || ($.$$ = {}));
+})($ || ($ = {}));
+//hyoo/idea/plural/plural.view.ts
+;
+"use strict";
+var $;
+(function ($) {
+    class $hyoo_idea_ago extends $mol_view {
+        param_count() {
+            return "{count}";
+        }
+        param_unit() {
+            return "{unit}";
+        }
+        title() {
+            return this.$.$mol_locale.text('$hyoo_idea_ago_title');
+        }
+        now() {
+            return this.$.$mol_locale.text('$hyoo_idea_ago_now');
+        }
+        moment() {
+            const obj = new this.$.$mol_time_moment();
+            return obj;
+        }
+        sub() {
+            return [
+                this.ago()
+            ];
+        }
+        units() {
+            return {
+                second: this.second(),
+                minute: this.minute(),
+                hour: this.hour(),
+                day: this.day(),
+                month: this.month(),
+                year: this.year()
+            };
+        }
+        ago() {
+            return "";
+        }
+        second() {
+            const obj = new this.$.$hyoo_idea_plural();
+            obj.other = () => this.$.$mol_locale.text('$hyoo_idea_ago_second_other');
+            obj.one = () => this.$.$mol_locale.text('$hyoo_idea_ago_second_one');
+            obj.two = () => this.$.$mol_locale.text('$hyoo_idea_ago_second_two');
+            obj.few = () => this.$.$mol_locale.text('$hyoo_idea_ago_second_few');
+            obj.many = () => this.$.$mol_locale.text('$hyoo_idea_ago_second_many');
+            return obj;
+        }
+        minute() {
+            const obj = new this.$.$hyoo_idea_plural();
+            obj.other = () => this.$.$mol_locale.text('$hyoo_idea_ago_minute_other');
+            obj.one = () => this.$.$mol_locale.text('$hyoo_idea_ago_minute_one');
+            obj.two = () => this.$.$mol_locale.text('$hyoo_idea_ago_minute_two');
+            obj.few = () => this.$.$mol_locale.text('$hyoo_idea_ago_minute_few');
+            obj.many = () => this.$.$mol_locale.text('$hyoo_idea_ago_minute_many');
+            return obj;
+        }
+        hour() {
+            const obj = new this.$.$hyoo_idea_plural();
+            obj.other = () => this.$.$mol_locale.text('$hyoo_idea_ago_hour_other');
+            obj.one = () => this.$.$mol_locale.text('$hyoo_idea_ago_hour_one');
+            obj.two = () => this.$.$mol_locale.text('$hyoo_idea_ago_hour_two');
+            obj.few = () => this.$.$mol_locale.text('$hyoo_idea_ago_hour_few');
+            obj.many = () => this.$.$mol_locale.text('$hyoo_idea_ago_hour_many');
+            return obj;
+        }
+        day() {
+            const obj = new this.$.$hyoo_idea_plural();
+            obj.other = () => this.$.$mol_locale.text('$hyoo_idea_ago_day_other');
+            obj.one = () => this.$.$mol_locale.text('$hyoo_idea_ago_day_one');
+            obj.two = () => this.$.$mol_locale.text('$hyoo_idea_ago_day_two');
+            obj.few = () => this.$.$mol_locale.text('$hyoo_idea_ago_day_few');
+            obj.many = () => this.$.$mol_locale.text('$hyoo_idea_ago_day_many');
+            return obj;
+        }
+        month() {
+            const obj = new this.$.$hyoo_idea_plural();
+            obj.other = () => this.$.$mol_locale.text('$hyoo_idea_ago_month_other');
+            obj.one = () => this.$.$mol_locale.text('$hyoo_idea_ago_month_one');
+            obj.two = () => this.$.$mol_locale.text('$hyoo_idea_ago_month_two');
+            obj.few = () => this.$.$mol_locale.text('$hyoo_idea_ago_month_few');
+            obj.many = () => this.$.$mol_locale.text('$hyoo_idea_ago_month_many');
+            return obj;
+        }
+        year() {
+            const obj = new this.$.$hyoo_idea_plural();
+            obj.other = () => this.$.$mol_locale.text('$hyoo_idea_ago_year_other');
+            obj.one = () => this.$.$mol_locale.text('$hyoo_idea_ago_year_one');
+            obj.two = () => this.$.$mol_locale.text('$hyoo_idea_ago_year_two');
+            obj.few = () => this.$.$mol_locale.text('$hyoo_idea_ago_year_few');
+            obj.many = () => this.$.$mol_locale.text('$hyoo_idea_ago_year_many');
+            return obj;
+        }
+    }
+    __decorate([
+        $mol_mem
+    ], $hyoo_idea_ago.prototype, "moment", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_idea_ago.prototype, "second", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_idea_ago.prototype, "minute", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_idea_ago.prototype, "hour", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_idea_ago.prototype, "day", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_idea_ago.prototype, "month", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_idea_ago.prototype, "year", null);
+    $.$hyoo_idea_ago = $hyoo_idea_ago;
+})($ || ($ = {}));
+//hyoo/idea/ago/-view.tree/ago.view.tree.ts
+;
+"use strict";
+var $;
+(function ($) {
+    var $$;
+    (function ($$) {
+        class $hyoo_idea_ago extends $.$hyoo_idea_ago {
+            SECOND = 1000;
+            MINUTE = this.SECOND * 60;
+            HOUR = this.MINUTE * 60;
+            DAY = this.HOUR * 24;
+            MONTH = this.DAY * 30;
+            YEAR = this.DAY * 365;
+            unit(ms) {
+                if (ms < this.MINUTE)
+                    return 'second';
+                if (ms < this.HOUR)
+                    return 'minute';
+                if (ms < this.DAY)
+                    return 'hour';
+                if (ms < this.MONTH)
+                    return 'day';
+                if (ms <= this.YEAR)
+                    return 'month';
+                return 'year';
+            }
+            ago() {
+                const moment = new $mol_time_moment(this.moment());
+                const ms = $mol_state_time.now(10000) - moment.valueOf();
+                const duration = new $mol_time_duration(ms);
+                const format = { second: 'PT1S', minute: 'PT1M', hour: 'PT1H', day: 'P1DT', month: 'P1MT', year: 'P1YT' };
+                const unit = this.unit(ms);
+                const value = Math.round(duration.count(format[unit]));
+                const now = unit === 'second' && value < 10;
+                if (now)
+                    return this.now();
+                return this.title()
+                    .replace(this.param_count(), Math.abs(value).toString())
+                    .replace(this.param_unit(), this.units()[unit].select(value));
+            }
+        }
+        __decorate([
+            $mol_mem
+        ], $hyoo_idea_ago.prototype, "ago", null);
+        $$.$hyoo_idea_ago = $hyoo_idea_ago;
+    })($$ = $.$$ || ($.$$ = {}));
+})($ || ($ = {}));
+//hyoo/idea/ago/ago.view.ts
+;
+"use strict";
+var $;
+(function ($) {
     class $mol_icon_send extends $mol_icon {
         path() {
             return "M2,21L23,12L2,3V10L17,12L2,14V21Z";
@@ -17781,9 +17910,6 @@ var $;
 var $;
 (function ($) {
     class $hyoo_idea_post_card extends $mol_list {
-        avatar_node() {
-            return this.post().domain().user().avatar_node();
-        }
         id() {
             return this.post().id();
         }
@@ -17793,11 +17919,8 @@ var $;
         created_moment() {
             return this.post().created_moment();
         }
-        person() {
-            return this.post().person();
-        }
-        avatar() {
-            return this.post().person().avatar();
+        project() {
+            return this.post().project();
         }
         likes_total() {
             return this.post().likes_total();
@@ -17817,19 +17940,9 @@ var $;
                 this.Comments()
             ];
         }
-        Ago() {
-            const obj = new this.$.$hyoo_idea_ago();
-            obj.title = () => this.$.$mol_locale.text('$hyoo_idea_post_card_Ago_title');
-            obj.moment = () => this.created_moment();
-            return obj;
-        }
         Head() {
-            const obj = new this.$.$hyoo_idea_person_card();
-            obj.person = () => this.person();
-            obj.name_sub = () => [
-                this.Ago()
-            ];
-            obj.actions = () => [];
+            const obj = new this.$.$hyoo_idea_project_card();
+            obj.project = () => this.project();
             return obj;
         }
         Content() {
@@ -17985,9 +18098,6 @@ var $;
     __decorate([
         $mol_mem
     ], $hyoo_idea_post_card.prototype, "post", null);
-    __decorate([
-        $mol_mem
-    ], $hyoo_idea_post_card.prototype, "Ago", null);
     __decorate([
         $mol_mem
     ], $hyoo_idea_post_card.prototype, "Head", null);
@@ -18650,135 +18760,6 @@ var $;
     })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));
 //hyoo/idea/project/page/page.view.ts
-;
-"use strict";
-var $;
-(function ($) {
-    class $hyoo_idea_project_card extends $mol_link {
-        arg() {
-            return {
-                project: this.id()
-            };
-        }
-        id() {
-            return this.project().id();
-        }
-        logo_node() {
-            return this.project().logo_node();
-        }
-        brief() {
-            return this.project().brief();
-        }
-        project() {
-            const obj = new this.$.$hyoo_idea_project();
-            return obj;
-        }
-        default_name() {
-            return this.$.$mol_locale.text('$hyoo_idea_project_card_default_name');
-        }
-        sub() {
-            return [
-                this.Logo(),
-                this.List()
-            ];
-        }
-        Logo() {
-            const obj = new this.$.$hyoo_idea_project_logo();
-            obj.blob = () => this.logo_node();
-            return obj;
-        }
-        project_name() {
-            return "";
-        }
-        highlight() {
-            return "";
-        }
-        Name() {
-            const obj = new this.$.$mol_dimmer();
-            obj.haystack = () => this.project_name();
-            obj.needle = () => this.highlight();
-            return obj;
-        }
-        Brief() {
-            const obj = new this.$.$mol_dimmer();
-            obj.haystack = () => this.brief();
-            obj.needle = () => this.highlight();
-            return obj;
-        }
-        List() {
-            const obj = new this.$.$mol_list();
-            obj.rows = () => [
-                this.Name(),
-                this.Brief()
-            ];
-            return obj;
-        }
-    }
-    __decorate([
-        $mol_mem
-    ], $hyoo_idea_project_card.prototype, "project", null);
-    __decorate([
-        $mol_mem
-    ], $hyoo_idea_project_card.prototype, "Logo", null);
-    __decorate([
-        $mol_mem
-    ], $hyoo_idea_project_card.prototype, "Name", null);
-    __decorate([
-        $mol_mem
-    ], $hyoo_idea_project_card.prototype, "Brief", null);
-    __decorate([
-        $mol_mem
-    ], $hyoo_idea_project_card.prototype, "List", null);
-    $.$hyoo_idea_project_card = $hyoo_idea_project_card;
-})($ || ($ = {}));
-//hyoo/idea/project/card/-view.tree/card.view.tree.ts
-;
-"use strict";
-var $;
-(function ($) {
-    var $$;
-    (function ($$) {
-        const { rem } = $mol_style_unit;
-        $mol_style_define($.$hyoo_idea_project_card, {
-            gap: $mol_gap.block,
-            List: {
-                flex: {
-                    shrink: 1,
-                },
-            },
-            Name: {
-                display: 'inline-flex',
-                padding: 0,
-            },
-            Brief: {
-                color: $mol_theme.shade,
-            },
-            Logo: {
-                width: rem(3),
-                height: rem(3),
-                flex: {
-                    shrink: 0,
-                },
-            }
-        });
-    })($$ = $.$$ || ($.$$ = {}));
-})($ || ($ = {}));
-//hyoo/idea/project/card/card.view.css.ts
-;
-"use strict";
-var $;
-(function ($) {
-    var $$;
-    (function ($$) {
-        class $hyoo_idea_project_card extends $.$hyoo_idea_project_card {
-            project_name() {
-                return this.project().name() || this.default_name();
-            }
-        }
-        $$.$hyoo_idea_project_card = $hyoo_idea_project_card;
-    })($$ = $.$$ || ($.$$ = {}));
-})($ || ($ = {}));
-//hyoo/idea/project/card/card.view.ts
 ;
 "use strict";
 var $;

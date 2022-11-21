@@ -4626,58 +4626,31 @@ declare namespace $.$$ {
 }
 
 declare namespace $ {
-    class $hyoo_idea_plural extends $mol_object2 {
-        other(): string;
-        one(): string;
-        two(): string;
-        few(): string;
-        many(): string;
-    }
-}
-
-declare namespace $.$$ {
-    class $hyoo_idea_plural extends $.$hyoo_idea_plural {
-        plural_rules(): Intl.PluralRules;
-        select(num: number): any;
-    }
-}
-
-declare namespace $ {
-    class $hyoo_idea_ago extends $mol_view {
-        param_count(): string;
-        param_unit(): string;
-        title(): string;
-        now(): string;
-        moment(): $mol_time_moment;
-        sub(): readonly any[];
-        units(): {
-            second: $$.$hyoo_idea_plural;
-            minute: $$.$hyoo_idea_plural;
-            hour: $$.$hyoo_idea_plural;
-            day: $$.$hyoo_idea_plural;
-            month: $$.$hyoo_idea_plural;
-            year: $$.$hyoo_idea_plural;
+    class $hyoo_idea_project_card extends $mol_link {
+        arg(): {
+            project: `${string}_${string}`;
         };
-        ago(): string;
-        second(): $$.$hyoo_idea_plural;
-        minute(): $$.$hyoo_idea_plural;
-        hour(): $$.$hyoo_idea_plural;
-        day(): $$.$hyoo_idea_plural;
-        month(): $$.$hyoo_idea_plural;
-        year(): $$.$hyoo_idea_plural;
+        id(): `${string}_${string}`;
+        logo_node(): $hyoo_crowd_blob;
+        brief(): string;
+        project(): $hyoo_idea_project;
+        default_name(): string;
+        sub(): readonly any[];
+        Logo(): $hyoo_idea_project_logo;
+        project_name(): string;
+        highlight(): string;
+        Name(): $$.$mol_dimmer;
+        Brief(): $$.$mol_dimmer;
+        List(): $$.$mol_list;
     }
 }
 
 declare namespace $.$$ {
-    class $hyoo_idea_ago extends $.$hyoo_idea_ago {
-        SECOND: number;
-        MINUTE: number;
-        HOUR: number;
-        DAY: number;
-        MONTH: number;
-        YEAR: number;
-        unit(ms: number): "second" | "minute" | "hour" | "day" | "month" | "year";
-        ago(): string;
+}
+
+declare namespace $.$$ {
+    class $hyoo_idea_project_card extends $.$hyoo_idea_project_card {
+        project_name(): string;
     }
 }
 
@@ -4759,6 +4732,62 @@ declare namespace $.$$ {
 }
 
 declare namespace $ {
+    class $hyoo_idea_plural extends $mol_object2 {
+        other(): string;
+        one(): string;
+        two(): string;
+        few(): string;
+        many(): string;
+    }
+}
+
+declare namespace $.$$ {
+    class $hyoo_idea_plural extends $.$hyoo_idea_plural {
+        plural_rules(): Intl.PluralRules;
+        select(num: number): any;
+    }
+}
+
+declare namespace $ {
+    class $hyoo_idea_ago extends $mol_view {
+        param_count(): string;
+        param_unit(): string;
+        title(): string;
+        now(): string;
+        moment(): $mol_time_moment;
+        sub(): readonly any[];
+        units(): {
+            second: $$.$hyoo_idea_plural;
+            minute: $$.$hyoo_idea_plural;
+            hour: $$.$hyoo_idea_plural;
+            day: $$.$hyoo_idea_plural;
+            month: $$.$hyoo_idea_plural;
+            year: $$.$hyoo_idea_plural;
+        };
+        ago(): string;
+        second(): $$.$hyoo_idea_plural;
+        minute(): $$.$hyoo_idea_plural;
+        hour(): $$.$hyoo_idea_plural;
+        day(): $$.$hyoo_idea_plural;
+        month(): $$.$hyoo_idea_plural;
+        year(): $$.$hyoo_idea_plural;
+    }
+}
+
+declare namespace $.$$ {
+    class $hyoo_idea_ago extends $.$hyoo_idea_ago {
+        SECOND: number;
+        MINUTE: number;
+        HOUR: number;
+        DAY: number;
+        MONTH: number;
+        YEAR: number;
+        unit(ms: number): "second" | "minute" | "hour" | "day" | "month" | "year";
+        ago(): string;
+    }
+}
+
+declare namespace $ {
     class $mol_icon_send extends $mol_icon {
         path(): string;
     }
@@ -4766,18 +4795,15 @@ declare namespace $ {
 
 declare namespace $ {
     class $hyoo_idea_post_card extends $mol_list {
-        avatar_node(): $hyoo_crowd_blob;
         id(): `${string}_${string}`;
         content(): string;
         created_moment(): $mol_time_moment;
-        person(): $hyoo_idea_person;
-        avatar(): string;
+        project(): $hyoo_idea_project;
         likes_total(): number;
         liked(next?: any): boolean;
         post(): $hyoo_idea_post;
         rows(): readonly any[];
-        Ago(): $$.$hyoo_idea_ago;
-        Head(): $$.$hyoo_idea_person_card;
+        Head(): $$.$hyoo_idea_project_card;
         Content(): $$.$mol_text;
         Comments_icon(): $mol_icon_comment_text_multiple;
         comments_count(): number;
@@ -4909,35 +4935,6 @@ declare namespace $.$$ {
         team_member_list(): $hyoo_idea_person_card[];
         team_member(obj: $hyoo_idea_person): $hyoo_idea_person;
         team_member_role(obj: $hyoo_idea_person): string;
-    }
-}
-
-declare namespace $ {
-    class $hyoo_idea_project_card extends $mol_link {
-        arg(): {
-            project: `${string}_${string}`;
-        };
-        id(): `${string}_${string}`;
-        logo_node(): $hyoo_crowd_blob;
-        brief(): string;
-        project(): $hyoo_idea_project;
-        default_name(): string;
-        sub(): readonly any[];
-        Logo(): $hyoo_idea_project_logo;
-        project_name(): string;
-        highlight(): string;
-        Name(): $$.$mol_dimmer;
-        Brief(): $$.$mol_dimmer;
-        List(): $$.$mol_list;
-    }
-}
-
-declare namespace $.$$ {
-}
-
-declare namespace $.$$ {
-    class $hyoo_idea_project_card extends $.$hyoo_idea_project_card {
-        project_name(): string;
     }
 }
 

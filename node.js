@@ -6615,7 +6615,7 @@ var $;
 //mol/book2/catalog/catalog.view.ts
 ;
 "use strict";
-let $hyoo_sync_revision = "64cd80d";
+let $hyoo_sync_revision = "9672925";
 //hyoo/sync/-meta.tree/revision.meta.tree.ts
 ;
 "use strict";
@@ -8669,6 +8669,161 @@ var $;
 "use strict";
 var $;
 (function ($) {
+    function $mol_dom_parse(text, type = 'application/xhtml+xml') {
+        const parser = new $mol_dom_context.DOMParser();
+        const doc = parser.parseFromString(text, type);
+        const error = doc.getElementsByTagName('parsererror');
+        if (error.length)
+            throw new Error(error[0].textContent);
+        return doc;
+    }
+    $.$mol_dom_parse = $mol_dom_parse;
+})($ || ($ = {}));
+//mol/dom/parse/parse.ts
+;
+"use strict";
+var $;
+(function ($) {
+    class $mol_fetch_response extends $mol_object2 {
+        native;
+        constructor(native) {
+            super();
+            this.native = native;
+        }
+        headers() {
+            return this.native.headers;
+        }
+        mime() {
+            return this.headers().get('content-type');
+        }
+        stream() {
+            return this.native.body;
+        }
+        text() {
+            const buffer = this.buffer();
+            const native = this.native;
+            const mime = native.headers.get('content-type') || '';
+            const [, charset] = /charset=(.*)/.exec(mime) || [, 'utf-8'];
+            const decoder = new TextDecoder(charset);
+            return decoder.decode(buffer);
+        }
+        json() {
+            return $mol_wire_sync(this.native).json();
+        }
+        buffer() {
+            return $mol_wire_sync(this.native).arrayBuffer();
+        }
+        xml() {
+            return $mol_dom_parse(this.text(), 'application/xml');
+        }
+        xhtml() {
+            return $mol_dom_parse(this.text(), 'application/xhtml+xml');
+        }
+        html() {
+            return $mol_dom_parse(this.text(), 'text/html');
+        }
+    }
+    __decorate([
+        $mol_action
+    ], $mol_fetch_response.prototype, "stream", null);
+    __decorate([
+        $mol_action
+    ], $mol_fetch_response.prototype, "text", null);
+    __decorate([
+        $mol_action
+    ], $mol_fetch_response.prototype, "buffer", null);
+    __decorate([
+        $mol_action
+    ], $mol_fetch_response.prototype, "xml", null);
+    __decorate([
+        $mol_action
+    ], $mol_fetch_response.prototype, "xhtml", null);
+    __decorate([
+        $mol_action
+    ], $mol_fetch_response.prototype, "html", null);
+    $.$mol_fetch_response = $mol_fetch_response;
+    class $mol_fetch extends $mol_object2 {
+        static request(input, init = {}) {
+            let native = $mol_dom_context.fetch;
+            if (!native)
+                native = $node['node-fetch'];
+            const controller = new AbortController();
+            let done = false;
+            const promise = native(input, {
+                ...init,
+                signal: controller.signal,
+            }).finally(() => {
+                done = true;
+            });
+            return Object.assign(promise, {
+                destructor: () => {
+                    if (!done)
+                        controller.abort();
+                },
+            });
+        }
+        static response(input, init) {
+            const response = $mol_wire_sync(this).request(input, init);
+            if (Math.floor(response.status / 100) === 2)
+                return new $mol_fetch_response(response);
+            throw new Error(response.statusText || `HTTP Error ${response.status}`);
+        }
+        static stream(input, init) {
+            return this.response(input, init).stream();
+        }
+        static text(input, init) {
+            return this.response(input, init).text();
+        }
+        static json(input, init) {
+            return this.response(input, init).json();
+        }
+        static buffer(input, init) {
+            return this.response(input, init).buffer();
+        }
+        static xml(input, init) {
+            return this.response(input, init).xml();
+        }
+        static xhtml(input, init) {
+            return this.response(input, init).xhtml();
+        }
+        static html(input, init) {
+            return this.response(input, init).html();
+        }
+    }
+    __decorate([
+        $mol_action
+    ], $mol_fetch, "response", null);
+    __decorate([
+        $mol_action
+    ], $mol_fetch, "stream", null);
+    __decorate([
+        $mol_action
+    ], $mol_fetch, "text", null);
+    __decorate([
+        $mol_action
+    ], $mol_fetch, "json", null);
+    __decorate([
+        $mol_action
+    ], $mol_fetch, "buffer", null);
+    __decorate([
+        $mol_action
+    ], $mol_fetch, "xml", null);
+    __decorate([
+        $mol_action
+    ], $mol_fetch, "xhtml", null);
+    __decorate([
+        $mol_action
+    ], $mol_fetch, "html", null);
+    $.$mol_fetch = $mol_fetch;
+})($ || ($ = {}));
+//mol/fetch/fetch.ts
+;
+var $node = $node || {} ; $node[ "/hyoo/idea/domain/9ap4sd_hgpblf+9ap4sd_hgpblf.bin" ] = "data:application/octet-stream;base64,ffKBIfP68D598oEh8/rwPn3ygSHz+vA+ffKBIfP68D4AAAAAAAAAAAAAAAAAAAAA4PgLxQAAWAAiM29LV3RFVUo5SnNqSUtmb0xNOXNuNkZpOU5kQlNEb3FzLWJ0ZE0wcXNPd0RvYTdEck8taXJHVVhtSGlsR0ZVM0pkYzFIZjJZTVBtelZPNWdySERneUEi9EVYCd0xy/c1SCxjX/qZIRtEjG60cxW2qs9HVXOlSwXVjeC0VAJVYmRMS1lZFHT9ZRMqH0LaF+U5qhdjRF+UcX3ygSHz+vA+ffKBIfP68D598oEh8/rwPsyAP/ZEOHrQAAAAAAAAAAAAAAAAAAAAAOH4C8UAAAEAMwAAAAAAAACzHos7744Lm/kxV9Skjb6rw+rhiPcFNASkbU0Cz/AKsoNz5irqDG/Sx25+EbVhdMH/A1jkRIwfqkPdb8vnQKqzffKBIfP68D598oEh8/rwPn3ygSHz+vA+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA4vgLxQAAAQAxAAAAAAAAALKBskzzsLk7tZiyjHfRH0Xp1+IpBjRmJzbKJ4GLFki9Sbtu310qdERQfSJji4PUQGAD9i81YACnx7zwvOFyJmx98oEh8/rwPsyAP/ZEOHrQffKBIfP68D7jz+IRzwyR4AAAAAAAAAAAAAAAAAAAAAB0FBbFAAABADMAAAAAAAAAl3yUTGmfo8/S/hB4jff5Y8ir/ymTyVMBrbOv4KDYYTts6ReocxfWUUueWw/6DpRfhl/+i2N35BIp7xwJFt3LpA=="
+
+;
+"use strict";
+var $;
+(function ($) {
     class $hyoo_idea_domain extends $mol_object2 {
         static yard() {
             return new this.$.$hyoo_sync_client;
@@ -8680,8 +8835,10 @@ var $;
             return this.person(this.yard().peer().id);
         }
         persons() {
-            const land = '9ap4sd_hgpblf';
-            return $hyoo_idea_persons.make({ id: $mol_const(land), domain: $mol_const(this) });
+            const land_id = '9ap4sd_hgpblf';
+            const rights = new Uint8Array($mol_fetch.buffer(require(`/hyoo/idea/domain/${land_id}+${land_id}.bin`)));
+            console.log($mol_wire_sync(this.yard().world()).apply(rights));
+            return $hyoo_idea_persons.make({ id: $mol_const(land_id), domain: $mol_const(this) });
         }
         person(id) {
             return $hyoo_idea_person.make({ id: $mol_const(id), domain: $mol_const(this) });

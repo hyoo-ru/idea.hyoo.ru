@@ -6245,7 +6245,7 @@ var $;
 //mol/book2/catalog/catalog.view.ts
 ;
 "use strict";
-let $hyoo_sync_revision = "64cd80d";
+let $hyoo_sync_revision = "9672925";
 //hyoo/sync/-meta.tree/revision.meta.tree.ts
 ;
 "use strict";
@@ -8483,6 +8483,9 @@ var $;
 })($ || ($ = {}));
 //hyoo/sync/client/client.ts
 ;
+var $node = $node || {} ; $node[ "/hyoo/idea/domain/9ap4sd_hgpblf+9ap4sd_hgpblf.bin" ] = "data:application/octet-stream;base64,ffKBIfP68D598oEh8/rwPn3ygSHz+vA+ffKBIfP68D4AAAAAAAAAAAAAAAAAAAAA4PgLxQAAWAAiM29LV3RFVUo5SnNqSUtmb0xNOXNuNkZpOU5kQlNEb3FzLWJ0ZE0wcXNPd0RvYTdEck8taXJHVVhtSGlsR0ZVM0pkYzFIZjJZTVBtelZPNWdySERneUEi9EVYCd0xy/c1SCxjX/qZIRtEjG60cxW2qs9HVXOlSwXVjeC0VAJVYmRMS1lZFHT9ZRMqH0LaF+U5qhdjRF+UcX3ygSHz+vA+ffKBIfP68D598oEh8/rwPsyAP/ZEOHrQAAAAAAAAAAAAAAAAAAAAAOH4C8UAAAEAMwAAAAAAAACzHos7744Lm/kxV9Skjb6rw+rhiPcFNASkbU0Cz/AKsoNz5irqDG/Sx25+EbVhdMH/A1jkRIwfqkPdb8vnQKqzffKBIfP68D598oEh8/rwPn3ygSHz+vA+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA4vgLxQAAAQAxAAAAAAAAALKBskzzsLk7tZiyjHfRH0Xp1+IpBjRmJzbKJ4GLFki9Sbtu310qdERQfSJji4PUQGAD9i81YACnx7zwvOFyJmx98oEh8/rwPsyAP/ZEOHrQffKBIfP68D7jz+IRzwyR4AAAAAAAAAAAAAAAAAAAAAB0FBbFAAABADMAAAAAAAAAl3yUTGmfo8/S/hB4jff5Y8ir/ymTyVMBrbOv4KDYYTts6ReocxfWUUueWw/6DpRfhl/+i2N35BIp7xwJFt3LpA=="
+
+;
 "use strict";
 var $;
 (function ($) {
@@ -8497,8 +8500,10 @@ var $;
             return this.person(this.yard().peer().id);
         }
         persons() {
-            const land = '9ap4sd_hgpblf';
-            return $hyoo_idea_persons.make({ id: $mol_const(land), domain: $mol_const(this) });
+            const land_id = '9ap4sd_hgpblf';
+            const rights = new Uint8Array($mol_fetch.buffer(require(`/hyoo/idea/domain/${land_id}+${land_id}.bin`)));
+            console.log($mol_wire_sync(this.yard().world()).apply(rights));
+            return $hyoo_idea_persons.make({ id: $mol_const(land_id), domain: $mol_const(this) });
         }
         person(id) {
             return $hyoo_idea_person.make({ id: $mol_const(id), domain: $mol_const(this) });

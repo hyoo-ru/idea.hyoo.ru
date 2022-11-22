@@ -179,6 +179,8 @@
     "$mol_db_index",
     "$mol_db_response",
     "$mol_db_database",
+    "$mol_fetch",
+    "$mol_dom_parse",
     "$hyoo_idea_person",
     "$hyoo_idea_entity",
     "$hyoo_crowd_list",
@@ -318,6 +320,7 @@
   "dependencies": {
     "jsdom": "*",
     "chokidar": "*",
-    "fake-indexeddb": "*"
+    "fake-indexeddb": "*",
+    "node-fetch": "*"
   }
 }

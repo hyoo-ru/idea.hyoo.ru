@@ -18,8 +18,14 @@ namespace $ {
 
 		@ $mol_mem
 		persons() {
-			const land = '9ap4sd_hgpblf' as $mol_int62_string
-			return $hyoo_idea_persons.make({ id: $mol_const(land), domain: $mol_const(this) })
+			
+			const land_id = '9ap4sd_hgpblf' as $mol_int62_string
+			
+			const rights = new Uint8Array( $mol_fetch.buffer( require( `/hyoo/idea/domain/${land_id}+${land_id}.bin` ) ) )
+			console.log( $mol_wire_sync( this.yard().world() ).apply( rights ) )
+			
+			return $hyoo_idea_persons.make({ id: $mol_const(land_id), domain: $mol_const(this) })
+			
 		}
 		
 		@ $mol_mem_key

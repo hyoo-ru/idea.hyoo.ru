@@ -6,7 +6,12 @@ namespace $.$$ {
 
 		width: rem(3),
 		height: rem(3),
+		objectFit: 'scale-down',
 
+		flex: {
+			shrink: 0,
+		},
+		
 	} )
 
 }

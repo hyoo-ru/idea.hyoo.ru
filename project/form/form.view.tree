@@ -40,6 +40,11 @@ $hyoo_idea_project_form $mol_form
 			control <= Stage_control $mol_switch
 				value? <=> stage?
 				options <= stage_options *
+		<= Description_field $mol_form_field
+			name @ \Description 
+			control <= Description_control $mol_textarea
+				value? <=> description?
+				selection? <=> description_selection? /number
 		<= Roles_field $mol_form_field
 			label /
 				<= roles_field_name @ \Roles
@@ -98,8 +103,3 @@ $hyoo_idea_project_form $mol_form
 							hint @ \Cancel invite
 							sub / <= Invite_cancel_icon* $mol_icon_cancel
 							click? <=> invite_cancel*? null
-		<= Description_field $mol_form_field
-			name @ \Description 
-			control <= Description_control $mol_textarea
-				value? <=> description?
-				selection? <=> description_selection? /number

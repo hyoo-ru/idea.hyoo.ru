@@ -4040,6 +4040,9 @@ declare namespace $ {
         stage_options(): {};
         Stage_control(): $$.$mol_switch;
         Stage_field(): $$.$mol_form_field;
+        description_selection(next?: any): readonly number[];
+        Description_control(): $$.$mol_textarea;
+        Description_field(): $$.$mol_form_field;
         roles_field_name(): string;
         Role_add_icon(): $mol_icon_plus;
         role_add(next?: any): any;
@@ -4088,9 +4091,6 @@ declare namespace $ {
         invites_rows(): readonly any[];
         Invites_content(): $$.$mol_list;
         Invites_field(): $$.$mol_form_field;
-        description_selection(next?: any): readonly number[];
-        Description_control(): $$.$mol_textarea;
-        Description_field(): $$.$mol_form_field;
     }
 }
 

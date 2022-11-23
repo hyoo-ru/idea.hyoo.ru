@@ -14803,11 +14803,11 @@ var $;
                 this.Main_group(),
                 this.Addon_group(),
                 this.Stage_field(),
+                this.Description_field(),
                 this.Roles_field(),
                 this.Team_field(),
                 this.Requests_field(),
-                this.Invites_field(),
-                this.Description_field()
+                this.Invites_field()
             ];
         }
         Name_control() {
@@ -14916,6 +14916,23 @@ var $;
             const obj = new this.$.$mol_form_field();
             obj.name = () => this.$.$mol_locale.text('$hyoo_idea_project_form_Stage_field_name');
             obj.control = () => this.Stage_control();
+            return obj;
+        }
+        description_selection(next) {
+            if (next !== undefined)
+                return next;
+            return [];
+        }
+        Description_control() {
+            const obj = new this.$.$mol_textarea();
+            obj.value = (next) => this.description(next);
+            obj.selection = (next) => this.description_selection(next);
+            return obj;
+        }
+        Description_field() {
+            const obj = new this.$.$mol_form_field();
+            obj.name = () => this.$.$mol_locale.text('$hyoo_idea_project_form_Description_field_name');
+            obj.control = () => this.Description_control();
             return obj;
         }
         roles_field_name() {
@@ -15191,23 +15208,6 @@ var $;
             obj.Content = () => this.Invites_content();
             return obj;
         }
-        description_selection(next) {
-            if (next !== undefined)
-                return next;
-            return [];
-        }
-        Description_control() {
-            const obj = new this.$.$mol_textarea();
-            obj.value = (next) => this.description(next);
-            obj.selection = (next) => this.description_selection(next);
-            return obj;
-        }
-        Description_field() {
-            const obj = new this.$.$mol_form_field();
-            obj.name = () => this.$.$mol_locale.text('$hyoo_idea_project_form_Description_field_name');
-            obj.control = () => this.Description_control();
-            return obj;
-        }
     }
     __decorate([
         $mol_mem
@@ -15263,6 +15263,15 @@ var $;
     __decorate([
         $mol_mem
     ], $hyoo_idea_project_form.prototype, "Stage_field", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_idea_project_form.prototype, "description_selection", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_idea_project_form.prototype, "Description_control", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_idea_project_form.prototype, "Description_field", null);
     __decorate([
         $mol_mem
     ], $hyoo_idea_project_form.prototype, "Role_add_icon", null);
@@ -15383,15 +15392,6 @@ var $;
     __decorate([
         $mol_mem
     ], $hyoo_idea_project_form.prototype, "Invites_field", null);
-    __decorate([
-        $mol_mem
-    ], $hyoo_idea_project_form.prototype, "description_selection", null);
-    __decorate([
-        $mol_mem
-    ], $hyoo_idea_project_form.prototype, "Description_control", null);
-    __decorate([
-        $mol_mem
-    ], $hyoo_idea_project_form.prototype, "Description_field", null);
     $.$hyoo_idea_project_form = $hyoo_idea_project_form;
 })($ || ($ = {}));
 //hyoo/idea/project/form/-view.tree/form.view.tree.ts

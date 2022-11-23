@@ -2189,12 +2189,12 @@ var $;
             view.dom_node().scrollIntoView({ block: align });
         }
         bring() {
+            const win = this.$.$mol_dom_context;
+            if (win.parent !== win.self && !win.document.hasFocus())
+                return;
             new this.$.$mol_after_frame(() => {
                 this.dom_node().scrollIntoView({ inline: 'start' });
-                const win = this.$.$mol_dom_context;
-                if (win.parent === win.self || win.document.hasFocus()) {
-                    this.focused(true);
-                }
+                this.focused(true);
             });
         }
     }
@@ -14228,6 +14228,10 @@ var $;
         $mol_style_define($hyoo_idea_person_avatar, {
             width: rem(3),
             height: rem(3),
+            objectFit: 'scale-down',
+            flex: {
+                shrink: 0,
+            },
         });
     })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));
@@ -17083,13 +17087,6 @@ var $;
             Brief: {
                 color: $mol_theme.shade,
             },
-            Logo: {
-                width: rem(3),
-                height: rem(3),
-                flex: {
-                    shrink: 0,
-                },
-            }
         });
     })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));

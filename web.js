@@ -14622,11 +14622,6 @@ var $;
             obj.click = (next) => this.role_add(next);
             return obj;
         }
-        Role_head_group(id) {
-            const obj = new this.$.$mol_form_group();
-            obj.sub = () => [];
-            return obj;
-        }
         role_name(id, next) {
             if (next !== undefined)
                 return next;
@@ -14657,6 +14652,14 @@ var $;
             const obj = new this.$.$mol_form_field();
             obj.name = () => this.$.$mol_locale.text('$hyoo_idea_project_form_Role_functions_field_name');
             obj.control = () => this.Role_functions_control(id);
+            return obj;
+        }
+        Role_head_group(id) {
+            const obj = new this.$.$mol_form_group();
+            obj.sub = () => [
+                this.Role_name_field(id),
+                this.Role_functions_field(id)
+            ];
             return obj;
         }
         role_team_member(id, next) {
@@ -14703,14 +14706,19 @@ var $;
             ];
             return obj;
         }
+        Role_body_group(id) {
+            const obj = new this.$.$mol_form_group();
+            obj.sub = () => [
+                this.Role_team_member_field(id),
+                this.Role_drop_row(id)
+            ];
+            return obj;
+        }
         Role_form(id) {
             const obj = new this.$.$mol_list();
             obj.rows = () => [
                 this.Role_head_group(id),
-                this.Role_name_field(id),
-                this.Role_functions_field(id),
-                this.Role_team_member_field(id),
-                this.Role_drop_row(id)
+                this.Role_body_group(id)
             ];
             return obj;
         }
@@ -14950,9 +14958,6 @@ var $;
     ], $hyoo_idea_project_form.prototype, "Role_add", null);
     __decorate([
         $mol_mem_key
-    ], $hyoo_idea_project_form.prototype, "Role_head_group", null);
-    __decorate([
-        $mol_mem_key
     ], $hyoo_idea_project_form.prototype, "role_name", null);
     __decorate([
         $mol_mem_key
@@ -14969,6 +14974,9 @@ var $;
     __decorate([
         $mol_mem_key
     ], $hyoo_idea_project_form.prototype, "Role_functions_field", null);
+    __decorate([
+        $mol_mem_key
+    ], $hyoo_idea_project_form.prototype, "Role_head_group", null);
     __decorate([
         $mol_mem_key
     ], $hyoo_idea_project_form.prototype, "role_team_member", null);
@@ -14990,6 +14998,9 @@ var $;
     __decorate([
         $mol_mem_key
     ], $hyoo_idea_project_form.prototype, "Role_drop_row", null);
+    __decorate([
+        $mol_mem_key
+    ], $hyoo_idea_project_form.prototype, "Role_body_group", null);
     __decorate([
         $mol_mem_key
     ], $hyoo_idea_project_form.prototype, "Role_form", null);

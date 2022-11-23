@@ -4047,13 +4047,13 @@ declare namespace $ {
         Role_add_icon(): $mol_icon_plus;
         role_add(next?: any): any;
         Role_add(): $mol_button_minor;
-        Role_head_group(id: any): $mol_form_group;
         role_name(id: any, next?: any): string;
         Role_name_control(id: any): $$.$mol_string;
         Role_name_field(id: any): $$.$mol_form_field;
         role_functions(id: any, next?: any): string;
         Role_functions_control(id: any): $$.$mol_textarea;
         Role_functions_field(id: any): $$.$mol_form_field;
+        Role_head_group(id: any): $mol_form_group;
         role_team_member(id: any, next?: any): string;
         team_member_dict(): {};
         Role_team_member_control(id: any): $$.$mol_select;
@@ -4062,6 +4062,7 @@ declare namespace $ {
         role_drop(id: any, next?: any): any;
         Role_drop(id: any): $mol_button_minor;
         Role_drop_row(id: any): $mol_row;
+        Role_body_group(id: any): $mol_form_group;
         Role_form(id: any): $$.$mol_list;
         role_rows(): readonly any[];
         Roles_content(): $$.$mol_list;

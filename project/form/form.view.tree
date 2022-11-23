@@ -55,23 +55,24 @@ $hyoo_idea_project_form $mol_form
 				rows <= role_rows /
 					<= Role_form*0 $mol_list rows /
 						<= Role_head_group* $mol_form_group sub /
-						<= Role_name_field* $mol_form_field
-							name @ \Role name
-							control <= Role_name_control* $mol_string
-								value? <=> role_name*? \
-						<= Role_functions_field* $mol_form_field
-							name @ \Functions
-							control <= Role_functions_control* $mol_textarea
-								value? <=> role_functions*? \
-						<= Role_team_member_field* $mol_form_field
-							name @ \Team member
-							control <= Role_team_member_control* $mol_select
-								value? <=> role_team_member*? \
-								dictionary <= team_member_dict *
-						<= Role_drop_row* $mol_row sub /
-							<= Role_drop* $mol_button_minor
-								sub / <= Role_drop_icon* $mol_icon_delete
-								click? <=> role_drop*? null
+							<= Role_name_field* $mol_form_field
+								name @ \Role name
+								control <= Role_name_control* $mol_string
+									value? <=> role_name*? \
+							<= Role_functions_field* $mol_form_field
+								name @ \Functions
+								control <= Role_functions_control* $mol_textarea
+									value? <=> role_functions*? \
+						<= Role_body_group* $mol_form_group sub /
+							<= Role_team_member_field* $mol_form_field
+								name @ \Team member
+								control <= Role_team_member_control* $mol_select
+									value? <=> role_team_member*? \
+									dictionary <= team_member_dict *
+							<= Role_drop_row* $mol_row sub /
+								<= Role_drop* $mol_button_minor
+									sub / <= Role_drop_icon* $mol_icon_delete
+									click? <=> role_drop*? null
 		<= Team_field $mol_form_field
 			name @ \Team
 			Content <= Team_content $mol_list rows <= team_rows /

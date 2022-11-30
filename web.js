@@ -4657,8 +4657,7 @@ var $;
         event() {
             return {
                 ...super.event(),
-                input: (event) => this.event_change(event),
-                keydown: (event) => this.event_key_press(event)
+                input: (event) => this.event_change(event)
             };
         }
         plugins() {
@@ -4714,11 +4713,6 @@ var $;
                 return event;
             return null;
         }
-        event_key_press(event) {
-            if (event !== undefined)
-                return event;
-            return null;
-        }
         submit(event) {
             if (event !== undefined)
                 return event;
@@ -4744,9 +4738,6 @@ var $;
     __decorate([
         $mol_mem
     ], $mol_string.prototype, "event_change", null);
-    __decorate([
-        $mol_mem
-    ], $mol_string.prototype, "event_key_press", null);
     __decorate([
         $mol_mem
     ], $mol_string.prototype, "submit", null);
@@ -6253,7 +6244,7 @@ var $;
 //mol/book2/catalog/catalog.view.ts
 ;
 "use strict";
-let $hyoo_sync_revision = "95333f3";
+let $hyoo_sync_revision = "083d267";
 //hyoo/sync/-meta.tree/revision.meta.tree.ts
 ;
 "use strict";
@@ -17025,7 +17016,12 @@ var $;
     (function ($$) {
         const { per } = $mol_style_unit;
         $mol_style_define($hyoo_idea_post_add, {
-            width: per(100),
+            alignItems: 'flex-end',
+            Text: {
+                flex: {
+                    shrink: 1,
+                },
+            },
         });
     })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));

@@ -20975,7 +20975,10 @@ var $;
                 ];
             }
             person_register() {
-                this.domain().persons().add(this.domain().user());
+                const user = this.domain().user();
+                if (!user.registered())
+                    return false;
+                this.domain().persons().add(user);
             }
             user_id() {
                 return this.domain().user().id();

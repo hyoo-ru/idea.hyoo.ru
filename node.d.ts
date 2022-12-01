@@ -5402,7 +5402,7 @@ declare namespace $.$$ {
         project_opened(): $hyoo_idea_project;
         invite_opened(): boolean;
         pages(): any[];
-        person_register(): void;
+        person_register(): false | undefined;
         user_id(): `${string}_${string}`;
         auto(): void;
     }

@@ -25,9 +25,9 @@ $hyoo_idea_app $mol_book2_catalog
 		<= Source $mol_link_source
 			uri \https://github.com/hyoo-ru/idea.hyoo.ru
 	spreads *
-		\
-			<= Feed $hyoo_idea_feed_page
-				person <= user
+		news <= Feed $hyoo_idea_feed_page
+			person <= user
+			Close <= Spread_close
 		projects <= Project_list $hyoo_idea_projects
 			domain <= domain
 			Close <= Spread_close

@@ -20247,7 +20247,7 @@ var $;
         }
         spreads() {
             return {
-                "": this.Feed(),
+                news: this.Feed(),
                 projects: this.Project_list(),
                 talents: this.Talents_page()
             };
@@ -20343,6 +20343,7 @@ var $;
         Feed() {
             const obj = new this.$.$hyoo_idea_feed_page();
             obj.person = () => this.user();
+            obj.Close = () => this.Spread_close();
             return obj;
         }
         Project_list() {

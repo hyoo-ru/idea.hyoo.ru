@@ -5332,7 +5332,7 @@ declare namespace $ {
         menu_head(): readonly any[];
         menu_foot(): readonly any[];
         spreads(): {
-            "": $$.$hyoo_idea_feed_page;
+            news: $$.$hyoo_idea_feed_page;
             projects: $$.$hyoo_idea_projects;
             talents: $$.$hyoo_idea_talents_page;
         };

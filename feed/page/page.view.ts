@@ -14,17 +14,21 @@ namespace $.$$ {
 			
 			const persons = [ ... new Set( this.domain().persons().list() ) ].reverse()
 			for( const person of persons ) {
+				if( !person.name() ) continue
+				
 				const projects = [ ... person.projects() ].reverse()
 				
 				for( const project of projects ) {
+					if( !project.name() ) continue
+					
 					const posts = [ ... project.posts() ].reverse()
 					
 					for( const post of posts ) {
 						if( exists.has( post.id() ) ) continue
 						
 						next.push( post.id() )
-						if( next.length > 10 ) break
 						
+						if( next.length > 10 ) break
 					}
 					
 				}

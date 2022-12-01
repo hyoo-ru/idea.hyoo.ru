@@ -20,7 +20,7 @@ $hyoo_idea_post_card $mol_list
 				Icon <= Like_icon $mol_icon_lightbulb_on
 				label / <= likes_count 0
 				checked? <=> liked?
-			<= Share $mol_button_share
+			- <= Share $mol_button_share
 				capture <= dom_node
 		<= Comments $mol_list
 			rows <= comment_rows /

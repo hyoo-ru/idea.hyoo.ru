@@ -4680,45 +4680,6 @@ declare namespace $ {
 }
 
 declare namespace $ {
-    class $mol_icon_share extends $mol_icon {
-        path(): string;
-    }
-}
-
-declare namespace $ {
-    class $mol_icon_share_variant extends $mol_icon {
-        path(): string;
-    }
-}
-
-declare namespace $ {
-    class $mol_button_share extends $mol_button_minor {
-        uri(): string;
-        capture(): any;
-        hint(): string;
-        sub(): readonly any[];
-        Icon(): $mol_icon_share_variant;
-    }
-}
-
-declare namespace $ {
-    function $mol_dom_serialize(node: Node): string;
-}
-
-declare namespace $ {
-    function $mol_dom_capture_image(el: Element): Promise<HTMLImageElement>;
-    function $mol_dom_capture_canvas(el: Element): Promise<HTMLCanvasElement>;
-}
-
-declare namespace $.$$ {
-    class $mol_button_share extends $.$mol_button_share {
-        capture(): any;
-        uri(): string;
-        click(): Promise<void>;
-    }
-}
-
-declare namespace $ {
     class $hyoo_idea_plural extends $mol_object2 {
         other(): string;
         one(): string;
@@ -4799,7 +4760,6 @@ declare namespace $ {
         Like_icon(): $mol_icon_lightbulb_on;
         likes_count(): number;
         Like(): $mol_check_icon;
-        Share(): $$.$mol_button_share;
         Foot(): $mol_view;
         comment_author(id: any): $hyoo_idea_person;
         comment_created_moment(id: any): $mol_time_moment;

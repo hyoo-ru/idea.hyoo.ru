@@ -4,7 +4,7 @@ $hyoo_idea_feed_page $mol_page
 	tools /
 		<= Close null
 	body /
-		<= Posts $mol_list
-			rows <= posts /
-				<= Post*0_0 $hyoo_idea_post_card
-					post <= post* $hyoo_idea_post
+		<= Posts $mol_infinite
+			after* <= posts_after* /
+			Row* <= Post* $hyoo_idea_post_card
+				post <= post* $hyoo_idea_post

@@ -6,25 +6,36 @@ namespace $.$$ {
 			return this.person().domain()
 		}
 
-		@ $mol_mem
-		posts_all() {
-			const persons = [ ... new Set( this.domain().persons().list() ) ]
-			const projects = [ ... new Set( persons.map( person => person.projects() ).flat() ) ]
-			const posts = [ ... new Set( projects.map( project => project.posts() ).flat() ) ]
-			return posts
+		@ $mol_mem_key
+		posts_after( anchor: $hyoo_idea_post ) {
+			
+			const exists = new Set( this.Posts().row_ids() ) as Set< $mol_int62_string >
+			const next = [] as $mol_int62_string[]
+			
+			const persons = [ ... new Set( this.domain().persons().list() ) ].reverse()
+			for( const person of persons ) {
+				const projects = [ ... person.projects() ].reverse()
+				
+				for( const project of projects ) {
+					const posts = [ ... project.posts() ].reverse()
+					
+					for( const post of posts ) {
+						if( exists.has( post.id() ) ) continue
+						
+						next.push( post.id() )
+						if( next.length > 10 ) break
+						
+					}
+					
+				}
+				
+			}
+			
+			return next
 		}
 
-		@ $mol_mem
-		posts_sorted() {
-			return this.posts_all().sort( (a, b)=> b.created_moment().valueOf() - a.created_moment().valueOf() )
-		}
-
-		posts() {
-			return this.posts_sorted().map( obj => this.Post( obj ) )
-		}
-
-		post(obj: $hyoo_idea_post) {
-			return obj
+		post( id: $mol_int62_string ) {
+			return this.domain().post( id ) 
 		}
 
 	}

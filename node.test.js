@@ -20526,8 +20526,12 @@ var $;
                 const next = [];
                 const persons = [...new Set(this.domain().persons().list())].reverse();
                 for (const person of persons) {
+                    if (!person.name())
+                        continue;
                     const projects = [...person.projects()].reverse();
                     for (const project of projects) {
+                        if (!project.name())
+                            continue;
                         const posts = [...project.posts()].reverse();
                         for (const post of posts) {
                             if (exists.has(post.id()))

@@ -1639,16 +1639,31 @@ $mol_link_source $mol_link
 	sub /
 		<= Icon $mol_icon_github_circle
 
+$mol_infinite $mol_list
+	before* /
+	after* /
+	row_ids? /
+	render_over 1
+	Row* $mol_view
+	Before* $mol_view
+		minimal_width 0
+		minimal_height 0
+		auto <= before_load* null
+	After* $mol_view
+		minimal_width 0
+		minimal_height 0
+		auto <= after_load* null
+
 $hyoo_idea_feed_page $mol_page
 	person $hyoo_idea_person
 	title @ \Feed
 	tools /
 		<= Close null
 	body /
-		<= Posts $mol_list
-			rows <= posts /
-				<= Post*0_0 $hyoo_idea_post_card
-					post <= post* $hyoo_idea_post
+		<= Posts $mol_infinite
+			after* <= posts_after* /
+			Row* <= Post* $hyoo_idea_post_card
+				post <= post* $hyoo_idea_post
 
 $hyoo_idea_talents_page $mol_page
 	domain $hyoo_idea_domain

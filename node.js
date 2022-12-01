@@ -20327,6 +20327,127 @@ var $;
 "use strict";
 var $;
 (function ($) {
+    class $mol_infinite extends $mol_list {
+        before(id) {
+            return [];
+        }
+        after(id) {
+            return [];
+        }
+        row_ids(next) {
+            if (next !== undefined)
+                return next;
+            return [];
+        }
+        render_over() {
+            return 1;
+        }
+        Row(id) {
+            const obj = new this.$.$mol_view();
+            return obj;
+        }
+        Before(id) {
+            const obj = new this.$.$mol_view();
+            obj.minimal_width = () => 0;
+            obj.minimal_height = () => 0;
+            obj.auto = () => this.before_load(id);
+            return obj;
+        }
+        After(id) {
+            const obj = new this.$.$mol_view();
+            obj.minimal_width = () => 0;
+            obj.minimal_height = () => 0;
+            obj.auto = () => this.after_load(id);
+            return obj;
+        }
+        before_load(id) {
+            return null;
+        }
+        after_load(id) {
+            return null;
+        }
+    }
+    __decorate([
+        $mol_mem
+    ], $mol_infinite.prototype, "row_ids", null);
+    __decorate([
+        $mol_mem_key
+    ], $mol_infinite.prototype, "Row", null);
+    __decorate([
+        $mol_mem_key
+    ], $mol_infinite.prototype, "Before", null);
+    __decorate([
+        $mol_mem_key
+    ], $mol_infinite.prototype, "After", null);
+    $.$mol_infinite = $mol_infinite;
+})($ || ($ = {}));
+//mol/infinite/-view.tree/infinite.view.tree.ts
+;
+"use strict";
+var $;
+(function ($) {
+    $mol_style_attach("mol/infinite/infinite.view.css", "[mol_infinite_before],\n[mol_infinite_after] {\n\toverflow-anchor: none;\n}\n\n[mol_infinite_after][mol_view_error=\"Promise\"] {\n\theight: 100vh;\n}\n");
+})($ || ($ = {}));
+//mol/infinite/-css/infinite.view.css.ts
+;
+"use strict";
+var $;
+(function ($) {
+    var $$;
+    (function ($$) {
+        class $mol_infinite extends $.$mol_infinite {
+            before_load(anchor) {
+                const more = this.before(anchor);
+                new $mol_after_tick(() => {
+                    let ids = this.row_ids();
+                    const index = Math.max(0, ids.indexOf(anchor));
+                    const unique = new Set([
+                        ...ids.slice(0, index),
+                        ...more,
+                        ...ids.slice(index),
+                    ]);
+                    this.row_ids([...unique]);
+                });
+            }
+            after_load(anchor) {
+                const more = this.after(anchor);
+                new $mol_after_tick(() => {
+                    let ids = this.row_ids();
+                    const index = (ids.indexOf(anchor) + 1) || ids.length;
+                    const unique = new Set([
+                        ...ids.slice(0, index),
+                        ...more,
+                        ...ids.slice(index),
+                    ]);
+                    this.row_ids([...unique]);
+                });
+            }
+            rows() {
+                const ids = this.row_ids();
+                return [
+                    this.Before(ids.at(0)),
+                    ...ids.map(id => this.Row(id)),
+                    this.After(ids.at(-1)),
+                ];
+            }
+        }
+        __decorate([
+            $mol_mem_key
+        ], $mol_infinite.prototype, "before_load", null);
+        __decorate([
+            $mol_mem_key
+        ], $mol_infinite.prototype, "after_load", null);
+        __decorate([
+            $mol_mem
+        ], $mol_infinite.prototype, "rows", null);
+        $$.$mol_infinite = $mol_infinite;
+    })($$ = $.$$ || ($.$$ = {}));
+})($ || ($ = {}));
+//mol/infinite/infinite.view.ts
+;
+"use strict";
+var $;
+(function ($) {
     class $hyoo_idea_feed_page extends $mol_page {
         person() {
             const obj = new this.$.$hyoo_idea_person();
@@ -20348,6 +20469,9 @@ var $;
         Close() {
             return null;
         }
+        posts_after(id) {
+            return [];
+        }
         post(id) {
             const obj = new this.$.$hyoo_idea_post();
             return obj;
@@ -20357,14 +20481,10 @@ var $;
             obj.post = () => this.post(id);
             return obj;
         }
-        posts() {
-            return [
-                this.Post("0_0")
-            ];
-        }
         Posts() {
-            const obj = new this.$.$mol_list();
-            obj.rows = () => this.posts();
+            const obj = new this.$.$mol_infinite();
+            obj.after = (id) => this.posts_after(id);
+            obj.Row = (id) => this.Post(id);
             return obj;
         }
     }
@@ -20409,28 +20529,32 @@ var $;
             domain() {
                 return this.person().domain();
             }
-            posts_all() {
-                const persons = [...new Set(this.domain().persons().list())];
-                const projects = [...new Set(persons.map(person => person.projects()).flat())];
-                const posts = [...new Set(projects.map(project => project.posts()).flat())];
-                return posts;
+            posts_after(anchor) {
+                const exists = new Set(this.Posts().row_ids());
+                const next = [];
+                const persons = [...new Set(this.domain().persons().list())].reverse();
+                for (const person of persons) {
+                    const projects = [...person.projects()].reverse();
+                    for (const project of projects) {
+                        const posts = [...project.posts()].reverse();
+                        for (const post of posts) {
+                            if (exists.has(post.id()))
+                                continue;
+                            next.push(post.id());
+                            if (next.length > 10)
+                                break;
+                        }
+                    }
+                }
+                return next;
             }
-            posts_sorted() {
-                return this.posts_all().sort((a, b) => b.created_moment().valueOf() - a.created_moment().valueOf());
-            }
-            posts() {
-                return this.posts_sorted().map(obj => this.Post(obj));
-            }
-            post(obj) {
-                return obj;
+            post(id) {
+                return this.domain().post(id);
             }
         }
         __decorate([
-            $mol_mem
-        ], $hyoo_idea_feed_page.prototype, "posts_all", null);
-        __decorate([
-            $mol_mem
-        ], $hyoo_idea_feed_page.prototype, "posts_sorted", null);
+            $mol_mem_key
+        ], $hyoo_idea_feed_page.prototype, "posts_after", null);
         $$.$hyoo_idea_feed_page = $hyoo_idea_feed_page;
     })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));

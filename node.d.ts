@@ -5270,16 +5270,41 @@ declare namespace $ {
 }
 
 declare namespace $ {
+    class $mol_infinite extends $mol_list {
+        before(id: any): readonly any[];
+        after(id: any): readonly any[];
+        row_ids(next?: any): readonly any[];
+        render_over(): number;
+        Row(id: any): $mol_view;
+        Before(id: any): $mol_view;
+        After(id: any): $mol_view;
+        before_load(id: any): any;
+        after_load(id: any): any;
+    }
+}
+
+declare namespace $ {
+}
+
+declare namespace $.$$ {
+    class $mol_infinite extends $.$mol_infinite {
+        before_load(anchor: any): void;
+        after_load(anchor: any): void;
+        rows(): $mol_view[];
+    }
+}
+
+declare namespace $ {
     class $hyoo_idea_feed_page extends $mol_page {
         person(): $hyoo_idea_person;
         title(): string;
         tools(): readonly any[];
         body(): readonly any[];
         Close(): any;
+        posts_after(id: any): readonly any[];
         post(id: any): $hyoo_idea_post;
         Post(id: any): $$.$hyoo_idea_post_card;
-        posts(): readonly any[];
-        Posts(): $$.$mol_list;
+        Posts(): $$.$mol_infinite;
     }
 }
 
@@ -5289,10 +5314,8 @@ declare namespace $.$$ {
 declare namespace $.$$ {
     class $hyoo_idea_feed_page extends $.$hyoo_idea_feed_page {
         domain(): $hyoo_idea_domain;
-        posts_all(): $hyoo_idea_post[];
-        posts_sorted(): $hyoo_idea_post[];
-        posts(): $hyoo_idea_post_card[];
-        post(obj: $hyoo_idea_post): $hyoo_idea_post;
+        posts_after(anchor: $hyoo_idea_post): `${string}_${string}`[];
+        post(id: $mol_int62_string): $hyoo_idea_post;
     }
 }
 

@@ -20,7 +20,7 @@ $hyoo_idea_project_page $mol_page
 		\
 		\{description}
 	self false
-	team_member_no_role @ \No role
+	team_member_no_role @ \Member
 	tools /
 		<= Slides $mol_link_iconed
 			uri <= slides \https://slides.hyoo.ru/#!slides={source}

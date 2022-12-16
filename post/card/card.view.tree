@@ -16,7 +16,7 @@ $hyoo_idea_post_card $mol_list
 				Icon <= Comments_icon $mol_icon_comment_text_multiple
 				label / <= comments_count 0
 				checked? <=> comments_showed? false
-			<= Like $mol_check_icon
+			- <= Like $mol_check_icon
 				Icon <= Like_icon $mol_icon_lightbulb_on
 				label / <= likes_count 0
 				checked? <=> liked?

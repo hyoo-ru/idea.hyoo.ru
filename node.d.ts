@@ -4691,18 +4691,6 @@ declare namespace $ {
 }
 
 declare namespace $ {
-    class $mol_icon_lightbulb extends $mol_icon {
-        path(): string;
-    }
-}
-
-declare namespace $ {
-    class $mol_icon_lightbulb_on extends $mol_icon {
-        path(): string;
-    }
-}
-
-declare namespace $ {
     class $hyoo_idea_plural extends $mol_object2 {
         other(): string;
         one(): string;
@@ -4780,9 +4768,6 @@ declare namespace $ {
         comments_count(): number;
         comments_showed(next?: any): boolean;
         Comments_toggle(): $mol_check_icon;
-        Like_icon(): $mol_icon_lightbulb_on;
-        likes_count(): number;
-        Like(): $mol_check_icon;
         Foot(): $mol_view;
         comment_author(id: any): $hyoo_idea_person;
         comment_created_moment(id: any): $mol_time_moment;

@@ -17236,30 +17236,6 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    class $mol_icon_lightbulb extends $mol_icon {
-        path() {
-            return "M12,2C8.13,2 5,5.13 5,9C5,11.38 6.19,13.47 8,14.74V17C8,17.55 8.45,18 9,18H15C15.55,18 16,17.55 16,17V14.74C17.81,13.47 19,11.38 19,9C19,5.13 15.87,2 12,2M9,21C9,21.55 9.45,22 10,22H14C14.55,22 15,21.55 15,21V20H9V21Z";
-        }
-    }
-    $.$mol_icon_lightbulb = $mol_icon_lightbulb;
-})($ || ($ = {}));
-//mol/icon/lightbulb/-view.tree/lightbulb.view.tree.ts
-;
-"use strict";
-var $;
-(function ($) {
-    class $mol_icon_lightbulb_on extends $mol_icon {
-        path() {
-            return "M12,6C15.31,6 18,8.69 18,12C18,14.22 16.79,16.16 15,17.2V19C15,19.55 14.55,20 14,20H10C9.45,20 9,19.55 9,19V17.2C7.21,16.16 6,14.22 6,12C6,8.69 8.69,6 12,6M14,21V22C14,22.55 13.55,23 13,23H11C10.45,23 10,22.55 10,22V21H14M20,11H23V13H20V11M1,11H4V13H1V11M13,1V4H11V1H13M4.92,3.5L7.05,5.64L5.63,7.05L3.5,4.93L4.92,3.5M16.95,5.63L19.07,3.5L20.5,4.93L18.37,7.05L16.95,5.63Z";
-        }
-    }
-    $.$mol_icon_lightbulb_on = $mol_icon_lightbulb_on;
-})($ || ($ = {}));
-//mol/icon/lightbulb/on/-view.tree/on.view.tree.ts
-;
-"use strict";
-var $;
-(function ($) {
     class $hyoo_idea_plural extends $mol_object2 {
         other() {
             return this.$.$mol_locale.text('$hyoo_idea_plural_other');
@@ -17547,27 +17523,10 @@ var $;
             obj.checked = (next) => this.comments_showed(next);
             return obj;
         }
-        Like_icon() {
-            const obj = new this.$.$mol_icon_lightbulb_on();
-            return obj;
-        }
-        likes_count() {
-            return 0;
-        }
-        Like() {
-            const obj = new this.$.$mol_check_icon();
-            obj.Icon = () => this.Like_icon();
-            obj.label = () => [
-                this.likes_count()
-            ];
-            obj.checked = (next) => this.liked(next);
-            return obj;
-        }
         Foot() {
             const obj = new this.$.$mol_view();
             obj.sub = () => [
-                this.Comments_toggle(),
-                this.Like()
+                this.Comments_toggle()
             ];
             return obj;
         }
@@ -17683,12 +17642,6 @@ var $;
     __decorate([
         $mol_mem
     ], $hyoo_idea_post_card.prototype, "Comments_toggle", null);
-    __decorate([
-        $mol_mem
-    ], $hyoo_idea_post_card.prototype, "Like_icon", null);
-    __decorate([
-        $mol_mem
-    ], $hyoo_idea_post_card.prototype, "Like", null);
     __decorate([
         $mol_mem
     ], $hyoo_idea_post_card.prototype, "Foot", null);

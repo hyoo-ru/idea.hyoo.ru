@@ -9070,15 +9070,14 @@ var $;
         }
         blob(next) {
             if (next) {
-                this.buffer(new Uint8Array($mol_wire_sync(next).arrayBuffer()));
-                this.type(next.type);
+                this.buffer(new Uint8Array($mol_wire_sync(next).arrayBuffer()), next.type);
                 return next;
             }
             return new $mol_blob(this.list(), {
                 type: this.type(),
             });
         }
-        buffer(next) {
+        buffer(next, type = 'application/octet-stream') {
             if (next) {
                 const chunks = [];
                 let offset = 0;
@@ -9088,6 +9087,7 @@ var $;
                     offset = cut;
                 }
                 this.list(chunks);
+                this.type(type);
                 return next;
             }
             else {
@@ -9100,6 +9100,25 @@ var $;
                     offset += chunk.byteLength;
                 }
                 return res;
+            }
+        }
+        str(next, type = 'text/plain') {
+            if (next === undefined) {
+                return $mol_charset_decode(this.buffer());
+            }
+            else {
+                this.buffer($mol_charset_encode(next));
+                this.type(type);
+                return next;
+            }
+        }
+        json(next, type = 'application/json') {
+            if (next === undefined) {
+                return JSON.parse(this.str());
+            }
+            else {
+                this.str(JSON.stringify(next), type);
+                return next;
             }
         }
     }

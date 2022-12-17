@@ -2573,7 +2573,9 @@ declare namespace $ {
         uri(): string;
         type(next?: string): string;
         blob(next?: $mol_blob): Blob;
-        buffer(next?: Uint8Array): Uint8Array;
+        buffer(next?: Uint8Array, type?: string): Uint8Array;
+        str(next?: string, type?: string): string;
+        json(next?: any, type?: string): any;
     }
 }
 

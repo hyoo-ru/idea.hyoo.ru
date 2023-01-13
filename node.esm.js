@@ -6380,6 +6380,7 @@ var $;
                     shrink: 1,
                     basis: per(100),
                 },
+                padding: $mol_gap.block,
             },
             Foot: {
                 display: 'flex',
@@ -6395,6 +6396,10 @@ var $;
                 },
                 boxShadow: `0 -0.5rem 0.5rem -0.5rem hsla(0,0%,0%,.25)`,
                 zIndex: 1,
+                padding: $mol_gap.block,
+                ':empty': {
+                    display: 'none',
+                },
             },
         });
     })($$ = $.$$ || ($.$$ = {}));
@@ -6573,7 +6578,7 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    $mol_style_attach("mol/book2/catalog/catalog.view.css", "[mol_book2_catalog_menu_body] {\n\tpadding: var(--mol_gap_block);\n}\n\n[mol_book2_catalog_menu_filter] {\n\tflex-shrink: 0;\n\tflex-grow: 0;\n\talign-self: stretch;\n}\n\n");
+    $mol_style_attach("mol/book2/catalog/catalog.view.css", "[mol_book2_catalog_menu_filter] {\n\tflex-shrink: 0;\n\tflex-grow: 0;\n\talign-self: stretch;\n}\n\n");
 })($ || ($ = {}));
 //mol/book2/catalog/-css/catalog.view.css.ts
 ;
@@ -10783,7 +10788,7 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    $mol_style_attach("mol/labeler/labeler.view.css", "[mol_labeler] {\n\tdisplay: flex;\n\tflex-direction: column;\n\talign-items: stretch;\n\tcursor: inherit;\n}\n\n[mol_labeler_label] {\n\tmin-height: 2rem;\n\tcolor: var(--mol_theme_shade);\n\tpadding: .5rem .75rem;\n\tgap: 0 var(--mol_gap_block);\n\tflex-wrap: wrap;\n}\n\n[mol_labeler_content] {\n\tdisplay: flex;\n\tpadding: var(--mol_gap_text);\n}\n");
+    $mol_style_attach("mol/labeler/labeler.view.css", "[mol_labeler] {\n\tdisplay: flex;\n\tflex-direction: column;\n\talign-items: stretch;\n\tcursor: inherit;\n}\n\n[mol_labeler_label] {\n\tmin-height: 2rem;\n\tcolor: var(--mol_theme_shade);\n\tpadding: .5rem .75rem 0;\n\tgap: 0 var(--mol_gap_block);\n\tflex-wrap: wrap;\n}\n\n[mol_labeler_content] {\n\tdisplay: flex;\n\tpadding: var(--mol_gap_text);\n}\n");
 })($ || ($ = {}));
 //mol/labeler/-css/labeler.view.css.ts
 ;
@@ -10830,7 +10835,7 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    $mol_style_attach("mol/form/field/field.view.css", "[mol_form_field] {\n\talign-items: stretch;\n\tpadding: var(--mol_gap_block);\n}\n\n[mol_form_field_bid] {\n\tcolor: var(--mol_theme_focus);\n\tdisplay: inline-block;\n\ttext-shadow: 0 0;\n}\n\n[mol_form_field_content] {\n\tborder-radius: var(--mol_gap_round);\n}\n");
+    $mol_style_attach("mol/form/field/field.view.css", "[mol_form_field] {\n\talign-items: stretch;\n}\n\n[mol_form_field_bid] {\n\tcolor: var(--mol_theme_focus);\n\tdisplay: inline-block;\n\ttext-shadow: 0 0;\n}\n\n[mol_form_field_content] {\n\tborder-radius: var(--mol_gap_round);\n}\n");
 })($ || ($ = {}));
 //mol/form/field/-css/field.view.css.ts
 ;
@@ -10864,7 +10869,7 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    $mol_style_attach("mol/row/row.view.css", "[mol_row] {\n\tdisplay: flex;\n\tflex-wrap: wrap;\n\talign-items: flex-start;\n\talign-content: flex-start;\n\tjustify-content: flex-start;\n\tpadding: .375rem;\n\tflex: 0 0 auto;\n\tbox-sizing: border-box;\n\tmax-width: 100%;\n}\n\n[mol_row] > * {\n\tmargin: .375rem;\n\tmax-width: 100%;\n}\n");
+    $mol_style_attach("mol/row/row.view.css", "[mol_row] {\n\tdisplay: flex;\n\tflex-wrap: wrap;\n\talign-items: flex-start;\n\talign-content: flex-start;\n\tjustify-content: flex-start;\n\tpadding: var(--mol_gap_block);\n\tgap: var(--mol_gap_block);\n\tflex: 0 0 auto;\n\tbox-sizing: border-box;\n\tmax-width: 100%;\n}\n\n[mol_row] > * {\n\tmax-width: 100%;\n}\n");
 })($ || ($ = {}));
 //mol/row/-css/row.view.css.ts
 ;
@@ -10938,6 +10943,13 @@ var $;
     $.$mol_form = $mol_form;
 })($ || ($ = {}));
 //mol/form/-view.tree/form.view.tree.ts
+;
+"use strict";
+var $;
+(function ($) {
+    $mol_style_attach("mol/form/form.view.css", "[mol_form] {\r\n\tgap: var(--mol_gap_block);\r\n}\r\n\r\n[mol_form_body] {\r\n\tgap: var(--mol_gap_block);\r\n}");
+})($ || ($ = {}));
+//mol/form/-css/form.view.css.ts
 ;
 "use strict";
 var $;
@@ -11109,7 +11121,7 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    $mol_style_attach("mol/form/group/group.view.css", "[mol_form_group] {\n\tflex-wrap: wrap;\n}\n\n[mol_form_group] > * {\n\tflex: 1 1 18rem;\n}\n");
+    $mol_style_attach("mol/form/group/group.view.css", "[mol_form_group] {\n\tflex-wrap: wrap;\n\tgap: var(--mol_gap_block);\n}\n\n[mol_form_group] > * {\n\tflex: 1 1 18rem;\n}\n");
 })($ || ($ = {}));
 //mol/form/group/-css/group.view.css.ts
 ;
@@ -14468,11 +14480,6 @@ var $;
         $mol_style_define($.$hyoo_idea_person_form, {
             flex: {
                 basis: rem(50),
-            },
-            Deck: {
-                Switch: {
-                    padding: $mol_gap.block,
-                },
             },
             Avatar_control: {
                 alignItems: 'center',
@@ -18091,7 +18098,6 @@ var $;
         const { rem, per, px } = $mol_style_unit;
         $mol_style_define($.$hyoo_idea_post_card, {
             width: per(100),
-            padding: $mol_gap.block,
             Comment: {
                 margin: $mol_gap.block,
             },
@@ -18547,15 +18553,6 @@ var $;
             Brief: {
                 color: $mol_theme.shade,
             },
-            Main: {
-                padding: $mol_gap.block,
-            },
-            Team: {
-                padding: $mol_gap.block,
-            },
-            Posts: {
-                padding: $mol_gap.block,
-            },
         });
     })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));
@@ -18810,15 +18807,8 @@ var $;
                 basis: rem(20),
                 shrink: 0,
             },
-            Empty: {
-                padding: rem(2),
-                margin: ['auto', 'auto'],
-            },
             Filter: {
                 alignSelf: 'stretch',
-            },
-            Rows: {
-                padding: $mol_gap.block,
             },
         });
     })($$ = $.$$ || ($.$$ = {}));
@@ -19398,21 +19388,6 @@ var $;
                     left: 'auto',
                 },
             },
-            Position: {
-                padding: $mol_gap.text,
-            },
-            Location: {
-                padding: $mol_gap.text,
-            },
-            About: {
-                padding: $mol_gap.block,
-            },
-            Projects_block: {
-                padding: $mol_gap.block,
-            },
-            Jobs: {
-                padding: $mol_gap.block,
-            },
             Job_functions: {
                 $mol_paragraph: {
                     padding: 0,
@@ -19423,9 +19398,6 @@ var $;
             },
             Job_dates: {
                 color: $mol_theme.shade,
-            },
-            Education: {
-                padding: $mol_gap.block,
             },
             Education_row: {
                 padding: $mol_gap.block,
@@ -20666,9 +20638,6 @@ var $;
             flex: {
                 basis: rem(20),
                 shrink: 0,
-            },
-            Results: {
-                padding: $mol_gap.block,
             },
         });
     })($$ = $.$$ || ($.$$ = {}));

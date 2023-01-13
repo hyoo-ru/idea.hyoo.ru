@@ -29,12 +29,6 @@ namespace $.$$ {
 			basis: rem(50),
 		},
 		
-		Deck: {
-			Switch: {
-				padding: $mol_gap.block,
-			},
-		},
-
 		Avatar_control: {
 			alignItems: 'center',
 		},

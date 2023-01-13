@@ -6,8 +6,6 @@ namespace $.$$ {
 
 		width: per(100),
 
-		padding: $mol_gap.block,
-		
 		Comment: {
 			margin: $mol_gap.block,
 		},

@@ -18,18 +18,6 @@ namespace $.$$ {
 		Brief: {
 			color: $mol_theme.shade,
 		},
-		
-		Main: {
-			padding: $mol_gap.block,
-		},
-
-		Team: {
-			padding: $mol_gap.block,
-		},
-		
-		Posts: {
-			padding: $mol_gap.block,
-		},
 
 	} )
 

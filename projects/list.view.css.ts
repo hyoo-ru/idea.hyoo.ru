@@ -9,19 +9,10 @@ namespace $.$$ {
 			shrink: 0,
 		},
 		
-		Empty: {
-			padding: rem(2),
-			margin: ['auto', 'auto'],
-		},
-
 		Filter: {
 			alignSelf: 'stretch',
 		},
 		
-		Rows: {
-			padding: $mol_gap.block,
-		},
-
 	} )
 
 }

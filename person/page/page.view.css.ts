@@ -33,7 +33,7 @@ namespace $.$$ {
 			},
 			justifyContent: 'flex-start',
 		},
-
+		
 		Summary: {
 			padding: {
 				left: $mol_gap.text,
@@ -46,25 +46,6 @@ namespace $.$$ {
 			},
 		},
 		
-		Position: {
-			padding: $mol_gap.text,
-		},
-
-		Location: {
-			padding: $mol_gap.text,
-		},
-		
-		About: {
-			padding: $mol_gap.block,
-		},
-
-		Projects_block: {
-			padding: $mol_gap.block,
-		},
-		
-		Jobs: {
-			padding: $mol_gap.block,
-		},
 		Job_functions: {
 			$mol_paragraph: {
 				padding: 0,
@@ -79,9 +60,6 @@ namespace $.$$ {
 			color: $mol_theme.shade,
 		},
 	
-		Education: {
-			padding: $mol_gap.block,
-		},
 		Education_row: {
 			padding: $mol_gap.block,
 		},

@@ -354,7 +354,7 @@ $mol_form_field $mol_labeler
 		<= name \
 		<= Bid $mol_view
 			sub / <= bid \
-	Content <= control null
+	content / <= control null
 
 $mol_row $mol_view
 
@@ -1791,9 +1791,9 @@ $hyoo_idea_app $mol_book2_catalog
 		talents <= Talents_page $hyoo_idea_talents_page
 			domain <= domain
 			Close <= Spread_close
-	Project_page $hyoo_idea_project_page
+	Project_page* $hyoo_idea_project_page
 		project <= project_opened $hyoo_idea_project
-	Person_page $hyoo_idea_person_page
+	Person_page* $hyoo_idea_person_page
 		person <= person_opened $hyoo_idea_person
 	Invite_page $hyoo_idea_invite_page
 		domain <= domain

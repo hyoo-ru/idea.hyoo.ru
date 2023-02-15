@@ -10477,8 +10477,10 @@ var $;
                 this.Bid()
             ];
         }
-        Content() {
-            return this.control();
+        content() {
+            return [
+                this.control()
+            ];
         }
         name() {
             return "";
@@ -20631,12 +20633,12 @@ var $;
                 talents: this.Talents_page()
             };
         }
-        Project_page() {
+        Project_page(id) {
             const obj = new this.$.$hyoo_idea_project_page();
             obj.project = () => this.project_opened();
             return obj;
         }
-        Person_page() {
+        Person_page(id) {
             const obj = new this.$.$hyoo_idea_person_page();
             obj.person = () => this.person_opened();
             return obj;
@@ -20750,10 +20752,10 @@ var $;
         $mol_mem
     ], $hyoo_idea_app.prototype, "domain", null);
     __decorate([
-        $mol_mem
+        $mol_mem_key
     ], $hyoo_idea_app.prototype, "Project_page", null);
     __decorate([
-        $mol_mem
+        $mol_mem_key
     ], $hyoo_idea_app.prototype, "Person_page", null);
     __decorate([
         $mol_mem
@@ -20888,11 +20890,12 @@ var $;
                 return ['invite_person', 'invite_project'].some(val => !!this.$.$mol_state_arg.value(val));
             }
             pages() {
-                const keys = Object.keys(this.$.$mol_state_arg.dict());
+                const arg = this.$.$mol_state_arg.dict();
+                const keys = Object.keys(arg);
                 const addon = keys.map(key => {
                     switch (key) {
-                        case 'person': return this.Person_page();
-                        case 'project': return this.Project_page();
+                        case 'person': return this.Person_page(arg.person);
+                        case 'project': return this.Project_page(arg.project);
                         case 'invite': return this.Invite_page();
                     }
                 }).filter($mol_guard_defined);

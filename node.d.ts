@@ -3000,7 +3000,7 @@ declare namespace $ {
     class $mol_form_field extends $mol_labeler {
         bids(): readonly string[];
         label(): readonly any[];
-        Content(): any;
+        content(): readonly any[];
         name(): string;
         bid(): string;
         Bid(): $mol_view;
@@ -5497,8 +5497,8 @@ declare namespace $ {
             projects: $$.$hyoo_idea_projects;
             talents: $$.$hyoo_idea_talents_page;
         };
-        Project_page(): $$.$hyoo_idea_project_page;
-        Person_page(): $$.$hyoo_idea_person_page;
+        Project_page(id: any): $$.$hyoo_idea_project_page;
+        Person_page(id: any): $$.$hyoo_idea_person_page;
         Invite_page(): $$.$hyoo_idea_invite_page;
         Theme(): $$.$mol_theme_auto;
         Logo(): $mol_image;

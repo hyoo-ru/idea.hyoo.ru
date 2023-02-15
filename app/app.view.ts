@@ -26,12 +26,13 @@ namespace $.$$ {
 		@ $mol_mem
 		pages() {
 			
-			const keys = Object.keys( this.$.$mol_state_arg.dict() )
+			const arg = this.$.$mol_state_arg.dict()
+			const keys = Object.keys( arg )
 			
 			const addon = keys.map( key => {
 				switch( key ) {
-					case 'person': return this.Person_page()
-					case 'project': return this.Project_page()
+					case 'person': return this.Person_page( arg.person )
+					case 'project': return this.Project_page( arg.project )
 					case 'invite': return this.Invite_page()
 				}
 			} ).filter( $mol_guard_defined )

@@ -2853,6 +2853,27 @@ declare namespace $ {
 }
 
 declare namespace $ {
+    class $mol_picture extends Object {
+        readonly native: HTMLCanvasElement;
+        constructor(native: HTMLCanvasElement);
+        static fit(image: CanvasImageSource | Blob | string, limit: {
+            width: number;
+            height: number;
+        }): $mol_picture;
+        static make(image: CanvasImageSource, size: {
+            width: number;
+            height: number;
+        }): $mol_picture;
+        static sizes(image: CanvasImageSource): {
+            width: number;
+            height: number;
+        };
+        static load(uri: string): Promise<HTMLImageElement>;
+        format(type: 'image/png' | 'image/jpeg' | 'image/webp', quality?: number): Blob | null;
+    }
+}
+
+declare namespace $ {
     class $mol_check extends $mol_button_minor {
         attr(): {
             mol_check_checked: boolean;
@@ -3982,7 +4003,7 @@ declare namespace $.$$ {
     type Institution = ReturnType<$hyoo_idea_person['institutions']>[number];
     type Institution_keys = keyof Institution;
     export class $hyoo_idea_person_form extends $.$hyoo_idea_person_form {
-        avatar_file(next?: Blob[]): readonly any[];
+        avatar_file(next?: File[]): never[];
         avatar_drop(): void;
         job_rows(): $mol_list[];
         job_add(): void;
@@ -4194,7 +4215,7 @@ declare namespace $.$$ {
     type Role_keys = keyof Role;
     export class $hyoo_idea_project_form extends $.$hyoo_idea_project_form {
         domain(): $hyoo_idea_domain;
-        logo_add(next?: Blob[]): readonly any[];
+        logo_add(next?: File[]): never[];
         logo_drop(): void;
         description_selection(next?: number[]): number[];
         stage_options(): {

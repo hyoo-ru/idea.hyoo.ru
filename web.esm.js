@@ -10112,6 +10112,66 @@ var $;
 "use strict";
 var $;
 (function ($) {
+    class $mol_picture extends Object {
+        native;
+        constructor(native) {
+            super();
+            this.native = native;
+        }
+        static fit(image, limit) {
+            if (image instanceof Blob)
+                image = $mol_wire_sync(URL).createObjectURL(image);
+            if (typeof image === 'string')
+                image = $mol_wire_sync(this).load(image);
+            let { width, height } = this.sizes(image);
+            if (width > limit.width) {
+                height *= limit.width / width;
+                width = limit.width;
+            }
+            if (height > limit.height) {
+                width *= limit.height / height;
+                height = limit.height;
+            }
+            return this.make(image, { width, height });
+        }
+        static make(image, size) {
+            const canvas = $mol_dom_context.document.createElement('canvas');
+            Object.assign(canvas, size);
+            const context = canvas.getContext('2d');
+            context.drawImage(image, 0, 0, size.width, size.height);
+            return new this(canvas);
+        }
+        static sizes(image) {
+            let { width, height } = image;
+            if (typeof width !== 'number')
+                width = width.baseVal.value;
+            if (typeof height !== 'number')
+                height = height.baseVal.value;
+            return { width, height };
+        }
+        static async load(uri) {
+            const image = new Image;
+            image.src = uri;
+            await new Promise((onload, onerror) => Object.assign(image, { onload, onerror }));
+            return image;
+        }
+        format(type, quality = .9) {
+            return new Promise(done => this.native.toBlob(done, type, quality));
+        }
+    }
+    __decorate([
+        $mol_action
+    ], $mol_picture.prototype, "format", null);
+    __decorate([
+        $mol_action
+    ], $mol_picture, "fit", null);
+    $.$mol_picture = $mol_picture;
+})($ || ($ = {}));
+//mol/picture/picture.ts
+;
+"use strict";
+var $;
+(function ($) {
     class $mol_check extends $mol_button_minor {
         attr() {
             return {
@@ -14290,9 +14350,15 @@ var $;
     (function ($$) {
         class $hyoo_idea_person_form extends $.$hyoo_idea_person_form {
             avatar_file(next) {
-                if (next && next.length)
-                    this.person().avatar_node().blob(next[0]);
-                return next;
+                if (!next)
+                    return [];
+                const file = next[0];
+                const pict = $mol_picture.fit(file, { width: 96, height: 96 });
+                const blob = pict.format('image/webp');
+                if (!blob)
+                    return [];
+                this.person().avatar_node().blob(blob);
+                return [];
             }
             avatar_drop() {
                 this.person().avatar_node().list([]);
@@ -15344,9 +15410,15 @@ var $;
                 return this.project().domain();
             }
             logo_add(next) {
-                if (next && next.length)
-                    this.logo_node().blob(next[0]);
-                return next;
+                if (!next)
+                    return [];
+                const file = next[0];
+                const pict = $mol_picture.fit(file, { width: 96, height: 96 });
+                const blob = pict.format('image/webp');
+                if (!blob)
+                    return [];
+                this.logo_node().blob(blob);
+                return [];
             }
             logo_drop() {
                 this.logo_node().list([]);
@@ -15435,6 +15507,9 @@ var $;
                 ];
             }
         }
+        __decorate([
+            $mol_mem
+        ], $hyoo_idea_project_form.prototype, "logo_add", null);
         __decorate([
             $mol_mem
         ], $hyoo_idea_project_form.prototype, "stage_options", null);
@@ -16439,7 +16514,7 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    $mol_style_attach("mol/embed/youtube/youtube.view.css", "[mol_embed_youtube] {\n\tpadding: 0;\n\tmax-width: 100%;\n}\n\n[mol_embed_youtube_image]:not(:hover):not(:focus) {\n\topacity: .75;\n}\n");
+    $mol_style_attach("mol/embed/youtube/youtube.view.css", "[mol_embed_youtube] {\n\tpadding: 0;\n\tmax-width: 100%;\n}\n\n[mol_embed_youtube_image] {\n\tflex: auto 1 1;\n}\n\n[mol_embed_youtube_image]:not(:hover):not(:focus) {\n\topacity: .75;\n}\n");
 })($ || ($ = {}));
 //mol/embed/youtube/-css/youtube.view.css.ts
 ;

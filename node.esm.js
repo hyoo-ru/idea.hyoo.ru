@@ -10449,27 +10449,27 @@ var $;
             super();
             this.native = native;
         }
-        static fit(image, limit) {
+        static fit(image, width, height = width) {
             if (image instanceof Blob)
                 image = $mol_wire_sync(URL).createObjectURL(image);
             if (typeof image === 'string')
                 image = $mol_wire_sync(this).load(image);
-            let { width, height } = this.sizes(image);
-            if (width > limit.width) {
-                height *= limit.width / width;
-                width = limit.width;
+            let [w, h] = this.sizes(image);
+            if (w > width) {
+                h *= width / w;
+                w = width;
             }
-            if (height > limit.height) {
-                width *= limit.height / height;
-                height = limit.height;
+            if (h > height) {
+                w *= height / h;
+                h = height;
             }
-            return this.make(image, { width, height });
+            return this.make(image, w, h);
         }
-        static make(image, size) {
+        static make(image, width, height = width) {
             const canvas = $mol_dom_context.document.createElement('canvas');
-            Object.assign(canvas, size);
+            Object.assign(canvas, { width, height });
             const context = canvas.getContext('2d');
-            context.drawImage(image, 0, 0, size.width, size.height);
+            context.drawImage(image, 0, 0, width, height);
             return new this(canvas);
         }
         static sizes(image) {
@@ -10478,7 +10478,7 @@ var $;
                 width = width.baseVal.value;
             if (typeof height !== 'number')
                 height = height.baseVal.value;
-            return { width, height };
+            return [width, height];
         }
         static async load(uri) {
             const image = new Image;
@@ -14682,7 +14682,7 @@ var $;
                 if (!next)
                     return [];
                 const file = next[0];
-                const pict = $mol_picture.fit(file, { width: 96, height: 96 });
+                const pict = $mol_picture.fit(file, 96);
                 const blob = pict.format('image/webp');
                 if (!blob)
                     return [];
@@ -15742,7 +15742,7 @@ var $;
                 if (!next)
                     return [];
                 const file = next[0];
-                const pict = $mol_picture.fit(file, { width: 96, height: 96 });
+                const pict = $mol_picture.fit(file, 96);
                 const blob = pict.format('image/webp');
                 if (!blob)
                     return [];

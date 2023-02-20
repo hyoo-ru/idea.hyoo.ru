@@ -2872,18 +2872,9 @@ declare namespace $ {
     class $mol_picture extends Object {
         readonly native: HTMLCanvasElement;
         constructor(native: HTMLCanvasElement);
-        static fit(image: CanvasImageSource | Blob | string, limit: {
-            width: number;
-            height: number;
-        }): $mol_picture;
-        static make(image: CanvasImageSource, size: {
-            width: number;
-            height: number;
-        }): $mol_picture;
-        static sizes(image: CanvasImageSource): {
-            width: number;
-            height: number;
-        };
+        static fit(image: CanvasImageSource | Blob | string, width: number, height?: number): $mol_picture;
+        static make(image: CanvasImageSource, width: number, height?: number): $mol_picture;
+        static sizes(image: CanvasImageSource): number[];
         static load(uri: string): Promise<HTMLImageElement>;
         format(type: 'image/png' | 'image/jpeg' | 'image/webp', quality?: number): Blob | null;
     }

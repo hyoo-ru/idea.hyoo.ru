@@ -15,7 +15,7 @@ namespace $.$$ {
 			if( !next ) return []
 			
 			const file = next[0]
-			const pict = $mol_picture.fit( file, { width: 96, height: 96 } )
+			const pict = $mol_picture.fit( file, 96 )
 
 			const blob = pict.format( 'image/webp' )
 			if( !blob ) return []

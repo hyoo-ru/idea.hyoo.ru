@@ -9,9 +9,19 @@ namespace $.$$ {
 	export class $hyoo_idea_person_form extends $.$hyoo_idea_person_form {
 
 		@ $mol_mem
-		avatar_file(next?: Blob[]) {
-			if (next && next.length) this.person().avatar_node().blob(next[0])
-			return next as readonly any[]
+		avatar_file( next?: File[] ) {
+			
+			if( !next ) return []
+			
+			const file = next[0]
+			const pict = $mol_picture.fit( file, { width: 96, height: 96 } )
+
+			const blob = pict.format( 'image/webp' )
+			if( !blob ) return []
+			
+			this.person().avatar_node().blob( blob )
+			
+			return []
 		}
 
 		avatar_drop() {

@@ -9,11 +9,22 @@ namespace $.$$ {
 			return this.project().domain()
 		}
 
-		logo_add( next?: Blob[] ) {
-			if (next && next.length) this.logo_node().blob(next[0])
-			return next as readonly any[]
-		}
+		@ $mol_mem
+		logo_add( next?: File[] ) {
+			
+			if( !next ) return []
+			
+			const file = next[0]
+			const pict = $mol_picture.fit( file, { width: 96, height: 96 } )
 
+			const blob = pict.format( 'image/webp' )
+			if( !blob ) return []
+			
+			this.logo_node().blob( blob )
+			
+			return []
+		}
+		
 		logo_drop() {
 			this.logo_node().list([])
 		}

@@ -2854,8 +2854,9 @@ declare namespace $ {
 
 declare namespace $ {
     class $mol_picture extends Object {
-        readonly native: HTMLCanvasElement;
-        constructor(native: HTMLCanvasElement);
+        readonly canvas: HTMLCanvasElement;
+        constructor(canvas: HTMLCanvasElement);
+        get context(): CanvasRenderingContext2D | null;
         static fit(image: CanvasImageSource | Blob | string, width: number, height?: number): $mol_picture;
         static make(image: CanvasImageSource, width: number, height?: number): $mol_picture;
         static sizes(image: CanvasImageSource): number[];

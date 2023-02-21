@@ -10444,10 +10444,13 @@ var $;
 var $;
 (function ($) {
     class $mol_picture extends Object {
-        native;
-        constructor(native) {
+        canvas;
+        constructor(canvas) {
             super();
-            this.native = native;
+            this.canvas = canvas;
+        }
+        get context() {
+            return this.canvas.getContext('2d');
         }
         static fit(image, width, height = width) {
             if (image instanceof Blob)
@@ -10487,7 +10490,7 @@ var $;
             return image;
         }
         format(type, quality = .9) {
-            return new Promise(done => this.native.toBlob(done, type, quality));
+            return new Promise(done => this.canvas.toBlob(done, type, quality));
         }
     }
     __decorate([

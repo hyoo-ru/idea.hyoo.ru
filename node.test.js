@@ -4856,7 +4856,8 @@ var $;
                 autocomplete: this.autocomplete_native(),
                 selectionEnd: this.selection_end(),
                 selectionStart: this.selection_start(),
-                inputMode: this.keyboard()
+                inputMode: this.keyboard(),
+                enterkeyhint: this.enter()
             };
         }
         attr() {
@@ -4911,6 +4912,9 @@ var $;
         }
         keyboard() {
             return "text";
+        }
+        enter() {
+            return "go";
         }
         length_max() {
             return +Infinity;
@@ -5982,6 +5986,12 @@ var $;
         enabled() {
             return true;
         }
+        keyboard() {
+            return "search";
+        }
+        enter() {
+            return "search";
+        }
         bring() {
             return this.Query().bring();
         }
@@ -5991,6 +6001,8 @@ var $;
             obj.hint = () => this.hint();
             obj.submit = (event) => this.submit(event);
             obj.enabled = () => this.enabled();
+            obj.keyboard = () => this.keyboard();
+            obj.enter = () => this.enter();
             return obj;
         }
         Clear_icon() {
@@ -12100,6 +12112,9 @@ var $;
     class $mol_textarea_edit extends $mol_string {
         dom_name() {
             return "textarea";
+        }
+        enter() {
+            return "enter";
         }
         field() {
             return {

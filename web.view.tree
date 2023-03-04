@@ -395,6 +395,8 @@ $mol_button_open_native $mol_view
 	event *
 		change?next <=> picked?next null
 
+$mol_bar $mol_view
+
 $mol_form_group $mol_view
 
 $mol_stack $mol_view
@@ -536,14 +538,7 @@ $mol_textarea_edit $mol_string
 		^
 		scrollTop 0
 
-$mol_format $mol_string
-	allow \0123456789
-	hint <= mask*0 \
-	keyboard \numeric
-
-$mol_phone $mol_format
-	mask* \+___ (___) ___-__-__
-	keyboard \tel
+$mol_icon_plus $mol_icon path \M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z
 
 $mol_pick $mol_pop
 	event *
@@ -591,7 +586,59 @@ $mol_select $mol_pick
 		enabled <= enabled true
 	Trigger_icon $mol_icon_dots_vertical
 
-$mol_icon_plus $mol_icon path \M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z
+$mol_icon_delete $mol_icon path \M19,4H15.5L14.5,3H9.5L8.5,4H5V6H19M6,19C6,20.1 6.9,21 8,21H16C17.1,21 18,20.1 18,19V7H6V19Z
+
+$mol_image $mol_view
+	dom_name \img
+	field *
+		^
+		src <= uri \
+		alt <= title
+		loading <= loading \eager
+		decoding <= decoding \async
+		crossOrigin <= cors null
+	minimal_width 16
+	minimal_height 16
+
+$hyoo_idea_person_avatar $mol_image
+	blob null
+	placeholder \https://robohash.org/${id}.png
+
+$hyoo_idea_person_card $mol_view
+	person $hyoo_idea_person
+		id => id
+		name => name
+		avatar_node => avatar_node
+	sub /
+		<= Link $mol_link
+			arg * person <= id
+			sub /
+				<= Avatar $hyoo_idea_person_avatar
+					blob <= avatar_node
+				<= Info $mol_list
+					rows <= info /
+						<= Name $mol_paragraph
+							title <= name
+						<= Name_sub $mol_paragraph
+							sub <= name_sub /
+		<= Actions $mol_view sub <= actions /
+			- <= More $mol_pick
+				hint @ \Actions
+				trigger_content / <= More_icon $mol_icon_dots_horizontal
+				bubble_content / \comming soon
+
+$mol_icon_check $mol_icon path \M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z
+
+$mol_icon_cancel $mol_icon path \M12,2C17.52,2 22,6.48 22,12C22,17.52 17.52,22 12,22C6.48,22 2,17.52 2,12C2,6.48 6.48,2 12,2M12,4C7.58,4 4,7.58 4,12C4,13.85 4.63,15.55 5.68,16.91L16.91,5.68C15.55,4.63 13.85,4 12,4M12,20C16.42,20 20,16.42 20,12C20,10.15 19.37,8.45 18.32,7.09L7.09,18.32C8.45,19.37 10.15,20 12,20Z
+
+$mol_format $mol_string
+	allow \0123456789
+	hint <= mask*0 \
+	keyboard \numeric
+
+$mol_phone $mol_format
+	mask* \+___ (___) ___-__-__
+	keyboard \tel
 
 $mol_select_list $mol_view
 	value?val /string
@@ -703,8 +750,6 @@ $mol_icon_tick $mol_icon path \M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z
 
 $mol_check_box $mol_check
 	Icon $mol_icon_tick
-
-$mol_icon_delete $mol_icon path \M19,4H15.5L14.5,3H9.5L8.5,4H5V6H19M6,19C6,20.1 6.9,21 8,21H16C17.1,21 18,20.1 18,19V7H6V19Z
 
 $mol_deck $mol_list
 	items /$mol_view
@@ -893,51 +938,6 @@ $hyoo_idea_person_form $mol_form
 				title @ \Achivements
 				sub /
 					\patents projects publications
-
-$mol_bar $mol_view
-
-$mol_image $mol_view
-	dom_name \img
-	field *
-		^
-		src <= uri \
-		alt <= title
-		loading <= loading \eager
-		decoding <= decoding \async
-		crossOrigin <= cors null
-	minimal_width 16
-	minimal_height 16
-
-$hyoo_idea_person_avatar $mol_image
-	blob null
-	placeholder \https://robohash.org/${id}.png
-
-$hyoo_idea_person_card $mol_view
-	person $hyoo_idea_person
-		id => id
-		name => name
-		avatar_node => avatar_node
-	sub /
-		<= Link $mol_link
-			arg * person <= id
-			sub /
-				<= Avatar $hyoo_idea_person_avatar
-					blob <= avatar_node
-				<= Info $mol_list
-					rows <= info /
-						<= Name $mol_paragraph
-							title <= name
-						<= Name_sub $mol_paragraph
-							sub <= name_sub /
-		<= Actions $mol_view sub <= actions /
-			- <= More $mol_pick
-				hint @ \Actions
-				trigger_content / <= More_icon $mol_icon_dots_horizontal
-				bubble_content / \comming soon
-
-$mol_icon_check $mol_icon path \M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z
-
-$mol_icon_cancel $mol_icon path \M12,2C17.52,2 22,6.48 22,12C22,17.52 17.52,22 12,22C6.48,22 2,17.52 2,12C2,6.48 6.48,2 12,2M12,4C7.58,4 4,7.58 4,12C4,13.85 4.63,15.55 5.68,16.91L16.91,5.68C15.55,4.63 13.85,4 12,4M12,20C16.42,20 20,16.42 20,12C20,10.15 19.37,8.45 18.32,7.09L7.09,18.32C8.45,19.37 10.15,20 12,20Z
 
 $hyoo_idea_project_form $mol_form
 	project $hyoo_idea_project
@@ -1425,6 +1425,20 @@ $hyoo_idea_post_card $mol_list
 						click? <=> comment_add? null
 						sub / <= Submit_icon $mol_icon_send
 
+$mol_text_list $mol_text
+	auto_scroll null
+	attr *
+		^
+		mol_text_list_type <= type \
+	Paragraph* $mol_text_list_item
+		index <= item_index*
+		sub <= block_content*
+
+$mol_text_list_item $mol_paragraph
+	attr *
+		^
+		mol_text_list_item_index <= index 0
+
 $hyoo_idea_project_page $mol_page
 	auto /
 		<= slides_send null
@@ -1499,20 +1513,6 @@ $hyoo_idea_project_page $mol_page
 			rows <= post_list /
 				<= Post*0_0 $hyoo_idea_post_card
 					post <= post* $hyoo_idea_post
-
-$mol_text_list $mol_text
-	auto_scroll null
-	attr *
-		^
-		mol_text_list_type <= type \
-	Paragraph* $mol_text_list_item
-		index <= item_index*
-		sub <= block_content*
-
-$mol_text_list_item $mol_paragraph
-	attr *
-		^
-		mol_text_list_item_index <= index 0
 
 $hyoo_idea_projects $mol_page
 	domain $hyoo_idea_domain

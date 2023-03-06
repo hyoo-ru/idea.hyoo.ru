@@ -252,6 +252,7 @@
     "$mol_select_list",
     "$mol_date",
     "$mol_icon_calendar",
+    "$mol_icon_calendar_today",
     "$mol_icon_chevron_left",
     "$mol_icon_chevron",
     "$mol_icon_chevron_right",

@@ -275,7 +275,6 @@
     "$mol_check_expand",
     "$mol_embed_any",
     "$mol_embed",
-    "$mol_ghost",
     "$mol_embed_native",
     "$mol_embed_youtube",
     "$mol_frame",

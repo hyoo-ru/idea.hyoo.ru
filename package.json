@@ -244,6 +244,8 @@
     "$mol_button_copy",
     "$mol_icon_clipboard_outline",
     "$mol_icon_clipboard",
+    "$mol_html_encode",
+    "$mol_html",
     "$mol_icon_plus",
     "$mol_select",
     "$mol_pick",

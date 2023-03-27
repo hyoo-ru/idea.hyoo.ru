@@ -10621,7 +10621,7 @@ var $;
         get context() {
             return this.canvas.getContext('2d');
         }
-        static fit(image, width, height = width) {
+        static fit(image, width = Number.POSITIVE_INFINITY, height = width) {
             if (image instanceof Blob)
                 image = $mol_wire_sync(URL).createObjectURL(image);
             if (typeof image === 'string')
@@ -11855,11 +11855,14 @@ var $;
 var $;
 (function ($) {
     class $mol_button_copy extends $mol_button_minor {
+        blobs() {
+            return [
+                this.text_blob(),
+                this.html_blob()
+            ];
+        }
         data() {
-            return {
-                "text/plain": this.text_blob(),
-                "text/html": this.html_blob()
-            };
+            return {};
         }
         sub() {
             return [
@@ -11936,6 +11939,9 @@ var $;
     var $$;
     (function ($$) {
         class $mol_button_copy extends $.$mol_button_copy {
+            data() {
+                return Object.fromEntries(this.blobs().map(blob => [blob.type, blob]));
+            }
             html() {
                 return $mol_html_encode(this.text());
             }

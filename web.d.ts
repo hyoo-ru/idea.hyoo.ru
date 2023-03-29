@@ -54,6 +54,7 @@ declare namespace $ {
 declare namespace $ {
     class $mol_object2 {
         static $: typeof $$;
+        [Symbol.toStringTag]: string;
         [$mol_ambient_ref]: typeof $$;
         get $(): $;
         set $(next: $);
@@ -190,6 +191,7 @@ declare namespace $ {
         static plan_task: $mol_after_frame | null;
         static plan(): void;
         static sync(): void;
+        [Symbol.toStringTag]: string;
         cache: Result | Error | Promise<Result | Error>;
         get args(): Args;
         result(): Result | undefined;
@@ -197,8 +199,8 @@ declare namespace $ {
         constructor(id: string, task: (this: Host, ...args: Args) => Result, host?: Host | undefined, args?: Args);
         plan(): void;
         reap(): void;
-        toString(): any;
-        toJSON(): any;
+        toString(): string;
+        toJSON(): string;
         get $(): any;
         emit(quant?: $mol_wire_cursor): void;
         fresh(): void;
@@ -1464,6 +1466,85 @@ declare namespace $ {
 }
 
 declare namespace $ {
+    type $mol_data_value<Input = any, Output = any> = (val: Input) => Output;
+}
+
+declare namespace $ {
+    type $mol_type_equals<A, B> = (<X>() => X extends A ? 1 : 2) extends (<X>() => X extends B ? 1 : 2) ? unknown : never;
+}
+
+declare namespace $ {
+    type $mol_type_merge<Intersection> = Intersection extends (...a: any[]) => any ? Intersection : Intersection extends new (...a: any[]) => any ? Intersection : Intersection extends object ? $mol_type_merge_object<Intersection> extends Intersection ? unknown extends $mol_type_equals<$mol_type_merge_object<Intersection>, Intersection> ? Intersection : {
+        [Key in keyof Intersection]: $mol_type_merge<Intersection[Key]>;
+    } : Intersection : Intersection;
+    type $mol_type_merge_object<Intersection> = {
+        [Key in keyof Intersection]: Intersection[Key];
+    };
+}
+
+declare namespace $ {
+    type $mol_type_partial_undefined<Val> = $mol_type_merge<Partial<Val> & Pick<Val, {
+        [Field in keyof Val]: undefined extends Val[Field] ? never : Field;
+    }[keyof Val]>>;
+}
+
+declare namespace $ {
+    function $mol_data_setup<Value extends $mol_data_value, Config = never>(value: Value, config: Config): Value & {
+        config: Config;
+        Value: ReturnType<Value>;
+    };
+}
+
+declare namespace $ {
+    function $mol_data_record<Sub extends Record<string, $mol_data_value>>(sub: Sub): ((val: $mol_type_merge<Partial<{ [key in keyof Sub]: Parameters<Sub[key]>[0]; }> & Pick<{ [key in keyof Sub]: Parameters<Sub[key]>[0]; }, ({ [key in keyof Sub]: Parameters<Sub[key]>[0]; } extends infer T ? { [Field in keyof T]: undefined extends { [key in keyof Sub]: Parameters<Sub[key]>[0]; }[Field] ? never : Field; } : never)[keyof Sub]>>) => Readonly<$mol_type_merge<Partial<{ [key_1 in keyof Sub]: ReturnType<Sub[key_1]>; }> & Pick<{ [key_1 in keyof Sub]: ReturnType<Sub[key_1]>; }, ({ [key_1 in keyof Sub]: ReturnType<Sub[key_1]>; } extends infer T_1 ? { [Field_1 in keyof T_1]: undefined extends { [key_1 in keyof Sub]: ReturnType<Sub[key_1]>; }[Field_1] ? never : Field_1; } : never)[keyof Sub]>>>) & {
+        config: Sub;
+        Value: Readonly<$mol_type_merge<Partial<{ [key_1 in keyof Sub]: ReturnType<Sub[key_1]>; }> & Pick<{ [key_1 in keyof Sub]: ReturnType<Sub[key_1]>; }, ({ [key_1 in keyof Sub]: ReturnType<Sub[key_1]>; } extends infer T_2 ? { [Field_1 in keyof T_2]: undefined extends { [key_1 in keyof Sub]: ReturnType<Sub[key_1]>; }[Field_1] ? never : Field_1; } : never)[keyof Sub]>>>;
+    };
+}
+
+declare namespace $ {
+    function $mol_diff_path<Item>(...paths: Item[][]): {
+        prefix: Item[];
+        suffix: Item[][];
+    };
+}
+
+declare namespace $ {
+    class $mol_error_mix extends Error {
+        errors: Error[];
+        constructor(message: string, ...errors: Error[]);
+        toJSON(): string;
+    }
+}
+
+declare namespace $ {
+    class $mol_data_error extends $mol_error_mix {
+    }
+}
+
+declare namespace $ {
+    function $mol_data_array<Sub extends $mol_data_value>(sub: Sub): ((val: readonly Parameters<Sub>[0][]) => readonly ReturnType<Sub>[]) & {
+        config: Sub;
+        Value: readonly ReturnType<Sub>[];
+    };
+}
+
+declare namespace $ {
+    let $mol_data_string: (val: string) => string;
+}
+
+declare namespace $ {
+    function $mol_huggingface_run(this: $, space: string, method: string | number, ...data: readonly any[]): readonly string[];
+    function $mol_huggingface_async(space: string, method: number, ...data: readonly any[]): Promise<[string]> & {
+        destructor: () => void;
+    };
+}
+
+declare namespace $ {
+    function $hyoo_lingua_translate(this: $, lang: string, text: string): string;
+}
+
+declare namespace $ {
     interface $mol_locale_dict {
         [key: string]: string;
     }
@@ -1472,7 +1553,7 @@ declare namespace $ {
         static lang(next?: string): string;
         static source(lang: string): any;
         static texts(lang: string, next?: $mol_locale_dict): $mol_locale_dict;
-        static text(key: string): string;
+        static text(key: string): {} | null;
         static warn(key: string): null;
     }
 }
@@ -1692,19 +1773,6 @@ declare namespace $ {
 }
 
 declare namespace $ {
-    type $mol_type_equals<A, B> = (<X>() => X extends A ? 1 : 2) extends (<X>() => X extends B ? 1 : 2) ? unknown : never;
-}
-
-declare namespace $ {
-    type $mol_type_merge<Intersection> = Intersection extends (...a: any[]) => any ? Intersection : Intersection extends new (...a: any[]) => any ? Intersection : Intersection extends object ? $mol_type_merge_object<Intersection> extends Intersection ? unknown extends $mol_type_equals<$mol_type_merge_object<Intersection>, Intersection> ? Intersection : {
-        [Key in keyof Intersection]: $mol_type_merge<Intersection[Key]>;
-    } : Intersection : Intersection;
-    type $mol_type_merge_object<Intersection> = {
-        [Key in keyof Intersection]: Intersection[Key];
-    };
-}
-
-declare namespace $ {
     type $mol_type_intersect<Union> = (Union extends any ? (_: Union) => void : never) extends ((_: infer Intersection) => void) ? Intersection : never;
 }
 
@@ -1818,7 +1886,7 @@ declare namespace $ {
         nav_focused(component?: any): any;
         Nav(): $$.$mol_nav;
         suggests_showed(val?: any): boolean;
-        hint(): string;
+        hint(): {} | null;
         submit(event?: any): any;
         enabled(): boolean;
         keyboard(): string;
@@ -2058,37 +2126,6 @@ declare namespace $ {
 
 declare namespace $ {
     function $hyoo_sync_peer(path: string): Promise<$hyoo_crowd_peer>;
-}
-
-declare namespace $ {
-    type $mol_data_value<Input = any, Output = any> = (val: Input) => Output;
-}
-
-declare namespace $ {
-    function $mol_data_setup<Value extends $mol_data_value, Config = never>(value: Value, config: Config): Value & {
-        config: Config;
-        Value: ReturnType<Value>;
-    };
-}
-
-declare namespace $ {
-    function $mol_diff_path<Item>(...paths: Item[][]): {
-        prefix: Item[];
-        suffix: Item[][];
-    };
-}
-
-declare namespace $ {
-    class $mol_error_mix extends Error {
-        errors: Error[];
-        constructor(message: string, ...errors: Error[]);
-        toJSON(): string;
-    }
-}
-
-declare namespace $ {
-    class $mol_data_error extends $mol_error_mix {
-    }
 }
 
 declare namespace $ {
@@ -2968,17 +3005,17 @@ declare namespace $.$$ {
 declare namespace $ {
     class $hyoo_idea_project_stage extends $mol_switch {
         options(): {
-            idea: string;
-            proto: string;
-            pilot: string;
-            product: string;
+            idea: {} | null;
+            proto: {} | null;
+            pilot: {} | null;
+            product: {} | null;
         };
         value(next?: any): string;
         stages(): {
-            idea: string;
-            proto: string;
-            pilot: string;
-            product: string;
+            idea: {} | null;
+            proto: {} | null;
+            pilot: {} | null;
+            product: {} | null;
         };
         stage(next?: any): string;
     }
@@ -3531,7 +3568,7 @@ declare namespace $ {
         Option_row(id: any): $mol_button_minor;
         No_options(): $mol_view;
         plugins(): readonly any[];
-        hint(): string;
+        hint(): {} | null;
         bubble_content(): readonly any[];
         Filter(): $$.$mol_string;
         Trigger_icon(): $mol_icon_dots_vertical;
@@ -3540,7 +3577,7 @@ declare namespace $ {
         filter_pattern(val?: any): string;
         Option_label(id: any): $$.$mol_dimmer;
         option_content(id: any): readonly any[];
-        no_options_message(): string;
+        no_options_message(): {} | null;
         nav_components(): readonly $mol_view[];
         option_focused(component?: any): any;
         nav_cycle(val?: any): boolean;
@@ -3670,7 +3707,7 @@ declare namespace $ {
         stage(next?: any): $hyoo_idea_project_stages;
         team(next?: any): $hyoo_idea_person[];
         project(): $hyoo_idea_project;
-        role_not_label(): string;
+        role_not_label(): {} | null;
         form_fields(): readonly any[];
         Name_control(): $$.$mol_string;
         Name_field(): $$.$mol_form_field;
@@ -3693,7 +3730,7 @@ declare namespace $ {
         description_selection(next?: any): readonly number[];
         Description_control(): $$.$mol_textarea;
         Description_field(): $$.$mol_form_field;
-        roles_field_name(): string;
+        roles_field_name(): {} | null;
         Role_add_icon(): $mol_icon_plus;
         role_add(next?: any): any;
         Role_add(): $mol_button_minor;
@@ -3831,7 +3868,7 @@ declare namespace $ {
         Badges(): readonly $mol_view[];
         badge_title(id: any): string;
         remove(id: any, event?: any): any;
-        badge_hint(): string;
+        badge_hint(): {} | null;
         enabled(): boolean;
         drop_enabled(): boolean;
         align_hor(): string;
@@ -3840,7 +3877,7 @@ declare namespace $ {
         pick(val?: any): string;
         option_title(id: any): string;
         pick_enabled(): boolean;
-        pick_hint(): string;
+        pick_hint(): {} | null;
         Pick_icon(): $mol_icon_plus;
         Pick(): $$.$mol_select;
     }
@@ -3996,11 +4033,11 @@ declare namespace $ {
         month_moment(): $mol_time_moment;
         day_selected(id: any): boolean;
         day_click(id: any, event?: any): any;
-        prev_hint(): string;
+        prev_hint(): {} | null;
         prev(event?: any): any;
         Prev_icon(): $mol_icon_chevron_left;
         Prev(): $mol_button_minor;
-        next_hint(): string;
+        next_hint(): {} | null;
         next(event?: any): any;
         Next_icon(): $mol_icon_chevron_right;
         Next(): $mol_button_minor;
@@ -4090,7 +4127,7 @@ declare namespace $ {
         skills(next?: any): string[];
         person(): $hyoo_idea_person;
         msg(): {
-            required: string;
+            required: {} | null;
         };
         form_fields(): readonly any[];
         avatar_file(next?: any): readonly any[];
@@ -4121,13 +4158,13 @@ declare namespace $ {
         Job_status_control(): $$.$mol_switch;
         Job_status_field(): $$.$mol_form_field;
         skills_dict(): {
-            programming: string;
-            design: string;
-            managment: string;
+            programming: {} | null;
+            design: {} | null;
+            managment: {} | null;
         };
         Skills_control(): $$.$mol_select_list;
         Skills_field(): $$.$mol_form_field;
-        jobs_field_name(): string;
+        jobs_field_name(): {} | null;
         Job_add_icon(): $mol_icon_plus;
         job_add(next?: any): any;
         Job_add(): $mol_button_minor;
@@ -4164,7 +4201,7 @@ declare namespace $ {
         Jobs_content(): $$.$mol_list;
         Jobs_field(): $$.$mol_form_field;
         Work(): $$.$mol_form;
-        institutions_field_name(): string;
+        institutions_field_name(): {} | null;
         Institution_add_icon(): $mol_icon_plus;
         institution_add(next?: any): any;
         Institution_add(): $mol_button_minor;
@@ -4268,10 +4305,10 @@ declare namespace $.$$ {
         logo_drop(): void;
         description_selection(next?: number[]): number[];
         stage_options(): {
-            idea: string;
-            proto: string;
-            pilot: string;
-            product: string;
+            idea: {} | null;
+            proto: {} | null;
+            pilot: {} | null;
+            product: {} | null;
         };
         role_rows(): $mol_list[];
         role_add(): void;
@@ -4284,7 +4321,7 @@ declare namespace $.$$ {
         role_functions(id: number, next?: string): string;
         role_team_member(id: number, next?: string): string;
         team_member_dict(): {};
-        member_role(obj: $hyoo_idea_person): string;
+        member_role(obj: $hyoo_idea_person): {} | null;
         team_fields(): $mol_form_field[];
         team_rows(): $hyoo_idea_person_card[];
         requests_rows(): $hyoo_idea_person_card[];
@@ -4808,7 +4845,7 @@ declare namespace $ {
         logo_node(): $hyoo_crowd_blob;
         brief(): string;
         project(): $hyoo_idea_project;
-        default_name(): string;
+        default_name(): {} | null;
         sub(): readonly any[];
         Logo(): $hyoo_idea_project_logo;
         project_name(): string;
@@ -4821,7 +4858,7 @@ declare namespace $ {
 
 declare namespace $.$$ {
     class $hyoo_idea_project_card extends $.$hyoo_idea_project_card {
-        project_name(): string;
+        project_name(): {} | null;
     }
 }
 
@@ -4856,11 +4893,11 @@ declare namespace $ {
 
 declare namespace $ {
     class $hyoo_idea_plural extends $mol_object2 {
-        other(): string;
-        one(): string;
-        two(): string;
-        few(): string;
-        many(): string;
+        other(): {} | null;
+        one(): {} | null;
+        two(): {} | null;
+        few(): {} | null;
+        many(): {} | null;
     }
 }
 
@@ -4875,8 +4912,8 @@ declare namespace $ {
     class $hyoo_idea_ago extends $mol_view {
         param_count(): string;
         param_unit(): string;
-        title(): string;
-        now(): string;
+        title(): {} | null;
+        now(): {} | null;
         moment(): $mol_time_moment;
         sub(): readonly any[];
         units(): {
@@ -4906,7 +4943,7 @@ declare namespace $.$$ {
         MONTH: number;
         YEAR: number;
         unit(ms: number): "second" | "minute" | "hour" | "day" | "month" | "year";
-        ago(): string;
+        ago(): any;
     }
 }
 
@@ -5004,10 +5041,10 @@ declare namespace $ {
         stage(): $hyoo_idea_project_stages;
         description(): string;
         project(): $hyoo_idea_project;
-        title(): string;
+        title(): {} | null;
         slides_content(): string;
         self(): boolean;
-        team_member_no_role(): string;
+        team_member_no_role(): {} | null;
         tools(): readonly any[];
         editing(): boolean;
         Form(): $$.$hyoo_idea_project_form;
@@ -5036,7 +5073,7 @@ declare namespace $ {
         team_member_list(): readonly any[];
         Team_list(): $$.$mol_list;
         Team(): $$.$mol_section;
-        Posts_title(): string;
+        Posts_title(): {} | null;
         post_add(next?: any): any;
         Post_add(): $$.$hyoo_idea_post_add;
         posts_content(): readonly any[];
@@ -5063,14 +5100,14 @@ declare namespace $.$$ {
         post(obj: $hyoo_idea_post): $hyoo_idea_post;
         post_list(): $hyoo_idea_post_card[];
         post_add(text: string): void;
-        Posts_title(): string;
+        Posts_title(): any;
         posts_content(): $hyoo_idea_post_add[];
         team_stat(): string;
         sub_count(): string;
         post_count(): number;
         team_member_list(): $hyoo_idea_person_card[];
         team_member(obj: $hyoo_idea_person): $hyoo_idea_person;
-        team_member_role(obj: $hyoo_idea_person): string;
+        team_member_role(obj: $hyoo_idea_person): {} | null;
     }
 }
 
@@ -5082,14 +5119,14 @@ declare namespace $ {
         domain(): $hyoo_idea_domain;
         projects(): readonly $hyoo_idea_project[];
         self(): boolean;
-        title(): string;
+        title(): {} | null;
         tools(): readonly any[];
         body(): readonly any[];
         Add_icon(): $mol_icon_plus;
         add(next?: any): any;
         Add(): $mol_button_minor;
         Close(): any;
-        empty_title(): string;
+        empty_title(): {} | null;
         Empty(): $mol_view;
         filter(next?: any): string;
         Filter(): $$.$mol_search;
@@ -5128,9 +5165,9 @@ declare namespace $ {
         projects(): $hyoo_idea_project[];
         person(): $hyoo_idea_person;
         self(): boolean;
-        title(): string;
+        title(): {} | null;
         msg(): {
-            job_present: string;
+            job_present: {} | null;
         };
         tools(): readonly any[];
         Edit_form(): $$.$hyoo_idea_person_form;
@@ -5151,9 +5188,9 @@ declare namespace $ {
         Name(): $$.$mol_paragraph;
         Status(): $$.$mol_paragraph;
         Face_list(): $$.$mol_list;
-        position(): string;
+        position(): {} | null;
         Position(): $$.$mol_paragraph;
-        location(): string;
+        location(): {} | null;
         Location(): $$.$mol_paragraph;
         summary_rows(): readonly any[];
         Summary(): $$.$mol_list;
@@ -5188,7 +5225,7 @@ declare namespace $ {
         education(): readonly any[];
         Education_list(): $$.$mol_list;
         Education(): $$.$mol_section;
-        Projects_block_title(): string;
+        Projects_block_title(): {} | null;
         Projects_block(): $$.$mol_section;
     }
 }
@@ -5199,7 +5236,7 @@ declare namespace $.$$ {
         Edit(): any;
         body(): readonly any[];
         project_count(): number;
-        Projects_block_title(): string;
+        Projects_block_title(): any;
         post_count(): number;
         sub_count(): number;
         pub_count(): number;
@@ -5212,8 +5249,8 @@ declare namespace $.$$ {
             date_end: string;
             present: boolean;
         } | null;
-        position(): string;
-        location(): string;
+        position(): any;
+        location(): any;
         summary_rows(): $mol_paragraph[];
         actions(): $mol_link[];
         contacts_content(): $mol_view[];
@@ -5252,12 +5289,12 @@ declare namespace $ {
 declare namespace $ {
     class $hyoo_idea_invite_page extends $mol_page {
         domain(): $hyoo_idea_domain;
-        title(): string;
+        title(): {} | null;
         tools(): readonly any[];
         status(): {
-            sended: string;
-            joined: string;
-            none: string;
+            sended: {} | null;
+            joined: {} | null;
+            none: {} | null;
         };
         body(): readonly any[];
         Close_icon(): $mol_icon_cross;
@@ -5298,7 +5335,7 @@ declare namespace $.$$ {
         fields(): $mol_form_field[];
         person_is_invited(): boolean;
         project_is_invited(): boolean;
-        status_text(): string;
+        status_text(): {} | null;
         submit_enabled(): boolean;
         submit(): void;
     }
@@ -5322,7 +5359,7 @@ declare namespace $ {
 
 declare namespace $.$$ {
     class $mol_theme_auto extends $.$mol_theme_auto {
-        theme(): "$mol_theme_light" | "$mol_theme_dark";
+        theme(): "$mol_theme_dark" | "$mol_theme_light";
     }
 }
 
@@ -5408,7 +5445,7 @@ declare namespace $ {
 declare namespace $ {
     class $mol_lights_toggle extends $mol_check_icon {
         Icon(): $mol_icon_brightness_6;
-        hint(): string;
+        hint(): {} | null;
         checked(val?: any): boolean;
         Lights_icon(): $mol_icon_brightness_6;
         lights(val?: any): boolean;
@@ -5429,7 +5466,7 @@ declare namespace $ {
 
 declare namespace $ {
     class $mol_link_source extends $mol_link {
-        hint(): string;
+        hint(): {} | null;
         sub(): readonly any[];
         Icon(): $mol_icon_github_circle;
     }
@@ -5463,7 +5500,7 @@ declare namespace $ {
 declare namespace $ {
     class $hyoo_idea_feed_page extends $mol_page {
         person(): $hyoo_idea_person;
-        title(): string;
+        title(): {} | null;
         tools(): readonly any[];
         body(): readonly any[];
         Close(): any;
@@ -5488,7 +5525,7 @@ declare namespace $.$$ {
 declare namespace $ {
     class $hyoo_idea_talents_page extends $mol_page {
         domain(): $hyoo_idea_domain;
-        title(): string;
+        title(): {} | null;
         tools(): readonly any[];
         persons(): readonly $hyoo_idea_person[];
         projects(): readonly $hyoo_idea_project[];
@@ -5532,7 +5569,7 @@ declare namespace $ {
         Logo(): $mol_image;
         menu_title(): string;
         Title(): $$.$mol_paragraph;
-        descr(): string;
+        descr(): {} | null;
         Descr(): $$.$mol_paragraph;
         Label(): $$.$mol_list;
         Menu_snippet(): $mol_view;

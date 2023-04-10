@@ -1539,8 +1539,8 @@ declare namespace $ {
 }
 
 declare namespace $ {
-    function $mol_huggingface_run(this: $, space: string, method: string | number, ...data: readonly any[]): readonly string[];
-    function $mol_huggingface_async(space: string, method: number, ...data: readonly any[]): Promise<[string]> & {
+    function $mol_huggingface_run(this: $, space: string, method: string | number, ...data: readonly any[]): any[] | readonly string[];
+    function $mol_huggingface_async(space: string, method: number, ...data: readonly any[]): Promise<any[]> & {
         destructor: () => void;
     };
 }
@@ -1558,7 +1558,7 @@ declare namespace $ {
         static lang(next?: string): string;
         static source(lang: string): any;
         static texts(lang: string, next?: $mol_locale_dict): $mol_locale_dict;
-        static text(key: string): {} | null;
+        static text(key: string): string;
         static warn(key: string): null;
     }
 }
@@ -1891,7 +1891,7 @@ declare namespace $ {
         nav_focused(component?: any): any;
         Nav(): $$.$mol_nav;
         suggests_showed(val?: any): boolean;
-        hint(): {} | null;
+        hint(): string;
         submit(event?: any): any;
         enabled(): boolean;
         keyboard(): string;
@@ -3013,17 +3013,17 @@ declare namespace $.$$ {
 declare namespace $ {
     class $hyoo_idea_project_stage extends $mol_switch {
         options(): {
-            idea: {} | null;
-            proto: {} | null;
-            pilot: {} | null;
-            product: {} | null;
+            idea: string;
+            proto: string;
+            pilot: string;
+            product: string;
         };
         value(next?: any): string;
         stages(): {
-            idea: {} | null;
-            proto: {} | null;
-            pilot: {} | null;
-            product: {} | null;
+            idea: string;
+            proto: string;
+            pilot: string;
+            product: string;
         };
         stage(next?: any): string;
     }
@@ -3576,7 +3576,7 @@ declare namespace $ {
         Option_row(id: any): $mol_button_minor;
         No_options(): $mol_view;
         plugins(): readonly any[];
-        hint(): {} | null;
+        hint(): string;
         bubble_content(): readonly any[];
         Filter(): $$.$mol_string;
         Trigger_icon(): $mol_icon_dots_vertical;
@@ -3585,7 +3585,7 @@ declare namespace $ {
         filter_pattern(val?: any): string;
         Option_label(id: any): $$.$mol_dimmer;
         option_content(id: any): readonly any[];
-        no_options_message(): {} | null;
+        no_options_message(): string;
         nav_components(): readonly $mol_view[];
         option_focused(component?: any): any;
         nav_cycle(val?: any): boolean;
@@ -3733,7 +3733,7 @@ declare namespace $ {
         stage(next?: any): $hyoo_idea_project_stages;
         team(next?: any): $hyoo_idea_person[];
         project(): $hyoo_idea_project;
-        role_not_label(): {} | null;
+        role_not_label(): string;
         form_fields(): readonly any[];
         Name_control(): $$.$mol_string;
         Name_field(): $$.$mol_form_field;
@@ -3756,7 +3756,7 @@ declare namespace $ {
         description_selection(next?: any): readonly number[];
         Description_control(): $$.$mol_textarea;
         Description_field(): $$.$mol_form_field;
-        roles_field_name(): {} | null;
+        roles_field_name(): string;
         Role_add_icon(): $mol_icon_plus;
         role_add(next?: any): any;
         Role_add(): $mol_button_minor;
@@ -3894,7 +3894,7 @@ declare namespace $ {
         Badges(): readonly $mol_view[];
         badge_title(id: any): string;
         remove(id: any, event?: any): any;
-        badge_hint(): {} | null;
+        badge_hint(): string;
         enabled(): boolean;
         drop_enabled(): boolean;
         align_hor(): string;
@@ -3903,7 +3903,7 @@ declare namespace $ {
         pick(val?: any): string;
         option_title(id: any): string;
         pick_enabled(): boolean;
-        pick_hint(): {} | null;
+        pick_hint(): string;
         Pick_icon(): $mol_icon_plus;
         Pick(): $$.$mol_select;
     }
@@ -4059,11 +4059,11 @@ declare namespace $ {
         month_moment(): $mol_time_moment;
         day_selected(id: any): boolean;
         day_click(id: any, event?: any): any;
-        prev_hint(): {} | null;
+        prev_hint(): string;
         prev(event?: any): any;
         Prev_icon(): $mol_icon_chevron_left;
         Prev(): $mol_button_minor;
-        next_hint(): {} | null;
+        next_hint(): string;
         next(event?: any): any;
         Next_icon(): $mol_icon_chevron_right;
         Next(): $mol_button_minor;
@@ -4153,7 +4153,7 @@ declare namespace $ {
         skills(next?: any): string[];
         person(): $hyoo_idea_person;
         msg(): {
-            required: {} | null;
+            required: string;
         };
         form_fields(): readonly any[];
         avatar_file(next?: any): readonly any[];
@@ -4184,13 +4184,13 @@ declare namespace $ {
         Job_status_control(): $$.$mol_switch;
         Job_status_field(): $$.$mol_form_field;
         skills_dict(): {
-            programming: {} | null;
-            design: {} | null;
-            managment: {} | null;
+            programming: string;
+            design: string;
+            managment: string;
         };
         Skills_control(): $$.$mol_select_list;
         Skills_field(): $$.$mol_form_field;
-        jobs_field_name(): {} | null;
+        jobs_field_name(): string;
         Job_add_icon(): $mol_icon_plus;
         job_add(next?: any): any;
         Job_add(): $mol_button_minor;
@@ -4227,7 +4227,7 @@ declare namespace $ {
         Jobs_content(): $$.$mol_list;
         Jobs_field(): $$.$mol_form_field;
         Work(): $$.$mol_form;
-        institutions_field_name(): {} | null;
+        institutions_field_name(): string;
         Institution_add_icon(): $mol_icon_plus;
         institution_add(next?: any): any;
         Institution_add(): $mol_button_minor;
@@ -4331,10 +4331,10 @@ declare namespace $.$$ {
         logo_drop(): void;
         description_selection(next?: number[]): number[];
         stage_options(): {
-            idea: {} | null;
-            proto: {} | null;
-            pilot: {} | null;
-            product: {} | null;
+            idea: string;
+            proto: string;
+            pilot: string;
+            product: string;
         };
         role_rows(): $mol_list[];
         role_add(): void;
@@ -4347,7 +4347,7 @@ declare namespace $.$$ {
         role_functions(id: number, next?: string): string;
         role_team_member(id: number, next?: string): string;
         team_member_dict(): {};
-        member_role(obj: $hyoo_idea_person): {} | null;
+        member_role(obj: $hyoo_idea_person): string;
         team_fields(): $mol_form_field[];
         team_rows(): $hyoo_idea_person_card[];
         requests_rows(): $hyoo_idea_person_card[];
@@ -4871,7 +4871,7 @@ declare namespace $ {
         logo_node(): $hyoo_crowd_blob;
         brief(): string;
         project(): $hyoo_idea_project;
-        default_name(): {} | null;
+        default_name(): string;
         sub(): readonly any[];
         Logo(): $hyoo_idea_project_logo;
         project_name(): string;
@@ -4884,7 +4884,7 @@ declare namespace $ {
 
 declare namespace $.$$ {
     class $hyoo_idea_project_card extends $.$hyoo_idea_project_card {
-        project_name(): {} | null;
+        project_name(): string;
     }
 }
 
@@ -4919,11 +4919,11 @@ declare namespace $ {
 
 declare namespace $ {
     class $hyoo_idea_plural extends $mol_object2 {
-        other(): {} | null;
-        one(): {} | null;
-        two(): {} | null;
-        few(): {} | null;
-        many(): {} | null;
+        other(): string;
+        one(): string;
+        two(): string;
+        few(): string;
+        many(): string;
     }
 }
 
@@ -4938,8 +4938,8 @@ declare namespace $ {
     class $hyoo_idea_ago extends $mol_view {
         param_count(): string;
         param_unit(): string;
-        title(): {} | null;
-        now(): {} | null;
+        title(): string;
+        now(): string;
         moment(): $mol_time_moment;
         sub(): readonly any[];
         units(): {
@@ -4969,7 +4969,7 @@ declare namespace $.$$ {
         MONTH: number;
         YEAR: number;
         unit(ms: number): "second" | "minute" | "hour" | "day" | "month" | "year";
-        ago(): any;
+        ago(): string;
     }
 }
 
@@ -5067,10 +5067,10 @@ declare namespace $ {
         stage(): $hyoo_idea_project_stages;
         description(): string;
         project(): $hyoo_idea_project;
-        title(): {} | null;
+        title(): string;
         slides_content(): string;
         self(): boolean;
-        team_member_no_role(): {} | null;
+        team_member_no_role(): string;
         tools(): readonly any[];
         editing(): boolean;
         Form(): $$.$hyoo_idea_project_form;
@@ -5099,7 +5099,7 @@ declare namespace $ {
         team_member_list(): readonly any[];
         Team_list(): $$.$mol_list;
         Team(): $$.$mol_section;
-        Posts_title(): {} | null;
+        Posts_title(): string;
         post_add(next?: any): any;
         Post_add(): $$.$hyoo_idea_post_add;
         posts_content(): readonly any[];
@@ -5126,14 +5126,14 @@ declare namespace $.$$ {
         post(obj: $hyoo_idea_post): $hyoo_idea_post;
         post_list(): $hyoo_idea_post_card[];
         post_add(text: string): void;
-        Posts_title(): any;
+        Posts_title(): string;
         posts_content(): $hyoo_idea_post_add[];
         team_stat(): string;
         sub_count(): string;
         post_count(): number;
         team_member_list(): $hyoo_idea_person_card[];
         team_member(obj: $hyoo_idea_person): $hyoo_idea_person;
-        team_member_role(obj: $hyoo_idea_person): {} | null;
+        team_member_role(obj: $hyoo_idea_person): string;
     }
 }
 
@@ -5145,14 +5145,14 @@ declare namespace $ {
         domain(): $hyoo_idea_domain;
         projects(): readonly $hyoo_idea_project[];
         self(): boolean;
-        title(): {} | null;
+        title(): string;
         tools(): readonly any[];
         body(): readonly any[];
         Add_icon(): $mol_icon_plus;
         add(next?: any): any;
         Add(): $mol_button_minor;
         Close(): any;
-        empty_title(): {} | null;
+        empty_title(): string;
         Empty(): $mol_view;
         filter(next?: any): string;
         Filter(): $$.$mol_search;
@@ -5191,9 +5191,9 @@ declare namespace $ {
         projects(): $hyoo_idea_project[];
         person(): $hyoo_idea_person;
         self(): boolean;
-        title(): {} | null;
+        title(): string;
         msg(): {
-            job_present: {} | null;
+            job_present: string;
         };
         tools(): readonly any[];
         Edit_form(): $$.$hyoo_idea_person_form;
@@ -5214,9 +5214,9 @@ declare namespace $ {
         Name(): $$.$mol_paragraph;
         Status(): $$.$mol_paragraph;
         Face_list(): $$.$mol_list;
-        position(): {} | null;
+        position(): string;
         Position(): $$.$mol_paragraph;
-        location(): {} | null;
+        location(): string;
         Location(): $$.$mol_paragraph;
         summary_rows(): readonly any[];
         Summary(): $$.$mol_list;
@@ -5251,7 +5251,7 @@ declare namespace $ {
         education(): readonly any[];
         Education_list(): $$.$mol_list;
         Education(): $$.$mol_section;
-        Projects_block_title(): {} | null;
+        Projects_block_title(): string;
         Projects_block(): $$.$mol_section;
     }
 }
@@ -5262,7 +5262,7 @@ declare namespace $.$$ {
         Edit(): any;
         body(): readonly any[];
         project_count(): number;
-        Projects_block_title(): any;
+        Projects_block_title(): string;
         post_count(): number;
         sub_count(): number;
         pub_count(): number;
@@ -5275,8 +5275,8 @@ declare namespace $.$$ {
             date_end: string;
             present: boolean;
         } | null;
-        position(): any;
-        location(): any;
+        position(): string;
+        location(): string;
         summary_rows(): $mol_paragraph[];
         actions(): $mol_link[];
         contacts_content(): $mol_view[];
@@ -5315,12 +5315,12 @@ declare namespace $ {
 declare namespace $ {
     class $hyoo_idea_invite_page extends $mol_page {
         domain(): $hyoo_idea_domain;
-        title(): {} | null;
+        title(): string;
         tools(): readonly any[];
         status(): {
-            sended: {} | null;
-            joined: {} | null;
-            none: {} | null;
+            sended: string;
+            joined: string;
+            none: string;
         };
         body(): readonly any[];
         Close_icon(): $mol_icon_cross;
@@ -5361,7 +5361,7 @@ declare namespace $.$$ {
         fields(): $mol_form_field[];
         person_is_invited(): boolean;
         project_is_invited(): boolean;
-        status_text(): {} | null;
+        status_text(): string;
         submit_enabled(): boolean;
         submit(): void;
     }
@@ -5385,7 +5385,7 @@ declare namespace $ {
 
 declare namespace $.$$ {
     class $mol_theme_auto extends $.$mol_theme_auto {
-        theme(): "$mol_theme_dark" | "$mol_theme_light";
+        theme(): "$mol_theme_light" | "$mol_theme_dark";
     }
 }
 
@@ -5471,7 +5471,7 @@ declare namespace $ {
 declare namespace $ {
     class $mol_lights_toggle extends $mol_check_icon {
         Icon(): $mol_icon_brightness_6;
-        hint(): {} | null;
+        hint(): string;
         checked(val?: any): boolean;
         Lights_icon(): $mol_icon_brightness_6;
         lights(val?: any): boolean;
@@ -5492,7 +5492,7 @@ declare namespace $ {
 
 declare namespace $ {
     class $mol_link_source extends $mol_link {
-        hint(): {} | null;
+        hint(): string;
         sub(): readonly any[];
         Icon(): $mol_icon_github_circle;
     }
@@ -5526,7 +5526,7 @@ declare namespace $ {
 declare namespace $ {
     class $hyoo_idea_feed_page extends $mol_page {
         person(): $hyoo_idea_person;
-        title(): {} | null;
+        title(): string;
         tools(): readonly any[];
         body(): readonly any[];
         Close(): any;
@@ -5551,7 +5551,7 @@ declare namespace $.$$ {
 declare namespace $ {
     class $hyoo_idea_talents_page extends $mol_page {
         domain(): $hyoo_idea_domain;
-        title(): {} | null;
+        title(): string;
         tools(): readonly any[];
         persons(): readonly $hyoo_idea_person[];
         projects(): readonly $hyoo_idea_project[];
@@ -5595,7 +5595,7 @@ declare namespace $ {
         Logo(): $$.$mol_image;
         menu_title(): string;
         Title(): $$.$mol_paragraph;
-        descr(): {} | null;
+        descr(): string;
         Descr(): $$.$mol_paragraph;
         Label(): $$.$mol_list;
         Menu_snippet(): $mol_view;

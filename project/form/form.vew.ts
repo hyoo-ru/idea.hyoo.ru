@@ -88,7 +88,7 @@ namespace $.$$ {
 			return this.project().team_members().reduce( (dict, obj) => {
 				dict[obj.id()] = obj.name()
 				return dict
-			}, {} )
+			}, {} as Record< string, string > )
 		}
 
 		@ $mol_mem_key

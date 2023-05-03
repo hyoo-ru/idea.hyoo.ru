@@ -1366,11 +1366,12 @@ $mol_icon_comment_text_multiple $mol_icon path \M3,15H1V3C1,1.9 1.9,1 3,1H19V3H3
 $mol_check_icon $mol_check
 
 $hyoo_idea_plural $mol_object2
-	other @ \
+	zero @ \
 	one @ \
 	two @ \
 	few @ \
 	many @ \
+	other @ \
 
 $hyoo_idea_ago $mol_view
 	param_count \{count}

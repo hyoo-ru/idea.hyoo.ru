@@ -107,6 +107,7 @@ declare namespace $ {
 
 declare namespace $ {
     interface $mol_wire_sub extends $mol_wire_pub {
+        temp: boolean;
         track_on(): $mol_wire_sub | null;
         track_next(pub?: $mol_wire_pub): $mol_wire_pub | null;
         pub_off(pub_pos: number): void;
@@ -118,6 +119,7 @@ declare namespace $ {
 }
 
 declare namespace $ {
+    let $mol_wire_auto_sub: $mol_wire_sub | null;
     function $mol_wire_auto(next?: $mol_wire_sub | null): $mol_wire_sub | null;
     const $mol_wire_affected: (number | $mol_wire_sub)[];
 }
@@ -154,6 +156,7 @@ declare namespace $ {
     class $mol_wire_pub_sub extends $mol_wire_pub implements $mol_wire_sub {
         protected pub_from: number;
         protected cursor: $mol_wire_cursor;
+        get temp(): boolean;
         get pub_list(): $mol_wire_pub[];
         track_on(): $mol_wire_sub | null;
         promote(): void;
@@ -236,7 +239,8 @@ declare namespace $ {
 
 declare namespace $ {
     class $mol_wire_task<Host, Args extends readonly unknown[], Result> extends $mol_wire_fiber<Host, Args, Result> {
-        static getter<Host, Args extends readonly unknown[], Result>(task: (this: Host, ...args: Args) => Result): (host: Host, args: Args) => $mol_wire_task<Host, [...Args], Result>;
+        static getter<Host, Args extends readonly unknown[], Result>(task: (this: Host, ...args: Args) => Result): (host: Host, args: Args) => $mol_wire_task<Host, Args, Result>;
+        get temp(): boolean;
         complete(): void;
         put(next: Result | Error | Promise<Result | Error>): Result | Error | Promise<Result | Error>;
     }
@@ -628,12 +632,8 @@ declare namespace $ {
     class $mol_scroll extends $mol_view {
         scroll_top(val?: any): number;
         scroll_left(val?: any): number;
-        field(): {
-            tabIndex: number;
-        };
-        event(): {
-            scroll: (event?: any) => any;
-        };
+        field(): Record<string, any>;
+        event(): Record<string, any>;
         tabindex(): number;
         event_scroll(event?: any): any;
     }
@@ -853,18 +853,10 @@ declare namespace $ {
     class $mol_link extends $mol_view {
         uri(): string;
         dom_name(): string;
-        attr(): {
-            href: string;
-            title: string;
-            target: string;
-            download: string;
-            mol_link_current: boolean;
-        };
+        attr(): Record<string, any>;
         sub(): readonly $mol_view_content[];
-        arg(): {};
-        event(): {
-            click: (event?: any) => any;
-        };
+        arg(): Record<string, any>;
+        event(): Record<string, any>;
         uri_toggle(): string;
         hint(): string;
         hint_safe(): string;
@@ -895,9 +887,7 @@ declare namespace $ {
             [key: string]: string;
         };
         static value(key: string, next?: string | null): string | null;
-        static link(next: {
-            [key: string]: string;
-        }): string;
+        static link(next: Record<string, string | null>): string;
         static prolog: string;
         static separator: string;
         static make_link(next: {
@@ -910,9 +900,7 @@ declare namespace $ {
         constructor(prefix?: string);
         value(key: string, next?: string): string | null;
         sub(postfix: string): $mol_state_arg;
-        link(next: {
-            [key: string]: string;
-        }): string;
+        link(next: Record<string, string | null>): string;
     }
 }
 
@@ -950,13 +938,8 @@ declare namespace $ {
     }
     class $mol_pop_bubble extends $mol_view {
         sub(): readonly $mol_view_content[];
-        style(): {
-            maxHeight: number;
-        };
-        attr(): {
-            mol_pop_align: string;
-            tabindex: number;
-        };
+        style(): Record<string, any>;
+        attr(): Record<string, any>;
         content(): readonly $mol_view_content[];
         height_max(): number;
         align(): string;
@@ -1006,12 +989,8 @@ declare namespace $ {
 
 declare namespace $ {
     class $mol_speck extends $mol_view {
-        attr(): {
-            mol_theme: string;
-        };
-        style(): {
-            minHeight: string;
-        };
+        attr(): Record<string, any>;
+        style(): Record<string, any>;
         sub(): readonly any[];
         theme(): string;
         value(): any;
@@ -1026,17 +1005,8 @@ declare namespace $ {
         enabled(): boolean;
         click(event?: any): any;
         event_click(event?: any): any;
-        event(): {
-            click: (event?: any) => any;
-            dblclick: (event?: any) => any;
-            keydown: (event?: any) => any;
-        };
-        attr(): {
-            disabled: boolean;
-            role: string;
-            tabindex: number;
-            title: string;
-        };
+        event(): Record<string, any>;
+        attr(): Record<string, any>;
         sub(): readonly $mol_view_content[];
         Speck(): $mol_speck;
         event_activate(event?: any): any;
@@ -1191,10 +1161,8 @@ declare namespace $ {
 
 declare namespace $ {
     class $mol_hotkey extends $mol_plugin {
-        event(): {
-            keydown: (event?: any) => any;
-        };
-        key(): {};
+        event(): Record<string, any>;
+        key(): Record<string, any>;
         mod_ctrl(): boolean;
         mod_alt(): boolean;
         mod_shift(): boolean;
@@ -1325,9 +1293,7 @@ declare namespace $ {
         event_down(event?: any): any;
         event_left(event?: any): any;
         event_right(event?: any): any;
-        event(): {
-            keydown: (event?: any) => any;
-        };
+        event(): Record<string, any>;
         event_key(event?: any): any;
     }
 }
@@ -1505,24 +1471,9 @@ declare namespace $ {
         autocomplete(): boolean;
         selection(val?: any): readonly number[];
         auto(): readonly any[];
-        field(): {
-            disabled: boolean;
-            value: string;
-            placeholder: string;
-            spellcheck: boolean;
-            autocomplete: string;
-            selectionEnd: number;
-            selectionStart: number;
-            inputMode: string;
-            enterkeyhint: string;
-        };
-        attr(): {
-            maxlength: number;
-            type: string;
-        };
-        event(): {
-            input: (event?: any) => any;
-        };
+        field(): Record<string, any>;
+        attr(): Record<string, any>;
+        event(): Record<string, any>;
         plugins(): readonly any[];
         selection_watcher(): any;
         disabled(): boolean;
@@ -1567,7 +1518,7 @@ declare namespace $ {
         dom_name_space(): string;
         font_size(): number;
         font_family(): string;
-        style_size(): {};
+        style_size(): Record<string, any>;
     }
 }
 
@@ -1590,7 +1541,7 @@ declare namespace $ {
 
 declare namespace $.$$ {
     class $mol_svg extends $.$mol_svg {
-        computed_style(): CSSStyleDeclaration;
+        computed_style(): Record<string, any>;
         font_size(): number;
         font_family(): any;
     }
@@ -1599,10 +1550,7 @@ declare namespace $.$$ {
 declare namespace $ {
     class $mol_svg_root extends $mol_svg {
         dom_name(): string;
-        attr(): {
-            viewBox: string;
-            preserveAspectRatio: string;
-        };
+        attr(): Record<string, any>;
         view_box(): string;
         aspect(): string;
     }
@@ -1614,9 +1562,7 @@ declare namespace $ {
 declare namespace $ {
     class $mol_svg_path extends $mol_svg {
         dom_name(): string;
-        attr(): {
-            d: string;
-        };
+        attr(): Record<string, any>;
         geometry(): string;
     }
 }
@@ -1877,9 +1823,7 @@ declare namespace $ {
 declare namespace $ {
     class $mol_page extends $mol_view {
         dom_name(): string;
-        field(): {
-            tabIndex: number;
-        };
+        field(): Record<string, any>;
         sub(): readonly any[];
         tabindex(): number;
         Logo(): any;
@@ -1904,7 +1848,7 @@ declare namespace $ {
     class $mol_book2_catalog extends $mol_book2 {
         param(): string;
         spread(val?: any): string;
-        spreads(): {};
+        spreads(): Record<string, any>;
         Spread(): $mol_view;
         pages(): readonly any[];
         Spread_close(): $$.$mol_link;
@@ -1913,7 +1857,7 @@ declare namespace $ {
         menu_head(): readonly any[];
         menu_filter(next?: any): string;
         Menu_filter(): $$.$mol_search;
-        arg(id: any): {};
+        arg(id: any): Record<string, any>;
         spread_title(id: any): string;
         Menu_link_title(id: any): $$.$mol_dimmer;
         menu_link_content(id: any): readonly any[];
@@ -1925,7 +1869,7 @@ declare namespace $ {
         Menu_title(): $mol_view;
         Menu_tools(): $mol_view;
         Menu(): $mol_page;
-        spread_close_arg(): {};
+        spread_close_arg(): Record<string, any>;
         Spread_close_icon(): $mol_icon_cross;
     }
 }
@@ -1957,47 +1901,6 @@ declare namespace $ {
 declare let $hyoo_sync_revision: string;
 
 declare namespace $ {
-    type $mol_type_partial_deep<Val> = {
-        [field in keyof Val]?: $mol_type_partial_deep<Val[field]>;
-    };
-}
-
-declare namespace $ {
-    let $mol_jsx_prefix: string;
-    let $mol_jsx_crumbs: string;
-    let $mol_jsx_booked: Set<string> | null;
-    let $mol_jsx_document: $mol_jsx.JSX.ElementClass['ownerDocument'];
-    const $mol_jsx_frag = "";
-    function $mol_jsx<Props extends $mol_jsx.JSX.IntrinsicAttributes, Children extends Array<Node | string>>(Elem: string | ((props: Props, ...children: Children) => Element), props: Props, ...childNodes: Children): Element | DocumentFragment;
-    namespace $mol_jsx.JSX {
-        interface Element extends HTMLElement {
-            class?: string;
-        }
-        interface ElementClass {
-            attributes: {};
-            ownerDocument: Pick<Document, 'getElementById' | 'createElementNS' | 'createDocumentFragment'>;
-            childNodes: Array<Node | string>;
-            valueOf(): Element;
-        }
-        type OrString<Dict> = {
-            [key in keyof Dict]: Dict[key] | string;
-        };
-        type IntrinsicElements = {
-            [key in keyof ElementTagNameMap]?: $.$mol_type_partial_deep<OrString<Element & IntrinsicAttributes & ElementTagNameMap[key]>>;
-        };
-        interface IntrinsicAttributes {
-            id?: string;
-            xmlns?: string;
-        }
-        interface ElementAttributesProperty {
-            attributes: {};
-        }
-        interface ElementChildrenAttribute {
-        }
-    }
-}
-
-declare namespace $ {
     type $mol_int62_string = `${string}_${string}`;
     function $mol_int62_string_ensure(str: unknown): `${string}_${string}` | null;
     type $mol_int62_pair = {
@@ -2017,6 +1920,47 @@ declare namespace $ {
         lo: number;
         hi: number;
     }): $mol_int62_pair;
+}
+
+declare namespace $ {
+    type $mol_data_value<Input = any, Output = any> = (val: Input) => Output;
+}
+
+declare namespace $ {
+    function $mol_data_setup<Value extends $mol_data_value, Config = never>(value: Value, config: Config): Value & {
+        config: Config;
+        Value: ReturnType<Value>;
+    };
+}
+
+declare namespace $ {
+    function $mol_diff_path<Item>(...paths: Item[][]): {
+        prefix: Item[];
+        suffix: Item[][];
+    };
+}
+
+declare namespace $ {
+    class $mol_error_mix extends Error {
+        errors: Error[];
+        constructor(message: string, ...errors: Error[]);
+        toJSON(): string;
+    }
+}
+
+declare namespace $ {
+    class $mol_data_error extends $mol_error_mix {
+    }
+}
+
+declare namespace $ {
+    function $mol_data_enum<Dict extends Record<number | string, number | string>>(name: string, dict: Dict): ((value: Dict[keyof Dict]) => Dict[keyof Dict]) & {
+        config: {
+            name: string;
+            dict: Dict;
+        };
+        Value: Dict[keyof Dict];
+    };
 }
 
 declare namespace $ {
@@ -2077,51 +2021,6 @@ declare namespace $ {
 }
 
 declare namespace $ {
-    function $hyoo_sync_peer(path: string): Promise<$hyoo_crowd_peer>;
-}
-
-declare namespace $ {
-    type $mol_data_value<Input = any, Output = any> = (val: Input) => Output;
-}
-
-declare namespace $ {
-    function $mol_data_setup<Value extends $mol_data_value, Config = never>(value: Value, config: Config): Value & {
-        config: Config;
-        Value: ReturnType<Value>;
-    };
-}
-
-declare namespace $ {
-    function $mol_diff_path<Item>(...paths: Item[][]): {
-        prefix: Item[];
-        suffix: Item[][];
-    };
-}
-
-declare namespace $ {
-    class $mol_error_mix extends Error {
-        errors: Error[];
-        constructor(message: string, ...errors: Error[]);
-        toJSON(): string;
-    }
-}
-
-declare namespace $ {
-    class $mol_data_error extends $mol_error_mix {
-    }
-}
-
-declare namespace $ {
-    function $mol_data_enum<Dict extends Record<number | string, number | string>>(name: string, dict: Dict): ((value: Dict[keyof Dict]) => Dict[keyof Dict]) & {
-        config: {
-            name: string;
-            dict: Dict;
-        };
-        Value: Dict[keyof Dict];
-    };
-}
-
-declare namespace $ {
     type $hyoo_crowd_unit_id = `${$mol_int62_string}!${$mol_int62_string}`;
     enum $hyoo_crowd_unit_kind {
         grab = 0,
@@ -2161,6 +2060,51 @@ declare namespace $ {
 }
 
 declare namespace $ {
+    type $mol_type_partial_deep<Val> = {
+        [field in keyof Val]?: $mol_type_partial_deep<Val[field]>;
+    };
+}
+
+declare namespace $ {
+    let $mol_jsx_prefix: string;
+    let $mol_jsx_crumbs: string;
+    let $mol_jsx_booked: Set<string> | null;
+    let $mol_jsx_document: $mol_jsx.JSX.ElementClass['ownerDocument'];
+    const $mol_jsx_frag = "";
+    function $mol_jsx<Props extends $mol_jsx.JSX.IntrinsicAttributes, Children extends Array<Node | string>>(Elem: string | ((props: Props, ...children: Children) => Element), props: Props, ...childNodes: Children): Element | DocumentFragment;
+    namespace $mol_jsx.JSX {
+        interface Element extends HTMLElement {
+            class?: string;
+        }
+        interface ElementClass {
+            attributes: {};
+            ownerDocument: Pick<Document, 'getElementById' | 'createElementNS' | 'createDocumentFragment'>;
+            childNodes: Array<Node | string>;
+            valueOf(): Element;
+        }
+        type OrString<Dict> = {
+            [key in keyof Dict]: Dict[key] | string;
+        };
+        type IntrinsicElements = {
+            [key in keyof ElementTagNameMap]?: $.$mol_type_partial_deep<OrString<Element & IntrinsicAttributes & ElementTagNameMap[key]>>;
+        };
+        interface IntrinsicAttributes {
+            id?: string;
+            xmlns?: string;
+        }
+        interface ElementAttributesProperty {
+            attributes: {};
+        }
+        interface ElementChildrenAttribute {
+        }
+    }
+}
+
+declare namespace $ {
+    function $hyoo_sync_peer(path: string): Promise<$hyoo_crowd_peer>;
+}
+
+declare namespace $ {
     function $hyoo_crowd_time_now(): number;
     function $hyoo_crowd_time_stamp(time: number): number;
 }
@@ -2182,8 +2126,9 @@ declare namespace $ {
         tick(peer: $mol_int62_string): number;
     }
     class $hyoo_crowd_clock_bin extends DataView {
-        static from(land_id: $mol_int62_string, clocks: readonly [$hyoo_crowd_clock, $hyoo_crowd_clock]): $hyoo_crowd_clock_bin;
+        static from(land_id: $mol_int62_string, clocks: readonly [$hyoo_crowd_clock, $hyoo_crowd_clock], count: number): $hyoo_crowd_clock_bin;
         land(): `${string}_${string}`;
+        count(): number;
     }
 }
 
@@ -2201,6 +2146,7 @@ declare namespace $ {
         nodes<Node extends typeof $hyoo_crowd_node>(Node: Node): InstanceType<Node>[];
         virgin(): boolean;
         [Symbol.toPrimitive](): string;
+        toJSON(): `${string}_${string}`;
     }
 }
 
@@ -2231,6 +2177,7 @@ declare namespace $ {
         get clock_auth(): $hyoo_crowd_clock;
         get clock_data(): $hyoo_crowd_clock;
         get clocks(): readonly [$hyoo_crowd_clock, $hyoo_crowd_clock];
+        get clocks_bin(): Uint8Array;
         readonly pub: $mol_wire_pub;
         readonly _clocks: readonly [$hyoo_crowd_clock, $hyoo_crowd_clock];
         _unit_all: Map<`${string}_${string}!${string}_${string}`, $hyoo_crowd_unit>;
@@ -2328,6 +2275,7 @@ declare namespace $ {
         delta_land(land: $hyoo_crowd_land, clocks?: readonly [$hyoo_crowd_clock, $hyoo_crowd_clock]): Promise<$hyoo_crowd_unit[]>;
         delta_batch(land: $hyoo_crowd_land, clocks?: readonly [$hyoo_crowd_clock, $hyoo_crowd_clock]): Promise<Uint8Array>;
         delta(clocks?: Map<`${string}_${string}`, readonly [$hyoo_crowd_clock, $hyoo_crowd_clock]>): AsyncGenerator<Uint8Array, void, unknown>;
+        merge(donor: $hyoo_crowd_world): Promise<void>;
         apply(delta: Uint8Array): Promise<{
             allow: $hyoo_crowd_unit[];
             forbid: Map<$hyoo_crowd_unit, string>;
@@ -2393,6 +2341,7 @@ declare namespace $ {
 
 declare namespace $ {
     class $hyoo_sync_yard<Line> extends $mol_object2 {
+        db_unit_persisted: WeakSet<$hyoo_crowd_unit>;
         log_pack(data: any): any;
         peer(): $hyoo_crowd_peer;
         world(): $hyoo_crowd_world;
@@ -2411,7 +2360,7 @@ declare namespace $ {
         db_land_save(land: $hyoo_crowd_land, units: readonly $hyoo_crowd_unit[]): Promise<void>;
         master_cursor(next?: number): number;
         master_link(): string;
-        master(): Line | null;
+        master(): any;
         server(): any;
         slaves(next?: readonly Line[]): readonly Line[];
         line_lands(line: Line, next?: $hyoo_crowd_land[]): $hyoo_crowd_land[];
@@ -2613,7 +2562,7 @@ declare namespace $ {
 declare namespace $ {
     type $mol_blob = Blob;
     let $mol_blob: {
-        new (blobParts?: BlobPart[] | undefined, options?: BlobPropertyBag | undefined): Blob;
+        new (blobParts?: readonly BlobPart[], options?: BlobPropertyBag): Blob;
         prototype: Blob;
     };
 }
@@ -2900,14 +2849,7 @@ declare namespace $ {
 
 declare namespace $ {
     class $mol_check extends $mol_button_minor {
-        attr(): {
-            mol_check_checked: boolean;
-            "aria-checked": string;
-            role: string;
-            disabled: boolean;
-            tabindex: number;
-            title: string;
-        };
+        attr(): Record<string, any>;
         sub(): readonly $mol_view_content[];
         checked(next?: any): boolean;
         aria_checked(): string;
@@ -2934,7 +2876,7 @@ declare namespace $.$$ {
 declare namespace $ {
     class $mol_check_list extends $mol_view {
         Option(id: any): $$.$mol_check;
-        options(): {};
+        options(): Record<string, any>;
         keys(): readonly string[];
         sub(): readonly $mol_check[];
         option_checked(id: any, val?: any): boolean;
@@ -2990,19 +2932,9 @@ declare namespace $.$$ {
 
 declare namespace $ {
     class $hyoo_idea_project_stage extends $mol_switch {
-        options(): {
-            idea: string;
-            proto: string;
-            pilot: string;
-            product: string;
-        };
+        options(): Record<string, any>;
         value(next?: any): string;
-        stages(): {
-            idea: string;
-            proto: string;
-            pilot: string;
-            product: string;
-        };
+        stages(): Record<string, any>;
         stage(next?: any): string;
     }
 }
@@ -3060,9 +2992,7 @@ declare namespace $ {
     class $mol_form extends $mol_list {
         submit_allowed(): boolean;
         submit_blocked(): boolean;
-        event(): {
-            keydown: (event?: any) => any;
-        };
+        event(): Record<string, any>;
         submit(event?: any): any;
         rows(): readonly any[];
         keydown(event?: any): any;
@@ -3105,14 +3035,8 @@ declare namespace $ {
     class $mol_button_open_native extends $mol_view {
         dom_name(): string;
         files(next?: any): readonly any[];
-        attr(): {
-            type: string;
-            accept: string;
-            multiple: boolean;
-        };
-        event(): {
-            change: (next?: any) => any;
-        };
+        attr(): Record<string, any>;
+        event(): Record<string, any>;
         accept(): string;
         multiple(): boolean;
         picked(next?: any): any;
@@ -3155,19 +3079,13 @@ declare namespace $ {
 
 declare namespace $ {
     class $mol_text_code_token extends $mol_dimmer {
-        attr(): {
-            mol_text_code_token_type: string;
-        };
+        attr(): Record<string, any>;
         type(): string;
     }
     class $mol_text_code_token_link extends $mol_text_code_token {
         dom_name(): string;
         type(): string;
-        attr(): {
-            href: string;
-            target: string;
-            mol_text_code_token_type: string;
-        };
+        attr(): Record<string, any>;
         uri(): string;
     }
 }
@@ -3320,7 +3238,7 @@ declare namespace $ {
 declare namespace $ {
     class $mol_button_copy extends $mol_button_minor {
         blobs(): readonly Blob[];
-        data(): {};
+        data(): Record<string, any>;
         sub(): readonly any[];
         text(): string;
         text_blob(next?: any): Blob;
@@ -3348,9 +3266,7 @@ declare namespace $.$$ {
 
 declare namespace $ {
     class $mol_text_code extends $mol_stack {
-        attr(): {
-            mol_text_code_sidebar_showed: boolean;
-        };
+        attr(): Record<string, any>;
         text(): string;
         text_lines(): readonly string[];
         find_pos(id: any): any;
@@ -3412,55 +3328,11 @@ declare namespace $.$$ {
 
 declare namespace $ {
     class $mol_textarea extends $mol_stack {
-        attr(): {
-            mol_textarea_clickable: boolean;
-            mol_textarea_sidebar_showed: boolean;
-        };
-        event(): {
-            keydown: (event?: any) => any;
-            pointermove: (event?: any) => any;
-        };
+        attr(): Record<string, any>;
+        event(): Record<string, any>;
         sub(): readonly any[];
-        symbols_alt(): {
-            comma: string;
-            period: string;
-            dash: string;
-            equals: string;
-            graveAccent: string;
-            forwardSlash: string;
-            E: string;
-            X: string;
-            C: string;
-            P: string;
-            H: string;
-            key0: string;
-            key8: string;
-            key2: string;
-            key3: string;
-            key4: string;
-            key6: string;
-            key7: string;
-            bracketOpen: string;
-            bracketClose: string;
-            slashBack: string;
-        };
-        symbols_alt_shift(): {
-            V: string;
-            X: string;
-            O: string;
-            key1: string;
-            key4: string;
-            key7: string;
-            comma: string;
-            period: string;
-            semicolon: string;
-            quoteSingle: string;
-            dash: string;
-            equals: string;
-            graveAccent: string;
-            bracketOpen: string;
-            bracketClose: string;
-        };
+        symbols_alt(): Record<string, any>;
+        symbols_alt_shift(): Record<string, any>;
         clickable(val?: any): boolean;
         sidebar_showed(): boolean;
         press(event?: any): any;
@@ -3481,18 +3353,7 @@ declare namespace $ {
     class $mol_textarea_edit extends $mol_string {
         dom_name(): string;
         enter(): string;
-        field(): {
-            scrollTop: number;
-            disabled: boolean;
-            value: string;
-            placeholder: string;
-            spellcheck: boolean;
-            autocomplete: string;
-            selectionEnd: number;
-            selectionStart: number;
-            inputMode: string;
-            enterkeyhint: string;
-        };
+        field(): Record<string, any>;
     }
 }
 
@@ -3518,9 +3379,7 @@ declare namespace $ {
 
 declare namespace $ {
     class $mol_pick extends $mol_pop {
-        event(): {
-            keydown: (event?: any) => any;
-        };
+        event(): Record<string, any>;
         Anchor(): $$.$mol_check;
         keydown(event?: any): any;
         trigger_enabled(): boolean;
@@ -3547,7 +3406,7 @@ declare namespace $ {
 
 declare namespace $ {
     class $mol_select extends $mol_pick {
-        dictionary(val?: any): {};
+        dictionary(val?: any): Record<string, any>;
         options(): readonly string[];
         value(val?: any): string;
         option_label_default(): string;
@@ -3604,20 +3463,9 @@ declare namespace $ {
 declare namespace $ {
     class $mol_image extends $mol_view {
         dom_name(): string;
-        field(): {
-            src: string;
-            alt: string;
-            loading: string;
-            decoding: string;
-            crossOrigin: any;
-        };
-        attr(): {
-            width: number;
-            height: number;
-        };
-        event(): {
-            load: (next?: any) => any;
-        };
+        field(): Record<string, any>;
+        attr(): Record<string, any>;
+        event(): Record<string, any>;
         minimal_width(): number;
         minimal_height(): number;
         uri(): string;
@@ -3728,7 +3576,7 @@ declare namespace $ {
         Site_control(): $$.$mol_string;
         Site_field(): $$.$mol_form_field;
         Addon_group(): $mol_form_group;
-        stage_options(): {};
+        stage_options(): Record<string, any>;
         Stage_control(): $$.$mol_switch;
         Stage_field(): $$.$mol_form_field;
         description_selection(next?: any): readonly number[];
@@ -3746,7 +3594,7 @@ declare namespace $ {
         Role_functions_field(id: any): $$.$mol_form_field;
         Role_head_group(id: any): $mol_form_group;
         role_team_member(id: any, next?: any): string;
-        team_member_dict(): {};
+        team_member_dict(): Record<string, any>;
         Role_team_member_control(id: any): $$.$mol_select;
         Role_team_member_field(id: any): $$.$mol_form_field;
         Role_drop_icon(id: any): $mol_icon_delete;
@@ -3813,59 +3661,16 @@ declare namespace $ {
 }
 
 declare namespace $.$$ {
-    const $mol_phone_formats: {
-        '': string;
-        '1': string;
-        '27': string;
-        '212': string;
-        '253': string;
-        '254': string;
-        '30': string;
-        '31': string;
-        '32': string;
-        '33': string;
-        '34': string;
-        '36': string;
-        '351': string;
-        '353': string;
-        '354': string;
-        '358': string;
-        '380': string;
-        '39': string;
-        '40': string;
-        '41': string;
-        '44': string;
-        '45': string;
-        '46': string;
-        '47': string;
-        '48': string;
-        '49': string;
-        '52': string;
-        '60': string;
-        '61': string;
-        '63': string;
-        '64': string;
-        '65': string;
-        '66': string;
-        '7': string;
-        '81': string;
-        '82': string;
-        '86': string;
-        '90': string;
-        '91': string;
-        '92': string;
-        '94': string;
-        '98': string;
-    };
+    const $mol_phone_formats: Record<string, string>;
     class $mol_phone extends $.$mol_phone {
-        mask(val: string): any;
+        mask(val: string): string;
     }
 }
 
 declare namespace $ {
     class $mol_select_list extends $mol_view {
         value(val?: any): readonly string[];
-        dictionary(): {};
+        dictionary(): Record<string, any>;
         badges_list(): readonly $mol_view[];
         Badge(id: any): $mol_button_minor;
         sub(): readonly $mol_view[];
@@ -3978,12 +3783,7 @@ declare namespace $ {
     class $mol_calendar_day extends $mol_view {
         minimal_height(): number;
         minimal_width(): number;
-        attr(): {
-            mol_calendar_holiday: boolean;
-            mol_calendar_ghost: boolean;
-            mol_calendar_selected: boolean;
-            mol_theme: any;
-        };
+        attr(): Record<string, any>;
         holiday(): boolean;
         ghost(): boolean;
         selected(): boolean;
@@ -4103,7 +3903,7 @@ declare namespace $ {
         items(): readonly $mol_view[];
         rows(): readonly $mol_view[];
         current(val?: any): string;
-        switch_options(): {};
+        switch_options(): Record<string, any>;
         Switch(): $$.$mol_switch;
         Content(): $mol_view;
     }
@@ -4113,7 +3913,7 @@ declare namespace $.$$ {
     class $mol_deck extends $.$mol_deck {
         current(next?: string): string;
         switch_options(): Record<string, string>;
-        Content(): any;
+        Content(): $mol_view;
     }
 }
 
@@ -4130,9 +3930,7 @@ declare namespace $ {
         job_status(next?: any): string;
         skills(next?: any): string[];
         person(): $hyoo_idea_person;
-        msg(): {
-            required: string;
-        };
+        msg(): Record<string, any>;
         form_fields(): readonly any[];
         avatar_file(next?: any): readonly any[];
         Avatar_upload(): $mol_button_open;
@@ -4161,11 +3959,7 @@ declare namespace $ {
         Profile(): $$.$mol_form;
         Job_status_control(): $$.$mol_switch;
         Job_status_field(): $$.$mol_form_field;
-        skills_dict(): {
-            programming: string;
-            design: string;
-            managment: string;
-        };
+        skills_dict(): Record<string, any>;
         Skills_control(): $$.$mol_select_list;
         Skills_field(): $$.$mol_form_field;
         jobs_field_name(): string;
@@ -4308,12 +4102,7 @@ declare namespace $.$$ {
         logo_add(next?: File[]): never[];
         logo_drop(): void;
         description_selection(next?: number[]): number[];
-        stage_options(): {
-            idea: string;
-            proto: string;
-            pilot: string;
-            product: string;
-        };
+        stage_options(): Record<string, any>;
         role_rows(): $mol_list[];
         role_add(): void;
         role_drop(id: number): void;
@@ -4324,7 +4113,7 @@ declare namespace $.$$ {
         role_name(id: number, next?: string): string;
         role_functions(id: number, next?: string): string;
         role_team_member(id: number, next?: string): string;
-        team_member_dict(): {};
+        team_member_dict(): Record<string, string>;
         member_role(obj: $hyoo_idea_person): string;
         team_fields(): $mol_form_field[];
         team_rows(): $hyoo_idea_person_card[];
@@ -4382,9 +4171,7 @@ declare namespace $.$$ {
 
 declare namespace $ {
     class $mol_float extends $mol_view {
-        style(): {
-            minHeight: string;
-        };
+        style(): Record<string, any>;
     }
 }
 
@@ -4395,9 +4182,7 @@ declare namespace $ {
     class $mol_check_expand extends $mol_check {
         Icon(): $mol_icon_chevron;
         level(): number;
-        style(): {
-            paddingLeft: string;
-        };
+        style(): Record<string, any>;
         checked(val?: any): boolean;
         enabled(): boolean;
         level_style(): string;
@@ -4422,7 +4207,7 @@ declare namespace $ {
         row_ids(): readonly string[][];
         row_id(id: any): any;
         col_ids(): readonly any[];
-        records(): {};
+        records(): Record<string, any>;
         record(id: any): any;
         hierarchy(): any;
         hierarchy_col(): string;
@@ -4518,14 +4303,9 @@ declare namespace $ {
         uri(val?: any): string;
         dom_name(): string;
         window(): any;
-        attr(): {
-            data: string;
-            type: string;
-        };
+        attr(): Record<string, any>;
         sub(): readonly any[];
-        message(): {
-            hashchange: (next?: any) => any;
-        };
+        message(): Record<string, any>;
         mime(): string;
         title(): string;
         Fallback(): $$.$mol_link;
@@ -4551,13 +4331,7 @@ declare namespace $ {
 declare namespace $ {
     class $mol_frame extends $mol_embed_native {
         dom_name(): string;
-        attr(): {
-            data: any;
-            type: any;
-            src: string;
-            srcdoc: any;
-            allow: string;
-        };
+        attr(): Record<string, any>;
         fullscreen(): boolean;
         accelerometer(): boolean;
         autoplay(): boolean;
@@ -4660,7 +4434,7 @@ declare namespace $ {
         list_type(id: any): string;
         list_text(id: any): string;
         header_level(id: any): number;
-        header_arg(id: any): {};
+        header_arg(id: any): Record<string, any>;
         pre_text(id: any): string;
         code_sidebar_showed(): boolean;
         pre_sidebar_showed(): boolean;
@@ -4681,15 +4455,13 @@ declare namespace $ {
     class $mol_text_header extends $mol_paragraph {
         level(): number;
         sub(): readonly any[];
-        arg(): {};
+        arg(): Record<string, any>;
         content(): readonly any[];
         Link(): $$.$mol_link;
     }
     class $mol_text_span extends $mol_paragraph {
         dom_name(): string;
-        attr(): {
-            mol_text_type: string;
-        };
+        attr(): Record<string, any>;
         type(): string;
     }
 }
@@ -4842,9 +4614,7 @@ declare namespace $.$$ {
 
 declare namespace $ {
     class $hyoo_idea_project_card extends $mol_link {
-        arg(): {
-            project: `${string}_${string}`;
-        };
+        arg(): Record<string, any>;
         id(): `${string}_${string}`;
         logo_node(): $hyoo_crowd_blob;
         brief(): string;
@@ -4897,18 +4667,19 @@ declare namespace $ {
 
 declare namespace $ {
     class $hyoo_idea_plural extends $mol_object2 {
-        other(): string;
+        zero(): string;
         one(): string;
         two(): string;
         few(): string;
         many(): string;
+        other(): string;
     }
 }
 
 declare namespace $.$$ {
     class $hyoo_idea_plural extends $.$hyoo_idea_plural {
         plural_rules(): Intl.PluralRules;
-        select(num: number): any;
+        select(num: number): string;
     }
 }
 
@@ -4920,14 +4691,7 @@ declare namespace $ {
         now(): string;
         moment(): $mol_time_moment;
         sub(): readonly any[];
-        units(): {
-            second: $$.$hyoo_idea_plural;
-            minute: $$.$hyoo_idea_plural;
-            hour: $$.$hyoo_idea_plural;
-            day: $$.$hyoo_idea_plural;
-            month: $$.$hyoo_idea_plural;
-            year: $$.$hyoo_idea_plural;
-        };
+        units(): Record<string, any>;
         ago(): string;
         second(): $$.$hyoo_idea_plural;
         minute(): $$.$hyoo_idea_plural;
@@ -5014,16 +4778,12 @@ declare namespace $.$$ {
 declare namespace $ {
     class $mol_text_list extends $mol_text {
         auto_scroll(): any;
-        attr(): {
-            mol_text_list_type: string;
-        };
+        attr(): Record<string, any>;
         Paragraph(id: any): $mol_text_list_item;
         type(): string;
     }
     class $mol_text_list_item extends $mol_paragraph {
-        attr(): {
-            mol_text_list_item_index: number;
-        };
+        attr(): Record<string, any>;
         index(): number;
     }
 }
@@ -5170,9 +4930,7 @@ declare namespace $ {
         person(): $hyoo_idea_person;
         self(): boolean;
         title(): string;
-        msg(): {
-            job_present: string;
-        };
+        msg(): Record<string, any>;
         tools(): readonly any[];
         Edit_form(): $$.$hyoo_idea_person_form;
         Projects(): $$.$mol_list;
@@ -5277,13 +5035,7 @@ declare namespace $.$$ {
 
 declare namespace $ {
     class $mol_button_major extends $mol_button_typed {
-        attr(): {
-            mol_theme: string;
-            disabled: boolean;
-            role: string;
-            tabindex: number;
-            title: string;
-        };
+        attr(): Record<string, any>;
     }
 }
 
@@ -5295,23 +5047,19 @@ declare namespace $ {
         domain(): $hyoo_idea_domain;
         title(): string;
         tools(): readonly any[];
-        status(): {
-            sended: string;
-            joined: string;
-            none: string;
-        };
+        status(): Record<string, any>;
         body(): readonly any[];
         Close_icon(): $mol_icon_cross;
         Close_head(): $$.$mol_link;
         project_id(next?: any): string;
-        project_dict(): {};
+        project_dict(): Record<string, any>;
         Project_select_control(): $$.$mol_select;
         Project_select_field(): $$.$mol_form_field;
         project(): $hyoo_idea_project;
         Project_content(): $$.$hyoo_idea_project_card;
         Project_field(): $$.$mol_form_field;
         person_id(next?: any): string;
-        person_dict(): {};
+        person_dict(): Record<string, any>;
         Person_select_control(): $$.$mol_select;
         Person_select_field(): $$.$mol_form_field;
         person(): $hyoo_idea_person;
@@ -5334,12 +5082,12 @@ declare namespace $.$$ {
         user(): $hyoo_idea_person;
         person(): $hyoo_idea_person;
         project(): $hyoo_idea_project;
-        project_dict(): {};
-        person_dict(): {};
+        project_dict(): Record<string, string>;
+        person_dict(): Record<string, string>;
         fields(): $mol_form_field[];
         person_is_invited(): boolean;
         project_is_invited(): boolean;
-        status_text(): string;
+        status_text(): any;
         submit_enabled(): boolean;
         submit(): void;
     }
@@ -5350,9 +5098,7 @@ declare namespace $.$$ {
 
 declare namespace $ {
     class $mol_theme_auto extends $mol_plugin {
-        attr(): {
-            mol_theme: string;
-        };
+        attr(): Record<string, any>;
         theme(): string;
     }
 }
@@ -5413,13 +5159,7 @@ declare namespace $ {
         yard(): $hyoo_sync_yard<unknown>;
         uri(): string;
         sub(): readonly any[];
-        attr(): {
-            title: string;
-            href: string;
-            target: string;
-            download: string;
-            mol_link_current: boolean;
-        };
+        attr(): Record<string, any>;
         master_link(): string;
         Well(): $$.$mol_avatar;
         Fail(): $mol_icon_sync_off;
@@ -5561,11 +5301,7 @@ declare namespace $ {
         plugins(): readonly any[];
         menu_head(): readonly any[];
         menu_foot(): readonly any[];
-        spreads(): {
-            news: $$.$hyoo_idea_feed_page;
-            projects: $$.$hyoo_idea_projects;
-            talents: $$.$hyoo_idea_talents_page;
-        };
+        spreads(): Record<string, any>;
         Project_page(id: any): $$.$hyoo_idea_project_page;
         Person_page(id: any): $$.$hyoo_idea_person_page;
         Invite_page(): $$.$hyoo_idea_invite_page;

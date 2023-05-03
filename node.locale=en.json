@@ -103,6 +103,7 @@
 	"$hyoo_idea_plural_one": "",
 	"$hyoo_idea_plural_other": "",
 	"$hyoo_idea_plural_two": "",
+	"$hyoo_idea_plural_zero": "",
 	"$hyoo_idea_post_add_Submit_hint": "Post",
 	"$hyoo_idea_post_add_Text_hint": "New post..",
 	"$hyoo_idea_post_card_Comment_ago_title": "{count} {unit} назад",

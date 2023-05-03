@@ -23,7 +23,7 @@ namespace $.$$ {
 				.reduce( (dict, obj) => {
 					dict[obj.id()] = obj.name()
 					return dict
-				}, {} )
+				}, {} as Record< string, string > )
 		}
 
 		@ $mol_mem
@@ -31,7 +31,7 @@ namespace $.$$ {
 			return this.domain().persons().list().filter( obj => obj.registered() ).reduce( (dict, obj) => {
 				dict[obj.id()] = obj.name()
 				return dict
-			}, {} )
+			}, {} as Record< string, string > )
 		}
 
 		fields() {

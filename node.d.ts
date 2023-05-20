@@ -3017,6 +3017,9 @@ declare namespace $.$$ {
 }
 
 declare namespace $ {
+}
+
+declare namespace $ {
     class $mol_labeler extends $mol_list {
         rows(): readonly any[];
         label(): readonly $mol_view_content[];

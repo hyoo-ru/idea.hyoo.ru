@@ -10773,6 +10773,13 @@ var $;
 "use strict";
 var $;
 (function ($) {
+    $mol_style_attach("hyoo/idea/project/stage/stage.view.css", "[hyoo_idea_project_stage_option]:not([mol_check_checked=\"true\"]) {\n\tdisplay: none;\n}\n");
+})($ || ($ = {}));
+//hyoo/idea/project/stage/-css/stage.view.css.ts
+;
+"use strict";
+var $;
+(function ($) {
     class $mol_labeler extends $mol_list {
         rows() {
             return [

@@ -749,12 +749,12 @@ declare namespace $ {
         right?: Length | 'auto' | Common;
         bottom?: Length | 'auto' | Common;
         left?: Length | 'auto' | Common;
-        border?: {
+        border?: Directions<{
             radius?: Length | [Length, Length];
             style?: 'none' | 'hidden' | 'dotted' | 'dashed' | 'solid' | 'double' | 'groove' | 'ridge' | 'inset' | 'outset' | Common;
-            color?: Directions<Color> | Common;
-            width?: Directions<Length> | Common;
-        };
+            color?: Color | Common;
+            width?: Length | Common;
+        }>;
         flex?: 'none' | 'auto' | {
             grow?: number | Common;
             shrink?: number | Common;
@@ -2402,10 +2402,10 @@ declare namespace $ {
         get name(): string;
         get path(): string | string[];
         get incremental(): boolean;
-        get indexes(): Schema["Indexes"] extends infer T ? { [Name in keyof T]: $mol_db_index<{
+        get indexes(): { [Name in keyof Schema["Indexes"]]: $mol_db_index<{
             Key: Schema["Indexes"][Name];
             Doc: Schema['Doc'];
-        }>; } : never;
+        }>; };
         index_make(name: string, path?: string[], unique?: boolean, multiEntry?: boolean): IDBIndex;
         index_drop(name: string): this;
         get transaction(): $mol_db_transaction<$mol_db_schema>;
@@ -2556,7 +2556,7 @@ declare namespace $ {
         insert(next: readonly unknown[], from?: number, to?: number): void;
         move(from: number, to: number): void;
         cut(seat: number): $hyoo_crowd_unit;
-        has(val: string | number | boolean | null): boolean;
+        has(val: string | number | boolean | null, next?: boolean): boolean;
         add(val: string | number | boolean | null): void;
         drop(val: string | number | boolean | null): void;
         node_make<Node extends typeof $hyoo_crowd_node>(val: unknown, Node: Node): InstanceType<Node>;
@@ -4409,7 +4409,7 @@ declare namespace $ {
 
 declare namespace $.$$ {
     class $mol_embed_any extends $.$mol_embed_any {
-        type(): "image" | "object" | "youtube";
+        type(): "object" | "image" | "youtube";
         sub(): $mol_image[] | $mol_embed_youtube[] | $mol_embed_native[];
     }
 }

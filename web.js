@@ -9064,12 +9064,19 @@ var $;
         cut(seat) {
             return this.land.wipe(this.units()[seat]);
         }
-        has(val) {
-            for (const unit of this.units()) {
-                if (unit.data === val)
-                    return true;
+        has(val, next) {
+            if (next === undefined) {
+                for (const unit of this.units()) {
+                    if (unit.data === val)
+                        return true;
+                }
+                return false;
             }
-            return false;
+            if (next)
+                this.add(val);
+            else
+                this.drop(val);
+            return next;
         }
         add(val) {
             if (this.has(val))
@@ -10419,12 +10426,25 @@ var $;
             return new this(canvas);
         }
         static sizes(image) {
-            let { width, height } = image;
-            if (typeof width !== 'number')
-                width = width.baseVal.value;
-            if (typeof height !== 'number')
-                height = height.baseVal.value;
-            return [width, height];
+            if (image instanceof VideoFrame)
+                return [
+                    image.codedWidth,
+                    image.codedHeight,
+                ];
+            if (image instanceof HTMLVideoElement)
+                return [
+                    image.videoWidth,
+                    image.videoHeight,
+                ];
+            if (image instanceof SVGImageElement)
+                return [
+                    image.width.baseVal.value,
+                    image.height.baseVal.value,
+                ];
+            return [
+                image.width,
+                image.height,
+            ];
         }
         static async load(uri) {
             const image = new Image;
@@ -17052,7 +17072,7 @@ var $;
                     ?? 'about:blank';
             }
             video_preview() {
-                return `https://i.ytimg.com/vi/${this.video_id()}/hqdefault.jpg`;
+                return `https://i.ytimg.com/vi/${this.video_id()}/sddefault.jpg`;
             }
             sub() {
                 return this.active()

@@ -10158,8 +10158,11 @@ var $;
 var $;
 (function ($) {
     class $hyoo_crowd_counter extends $hyoo_crowd_reg {
+        list() {
+            return this.yoke([])?.residents() ?? [];
+        }
         total() {
-            return this.yoke([])?.residents().length ?? this.numb();
+            return this.list().length;
         }
         counted(next) {
             const yoke = this.yoke([]);

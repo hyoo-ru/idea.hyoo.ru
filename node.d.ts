@@ -2765,6 +2765,7 @@ declare namespace $ {
 
 declare namespace $ {
     class $hyoo_crowd_counter extends $hyoo_crowd_reg {
+        list(): readonly `${string}_${string}`[];
         total(): number;
         counted(next?: boolean): boolean | undefined;
     }

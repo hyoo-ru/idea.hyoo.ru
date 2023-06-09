@@ -6483,7 +6483,7 @@ var $;
 //mol/book2/catalog/-css/catalog.view.css.ts
 ;
 "use strict";
-let $hyoo_sync_revision = "6ffbb1f";
+let $hyoo_sync_revision = "6efc2c3";
 //hyoo/sync/-meta.tree/revision.meta.tree.ts
 ;
 "use strict";

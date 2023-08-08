@@ -678,33 +678,19 @@ declare namespace $ {
 }
 
 declare namespace $ {
-    const $mol_theme: {
-        back: $mol_style_func<"var", string[] | "--mol_theme_back">;
-        hover: $mol_style_func<"var", string[] | "--mol_theme_hover">;
-        card: $mol_style_func<"var", string[] | "--mol_theme_card">;
-        current: $mol_style_func<"var", string[] | "--mol_theme_current">;
-        special: $mol_style_func<"var", string[] | "--mol_theme_special">;
-        text: $mol_style_func<"var", string[] | "--mol_theme_text">;
-        control: $mol_style_func<"var", string[] | "--mol_theme_control">;
-        shade: $mol_style_func<"var", string[] | "--mol_theme_shade">;
-        line: $mol_style_func<"var", string[] | "--mol_theme_line">;
-        focus: $mol_style_func<"var", string[] | "--mol_theme_focus">;
-        field: $mol_style_func<"var", string[] | "--mol_theme_field">;
-        image: $mol_style_func<"var", string[] | "--mol_theme_image">;
-    };
+    type $mol_style_prop_result = Record<string, $mol_style_func<'var'>>;
+    function $mol_style_prop(prefix: string, postfixes: Array<string>): $mol_style_prop_result;
+}
+
+declare namespace $ {
+    const $mol_theme: $mol_style_prop_result;
 }
 
 declare namespace $ {
 }
 
 declare namespace $ {
-    let $mol_gap: {
-        readonly block: $mol_style_func<"var", string[] | "--mol_gap_block">;
-        readonly text: $mol_style_func<"var", string[] | "--mol_gap_text">;
-        readonly round: $mol_style_func<"var", string[] | "--mol_gap_round">;
-        readonly space: $mol_style_func<"var", string[] | "--mol_gap_space">;
-        readonly blur: $mol_style_func<"var", string[] | "--mol_gap_blur">;
-    };
+    let $mol_gap: $mol_style_prop_result;
 }
 
 declare namespace $ {
@@ -1012,13 +998,7 @@ declare namespace $ {
 }
 
 declare namespace $ {
-    let $mol_layer: {
-        readonly hover: $mol_style_func<"var", string[] | "--mol_layer_hover">;
-        readonly focus: $mol_style_func<"var", string[] | "--mol_layer_focus">;
-        readonly speck: $mol_style_func<"var", string[] | "--mol_layer_speck">;
-        readonly float: $mol_style_func<"var", string[] | "--mol_layer_float">;
-        readonly popup: $mol_style_func<"var", string[] | "--mol_layer_popup">;
-    };
+    let $mol_layer: $mol_style_prop_result;
 }
 
 declare namespace $ {
@@ -4144,22 +4124,22 @@ declare namespace $.$$ {
 
 declare namespace $.$$ {
     const $hyoo_idea_person_form_multy: {
-        margin: $mol_style_func<"var", string[] | "--mol_gap_block">;
+        margin: $mol_style_func<"var", unknown>;
         padding: {
-            bottom: $mol_style_func<"var", string[] | "--mol_gap_block">;
+            bottom: $mol_style_func<"var", unknown>;
         };
         border: {
-            radius: $mol_style_func<"var", string[] | "--mol_gap_round">;
+            radius: $mol_style_func<"var", unknown>;
         };
         background: {
-            color: $mol_style_func<"var", string[] | "--mol_theme_card">;
+            color: $mol_style_func<"var", unknown>;
         };
         $mol_form_field: {
             padding: {
-                left: $mol_style_func<"var", string[] | "--mol_gap_block">;
-                right: $mol_style_func<"var", string[] | "--mol_gap_block">;
-                top: $mol_style_func<"var", string[] | "--mol_gap_space">;
-                bottom: $mol_style_func<"var", string[] | "--mol_gap_space">;
+                left: $mol_style_func<"var", unknown>;
+                right: $mol_style_func<"var", unknown>;
+                top: $mol_style_func<"var", unknown>;
+                bottom: $mol_style_func<"var", unknown>;
             };
         };
     };

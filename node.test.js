@@ -5540,6 +5540,9 @@ var $;
                 ]);
                 el.selectionEnd = to;
                 el.selectionStart = from;
+                if (to !== from && el.selectionEnd === el.selectionStart) {
+                    el.selectionEnd = to;
+                }
             }
             selection_start() {
                 const el = this.dom_node();

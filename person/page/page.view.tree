@@ -23,7 +23,7 @@ $hyoo_idea_person_page $mol_page
 				arg *
 					person null
 					person_edit null
-				sub / <= Close_icon $mol_icon_cross
+				sub / <= Close_icon $mol_icon_close
 		<= Actions $mol_view sub <= actions /
 			<= Invite_button $mol_link
 				arg * invite_person <= id

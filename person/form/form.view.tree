@@ -27,7 +27,7 @@ $hyoo_idea_person_form $mol_form
 							<= Avatar_drop $mol_button_minor
 								hint @ \Remove avatar
 								click? <=> avatar_drop? null
-								sub / <= Avatar_drop_icon $mol_icon_cross
+								sub / <= Avatar_drop_icon $mol_icon_close
 					<= Name_group $mol_form_group sub /
 						<= Name_field $mol_form_field
 							name @ \Name

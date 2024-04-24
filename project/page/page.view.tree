@@ -32,7 +32,7 @@ $hyoo_idea_project_page $mol_page
 			arg *
 				project null
 				project_edit null
-			sub / <= Close_icon $mol_icon_cross
+			sub / <= Close_icon $mol_icon_close
 	editing false
 	Form $hyoo_idea_project_form
 		project <= project

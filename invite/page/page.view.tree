@@ -6,7 +6,7 @@ $hyoo_idea_invite_page $mol_page
 			arg *
 				invite_project null
 				invite_person null
-			sub / <= Close_icon $mol_icon_cross
+			sub / <= Close_icon $mol_icon_close
 	status *
 		sended @ \Invitation sent
 		joined @ \The user is already on the project team

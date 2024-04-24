@@ -25,7 +25,7 @@ $hyoo_idea_project_form $mol_form
 					<= Logo_drop $mol_button_minor
 						hint @ \Remove logo
 						click? <=> logo_drop? null
-						sub / <= Logo_drop_icon $mol_icon_cross
+						sub / <= Logo_drop_icon $mol_icon_close
 		<= Addon_group $mol_form_group sub /
 			<= Brief_field $mol_form_field
 				name @ \Brief
@@ -82,7 +82,7 @@ $hyoo_idea_project_form $mol_form
 						<= Member_role* $mol_paragraph title <= member_role* \
 						<= Team_kick* $mol_button_minor
 							hint @ \Remove from team
-							sub / <= Team_kick_icon* $mol_icon_cross
+							sub / <= Team_kick_icon* $mol_icon_close
 							click? <=> team_kick*? null
 		<= Requests_field $mol_form_field
 			name @ \Requests
